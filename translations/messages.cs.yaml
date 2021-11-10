@@ -1,0 +1,8 @@
+# Navigation
+mainnav:
+  inquiries: "Poptávky"
+  new_inquiry: "Nová poptávka"
+
+# Inquiries
+inquiry:
+  inquiries: "Poptávky"
