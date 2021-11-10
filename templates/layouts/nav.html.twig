@@ -1,3 +1,58 @@
-<nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light pl-5 pr-5 main-menu">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+        <img src="{{ asset("/img/global/logo.png") }}" alt="logo"/>
+    </a>
 
+    <div class="clearfix"></div>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path("inquiries") }}">{{ "mainnav.inquiries"|trans }}</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ path('inquiries/new') }}">{{ "mainnav.new_inquiry"|trans }}</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ path("inquiring") }}">{{ "mainnav.inquiring"|trans }}</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ path("suppliers") }}">{{ "mainnav.suppliers"|trans }}</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ path("how-it-works") }}">{{ "mainnav.about_project"|trans }}</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('login') }}">{{ "auth.login"|trans }}</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('register') }}">{{ "auth.register"|trans }}</a>
+            </li>
+
+            <!--
+            <a href="#" class="nav-link"></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false">JMÉNO UŽIVATELE</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#!">Moje poptávky</a>
+                    <a class="dropdown-item" href="#!">Můj
+                        profil</a>
+                    @if($user->GetIsAdmin())
+                    <a class="dropdown-item" href="#!">Administrace</a>
+                    @endif
+                    <a class="dropdown-item" href="{{ path('logout') }}">{{ "auth.logout"|trans }}</a>
+                </div>
+            </li>
+            -->
+        </ul>
+    </div>
 </nav>

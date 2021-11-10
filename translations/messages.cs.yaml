@@ -2,6 +2,15 @@
 mainnav:
   inquiries: "Poptávky"
   new_inquiry: "Nová poptávka"
+  inquiring: "Poptávající"
+  suppliers: "Dodavatelé"
+  about_project: "Jak to funguje?"
+
+#Authorization
+auth:
+  login: "Přihlásit"
+  register: "Registrovat"
+  logout: "Odhlásit"
 
 # Inquiries
 inquiry:
