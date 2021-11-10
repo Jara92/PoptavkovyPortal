@@ -1,4 +1,47 @@
+# Inquiries
 inquiries:
     path: /poptavky
     controller: App\Controller\InquiryController::index
+    methods: GET
+
+inquiries/new:
+    path: /poptavky/nova-poptavka
+    controller: App\Controller\InquiryController::create
+    methods: GET|POST
+
+# Articles
+home:
+    path: /
+    controller: App\Controller\HomeController::home
+    methods: GET
+
+inquiring:
+    path: /poptavajici
+    controller: App\Controller\HomeController::inquiring
+    methods: GET
+
+suppliers:
+    path: /dodavatele
+    controller: App\Controller\HomeController::supplier
+    methods: GET
+
+how-it-works:
+    path: /jak-to-funguje
+    controller: App\Controller\HomeController::howItWorks
+    methods: GET
+
+# Auth
+login:
+    path: /prihlaseni
+    controller: App\Controller\HomeController::home
+    methods: GET
+
+register:
+    path: /registrace
+    controller: App\Controller\HomeController::home
+    methods: GET
+
+logout:
+    path: /odhlasit
+    controller: App\Controller\HomeController::home
     methods: GET
