@@ -1,3 +1,4 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+inquiries:
+    path: /poptavky
+    controller: App\Controller\InquiryController::index
+    methods: GET
