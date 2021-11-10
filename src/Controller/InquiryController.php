@@ -22,7 +22,7 @@ class InquiryController extends AbstractController
      */
     public function index()
     {
-        return $this->render("layouts/app.html.twig");
+        return $this->render("base.html.twig");
     }
 
     /**
