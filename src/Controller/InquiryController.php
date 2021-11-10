@@ -22,17 +22,38 @@ class InquiryController extends AbstractController
      */
     public function index()
     {
-        return $this->render("base.html.twig");
+        return $this->render("inquiries/index.html.twig");
     }
 
     /**
      * Show inquiry detail page.
+     * @param string $alias
+     * @return Response
+     */
+    public function detail(string $alias)
+    {
+        return $this->render("inquiries/detail.html.twig");
+    }
+
+    /**
+     * Show and handle a new inquiry form.
+     * @return Response
+     */
+    public function create(Request $request)
+    {
+        return $this->render("inquiries/create.html.twig");
+    }
+
+    /**
+     * Edit an existing inquiry action.
      * @param Request $request
      * @param string $alias
      * @return Response
      */
-    public function detail(Request $request, string $alias)
+    public function edit(Request $request, string $alias)
     {
-
+        return $this->render("inquiries/edit.html.twig");
     }
+
+
 }
