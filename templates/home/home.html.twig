@@ -1,5 +1,43 @@
-{% include "base.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block content %}
-    <h1>HomePage</h1>
+    <div class="main-page">
+        <div class="jumbotron">
+            <img src="{{ asset("img/intro.png") }}" alt="intro" class="w-75" style="visibility: hidden;"/>
+        </div>
+        <div class="container mt-5">
+            <!--<div class="pl-3 row intro-container">
+                <p>Tísíce poptávek ze stovek oborů denně.  </p>
+            </div>-->
+
+            <div class="row search-container">
+                <div class="col-md-4">
+                    <h2 style="padding-top: .5rem;">{{"inquiry.input_key_word_search_label"|trans}}</h2>
+                </div>
+                <div class="col-md-8">
+                    <form class="form-inline" action="{{path("inquiries/new")}}" method="get">
+                        <div class="input-group mr-2 w-100">
+                            <input type="text" class="form-control" placeholder="{{"inquiry.input_key_word_search_ph"|trans}}"
+                                   name="text" id="text">
+                           <!-- <inquiry-tag-autocomplete id="text"
+                                                      items-source=""></inquiry-tag-autocomplete>-->
+                            <div class="input-group-append">
+                                <button class="btn btn-primary btn-outline-secondary" type="submit">
+                                    {{ "inquiry.btn_inquire"|trans }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row categories-container">
+                <div class="col-4">
+                    <!--<h2>{{"inquiry.category_select"|trans}}</h2>-->
+                </div>
+                <div class="col-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

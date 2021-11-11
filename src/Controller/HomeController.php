@@ -25,4 +25,9 @@ class HomeController extends AbstractController
     {
         return $this->render("home/how-it-works.html.twig");
     }
+
+    public function termsAndConditions()
+    {
+        return $this->render("home/terms-and-conditions.html.twig");
+    }
 }

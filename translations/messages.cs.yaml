@@ -1,3 +1,9 @@
+# App
+app:
+  name: "Poptejsi.cz"
+  email: "info@poptejsi.cz"
+  contact_name: "Jaroslav Fikar"
+
 # Navigation
 mainnav:
   inquiries: "Poptávky"
@@ -5,6 +11,18 @@ mainnav:
   inquiring: "Poptávající"
   suppliers: "Dodavatelé"
   about_project: "Jak to funguje?"
+
+# Footer
+footer:
+  project_description: "Systém pro bezplatné zveřejňování poptávek a získávání obchodních kontaktů."
+  about_project: "O projektu"
+  about_suppliers: "Dodavatelé"
+  about_inquiring: "Poptávající"
+  about_how_it_works: "Jak to funguje?"
+  useful_links: "Užitečné odkazy"
+  terms_and_conditions: "Obchodní podmínky"
+  registration: "Registrace"
+  contact: "Kontakt"
 
 #Authorization
 auth:
@@ -15,3 +33,7 @@ auth:
 # Inquiries
 inquiry:
   inquiries: "Poptávky"
+  category_select: "Vyberte kategorii"
+  input_key_word_search_label: "Co sháníte?"
+  input_key_word_search_ph: "Např. Zednické práce"
+  btn_inquire: "Poptat"

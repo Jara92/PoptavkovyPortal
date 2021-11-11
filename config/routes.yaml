@@ -30,6 +30,11 @@ how-it-works:
     controller: App\Controller\HomeController::howItWorks
     methods: GET
 
+terms-and-conditions:
+    path: /obchodni-podminky
+    controller: App\Controller\HomeController::termsAndConditions
+    methods: GET
+
 # Auth
 login:
     path: /prihlaseni
