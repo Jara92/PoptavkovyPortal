@@ -1,0 +1,328 @@
+.inquiry-show .sidebar .info, .inquiry-show .sidebar .contact {
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    padding: 1rem;
+    padding-left: 2rem;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+/* general display of categories */
+.inquiry .categories {
+    width: 100%;
+}
+
+.inquiry .categories .category {
+    background-color: $template_light;
+    border: 1px solid $template;
+    border-radius: 20px;
+    color: white;
+}
+
+.inquiry .categories .category:hover {
+    background-color: $template_lightest;
+}
+
+/* Inquiry form */
+.inquiry-create .categories.is-invalid .choices__inner {
+    border: 1px solid #e3342f;
+    padding-right: calc(1.6em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23e3342f' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23e3342f' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.4em + 0.1875rem) center;
+    background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
+}
+
+.inquiry-create .form-group .input-error {
+    width: 100%;
+    display: flex;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 0.10rem;
+    padding-left: 0.8rem;
+}
+
+.inquiry-create .form-group .input-error label {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #721c24 !important;
+}
+
+.inquiry-create .form-register .content {
+    background-color: $template;
+}
+
+.inquiry-create .inner .form-row .form-holder input, .inquiry-create .inner .form-row textarea {
+    background-color: white;
+    color: $template_font_color;
+    border: none;
+}
+
+.inquiry-create .input-group .choices,
+.inquiry-index .input-group .choices{
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+}
+.inquiry-index #form-filter input#text{
+    height: 100%;
+    border: 0;
+    display: block;
+    padding: 10px 32px 10px 32px;
+    font-size: 18px;
+    color: $template_font_color;
+    background: white;
+    font-family: lato,sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+}
+
+.form-register .steps li.current a .step-icon, .form-register .steps li.current a:active .step-icon, .form-register .steps .done::before, .form-register .steps li.done a .step-icon, .form-register .steps li.done a:active .step-icon {
+    /*background-color: $template;*/
+}
+
+.inquiry-create label, .inquiry-create .text-muted {
+    color: white !important;
+}
+
+.inquiry-create .form-group {
+    width: 100%;
+}
+
+.inquiry-create textarea {
+    width: 100%;
+}
+
+.inner .form-row .form-holder input::placeholder,
+.inner .form-row .form-holder input:-ms-input-placeholder,
+.inner .form-row .form-holder input::-ms-input-placeholder {
+    color: $template_font_color !important;
+    opacity: 1;
+    font-size: 12px;
+}
+
+/* Inquiry detail categories display */
+.inquiry-show .categories .category {
+    padding: 0.25rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* Inquiry list categories display */
+.inquiry-index .categories .category {
+    padding: 0.1rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+    font-size: 0.75rem;
+}
+
+.inquiry-index .inquiries .inquiry {
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.inquiry-index .inquiries .inquiry .description {
+    padding-right: 1rem;
+    text-align: justify;
+
+    /* Show max n lines */
+    display: block; /* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.0em;
+    line-height: 1.5em;
+}
+
+.inquiry-show .info .state,
+.inquiry-index .inquiries .inquiry .state {
+    transform: rotateY(0deg) rotate(45deg);
+    position: absolute;
+    right: -25px;
+    top: 14px;
+    width: 100px;
+    text-align: center;
+}
+
+.state.new {
+    background: gray;
+    color: white;
+}
+
+.state.active {
+    background: $green;
+    color: white;
+}
+
+.state.approved {
+
+}
+
+.state.cancel, .state.deleted {
+    background: $red;
+    color: white;
+}
+
+.state.final {
+    background: gray;
+    color: white;
+}
+
+.controls .btn-report {
+    color: $template;
+}
+
+.inquiry-show .description {
+    font-size: 1rem;
+}
+
+.inquiry-index .inquiries .inquiry {
+    background-clip: border-box;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.inquiry-index .inquiries .inquiry .title {
+    color: $template_font_color;
+}
+
+/* Inquiries list */
+.inquiry-index .inquiries .info {
+    border-left: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.inquiry-index .inquiries .info .icon,
+.inquiry-show .sidebar .icon {
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position-x: .5rem;
+    background-position-y: center;
+    padding-left: 30px;
+    margin: .2rem 0;
+}
+
+.inquiry-index .inquiries .info .icon.date,
+.inquiry-show .sidebar .icon.date {
+    background-image: url("/assets/images/inquiry/date.png");
+}
+
+.inquiry-index .inquiries .info .icon.state,
+.inquiry-show .sidebar .icon.state {
+    /*background-image: url("/assets/images/inquiry/state.png");*/
+}
+
+.inquiry-index .inquiries .info .icon.type-company,
+.inquiry-show .sidebar .icon.type-company {
+    background-image: url("/assets/images/inquiry/type_company.png");
+}
+
+.inquiry-index .inquiries .info .icon.type-personal,
+.inquiry-show .sidebar .icon.type-personal {
+    background-image: url("/assets/images/inquiry/type_personal.png");
+}
+
+.inquiry-index .inquiries .info .icon.region,
+.inquiry-show .sidebar .icon.region {
+    background-image: url("/assets/images/inquiry/region.png");
+}
+
+.inquiry-index .inquiries .info .icon.city,
+.inquiry-show .sidebar .icon.city {
+    background-image: url("/assets/images/inquiry/city.png");
+}
+
+.inquiry-index .inquiries .info .icon.value,
+.inquiry-show .sidebar .icon.value {
+    background-image: url("/assets/images/inquiry/value.png");
+}
+
+.inquiry-index .inquiries .info .icon.email,
+.inquiry-show .sidebar .icon.email {
+    background-image: url("/assets/images/inquiry/email.png");
+}
+
+.inquiry-index .inquiries .info .icon.phone,
+.inquiry-show .sidebar .icon.phone {
+    background-image: url("/assets/images/inquiry/phone.png");
+}
+
+.inquiry-index .inquiries .info .icon.contact-firm,
+.inquiry-index .inquiries .info .icon.contact-individual,
+.inquiry-show .sidebar .icon.contact-firm,
+.inquiry-show .sidebar .icon.contact-individual {
+    background-image: url("/assets/images/inquiry/contact.png");
+}
+
+.inquiry-index .page-item .page-link {
+    color: $template_font_color;
+}
+
+.inquiry-index .page-item.active .page-link {
+    background-color: $template;
+    border: 1px solid $template_dark;
+}
+
+.inquiry-index .empty-filter {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Attachments rendering */
+.attachments-list .attachment a{
+    padding-left: 30px;
+    margin: .2rem 0;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position-x: .5rem;
+    background-position-y: center;
+    font-size: 1rem;
+    line-break: anywhere;
+    text-align: left;
+    width: 100%;
+}
+
+.attachments-list .attachment.png a {
+    background-image: url("/assets/images/attachments/png.png");
+}
+.attachments-list .attachment.jpg a, .attachments-list .attachment.jpeg a{
+    background-image: url("/assets/images/attachments/jpg.png");
+}
+.attachments-list .attachment.gif a {
+    background-image: url("/assets/images/attachments/gif.png");
+}
+.attachments-list .attachment.pdf a {
+    background-image: url("/assets/images/attachments/pdf.png");
+}
+.attachments-list .attachment.zip a, .attachments-list .attachment.sevenzip a {
+    background-image: url("/assets/images/attachments/zip.png");
+}
+.attachments-list .attachment.rar a {
+    background-image: url("/assets/images/attachments/rar.png");
+}
+
+/* Contact client button */
+.btn-contact-client {
+    background-color: $template;
+    border: 1px solid $template_dark;
+}
+
+.btn-contact-client:hover, .btn-contact-client:active, .btn-contact-client:focus,
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: $template_dark;
+    border: 1px solid $template_dark;
+}
+
+.inquiry-saved .saved-container p{
+    font-size: 1.0rem;
+}

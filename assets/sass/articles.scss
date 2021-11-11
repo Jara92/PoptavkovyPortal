@@ -1,0 +1,56 @@
+.home p{
+    font-size: 0.95rem;
+    text-align: justify;
+}
+.home-how-it-works .header .title{
+    font-size: 2.5rem;
+}
+.home-how-it-works .header .description{
+
+}
+.home-how-it-works .show-more .card .card-title{
+    text-align: center;
+    font-weight: bold;
+}
+.home-how-it-works .show-more .card .card-text{
+    font-size: 0.95rem;
+}
+.home-how-it-works .show-more .card .buttons{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.home-how-it-works .show-more .card .buttons a:first-child {
+    margin-right: auto;
+}
+
+/* How it works board styles */
+.home-how-it-works .board .board-item{
+    padding: 0.2rem;
+}
+.home-how-it-works .board .board-item .content{
+    border-radius: 10px;
+    padding: 0.5rem;
+    height: 100%;
+}
+.home-how-it-works .board .board-item.need .content {
+    background: $table_1;
+}
+.home-how-it-works .board .board-item.inquiry .content{
+    background: $table_2;
+}
+.home-how-it-works .board .board-item.publish .content {
+    background: $table_3;
+}
+.home-how-it-works .board .board-item.offer .content {
+    background: $table_4;
+}
+.home-how-it-works .board .board-item.execution .content{
+    background: $table_5;
+}
+.home-how-it-works .board .board-item.rating .content{
+    background: $table_6;
+}
+
+.home-suppliers .buttons .register, .home-suppliers .buttons .new-inquiry{
+    font-size: 1.6rem;
+}

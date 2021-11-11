@@ -1,0 +1,50 @@
+.profile-menu .nav-pills .nav-link{
+    color: $template_font_color;
+}
+.profile-menu .nav-pills .nav-link{
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position-x: .5rem;
+    background-position-y: center;
+    padding-left: 30px;
+    margin: .2rem 0;
+}
+.profile-menu .nav-pills .nav-link.settings{
+    background-image: url("/assets/images/profile/settings.png");
+}
+.profile-menu .nav-pills .nav-link.password{
+    background-image: url("/assets/images/profile/change_password.png");
+}
+.profile-menu .nav-pills .nav-link.customization{
+    background-image: url("/assets/images/profile/customization.png");
+}
+.profile-menu .nav-pills .nav-link.profile{
+    background-image: url("/assets/images/profile/profile.png");
+}
+
+.profile-menu .nav-pills .nav-link.active {
+    background-color: $template;
+}
+.edit-profile .e-profile .nav-tabs{
+    border: none;
+}
+/* Input preprend size */
+.edit-profile #password-change .input-group-prepend{
+    width:150px;
+}
+.edit-profile #password-change .input-group-prepend span{
+    width: 100%;
+}
+
+.nav-tabs .nav-link, .nav-tabs .nav-item.show .nav-link{
+    color: $template_font_color;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    background-color: $template_dark;
+    color: #fff;
+}
+.nav-tabs .nav-link:hover {
+    background-color: $template_light;
+    color: #fff;
+}
+

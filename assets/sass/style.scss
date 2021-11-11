@@ -1,0 +1,140 @@
+body, footer{
+    color: $template_font_color;
+    background-color: $template_background;
+}
+.card{
+   /* border-color: $template;*/
+}
+.auth-card{
+    border:none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+}
+.card .card-header{
+    background: none;
+    border: none;
+    text-align: center;
+}
+.invalid-feedback{
+    display: block;
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: $template;
+    color: $template_font_color;
+}
+.input-group-prepend .fa{
+    margin-right: 5px;
+}
+
+/*input.form-control, textarea.form-control{
+    border: 1px solid $template;
+}*/
+
+/* Autocomplete
+----------------------------------*/
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active,
+a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
+    background-color: $template !important;
+    border: 1px solid $template_dark;
+}
+
+/* End Autocomplete */
+
+.btn-link{
+    color: $template;
+}
+.btn-link:hover{
+    color: $template_dark;
+}
+.btn-primary{
+    background: $template;
+    border: 1px solid $template_dark;
+    color: white;
+}
+.btn-primary:hover{
+    background: $template_darkest;
+    border: 1px solid $template_dark;
+    color:white
+}
+
+.input-group-prepend .input-group-text {
+    background-color: $template_lightest;
+    color: #fff;
+    border: none;
+}
+
+.main-menu {
+    background-color: $template !important;
+    color: $template_font_color;
+}
+
+.main-menu .navbar-brand {
+    color: $template_font_color;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.main-menu .nav-item, .main-menu .nav-item .nav-link {
+    color: $template_font_color;
+    font-weight: normal;
+}
+.main-menu .nav-item{
+    color:white;
+}
+
+.main-menu .nav-item .nav-link:active, .main-menu .nav-item .nav-link:focus{
+    border:none;
+}
+
+.main-menu .nav-item .nav-link:hover {
+    color:white;
+    background-color: $template_lightest;
+    border-radius: 10px;
+}
+
+.main-menu .nav-item.active .nav-link {
+    font-weight: bold;
+    color: #000000;
+}
+
+.main-page .search-container input {
+    width: 80%;
+}
+.main-page .search-container input#text{
+    height: 100%;
+    border: 0;
+    display: block;
+    padding: 10px 32px 10px 32px;
+    font-size: 18px;
+    color: $template_font_color;
+    background: white;
+    font-family: lato,sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+}
+.main-page .jumbotron{
+    padding:0;
+    background: url('../images/intro.png') no-repeat;
+    background-size: 100%;
+    border-radius: 0;
+    margin-top: -2rem;
+    height: 26rem;
+}
+
+/** Category multichoise */
+.choices__list--multiple .choices__item {
+    background-color: $template !important;
+    border: 1px solid $template_dark !important;
+}
+
+.choices__item--selectable.is-highlighted{
+    background-color: $template;
+    border: 1px solid $template;
+}
+
+.choices[data-type*=select-multiple] .choices__button, .choices[data-type*=text] .choices__button {
+    border-left: 1px solid $template_dark;
+}
+.choices__heading{
+    color: $template;
+}
+

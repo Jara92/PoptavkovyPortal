@@ -1,2 +1,22 @@
 @import "~bootstrap/scss/bootstrap";
 
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Custom styles.
+@import "style.scss";
+
+// Inquiry styles.
+@import "inquiry.scss";
+
+// Article styles.
+@import "articles.scss";
+
+@import "profile.scss";
+
+// Custom components styles
+@import "components.scss";
+
