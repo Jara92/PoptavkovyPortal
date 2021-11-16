@@ -1,0 +1,121 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<div class="home home-how-it-works">
+    <div class="container">
+        <div class="header">
+            <div class="pl-3 row intro-container justify-content-center">
+                <h1 class="title">{{ "how_it_works"|trans({}, "articles") }}</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-6">
+                    <p class="description">{{ 'app.name'|trans }} {{ "about"|trans({}, "articles") }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row board">
+            <div class="col-md-6 col-lg-4 board-item need">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_need_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_need_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 board-item inquiry">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_inquiry_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_inquiry_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 board-item publish">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_publish_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_publish_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 board-item offer">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_offer_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_offer_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 board-item execution">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_execution_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_execution_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 board-item rating">
+                <div class="content">
+                    <h3 class="title">
+                        {{ "board_rating_title"|trans({}, "articles") }}
+                    </h3>
+                    <div class="description">
+                        {{ "board_rating_description"|trans({}, "articles") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="row justify-content-center">
+                <h2>{{ "more"|trans({}, "articles") }}</h2>
+            </div>
+            <div class="row show-more mt-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ "inquiring"|trans({}, "articles") }}</h5>
+                            <div class="card-text">
+                                {{ "inquiring_description"|trans({}, "articles")|raw("<strong>") }}
+                            </div>
+                            <div class="row buttons">
+                                <a href="{{ path("inquiries/new") }}"
+                                   class="btn btn-primary">{{ "button_add_inquiry"|trans({}, "articles") }}</a>
+                                <a href="{{ path("inquiring") }}"
+                                   class="btn btn-link">{{ "button_show_more"|trans({}, "articles") }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ "suppliers"|trans({}, "articles") }}</h5>
+                            <div class="card-text">
+                                {{ "suppliers_description"|trans({}, "articles")|raw("strong") }}
+                            </div>
+                            <div class="row buttons">
+                                <a href="{{ path("register") }}"
+                                   class="btn btn-primary">{{ "button_register"|trans({}, "articles") }}</a>
+                                <a href="{{ path("suppliers") }}"
+                                   class="btn btn-link">{{ "button_show_more"|trans({}, "articles") }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
