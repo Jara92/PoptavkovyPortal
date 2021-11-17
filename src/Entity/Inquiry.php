@@ -75,7 +75,7 @@ class Inquiry
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $region;
 
