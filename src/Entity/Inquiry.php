@@ -23,9 +23,11 @@ class Inquiry
     protected $id;
 
     /**
-     * @ORM\Column(type="text",  nullable=false)
+     * @ORM\Column (type="string", length=64, nullable=false)
+     * @Assert\Length(min=4, max=64)
+     * @Assert\NotBlank
      */
-    protected $description;
+    protected $title;
 
     /**
      * @ORM\Column (type="string", length=64, nullable=false)
@@ -33,6 +35,11 @@ class Inquiry
      * @Assert\NotBlank
      */
     protected $alias;
+
+    /**
+     * @ORM\Column(type="text",  nullable=false)
+     */
+    protected $description;
 
     /**
      * @ORM\Column (type="string", length=128, nullable=false)
