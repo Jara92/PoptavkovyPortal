@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InquiryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,16 +49,56 @@ class Inquiry
     private $contactPhone;
 
     /**
-     * @ORM\OneToOne(targetEntity=CompanyInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true, unique=true)
-     */
-    private $companyInquiry;
-
-    /**
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Length (min=0, max=64)
      */
     private $city;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PersonalInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $personalInquiry;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CompanyInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $companyInquiry;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $region;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=InquiryState::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Deadline::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $deadline;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=InquiryValue::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $value;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
+     */
+    private $categories;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +165,35 @@ class Inquiry
         return $this;
     }
 
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPersonalInquiry(): ?PersonalInquiry
+    {
+        return $this->personalInquiry;
+    }
+
+    public function setPersonalInquiry(PersonalInquiry $personalInquiry): self
+    {
+        // set the owning side of the relation if necessary
+        if ($personalInquiry->getInquiry() !== $this) {
+            $personalInquiry->setInquiry($this);
+        }
+
+        $this->personalInquiry = $personalInquiry;
+
+        return $this;
+    }
+
     public function getCompanyInquiry(): ?CompanyInquiry
     {
         return $this->companyInquiry;
@@ -140,14 +211,74 @@ class Inquiry
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getRegion(): ?Region
     {
-        return $this->city;
+        return $this->region;
     }
 
-    public function setCity(?string $city): self
+    public function setRegion(?Region $region): self
     {
-        $this->city = $city;
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getState(): ?InquiryState
+    {
+        return $this->state;
+    }
+
+    public function setState(?InquiryState $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getDeadline(): ?Deadline
+    {
+        return $this->deadline;
+    }
+
+    public function setDeadline(?Deadline $deadline): self
+    {
+        $this->deadline = $deadline;
+
+        return $this;
+    }
+
+    public function getValue(): ?InquiryValue
+    {
+        return $this->value;
+    }
+
+    public function setValue(?InquiryValue $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InquiryCategory[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(InquiryCategory $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(InquiryCategory $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

@@ -27,6 +27,12 @@ class PersonalInquiry
      */
     private $surname;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Inquiry::class, inversedBy="personalInquiry", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $inquiry;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class PersonalInquiry
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getInquiry(): ?Inquiry
+    {
+        return $this->inquiry;
+    }
+
+    public function setInquiry(Inquiry $inquiry): self
+    {
+        $this->inquiry = $inquiry;
 
         return $this;
     }
