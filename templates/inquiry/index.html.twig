@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Poptávky</h1>
+    </header>
+
+    <section>
+        <ul>
+            {% for inquiry in inquiries %}
+                <li>{{ inquiry.title }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

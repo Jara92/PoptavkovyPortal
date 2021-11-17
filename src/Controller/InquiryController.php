@@ -2,7 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Inquiry;
+use App\Form\InquiryForm;
 use App\Services\InquiryService;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,10 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 class InquiryController extends AbstractController
 {
     protected $inquiryService;
+    protected $translator;
 
-    public function __construct(InquiryService $inquiryService)
+    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator)
     {
         $this->inquiryService = $inquiryService;
+        $this->translator = $translator;
     }
 
     /**
@@ -22,7 +31,9 @@ class InquiryController extends AbstractController
      */
     public function index()
     {
-        return $this->render("inquiries/index.html.twig");
+        $inquiries = $this->inquiryService->readAll();
+
+        return $this->render("inquiry/index.html.twig", ["inquiries" => $inquiries]);
     }
 
     /**
@@ -32,7 +43,7 @@ class InquiryController extends AbstractController
      */
     public function detail(string $alias)
     {
-        return $this->render("inquiries/detail.html.twig");
+        return $this->render("inquiry/detail.html.twig");
     }
 
     /**
@@ -41,7 +52,12 @@ class InquiryController extends AbstractController
      */
     public function create(Request $request)
     {
-        return $this->render("inquiries/create.html.twig");
+        $inquiry = new Inquiry();
+
+        $form = $this->createForm(InquiryForm::class, $inquiry);
+
+        // Same as $this->render('...', ['form' => $form->createView()])
+        return $this->renderForm("inquiry/create.html.twig", ["form" => $form]);
     }
 
     /**
@@ -52,7 +68,7 @@ class InquiryController extends AbstractController
      */
     public function edit(Request $request, string $alias)
     {
-        return $this->render("inquiries/edit.html.twig");
+        return $this->render("inquiry/edit.html.twig");
     }
 
 
