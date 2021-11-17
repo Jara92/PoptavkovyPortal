@@ -30,6 +30,20 @@ class InquiryType
      */
     private $alias;
 
+    /**
+     * @param string $title
+     * @param string $alias
+     * @return InquiryType
+     */
+    public static function create(string $title, string $alias)
+    {
+        $type = new InquiryType();
+        $type->setTitle($title)->setAlias($alias);
+
+        return $type;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
