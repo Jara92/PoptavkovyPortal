@@ -5,11 +5,12 @@ namespace App\DataFixtures;
 use App\Entity\Region;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
 /**
  * Inserts default regions in the database.
  */
-class RegionFixtures extends Fixture
+class RegionFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -24,5 +25,15 @@ class RegionFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    /**
+     * Groups in which this Fixture belongs.
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        // Fixtures in static group is not updated often.
+        return ['static'];
     }
 }
