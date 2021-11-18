@@ -41,6 +41,22 @@ class InquiryState
      */
     private $ordering;
 
+    /**
+     * @param string $title
+     * @param string $alias
+     * @param string $description
+     * @param int $ordering
+     * @return InquiryState
+     */
+    public static function create(string $title, string $alias, string $description, int $ordering)
+    {
+        $state = new InquiryState();
+        $state->setTitle($title)->setAlias($alias)->setDescription($description)->setOrdering($ordering);
+
+        return $state;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
