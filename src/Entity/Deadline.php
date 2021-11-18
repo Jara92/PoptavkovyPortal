@@ -30,6 +30,20 @@ class Deadline
      */
     private $alias;
 
+    /**
+     * @param string $title
+     * @param string $alias
+     * @return Deadline
+     */
+    public static function create(string $title, string $alias)
+    {
+        $deadline = new Deadline();
+        $deadline->setTitle($title)->setAlias($alias);
+
+        return $deadline;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
