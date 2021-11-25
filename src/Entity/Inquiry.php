@@ -102,6 +102,12 @@ class Inquiry
      */
     private $categories;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=InquiryType::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -286,6 +292,18 @@ class Inquiry
     public function removeCategory(InquiryCategory $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    public function getType(): ?InquiryType
+    {
+        return $this->type;
+    }
+
+    public function setType(?InquiryType $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
