@@ -6,6 +6,10 @@ input_key_word_search_ph: "Např. Zednické práce"
 btn_inquire: "Poptat"
 btn_submit: "Poptat"
 
+inquiry_type.personal: "Osobní poptávka"
+inquiry_type.company: "Firemní poptávka"
+inquiry_type.public: "Veřejná poptávka"
+
 "attachments": "Přílohy"
 "inquries_title": "Poptávky"
 "empty_filter": "Zadanému filtru bohužel neopovídá žádná poptávka. :("

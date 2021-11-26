@@ -35,12 +35,15 @@ class InquiryForm extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
+                'required' => true,
                 'label' => $this->translator->trans("field_title", [], "inquiries")
             ])
             ->add('description', TextareaType::class, [
+                'required' => true,
                 'label' => $this->translator->trans("field_description", [], "inquiries")
             ])
             ->add("region", EntityType::class, [
+                'required' => true,
                 // looks for choices from this entity
                 'class' => Region::class,
 
