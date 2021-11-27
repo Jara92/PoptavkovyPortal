@@ -48,4 +48,16 @@ class InquiryTypeRepository extends ServiceEntityRepository implements IInquiryT
         ;
     }
     */
+    /**
+     * @inheritDoc
+     */
+    public function findOneByAlias(string $alias): InquiryType
+    {
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.alias = :alias')
+            ->setParameter('alias', $alias)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }
