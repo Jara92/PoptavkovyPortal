@@ -27,6 +27,17 @@ class InquiryValue
      */
     private $value;
 
+    /**
+     * @param string $title
+     * @param int $value
+     * @return InquiryValue
+     */
+    public static function create(string $title, int $value)
+    {
+        $inquiryValue = new InquiryValue();
+        return $inquiryValue->setTitle($title)->setValue($value);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

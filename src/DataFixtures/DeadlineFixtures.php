@@ -15,9 +15,9 @@ class DeadlineFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $deadlines = [
+            Deadline::create("deadline.agreement", "agreement"),
             Deadline::create("deadline.now", "now"),
             Deadline::create("deadline.as_soon_as_possible", "as_soon_as_possible"),
-            Deadline::create("deadline.agreement", "agreement"),
         ];
 
         foreach ($deadlines as $deadline) {
