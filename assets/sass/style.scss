@@ -5,9 +5,12 @@ body, footer{
 .card{
    /* border-color: $template;*/
 }
+.card-footer{
+    background: none;
+}
 .auth-card{
     border:none;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 8px 20px 0;
 }
 .card .card-header{
     background: none;
@@ -28,6 +31,9 @@ body, footer{
 /*input.form-control, textarea.form-control{
     border: 1px solid $template;
 }*/
+.form-control, .form-select, .form-check{
+    margin-bottom: 1rem;
+}
 
 /* Autocomplete
 ----------------------------------*/
@@ -109,7 +115,7 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
     color: $template_font_color;
     background: white;
     font-family: lato,sans-serif;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 20px 0px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 8px 20px 0;
 }
 .main-page .jumbotron{
     padding:0;

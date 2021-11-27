@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Deadline;
 use App\Entity\Inquiry;
+use App\Entity\InquiryType;
+use App\Entity\InquiryValue;
 use App\Entity\Region;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -44,15 +47,63 @@ class InquiryForm extends AbstractType
             ])
             ->add("region", EntityType::class, [
                 'required' => true,
+                'label' => $this->translator->trans("field_region", [], "inquiries"),
                 // looks for choices from this entity
                 'class' => Region::class,
 
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',
 
+                // 'translation_domain' => "inquiries",
+                // 'choice_translation_domain' => "inquiries",
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,
+            ])
+            ->add("value", EntityType::class, [
+                'required' => true,
+                'label' => $this->translator->trans("field_value", [], "inquiries"),
+                // looks for choices from this entity
+                'class' => InquiryValue::class,
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'title',
+
+                'translation_domain' => "inquiries",
+                'choice_translation_domain' => "inquiries",
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add("deadline", EntityType::class, [
+                'required' => true,
+                'label' => $this->translator->trans("field_deadline", [], "inquiries"),
+                // looks for choices from this entity
+                'class' => Deadline::class,
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'title',
+
+                'translation_domain' => "inquiries",
+                'choice_translation_domain' => "inquiries",
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add("type", EntityType::class, [
+                'required' => true,
+                'label' => false,
+                // looks for choices from this entity
+                'class' => InquiryType::class,
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'title',
+
+                'translation_domain' => "inquiries",
+                'choice_translation_domain' => "inquiries",
+                // used to render a select box, check boxes or radios
+                // 'multiple' => true,
+                'expanded' => true,
             ])
             ->add("contactEmail", EmailType::class, [
                 'label' => $this->translator->trans("field_email", [], "inquiries")
@@ -61,7 +112,7 @@ class InquiryForm extends AbstractType
             ->add("contactPhone", TextType::class, [
                 'label' => $this->translator->trans("field_phone", [], "inquiries")
             ])
-            ->add('save', SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'label' => $this->translator->trans("btn_submit", [], "inquiries")
             ])
             ->getForm();
