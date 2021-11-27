@@ -4,7 +4,7 @@ category_select: "Vyberte kategorii"
 input_key_word_search_label: "Co sháníte?"
 input_key_word_search_ph: "Např. Zednické práce"
 btn_inquire: "Poptat"
-btn_submit: "Poptat"
+btn_submit: "Zadat poptávku"
 
 inquiry_type.personal: "Osobní poptávka"
 inquiry_type.company: "Firemní poptávka"
