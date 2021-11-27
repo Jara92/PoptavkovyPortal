@@ -64,6 +64,17 @@
 .inquiry-create form .form-item .form-check input, .inquiry-create form .form-item .form-check label{
     margin-right: 5px;
 }
+.inquiry-create form .form-footer{
+    text-align: center;
+
+    label{
+        margin: 0 10px 5px 0;
+    }
+
+    .btn-primary{
+        font-size: 1.5rem;
+    }
+}
 
 .inquiry-index .input-group .choices{
     position: relative;
