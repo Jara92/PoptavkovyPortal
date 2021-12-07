@@ -107,7 +107,7 @@ class InquiryForm extends AbstractType
                 'required' => true,
                 'label' => false,
 
-                'data' => $this->inquiryTypeRepository->findOneByAlias("personal"),
+                'data' => $this->inquiryTypeRepository->findOneByAlias(InquiryType::ALIAS_PERSONAL),
                 // looks for choices from this entity
                 'class' => InquiryType::class,
 

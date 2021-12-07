@@ -11,6 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class InquiryType
 {
+   const ALIAS_PERSONAL = "personal";
+   const ALIAS_COMPANY = "company";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
