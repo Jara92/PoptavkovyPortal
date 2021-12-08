@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block scripts %}
+    {{ encore_entry_script_tags('js/inquiry/inquiry-form') }}
+{% endblock %}
+
 {% block content %}
     <div class="inquiry inquiry-create">
         <div class="container">
@@ -80,13 +84,18 @@
                             <h5 class="card-title"></h5>
                             <div class="card-text">
 
-                                {{ form_row(form.type, {'attr': {'class': 'form-check'}}) }}
+                                {{ form_row(form.type, {'attr': {'class': 'form-check', 'id':'inquiry-type'}}) }}
 
-                                {{ form_row(form.personalInquiry.name, {'attr': {'class': 'form-control'}}) }}
+                                <div id="personal-inquiry-fields">
+                                    {{ form_row(form.personalInquiry.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
 
-                                {{ form_row(form.personalInquiry.surname, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.personalInquiry.surname, {'attr': {'class': 'form-control', 'id': 'personal-surname'}}) }}
 
-                                {{ form_row(form.companyInquiry.name, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+
+                                <div id="company-inquiry-fields">
+                                    {{ form_row(form.companyInquiry.name, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
+                                </div>
 
                                 {{ form_row(form.contactEmail, {'attr': {'class': 'form-control'}}) }}
 

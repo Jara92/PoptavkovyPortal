@@ -12,4 +12,4 @@ import './bootstrap';
 
 import './sass/app.scss';
 
-import $ from 'jquery';
+import 'jquery';
