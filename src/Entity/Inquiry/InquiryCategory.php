@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Inquiry;
 
+use App\Entity\Traits\AliasTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,72 +16,36 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class InquiryCategory
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\Length(min=4, max=64)
-     */
-    private $title;
+    use TitleTrait;
+
+    use AliasTrait;
 
     /**
      * @ORM\Column(type="string", length=70, nullable=false, unique=true)
      * @Assert\Length(min=4, max=70)
      */
-    private $alias;
+    protected $alias;
 
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    private $description;
+    protected $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryCategory::class, inversedBy="children")
      */
-    private $parent;
+    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity=InquiryCategory::class, mappedBy="parent")
      */
-    private $children;
+    protected $children;
 
     public function __construct()
     {
         $this->children = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getAlias(): ?string
-    {
-        return $this->alias;
-    }
-
-    public function setAlias(string $alias): self
-    {
-        $this->alias = $alias;
-
-        return $this;
     }
 
     public function getDescription(): ?string

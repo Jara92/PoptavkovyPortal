@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Entity\Inquiry;
+
+use App\Entity\Traits\AliasTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\OrderingTrait;
+use App\Entity\Traits\TitleTrait;
+use App\Repository\InquiryStateRepository;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity(repositoryClass=InquiryStateRepository::class)
+ */
+class InquiryState
+{
+    use IdTrait;
+
+    use TitleTrait;
+
+    use AliasTrait;
+
+    use OrderingTrait;
+
+    /**
+     * @ORM\Column(type="string", length=16, unique=true)
+     * @Assert\Length(min=1, max=16)
+     * @Assert\Unique
+     */
+    protected $alias;
+
+    /**
+     * @ORM\Column(type="text", nullable=false)
+     */
+    protected $description;
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+}

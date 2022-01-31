@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Inquiry;
 
 use App\Repository\CompanyInquiryRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +15,7 @@ class CompanyInquiry extends Inquiry
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=5, max=64)
      */
-    private $companyName;
+    protected $companyName;
 
     public function getCompanyName(): ?string
     {

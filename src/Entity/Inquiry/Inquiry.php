@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Inquiry;
 
+use App\Entity\Traits\AliasTrait;
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,26 +29,11 @@ class Inquiry
 {
     use TimeStampTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
+    use IdTrait;
 
-    /**
-     * @ORM\Column (type="string", length=64, nullable=false)
-     * @Assert\Length(min=4, max=64)
-     * @Assert\NotBlank
-     */
-    protected $title;
+    use TitleTrait;
 
-    /**
-     * @ORM\Column (type="string", length=64, nullable=false)
-     * @Assert\Length(min=1, max=64)
-     * @Assert\NotBlank
-     */
-    protected $alias;
+    use AliasTrait;
 
     /**
      * @ORM\Column(type="text",  nullable=false)
@@ -64,81 +52,64 @@ class Inquiry
      * @ORM\Column(type="string", length=32, nullable=true)
      * @Assert\Length(min=9, max=32)
      */
-    private $contactPhone;
+    protected $contactPhone;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Length (min=0, max=64)
      */
-    private $city;
+    protected $city;
 
     /**
      * @ORM\OneToOne(targetEntity=PersonalInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $personalInquiry;
+    protected $personalInquiry;
 
     /**
      * @ORM\OneToOne(targetEntity=CompanyInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $companyInquiry;
+    protected $companyInquiry;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    private $region;
+    protected $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryState::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $state;
+    protected $state;
 
     /**
      * @ORM\ManyToOne(targetEntity=Deadline::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $deadline;
+    protected $deadline;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryValue::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $value;
+    protected $value;
 
     /**
      * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
      */
-    private $categories;
+    protected $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryType::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $type;
+    protected $type;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -149,18 +120,6 @@ class Inquiry
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getAlias(): ?string
-    {
-        return $this->alias;
-    }
-
-    public function setAlias(string $alias): self
-    {
-        $this->alias = $alias;
 
         return $this;
     }

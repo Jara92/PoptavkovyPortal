@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Inquiry;
 
+use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\OrderingTrait;
+use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryValueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,22 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class InquiryValue
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    private $title;
+    use TitleTrait;
+
+    use OrderingTrait;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $value;
+    protected $value;
 
     /**
      * @param string $title
@@ -36,23 +33,6 @@ class InquiryValue
     {
         $inquiryValue = new InquiryValue();
         return $inquiryValue->setTitle($title)->setValue($value);
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getValue(): ?int

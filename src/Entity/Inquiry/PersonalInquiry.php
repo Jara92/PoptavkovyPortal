@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Inquiry;
 
 use App\Repository\PersonalInquiryRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,12 +13,12 @@ class PersonalInquiry extends Inquiry
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $surname;
+    protected $surname;
 
     public function getName(): ?string
     {
