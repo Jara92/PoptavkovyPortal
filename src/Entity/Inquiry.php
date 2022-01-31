@@ -9,7 +9,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+
+ */
+/**
+ * Class Inquiry
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
+ * @ORM\InheritanceType(value="JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=16)
+ * @ORM\DiscriminatorMap({
+ *     "inquiry" = "Inquiry",
+ *     "company-inquiry" = "CompanyInquiry",
+ *     "personal-inquiry" = "PersonalInquiry"
+ *     })
  */
 class Inquiry
 {

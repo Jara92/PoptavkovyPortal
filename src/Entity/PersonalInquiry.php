@@ -8,15 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PersonalInquiryRepository::class)
  */
-class PersonalInquiry
+class PersonalInquiry extends Inquiry
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="string", length=64)
      */
@@ -26,17 +19,6 @@ class PersonalInquiry
      * @ORM\Column(type="string", length=64)
      */
     private $surname;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Inquiry::class, inversedBy="personalInquiry", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $inquiry;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {
@@ -58,18 +40,6 @@ class PersonalInquiry
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
-
-        return $this;
-    }
-
-    public function getInquiry(): ?Inquiry
-    {
-        return $this->inquiry;
-    }
-
-    public function setInquiry(Inquiry $inquiry): self
-    {
-        $this->inquiry = $inquiry;
 
         return $this;
     }
