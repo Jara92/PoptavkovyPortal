@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\Deadline;
-use App\Entity\Inquiry;
-use App\Entity\InquiryType;
-use App\Entity\InquiryValue;
-use App\Entity\Region;
+use App\Entity\Inquiry\Deadline;
+use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquiryType;
+use App\Entity\Inquiry\InquiryValue;
+use App\Entity\Inquiry\Region;
 use App\Repository\InquiryTypeRepository;
 use App\Repository\Interfaces\IInquiryTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

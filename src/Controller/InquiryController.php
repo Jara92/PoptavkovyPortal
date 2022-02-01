@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Inquiry\Inquiry;
+use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryForm;
 use App\Services\InquiryService;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -13,12 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 class InquiryController extends AbstractController
 {
     protected $inquiryService;
+    protected $inquiryFactory;
     protected $translator;
 
-    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator)
+    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
     {
         $this->inquiryService = $inquiryService;
         $this->translator = $translator;
+        $this->inquiryFactory = $inquiryFactory;
     }
 
     /**
@@ -49,7 +52,7 @@ class InquiryController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $inquiry = new Inquiry();
+        $inquiry = $this->inquiryFactory->createBlank();
 
         $form = $this->createForm(InquiryForm::class, $inquiry);
 

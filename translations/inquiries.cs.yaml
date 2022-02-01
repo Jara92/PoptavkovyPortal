@@ -57,7 +57,7 @@ form_card_contact_desc: "Zadejte Vaše kontaktní údaje, aby Vás potencionáln
 "field_title_desc": "Titulek by měl stručne shrnovat co poptáváte."
 "field_description": "Popiště Vaši poptávku"
 "field_description_ph_old": "Webová stránka bude obsahovat úvodní stránku, jídelní list, historii, fotogalerii a kontaktní stránku. \nKontaktní stránka bude obsahovat kontaktní formulář a naše kontaktní údaje. Na kontaktní stránce bychom chtěli google/seznam mapu s naší restaurací."
-"field_description_ph": "Popis by měl být podrobný a měl by obsahovat dostatek informací, aby si dodavatel udělal představu o pracnosti Vaší poptávky. Díky tomu bude potencionální dodavatel schopen Vám rychleji udělat nabídku a nabídnout i lepší cenu."
+"field_description_ph": "Popis by měl být podrobný a měl by obsahovat dostatek informací, aby si dodavatel udělal představu o pracnosti Vaší poptávky. Díky tomu bude potencionální dodavatel schopen Vám rychleji udělat nabídku a nabídnout lepší cenu."
 "admin_field_description_desc": "Popis by měl být podrobný a měl by obsahovat dostatek informací, aby si dodavatel udělal představu o pracnosti Vaší poptávky. <strong>Nesmí</strong> obsahovat kontaktní údaje na poptávajícího."
 "field_description_desc": "Popis by měl by obsahovat dostatek informací, aby si dodavatel udělal představu o pracnosti vaší poptávky."
 "field_value": "Maximální cena"
