@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Inquiry;
+use App\Entity\Inquiry\Inquiry;
 use App\Form\InquiryForm;
 use App\Services\InquiryService;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +25,7 @@ class InquiryController extends AbstractController
      * Show inquiries list.
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $inquiries = $this->inquiryService->readAll();
 
@@ -41,16 +37,17 @@ class InquiryController extends AbstractController
      * @param string $alias
      * @return Response
      */
-    public function detail(string $alias)
+    public function detail(string $alias): Response
     {
         return $this->render("inquiry/detail.html.twig");
     }
 
     /**
      * Show and handle a new inquiry form.
+     * @param Request $request
      * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $inquiry = new Inquiry();
 
@@ -66,7 +63,7 @@ class InquiryController extends AbstractController
      * @param string $alias
      * @return Response
      */
-    public function edit(Request $request, string $alias)
+    public function edit(Request $request, string $alias): Response
     {
         return $this->render("inquiry/edit.html.twig");
     }
