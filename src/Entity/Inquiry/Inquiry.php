@@ -4,6 +4,7 @@ namespace App\Entity\Inquiry;
 
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
