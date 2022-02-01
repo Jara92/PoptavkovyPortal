@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Deadline;
+use App\Entity\Inquiry\Deadline;
+use App\Factory\Inquiry\DeadlineFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -12,12 +13,18 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class DeadlineFixtures extends Fixture implements FixtureGroupInterface
 {
+    protected $deadlineFactory;
+
+    public function __construct(DeadlineFactory $deadlineFactory){
+        $this->deadlineFactory = $deadlineFactory;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $deadlines = [
-            Deadline::create("deadline.agreement", "agreement"),
-            Deadline::create("deadline.now", "now"),
-            Deadline::create("deadline.as_soon_as_possible", "as_soon_as_possible"),
+            $this->deadlineFactory->createDeadline("deadline.agreement", "agreement", 1),
+            $this->deadlineFactory->createDeadline("deadline.now", "now", 2),
+            $this->deadlineFactory->createDeadline("deadline.as_soon_as_possible", "as_soon_as_possible", 3),
         ];
 
         foreach ($deadlines as $deadline) {

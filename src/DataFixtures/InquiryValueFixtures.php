@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\InquiryValue;
+use App\Entity\Inquiry\InquiryValue;
+use App\Factory\Inquiry\InquiryValueFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -12,17 +13,23 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class InquiryValueFixtures extends Fixture implements FixtureGroupInterface
 {
+    protected $inquiryValueFactory;
+
+    public function __construct(InquiryValueFactory $inquiryValueFactory){
+        $this->inquiryValueFactory = $inquiryValueFactory;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $types = [
-            InquiryValue::create("inquiry_value.agreement", 0),
-            InquiryValue::create("inquiry_value.make_offer", 0),
-            InquiryValue::create("inquiry_value.according_offers", 0),
-            InquiryValue::create("inquiry_value.max_5k", 5000),
-            InquiryValue::create("inquiry_value.max_50k", 50000),
-            InquiryValue::create("inquiry_value.max_200k", 200000),
-            InquiryValue::create("inquiry_value.max_1M", 1000000),
-            InquiryValue::create("inquiry_value.more", 1500000)
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.agreement", 0),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.make_offer", 0),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.according_offers", 0),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_5k", 5000),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_50k", 50000),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_200k", 200000),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_1M", 1000000),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.more", 1500000)
         ];
 
         foreach ($types as $type){

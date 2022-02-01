@@ -4,6 +4,7 @@ namespace App\Entity\Inquiry;
 
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
+use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,16 +24,5 @@ class InquiryType
 
     use AliasTrait;
 
-    /**
-     * @param string $title
-     * @param string $alias
-     * @return InquiryType
-     */
-    public static function create(string $title, string $alias)
-    {
-        $type = new InquiryType();
-        $type->setTitle($title)->setAlias($alias);
-
-        return $type;
-    }
+    use OrderingTrait;
 }

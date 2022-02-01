@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Region;
+use App\Entity\Inquiry\Region;
+use App\Factory\Inquiry\RegionFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -12,6 +13,12 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class RegionFixtures extends Fixture implements FixtureGroupInterface
 {
+    protected $regionFactory;
+
+    public function __construct(RegionFactory $regionFactory){
+        $this->regionFactory = $regionFactory;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $regions = ["Hlavní město Praha", "Středočeský kraj", "Jihočeský kraj", "Plzeňský kraj", "Karlovarský kraj",
@@ -19,7 +26,8 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
             "Jihomoravský kraj", "Olomoucký kraj", "Zlínský kraj", "Moravskoslezský kraj"];
 
         for($i = 0; $i < count($regions); $i++){
-            $region = Region::create($regions[$i], $i);
+
+            $region = $this->regionFactory->createRegion($regions[$i], $i);
 
             $manager->persist($region);
         }

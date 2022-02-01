@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\InquiryType;
+use App\Entity\Inquiry\InquiryType;
+use App\Factory\Inquiry\InquiryTypeFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -12,11 +13,17 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class InquiryTypeFixtures extends Fixture implements FixtureGroupInterface
 {
+    protected $inquiryTypeFactory;
+
+    public function __construct(InquiryTypeFactory $inquiryTypeFactory){
+        $this->inquiryTypeFactory = $inquiryTypeFactory;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $types = [
-            InquiryType::create("inquiry_type.personal", "personal"),
-            InquiryType::create("inquiry_type.company", "company")
+            $this->inquiryTypeFactory->createInquiryType("inquiry_type.personal", "personal"),
+            $this->inquiryTypeFactory->createInquiryType("inquiry_type.company", "company")
         ];
 
         foreach ($types as $type){
