@@ -19,17 +19,4 @@ class Region
     use TitleTrait;
 
     use OrderingTrait;
-
-    /**
-     * @param string $title Region title.
-     * @param int $ordering Region order.
-     * @return Region Region entity.
-     */
-    public static function create(string $title, int $ordering)
-    {
-        $region = new Region();
-        $region->setTitle($title)->setOrdering($ordering);
-
-        return $region;
-    }
 }
