@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Deadline;
+use App\Entity\Inquiry\Deadline;
 use App\Repository\Interfaces\IDeadlineRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

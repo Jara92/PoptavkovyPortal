@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\CompanyInquiry;
+use App\Entity\Inquiry\CompanyInquiry;
 
 /**
  * @implements IRepository<CompanyInquiry, int>

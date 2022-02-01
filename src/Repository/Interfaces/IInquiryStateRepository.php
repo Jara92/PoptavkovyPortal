@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\InquiryState;
+use App\Entity\Inquiry\InquiryState;
 
 /**
  * @implements IRepository<InquiryState, int>

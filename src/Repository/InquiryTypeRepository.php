@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
-use App\Entity\InquiryType;
+use App\Entity\Inquiry\InquiryType;
 use App\Repository\Interfaces\IInquiryTypeRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -50,8 +51,10 @@ class InquiryTypeRepository extends ServiceEntityRepository implements IInquiryT
     */
     /**
      * @inheritDoc
+     * @throws NonUniqueResultException
+     * @return InquiryType | null
      */
-    public function findOneByAlias(string $alias): InquiryType
+    public function findOneByAlias(string $alias): ?InquiryType
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.alias = :alias')

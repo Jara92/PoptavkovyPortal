@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\PersonalInquiry;
+use App\Entity\Inquiry\PersonalInquiry;
 use App\Repository\Interfaces\IPersonalInquiryIRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

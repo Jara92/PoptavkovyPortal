@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\InquiryType;
+use App\Entity\Inquiry\InquiryType;
 
 /**
  * @implements IRepository<InquiryType, int>
@@ -12,7 +12,7 @@ interface IInquiryTypeRepository extends IRepository
     /**
      * Returns inquiry type by its alias.
      * @param string $alias Alias.
-     * @return InquiryType
+     * @return InquiryType | null
      */
-    public function findOneByAlias(string $alias):InquiryType;
+    public function findOneByAlias(string $alias):?InquiryType;
 }

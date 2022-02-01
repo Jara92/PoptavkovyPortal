@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\Deadline;
+use App\Entity\Inquiry\Deadline;
 
 /**
  * @implements IRepository<Deadline, int>

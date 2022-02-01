@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\CompanyInquiry;
+use App\Entity\Inquiry\CompanyInquiry;
 use App\Repository\Interfaces\ICompanyInquiryIRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

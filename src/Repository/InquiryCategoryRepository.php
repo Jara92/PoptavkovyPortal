@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\InquiryCategory;
+use App\Entity\Inquiry\InquiryCategory;
 use App\Repository\Interfaces\IInquiryCategoryRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

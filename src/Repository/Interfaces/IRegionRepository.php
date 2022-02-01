@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\Region;
+use App\Entity\Inquiry\Region;
 
 /**
  * @implements IRepository<Region, int>

@@ -2,7 +2,7 @@
 
 namespace App\Repository\Interfaces;
 
-use App\Entity\InquiryCategory;
+use App\Entity\Inquiry\InquiryCategory;
 
 /**
  * @implements IRepository<InquiryCategory, int>
