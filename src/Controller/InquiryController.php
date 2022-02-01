@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Inquiry\Inquiry;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryForm;
-use App\Services\InquiryService;
+use App\Business\Service\InquiryService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

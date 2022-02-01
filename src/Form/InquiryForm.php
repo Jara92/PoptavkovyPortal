@@ -26,6 +26,7 @@ class InquiryForm extends AbstractType
 {
     protected $translator;
     protected $inquiryRepository;
+    private $inquiryTypeRepository;
 
     public function __construct(TranslatorInterface $translator, IInquiryTypeRepository $inquiryTypeRepository)
     {

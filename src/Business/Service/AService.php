@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Business\Service;
 
-use App\Entity\Inquiry;
+use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IRepository;
-use App\Services\Interfaces\ICrudService;
+use App\Business\Service\Interfaces\ICrudService;
 
 /**
  * Abstract service which implements basic service features.

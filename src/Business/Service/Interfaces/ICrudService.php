@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\Interfaces;
-
-use App\Entity\Inquiry;
+namespace App\Business\Service\Interfaces;
 
 /**
+ * CRUD service interface.
  * @template E
  * @template K
  */
