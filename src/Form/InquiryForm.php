@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Business\Operation\InquiryOperation;
+use App\Business\Service\UserService;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryType;
@@ -27,10 +29,12 @@ class InquiryForm extends AbstractType
     protected $translator;
     protected $inquiryRepository;
     private $inquiryTypeRepository;
+    protected $inquiryOperation;
 
-    public function __construct(TranslatorInterface $translator, IInquiryTypeRepository $inquiryTypeRepository)
+    public function __construct(TranslatorInterface $translator, InquiryOperation $inquiryOperation, IInquiryTypeRepository $inquiryTypeRepository)
     {
         $this->translator = $translator;
+        $this->inquiryOperation = $inquiryOperation;
         $this->inquiryTypeRepository = $inquiryTypeRepository;
     }
 
@@ -112,7 +116,8 @@ class InquiryForm extends AbstractType
                     return $entity ? $entity->getAlias() : '';
                 },
 
-                'data' => $this->inquiryTypeRepository->findOneByAlias(InquiryType::ALIAS_PERSONAL),
+                // Set default option
+                'data' => $this->inquiryOperation->getNewInquiryDefaultType(),
                 // looks for choices from this entity
                 'class' => InquiryType::class,
 
