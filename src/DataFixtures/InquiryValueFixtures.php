@@ -22,14 +22,14 @@ class InquiryValueFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $types = [
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.agreement", 0),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.make_offer", 0),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.according_offers", 0),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_5k", 5000),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_50k", 50000),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_200k", 200000),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_1M", 1000000),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.more", 1500000)
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.agreement", 0, 1),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.make_offer", 0, 2),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.according_offers", 0, 3),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_5k", 5000, 4),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_50k", 50000, 5),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_200k", 200000, 6),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_1M", 1000000, 7),
+            $this->inquiryValueFactory->createInquiryValue("inquiry_value.more", 1500000, 8)
         ];
 
         foreach ($types as $type){

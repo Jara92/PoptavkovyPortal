@@ -22,8 +22,8 @@ class InquiryTypeFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $types = [
-            $this->inquiryTypeFactory->createInquiryType("inquiry_type.personal", "personal"),
-            $this->inquiryTypeFactory->createInquiryType("inquiry_type.company", "company")
+            $this->inquiryTypeFactory->createInquiryType("inquiry_type.personal", "personal", 1),
+            $this->inquiryTypeFactory->createInquiryType("inquiry_type.company", "company", 2)
         ];
 
         foreach ($types as $type){
