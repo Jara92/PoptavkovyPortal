@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Inquiry\PersonalInquiry;
-use App\Repository\Interfaces\IPersonalInquiryIRepository;
+use App\Entity\Inquiry\PersonalContact;
+use App\Repository\Interfaces\IPersonalContactRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method PersonalInquiry|null find($id, $lockMode = null, $lockVersion = null)
- * @method PersonalInquiry|null findOneBy(array $criteria, array $orderBy = null)
- * @method PersonalInquiry[]    findAll()
- * @method PersonalInquiry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PersonalContact|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PersonalContact|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PersonalContact[]    findAll()
+ * @method PersonalContact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PersonalInquiryRepository extends ServiceEntityRepository implements IPersonalInquiryIRepository
+class PersonalContactRepository extends ServiceEntityRepository implements IPersonalContactRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PersonalInquiry::class);
+        parent::__construct($registry, PersonalContact::class);
     }
 
     // /**
-    //  * @return PersonalInquiry[] Returns an array of PersonalInquiry objects
+    //  * @return PersonalContact[] Returns an array of PersonalContact objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +38,7 @@ class PersonalInquiryRepository extends ServiceEntityRepository implements IPers
     */
 
     /*
-    public function findOneBySomeField($value): ?PersonalInquiry
+    public function findOneBySomeField($value): ?PersonalContact
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

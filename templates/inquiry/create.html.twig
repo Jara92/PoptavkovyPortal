@@ -87,14 +87,14 @@
                                 {{ form_row(form.type, {'attr': {'class': 'form-check', 'id':'inquiry-type'}}) }}
 
                                 <div id="personal-inquiry-fields">
-                                    {{ form_row(form.personalInquiry.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
+                                    {{ form_row(form.personalContact.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
 
-                                    {{ form_row(form.personalInquiry.surname, {'attr': {'class': 'form-control', 'id': 'personal-surname'}}) }}
+                                    {{ form_row(form.personalContact.surname, {'attr': {'class': 'form-control', 'id': 'personal-surname'}}) }}
 
                                 </div>
 
                                 <div id="company-inquiry-fields">
-                                    {{ form_row(form.companyInquiry.name, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
+                                    {{ form_row(form.companyContact.name, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
                                 </div>
 
                                 {{ form_row(form.contactEmail, {'attr': {'class': 'form-control'}}) }}

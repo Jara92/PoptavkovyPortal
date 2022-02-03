@@ -13,18 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
-
- */
-/**
  * Class Inquiry
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
- * @ORM\InheritanceType(value="JOINED")
- * @ORM\DiscriminatorColumn(name="type", type="string", length=16)
- * @ORM\DiscriminatorMap({
- *     "inquiry" = "Inquiry",
- *     "company-inquiry" = "CompanyInquiry",
- *     "personal-inquiry" = "PersonalInquiry"
- *     })
  */
 class Inquiry
 {
@@ -62,16 +52,16 @@ class Inquiry
     protected $city;
 
     /**
-     * @ORM\OneToOne(targetEntity=PersonalInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=PersonalContact::class, inversedBy="inquiry", orphanRemoval=true)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $personalInquiry;
+    protected $personalContact;
 
     /**
-     * @ORM\OneToOne(targetEntity=CompanyInquiry::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=CompanyContact::class, inversedBy="inquiry", orphanRemoval=true)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $companyInquiry;
+    protected $companyContact;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
@@ -161,36 +151,36 @@ class Inquiry
         return $this;
     }
 
-    public function getPersonalInquiry(): ?PersonalInquiry
+    public function getPersonalContact(): ?PersonalContact
     {
-        return $this->personalInquiry;
+        return $this->personalContact;
     }
 
-    public function setPersonalInquiry(PersonalInquiry $personalInquiry): self
+    public function setPersonalContact(PersonalContact $personalContact): self
     {
         // set the owning side of the relation if necessary
-        if ($personalInquiry->getInquiry() !== $this) {
-            $personalInquiry->setInquiry($this);
+        if ($personalContact->getInquiry() !== $this) {
+            $personalContact->setInquiry($this);
         }
 
-        $this->personalInquiry = $personalInquiry;
+        $this->personalContact = $personalContact;
 
         return $this;
     }
 
-    public function getCompanyInquiry(): ?CompanyInquiry
+    public function getCompanyContact(): ?CompanyContact
     {
-        return $this->companyInquiry;
+        return $this->companyContact;
     }
 
-    public function setCompanyInquiry(CompanyInquiry $companyInquiry): self
+    public function setCompanyContact(CompanyContact $companyContact): self
     {
         // set the owning side of the relation if necessary
-        if ($companyInquiry->getInquiry() !== $this) {
-            $companyInquiry->setInquiry($this);
+        if ($companyContact->getInquiry() !== $this) {
+            $companyContact->setInquiry($this);
         }
 
-        $this->companyInquiry = $companyInquiry;
+        $this->companyContact = $companyContact;
 
         return $this;
     }

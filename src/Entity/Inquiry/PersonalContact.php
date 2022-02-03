@@ -2,14 +2,22 @@
 
 namespace App\Entity\Inquiry;
 
-use App\Repository\PersonalInquiryRepository;
+use App\Entity\Traits\IdTrait;
+use App\Repository\PersonalContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PersonalInquiryRepository::class)
+ * @ORM\Entity(repositoryClass=PersonalContactRepository::class)
  */
-class PersonalInquiry extends Inquiry
+class PersonalContact
 {
+    use IdTrait;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Inquiry::class, mappedBy="personalContact")
+     */
+    protected $inquiry;
+
     /**
      * @ORM\Column(type="string", length=64)
      */
@@ -19,6 +27,18 @@ class PersonalInquiry extends Inquiry
      * @ORM\Column(type="string", length=64)
      */
     protected $surname;
+
+    public function getInquiry()
+    {
+        return $this->inquiry;
+    }
+
+    public function setInquiry($inquiry): self
+    {
+        $this->inquiry = $inquiry;
+
+        return $this;
+    }
 
     public function getName(): ?string
     {

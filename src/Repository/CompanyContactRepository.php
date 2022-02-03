@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Inquiry\CompanyInquiry;
-use App\Repository\Interfaces\ICompanyInquiryIRepository;
+use App\Entity\Inquiry\CompanyContact;
+use App\Repository\Interfaces\ICompanyContactRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CompanyInquiry|null find($id, $lockMode = null, $lockVersion = null)
- * @method CompanyInquiry|null findOneBy(array $criteria, array $orderBy = null)
- * @method CompanyInquiry[]    findAll()
- * @method CompanyInquiry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CompanyContact|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CompanyContact|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CompanyContact[]    findAll()
+ * @method CompanyContact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompanyInquiryRepository extends ServiceEntityRepository implements ICompanyInquiryIRepository
+class CompanyContactRepository extends ServiceEntityRepository implements ICompanyContactRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CompanyInquiry::class);
+        parent::__construct($registry, CompanyContact::class);
     }
 
     // /**
-    //  * @return CompanyInquiry[] Returns an array of CompanyInquiry objects
+    //  * @return CompanyContact[] Returns an array of CompanyContact objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +38,7 @@ class CompanyInquiryRepository extends ServiceEntityRepository implements ICompa
     */
 
     /*
-    public function findOneBySomeField($value): ?CompanyInquiry
+    public function findOneBySomeField($value): ?CompanyContact
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

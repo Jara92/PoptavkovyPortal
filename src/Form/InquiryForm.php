@@ -123,7 +123,7 @@ class InquiryForm extends AbstractType
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 'expanded' => true,
-            ])->add($builder->create('personalInquiry', FormType::class, [
+            ])->add($builder->create('personalContact', FormType::class, [
                 'translation_domain' => "inquiries",
                 'by_reference' => false
             ])->add('name', TextType::class, [
@@ -141,7 +141,7 @@ class InquiryForm extends AbstractType
                     'required' => true
                 ])
             )
-            ->add($builder->create('companyInquiry', FormType::class, [
+            ->add($builder->create('companyContact', FormType::class, [
                 'by_reference' => false
             ])
                 ->add('name', TextType::class, [
