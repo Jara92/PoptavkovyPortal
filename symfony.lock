@@ -606,7 +606,7 @@
         "files": [
             "assets/styles/app.css",
             "assets/controllers.json",
-            "assets/controllers/hello_controller.js",
+            "assets/controllers/inquiry-form_controller.js",
             "assets/app.js",
             "assets/bootstrap.js",
             "config/packages/webpack_encore.yaml",

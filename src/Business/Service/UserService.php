@@ -6,6 +6,7 @@ class UserService
 {
     public function getCurrentUser()
     {
+        // TODO: Implement
         return null;
     }
 
@@ -15,7 +16,7 @@ class UserService
             $user = $this->getCurrentUser();
 
             // User is not logged in.
-            if ($user) {
+            if (!$user) {
                 return false;
             }
         }

@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block scripts %}
-    {{ encore_entry_script_tags('js/inquiry/inquiry-form') }}
+
 {% endblock %}
 
 {% block content %}
@@ -12,116 +12,121 @@
                 <p>{{ "new_inquiry_desc"|trans({}, "inquiries") }}</p>
             </header>
             <div class="page-content">
-                {{ form_start(form) }}
-                <div class="errors">
-                    {{ form_errors(form) }}
-                </div>
-                <div class="row form-item">
-                    <div class="card content col-9">
-                        <div class="card-header">
-                            <h3>{{ "form_card_info_title"|trans({}, "inquiries") }}</h3>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <div class="card-text">
-                                {{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
-
-                                {{ form_row(form.description, {'attr': {'class': 'form-control', 'rows':5}}) }}
-
-                                <input type="file" multiple class="form-control"/>
+                <div data-controller="inquiry-form">
+                    {{ form_start(form) }}
+                    <div class="errors">
+                        {{ form_errors(form) }}
+                    </div>
+                    <div class="row form-item">
+                        <div class="card content col-9">
+                            <div class="card-header">
+                                <h3>{{ "form_card_info_title"|trans({}, "inquiries") }}</h3>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card sidebar col-3">
-                        <div class="card-header">
-                            <h4>{{ "form_card_info_title"|trans({}, "inquiries") }}</h4>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">
-                                {{ "form_card_info_desc"|trans({}, "inquiries") }}
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <h5>{{ "new_inquiry_help"|trans({}, "inquiries") }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-item">
-                    <div class="card sidebar col-3">
-                        <div class="card-header">
-                            <h4>{{ "form_card_params_title"|trans({}, "inquiries") }}</h4>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">
-                                {{ "form_card_params_desc"|trans({}, "inquiries") }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card content col-9">
-                        <div class="card-header">
-                            <h3>{{ "form_card_params_title"|trans({}, "inquiries") }}</h3>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <div class="card-text">
-                                {{ form_row(form.region, {'attr': {'class': 'form-select'}}) }}
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <div class="card-text">
+                                    {{ form_row(form.title, {'attr': {'class': 'form-control'}}) }}
 
-                                {{ form_row(form.value, {'attr': {'class': 'form-select'}}) }}
+                                    {{ form_row(form.description, {'attr': {'class': 'form-control', 'rows':5}}) }}
 
-                                {{ form_row(form.deadline, {'attr': {'class': 'form-select'}}) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row form-item">
-                    <div class="card content col-9">
-                        <div class="card-header">
-                            <h3>{{ "form_card_contact_title"|trans({}, "inquiries") }}</h3>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <div class="card-text">
-
-                                {{ form_row(form.type, {'attr': {'class': 'form-check', 'id':'inquiry-type'}}) }}
-
-                                <div id="personal-inquiry-fields">
-                                    {{ form_row(form.personalContact.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
-
-                                    {{ form_row(form.personalContact.surname, {'attr': {'class': 'form-control', 'id': 'personal-surname'}}) }}
-
+                                    <input type="file" multiple class="form-control"/>
                                 </div>
-
-                                <div id="company-inquiry-fields">
-                                    {{ form_row(form.companyContact.name, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
-                                </div>
-
-                                {{ form_row(form.contactEmail, {'attr': {'class': 'form-control'}}) }}
-
-                                {{ form_row(form.contactPhone, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="card sidebar col-3">
+                            <div class="card-header">
+                                <h4>{{ "form_card_info_title"|trans({}, "inquiries") }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text">
+                                    {{ "form_card_info_desc"|trans({}, "inquiries") }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <h5>{{ "new_inquiry_help"|trans({}, "inquiries") }}</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="card sidebar col-3">
-                        <div class="card-header">
-                            <h4>{{ "form_card_contact_title"|trans({}, "inquiries") }}</h4>
+                    <div class="row form-item">
+                        <div class="card sidebar col-3">
+                            <div class="card-header">
+                                <h4>{{ "form_card_params_title"|trans({}, "inquiries") }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text">
+                                    {{ "form_card_params_desc"|trans({}, "inquiries") }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <p class="card-text">
-                                {{ "form_card_contact_desc"|trans({}, "inquiries") }}
-                            </p>
+                        <div class="card content col-9">
+                            <div class="card-header">
+                                <h3>{{ "form_card_params_title"|trans({}, "inquiries") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <div class="card-text">
+                                    {{ form_row(form.region, {'attr': {'class': 'form-select'}}) }}
+
+                                    {{ form_row(form.value, {'attr': {'class': 'form-select'}}) }}
+
+                                    {{ form_row(form.deadline, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row form-footer">
-                    {{ form_row(form.gdpr, {'attr': {'class': 'btn btn-primary'}}) }}
-                    {{ form_row(form.terms, {'attr': {'class': 'btn btn-primary'}}) }}
-                    {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-                </div>
+                    <div class="row form-item">
+                        <div class="card content col-9">
+                            <div class="card-header">
+                                <h3>{{ "form_card_contact_title"|trans({}, "inquiries") }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <div class="card-text">
 
-                {{ form_end(form) }}
+                                    {{ form_row(form.type, {'attr': {'class': 'form-check', 'id':'inquiry-type', 'data-action':'change->inquiry-form#updateFields'}}) }}
+
+                                    <div class="row" id="personal-inquiry-fields">
+                                        <div class="col-md-6">
+                                            {{ form_row(form.personalContact.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            {{ form_row(form.personalContact.surname, {'attr': {'class': 'form-control', 'id': 'personal-surname'}}) }}
+                                        </div>
+                                    </div>
+
+                                    <div id="company-inquiry-fields">
+                                        {{ form_row(form.companyContact.name, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
+                                    </div>
+
+                                    {{ form_row(form.contactEmail, {'attr': {'class': 'form-control'}}) }}
+
+                                    {{ form_row(form.contactPhone, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card sidebar col-3">
+                            <div class="card-header">
+                                <h4>{{ "form_card_contact_title"|trans({}, "inquiries") }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"></h5>
+                                <p class="card-text">
+                                    {{ "form_card_contact_desc"|trans({}, "inquiries") }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-footer">
+                        {{ form_row(form.gdpr, {'attr': {'class': 'btn btn-primary'}}) }}
+                        {{ form_row(form.terms, {'attr': {'class': 'btn btn-primary'}}) }}
+                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
     </div>
