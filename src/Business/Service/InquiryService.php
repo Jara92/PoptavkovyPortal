@@ -4,6 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IInquiryIRepository;
+use App\Repository\Interfaces\IRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -12,11 +13,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class InquiryService extends AService
 {
-    protected $companyInquiryRepository;
-    protected $personalInquiryRepository;
+    /** @var IInquiryIRepository  */
+    protected IRepository $repository;
 
-    public function __construct(IInquiryIRepository $inquiryRepository, ManagerRegistry $doctrine)
+    public function __construct(IInquiryIRepository $inquiryRepository)
     {
-        parent::__construct($inquiryRepository, $doctrine);
+        parent::__construct($inquiryRepository);
     }
 }

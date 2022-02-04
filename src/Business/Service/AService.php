@@ -3,10 +3,12 @@
 namespace App\Business\Service;
 
 use App\Entity\Inquiry\Inquiry;
+use App\Repository\Interfaces\IInquiryIRepository;
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * Abstract service which implements basic service features.
@@ -16,23 +18,27 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AService implements ICrudService
 {
+    protected IRepository $repository;
 
-    protected $repository;
+    protected ManagerRegistry $doctrine;
 
-    /** @var EntityManager */
-    protected $doctrine;
+    protected ObjectManager $entityManager;
 
-    protected $entityManager;
+    /**
+     * @param ManagerRegistry $doctrine
+     * @required
+     */
+    public function setDoctrine(ManagerRegistry $doctrine){
+        $this->doctrine = $doctrine;
+        $this->entityManager = $this->doctrine->getManager();
+    }
 
     /**
      * @param IRepository<E, K> $repository
-     * @param ManagerRegistry $doctrine
      */
-    public function __construct(IRepository $repository, ManagerRegistry $doctrine)
+    public function __construct(IRepository $repository)
     {
         $this->repository = $repository;
-        $this->doctrine = $doctrine;
-        $this->entityManager = $this->doctrine->getManager();
     }
 
     /**

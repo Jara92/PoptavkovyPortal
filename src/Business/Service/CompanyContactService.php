@@ -4,6 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\Inquiry\CompanyContact;
 use App\Repository\Interfaces\ICompanyContactRepository;
+use App\Repository\Interfaces\IRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -13,10 +14,10 @@ use Doctrine\Persistence\ManagerRegistry;
 class CompanyContactService extends AService
 {
     /** @var ICompanyContactRepository */
-    protected $repository;
+    protected IRepository $repository;
 
-    public function __construct(ICompanyContactRepository $inquiryRepository, ManagerRegistry $doctrine)
+    public function __construct(ICompanyContactRepository $inquiryRepository)
     {
-        parent::__construct($inquiryRepository, $doctrine);
+        parent::__construct($inquiryRepository);
     }
 }

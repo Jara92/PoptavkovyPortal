@@ -4,6 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\User;
 use App\Factory\UserFactory;
+use App\Repository\Interfaces\IRepository;
 use App\Repository\Interfaces\IUserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,15 +16,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserService extends AService
 {
-    protected $passwordHasher;
-    protected $userFactory;
+    protected UserFactory $userFactory;
 
     /** @var IUserRepository */
-    protected $repository;
+    protected IRepository $repository;
 
-    public function __construct(IUserRepository $userRepository, ManagerRegistry $doctrine, UserFactory $userFactory)
+    public function __construct(IUserRepository $userRepository, UserFactory $userFactory)
     {
-        parent::__construct($userRepository, $doctrine);
+        parent::__construct($userRepository);
         $this->userFactory = $userFactory;
     }
 

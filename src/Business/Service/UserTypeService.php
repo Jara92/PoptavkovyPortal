@@ -3,6 +3,8 @@
 namespace App\Business\Service;
 
 use App\Entity\UserType;
+use App\Repository\Interfaces\IRepository;
+use App\Repository\Interfaces\IUserTypeRepository;
 
 /**
  * Service to manager UserType.
@@ -12,5 +14,11 @@ use App\Entity\UserType;
  */
 class UserTypeService extends AService
 {
+    /** @var IUserTypeRepository */
+    protected IRepository $repository;
 
+    public function __construct(IUserTypeRepository $userRepository)
+    {
+        parent::__construct($userRepository);
+    }
 }

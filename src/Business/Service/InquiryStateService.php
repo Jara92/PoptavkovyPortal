@@ -5,6 +5,7 @@ namespace App\Business\Service;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\InquiryState;
 use App\Repository\Interfaces\IInquiryStateRepository;
+use App\Repository\Interfaces\IRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,11 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
 class InquiryStateService extends AService
 {
     /** @var IInquiryStateRepository */
-    protected $repository;
+    protected IRepository $repository;
 
-    public function __construct(IInquiryStateRepository $inquiryRepository, ManagerRegistry $doctrine)
+    public function __construct(IInquiryStateRepository $inquiryRepository)
     {
-        parent::__construct($inquiryRepository, $doctrine);
+        parent::__construct($inquiryRepository);
     }
 
     public function readByAlias(string $alias): ?InquiryState
