@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Business\Operation\InquiryOperation;
 use App\Business\Service\UserService;
+use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
+use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Region;
 use App\Repository\InquiryTypeRepository;
 use App\Repository\Interfaces\IInquiryTypeRepository;
@@ -130,7 +132,8 @@ class InquiryForm extends AbstractType
                 // 'multiple' => true,
                 'expanded' => true,
             ])->add($builder->create('personalContact', FormType::class, [
-                'by_reference' => false
+                'by_reference' => true,
+                'data_class' => PersonalContact::class
             ])->add('name', TextType::class, [
                 'label' => "inquiries.field_individual_name",
                 'attr' => [
@@ -147,9 +150,10 @@ class InquiryForm extends AbstractType
                 ])
             )
             ->add($builder->create('companyContact', FormType::class, [
-                'by_reference' => false
+                'by_reference' => true,
+                'data_class' => CompanyContact::class
             ])
-                ->add('name', TextType::class, [
+                ->add('companyName', TextType::class, [
                     'label' => "inquiries.field_firm_name",
                     'attr' => [
                         "placeholder" => "inquiries.field_firm_name_ph",

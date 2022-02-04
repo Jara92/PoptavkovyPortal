@@ -23,7 +23,7 @@ class CompanyContact
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=5, max=64)
      */
-    protected $companyName;
+    protected string $companyName;
 
     public function getInquiry()
     {

@@ -56,6 +56,18 @@ class InquiryController extends AbstractController
 
         $form = $this->createForm(InquiryForm::class, $inquiry);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            dump($data);
+            dump($inquiry);
+
+            // ... perform some action, such as saving the task to the database
+
+            //return $this->redirectToRoute('task_success');
+        }
+
         // Same as $this->render('...', ['form' => $form->createView()])
         return $this->renderForm("inquiry/create.html.twig", ["form" => $form]);
     }
