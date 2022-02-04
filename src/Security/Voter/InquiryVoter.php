@@ -6,28 +6,12 @@ use App\Business\Service\UserService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\User;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Security;
 
-/**
- * NOTE: For better performance use:
- * https://github.com/symfony/symfony/blob/6.0/src/Symfony/Component/Security/Core/Authorization/Voter/CacheableVoterInterface.php
- */
-class InquiryVoter extends Voter
+
+class InquiryVoter extends AVoter
 {
-    // these strings are just invented: you can use anything
-    const VIEW = 'view';
-    const EDIT = 'edit';
-    const CREATE = 'create';
     const REACT = 'react';
-    const DELETE = 'delete';
-
-    /** @required */
-    public Security $security;
-
-    /** @required  */
-    public UserService $userService;
 
     protected function supports(string $attribute, $subject): bool
     {
