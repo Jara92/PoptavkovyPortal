@@ -2,19 +2,25 @@
 
 namespace App\Security;
 
+use App\Business\Service\UserService;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
 {
-    private $verifyEmailHelper;
-    private $mailer;
-    private $entityManager;
+    protected VerifyEmailHelperInterface $verifyEmailHelper;
+    protected MailerInterface $mailer;
+    protected EntityManagerInterface $entityManager;
+    /** @required */
+    public UserService $userService;
 
     public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
     {
@@ -23,7 +29,19 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    protected function createVerificationEmail(User $user)
+    {
+        return (new TemplatedEmail())
+            ->from(new Address('info@poptejsi.cz', 'Poptejsi.cz'))
+            ->to($user->getEmail())
+            ->subject('Please Confirm your Email')
+            ->htmlTemplate('registration/confirmation_email.html.twig');
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function sendEmailConfirmation(string $verifyEmailRouteName, User $user): void
     {
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
@@ -31,6 +49,8 @@ class EmailVerifier
             $user->getEmail(),
             ['id' => $user->getId()]
         );
+
+        $email = $this->createVerificationEmail($user);
 
         $context = $email->getContext();
         $context['signedUrl'] = $signatureComponents->getSignedUrl();
@@ -45,13 +65,13 @@ class EmailVerifier
     /**
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(Request $request, UserInterface $user): void
+    public function handleEmailConfirmation(Request $request, User $user): void
     {
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);
+        $user->setEmailVerifiedAt(new \DateTime());
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $this->userService->update($user);
     }
 }

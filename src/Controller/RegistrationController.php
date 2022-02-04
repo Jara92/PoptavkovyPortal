@@ -26,6 +26,9 @@ class RegistrationController extends AbstractController
 
     protected $userFactory;
 
+    /** @required */
+    public EmailVerifier $emailVerifier;
+
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
     const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
     const AFTER_VERIFY = "inquiries";
@@ -46,7 +49,12 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Get blank password and register the user.
             $blankPassword = $form->get('plainPassword')->getData();
-            $this->userOperation->register($user, $blankPassword);
+
+            if ($this->userOperation->register($user, $blankPassword)) {
+                $this->addFlash('success', "successfully_registred");
+                // generate a signed url and email it to the user
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
+            }
 
             return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
         }
@@ -56,7 +64,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    public function verifyUserEmail(Request $request, EmailVerifier $emailVerifier): Response
+    public function verifyUserEmail(Request $request): Response
     {
         $id = $request->get('id');
 
@@ -72,7 +80,7 @@ class RegistrationController extends AbstractController
 
         // Validate email confirmation link, sets User::isVerified=true and persists
         try {
-            $this->userOperation->verifyEmail($request, $user);
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 

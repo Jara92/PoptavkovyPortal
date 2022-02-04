@@ -25,7 +25,7 @@ class UserOperation
         $this->emailVerifier = $emailVerifier;
     }
 
-    public function register(User $user, string $blankPassword)
+    public function register(User $user, string $blankPassword): bool
     {
         $passwordHash = $this->passwordHasher->hashPassword($user, $blankPassword);
 
@@ -34,26 +34,6 @@ class UserOperation
 
         $user->setPassword($passwordHash);
 
-        if($this->userService->create($user)){
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('info@poptejsi.cz', 'Poptejsi.cz'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-        }
-    }
-
-    /**
-     * @throws VerifyEmailExceptionInterface
-     */
-    public function verifyEmail($data, User $user){
-        // validate email confirmation link, sets User::isVerified=true and persists
-            $this->emailVerifier->handleEmailConfirmation($data, $user);
-
-            $user->setEmailVerifiedAt(new \DateTime());
-            $this->userService->update($user);
+        return $this->userService->create($user);
     }
 }
