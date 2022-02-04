@@ -25,17 +25,17 @@ class InquiryCategory
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    protected $description;
+    protected ?string $description;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryCategory::class, inversedBy="children")
      */
-    protected $parent;
+    protected ?InquiryCategory $parent;
 
     /**
      * @ORM\OneToMany(targetEntity=InquiryCategory::class, mappedBy="parent")
      */
-    protected $children;
+    protected Collection $children;
 
     public function __construct()
     {

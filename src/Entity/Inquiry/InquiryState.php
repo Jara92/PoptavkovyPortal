@@ -35,7 +35,7 @@ class InquiryState
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    protected $description;
+    protected ?string $description;
 
     public function getDescription(): ?string
     {

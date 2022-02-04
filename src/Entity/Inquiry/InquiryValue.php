@@ -22,7 +22,7 @@ class InquiryValue
     /**
      * @ORM\Column(type="integer")
      */
-    protected $value;
+    protected ?int $value;
 
     public function getValue(): ?int
     {

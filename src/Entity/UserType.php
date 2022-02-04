@@ -18,4 +18,7 @@ class UserType
     use TitleTrait;
 
     use AliasTrait;
+
+    const TYPE_PERSONAL = "personal";
+    const TYPE_COMPANY = "company";
 }

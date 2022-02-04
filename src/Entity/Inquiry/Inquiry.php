@@ -8,7 +8,6 @@ use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
 use App\Repository\InquiryRepository;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Inquiry
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
- * @ORM\HasLifecycleCallbacks 
+ * @ORM\HasLifecycleCallbacks
  */
 class Inquiry
 {
@@ -32,7 +31,7 @@ class Inquiry
     /**
      * @ORM\Column(type="text",  nullable=false)
      */
-    protected $description;
+    protected string $description;
 
     /**
      * @ORM\Column (type="string", length=128, nullable=false)
@@ -40,78 +39,79 @@ class Inquiry
      * @Assert\NotBlank
      * @Assert\Email
      */
-    protected $contactEmail;
+    protected string $contactEmail;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      * @Assert\Length(min=9, max=32)
      */
-    protected $contactPhone;
+    protected ?string $contactPhone;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Length (min=0, max=64)
      */
-    protected $city;
-
-    /**
-     * @ORM\OneToOne(targetEntity=PersonalContact::class, inversedBy="inquiry", orphanRemoval=true, cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $personalContact;
-
-    /**
-     * @ORM\OneToOne(targetEntity=CompanyContact::class, inversedBy="inquiry", orphanRemoval=true, cascade={"persist"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    protected $companyContact;
+    protected ?string $city;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected $region;
+    protected ?Region $region;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryState::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $state;
+    protected InquiryState $state;
 
     /**
      * @ORM\ManyToOne(targetEntity=Deadline::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $deadline;
+    protected Deadline $deadline;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryValue::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $value;
+    protected InquiryValue $value;
 
     /**
      * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
      */
-    protected $categories;
+    protected Collection $categories;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryType::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $type;
+    protected InquiryType $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inquiries")
+     * @ORM\JoinColumn(nullable=true)
      */
     protected ?User $author;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PersonalContact::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?PersonalContact $personalContact;
+
+    /**
+     * @ORM\OneToOne(targetEntity=CompanyContact::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?CompanyContact $companyContact;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -123,7 +123,7 @@ class Inquiry
         return $this;
     }
 
-    public function getContactEmail(): ?string
+    public function getContactEmail(): string
     {
         return $this->contactEmail;
     }
@@ -155,40 +155,6 @@ class Inquiry
     public function setCity(?string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPersonalContact(): ?PersonalContact
-    {
-        return $this->personalContact;
-    }
-
-    public function setPersonalContact(?PersonalContact $personalContact): self
-    {
-        // set the owning side of the relation if necessary
-        if ($personalContact !== null && $personalContact->getInquiry() !== $this) {
-        //    $personalContact->setInquiry($this);
-        }
-
-        $this->personalContact = $personalContact;
-
-        return $this;
-    }
-
-    public function getCompanyContact(): ?CompanyContact
-    {
-        return $this->companyContact;
-    }
-
-    public function setCompanyContact(?CompanyContact $companyContact): self
-    {
-        // set the owning side of the relation if necessary
-        if ($companyContact !== null && $companyContact->getInquiry() !== $this) {
-            //$companyContact->setInquiry($this);
-        }
-
-        $this->companyContact = $companyContact;
 
         return $this;
     }
@@ -285,6 +251,30 @@ class Inquiry
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getPersonalContact(): ?PersonalContact
+    {
+        return $this->personalContact;
+    }
+
+    public function setPersonalContact(?PersonalContact $personalContact): self
+    {
+        $this->personalContact = $personalContact;
+
+        return $this;
+    }
+
+    public function getCompanyContact(): ?CompanyContact
+    {
+        return $this->companyContact;
+    }
+
+    public function setCompanyContact(?CompanyContact $companyContact): self
+    {
+        $this->companyContact = $companyContact;
 
         return $this;
     }

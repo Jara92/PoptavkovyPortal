@@ -14,31 +14,14 @@ class PersonalContact
     use IdTrait;
 
     /**
-     * @ORM\OneToOne(targetEntity=Inquiry::class, mappedBy="personalContact")
+     * @ORM\Column(type="string", length=64)
      */
-    protected $inquiry;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    protected $name;
-
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
-    protected $surname;
-
-    public function getInquiry()
-    {
-        return $this->inquiry;
-    }
-
-    public function setInquiry($inquiry): self
-    {
-        $this->inquiry = $inquiry;
-
-        return $this;
-    }
+    protected string $surname;
 
     public function getName(): ?string
     {

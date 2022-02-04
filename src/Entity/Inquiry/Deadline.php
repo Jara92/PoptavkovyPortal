@@ -16,7 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Deadline
 {
     use IdTrait;
+
     use TitleTrait;
+
     use AliasTrait;
+
     use OrderingTrait;
 }
