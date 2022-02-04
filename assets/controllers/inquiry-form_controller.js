@@ -7,10 +7,9 @@ import {Controller} from '@hotwired/stimulus';
 export default class extends Controller {
     companyFieldsContainerId = "#company-inquiry-fields";
     personalFieldsContainerId = "#personal-inquiry-fields";
-    selectBoxId = "#inquiry_form_type > input";
 
     personalFields = ["#inquiry_form_personalContact_name", "#inquiry_form_personalContact_surname"];
-    companyFields = ["#inquiry_form_companyContact_name"]
+    companyFields = ["#inquiry_form_companyContact_companyName"]
 
     personalAlias;
     companyAlias;
@@ -53,14 +52,14 @@ export default class extends Controller {
         jQuery(this.personalFieldsContainerId).hide();
     }
 
-    makeRequired(fields){
-        fields.forEach(function (value, index, array){
-            jQuery(value).prop('required',true);
+    makeRequired(fields) {
+        fields.forEach(function (value, index, array) {
+            jQuery(value).prop('required', true);
         });
     }
 
-    makeUnrequired(fields){
-        fields.forEach(function (value, index, array){
+    makeUnrequired(fields) {
+        fields.forEach(function (value, index, array) {
             jQuery(value).removeAttr('required');
         });
     }
