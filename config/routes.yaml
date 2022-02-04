@@ -48,10 +48,10 @@ app_register:
 
 app_verify_email:
     path: /overeni-emailu
-    controller: App\Controller\RegistrationController::verifyUserEmail
+    controller: App\Controller\Auth\RegistrationController::verifyUserEmail
     methods: GET
 
-logout:
+app_logout:
     path: /odhlasit
-    controller: App\Controller\HomeController::home
+    controller: App\Controller\Auth\LogoutController::logout
     methods: GET
