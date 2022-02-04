@@ -22,7 +22,7 @@ class UserService extends AService
     /** @var IUserRepository */
     protected IRepository $repository;
 
-    /** @required  */
+    /** @required */
     public Security $security;
 
     public function __construct(IUserRepository $userRepository, UserFactory $userFactory)
@@ -31,17 +31,28 @@ class UserService extends AService
         $this->userFactory = $userFactory;
     }
 
+    /**
+     * Returns currently logged user or null.
+     * @return User|null
+     */
     public function getCurrentUser(): ?User
     {
-       $user =  $this->security->getUser();
-       if($user instanceof User){
-           return $user;
-       }
+        $user = $this->security->getUser();
 
-       return null;
+        // Is user valid?
+        if ($user instanceof User) {
+            return $user;
+        }
+
+        return null;
     }
 
-    public function isLoggedIn():bool{
+    /**
+     * Is the user logged in?
+     * @return bool
+     */
+    public function isLoggedIn(): bool
+    {
         return $this->getCurrentUser() !== null;
     }
 

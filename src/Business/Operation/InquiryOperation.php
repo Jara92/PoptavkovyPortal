@@ -12,14 +12,15 @@ use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
 use App\Exception\InvalidInquiryState;
 use App\Helper\UrlHelper;
+use Exception;
 
 class InquiryOperation
 {
-    protected $userService;
+    protected UserService $userService;
 
-    protected $inquiryService;
+    protected InquiryService $inquiryService;
 
-    protected $inquiryTypeService;
+    protected InquiryTypeService $inquiryTypeService;
 
     /** @required */
     public CompanyContactService $companyContactService;
@@ -46,7 +47,7 @@ class InquiryOperation
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function createInquiry(Inquiry $inquiry): bool
     {
@@ -54,11 +55,9 @@ class InquiryOperation
         switch ($inquiry->getType()->getAlias()) {
             case  InquiryType::ALIAS_PERSONAL:
                 $inquiry->setCompanyContact(null);
-                //  $this->companyContactService->create($inquiry->get)
                 break;
             case InquiryType::ALIAS_COMPANY:
                 $inquiry->setPersonalContact(null);
-                $this->companyContactService->create($inquiry->getCompanyContact());
                 break;
         }
 
@@ -76,7 +75,7 @@ class InquiryOperation
 
         $this->inquiryService->create($inquiry);
 
-        // Generate inquiry alias.
+        // Generate inquiry alias and update entity.
         $inquiry->setAlias(UrlHelper::createAlias($inquiry->getId(), $inquiry->getTitle()));
         $this->inquiryService->update($inquiry);
 
