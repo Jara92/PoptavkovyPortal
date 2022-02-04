@@ -2,9 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Inquiry\Inquiry;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -53,7 +56,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isVerified = false;
+    protected $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inquiry::class, mappedBy="author")
+     */
+    protected $inquiries;
+
+    public function __construct()
+    {
+        $this->inquiries = new ArrayCollection();
+    }
 
     public function getPhone()
     {
@@ -171,6 +184,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inquiry[]
+     */
+    public function getInquiries(): Collection
+    {
+        return $this->inquiries;
+    }
+
+    public function addInquiry(Inquiry $inquiry): self
+    {
+        if (!$this->inquiries->contains($inquiry)) {
+            $this->inquiries[] = $inquiry;
+            $inquiry->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInquiry(Inquiry $inquiry): self
+    {
+        if ($this->inquiries->removeElement($inquiry)) {
+            // set the owning side to null (unless already changed)
+            if ($inquiry->getAuthor() === $this) {
+                $inquiry->setAuthor(null);
+            }
+        }
 
         return $this;
     }

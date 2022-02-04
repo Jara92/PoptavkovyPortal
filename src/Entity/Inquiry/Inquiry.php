@@ -6,6 +6,7 @@ use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
+use App\Entity\User;
 use App\Repository\InquiryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -97,6 +98,11 @@ class Inquiry
      * @ORM\JoinColumn(nullable=false)
      */
     protected $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inquiries")
+     */
+    protected ?User $author;
 
     public function __construct()
     {
@@ -265,6 +271,18 @@ class Inquiry
     public function setType(?InquiryType $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
