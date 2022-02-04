@@ -7,6 +7,7 @@ use App\Factory\UserFactory;
 use App\Repository\Interfaces\IRepository;
 use App\Repository\Interfaces\IUserRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * Abstract service which implements basic service features.
@@ -21,16 +22,27 @@ class UserService extends AService
     /** @var IUserRepository */
     protected IRepository $repository;
 
+    /** @required  */
+    public Security $security;
+
     public function __construct(IUserRepository $userRepository, UserFactory $userFactory)
     {
         parent::__construct($userRepository);
         $this->userFactory = $userFactory;
     }
 
-    public function getCurrentUser()
+    public function getCurrentUser(): ?User
     {
-        // TODO: Implement
-        return null;
+       $user =  $this->security->getUser();
+       if($user instanceof User){
+           return $user;
+       }
+
+       return null;
+    }
+
+    public function isLoggedIn():bool{
+        return $this->getCurrentUser() !== null;
     }
 
     public function isCompany($user = null): bool

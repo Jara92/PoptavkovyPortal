@@ -24,6 +24,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     use TimeStampTrait;
 
+    // Can do anything
+    const ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
+    // Can access admin site
+    const ROLE_ADMIN = "ROLE_ADMIN";
+    // Can post new inquiries.
+    const ROLE_INQUIRING = "ROLE_INQUIRING";
+    // Can respond to inquiries.
+    const ROLE_SUPPLIER = "ROLE_SUPPLIER";
+    const ROLE_USER = "ROLE_USER";
+
     /**
      * Contact email
      * @ORM\Column(type="string", length=180, unique=true)
@@ -139,6 +149,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+    public function addRole(string $role){
+        $this->roles[] = $role;
+    }
+
+    public function removeRole(string $role){
+        $itemKey = array_search($role, $this->roles);
+
+        // Remove the item if exists
+        if($itemKey){
+            unset($this->roles[$itemKey]);
+            // reindex the array.
+            $this->roles = array_values($this->roles);
+        }
     }
 
     /**

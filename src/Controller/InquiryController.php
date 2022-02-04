@@ -8,6 +8,7 @@ use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,7 +47,15 @@ class InquiryController extends AbstractController
      */
     public function detail(string $alias): Response
     {
-        return $this->render("inquiry/detail.html.twig");
+        $inquiry = $this->inquiryService->readByAlias($alias);
+
+        if (!$inquiry) {
+            throw new NotFoundHttpException("Inquiry not found.");
+        }
+
+        $this->denyAccessUnlessGranted("view", $inquiry);
+
+        return $this->render("inquiry/detail.html.twig", ["inquiry" => $inquiry]);
     }
 
     /**
@@ -57,6 +66,8 @@ class InquiryController extends AbstractController
     public function create(Request $request): Response
     {
         $inquiry = $this->inquiryFactory->createBlank();
+
+        $this->denyAccessUnlessGranted("create", $inquiry);
 
         $form = $this->createForm(InquiryForm::class, $inquiry);
 

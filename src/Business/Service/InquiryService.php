@@ -5,7 +5,6 @@ namespace App\Business\Service;
 use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IInquiryIRepository;
 use App\Repository\Interfaces\IRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Service class which handles everything about inquiries and its subclasses.
@@ -13,11 +12,16 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class InquiryService extends AService
 {
-    /** @var IInquiryIRepository  */
+    /** @var IInquiryIRepository */
     protected IRepository $repository;
 
     public function __construct(IInquiryIRepository $inquiryRepository)
     {
         parent::__construct($inquiryRepository);
+    }
+
+    public function readByAlias(string $alias):?Inquiry
+    {
+        return $this->repository->findOneBy(["alias" => $alias]);
     }
 }

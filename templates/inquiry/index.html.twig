@@ -12,7 +12,7 @@
     <section>
         <ul>
             {% for inquiry in inquiries %}
-                <li>{{ inquiry.title }}</li>
+                <li><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></li>
             {% endfor %}
         </ul>
     </section>

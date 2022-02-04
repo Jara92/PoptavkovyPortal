@@ -24,6 +24,7 @@ class InquiryState
     use OrderingTrait;
 
     const STATE_NEW = "new";
+    const STATE_ACTIVE = "active";
 
     /**
      * @ORM\Column(type="string", length=16, unique=true, nullable=true)

@@ -9,6 +9,11 @@ inquiries/new:
     controller: App\Controller\InquiryController::create
     methods: GET|POST
 
+inquiries/detail:
+    path: /poptavky/{alias}
+    controller: App\Controller\InquiryController::detail
+    methods: GET
+
 # Articles
 home:
     path: /
