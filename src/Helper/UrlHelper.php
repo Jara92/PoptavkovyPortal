@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Helper;
+
+class UrlHelper
+{
+    public static function createAlias($id, $title, $divider = "-"): string
+    {
+        // replace non letter or digits by divider
+        $title = preg_replace('~[^\pL\d]+~u', $divider, $title);
+
+        // transliterate
+        $title = iconv('utf-8', 'us-ascii//TRANSLIT', $title);
+
+        // remove unwanted characters
+        $title = preg_replace('~[^-\w]+~', '', $title);
+
+        // trim
+        $title = trim($title, $divider);
+
+        // remove duplicate divider
+        $title = preg_replace('~-+~', $divider, $title);
+
+        // lowercase
+        $title = strtolower($title);
+
+        if (empty($title)) {
+            return 'n-a';
+        }
+
+        return $id . $divider . $title;
+    }
+}

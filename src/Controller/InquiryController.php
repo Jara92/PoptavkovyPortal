@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Business\Operation\InquiryOperation;
 use App\Entity\Inquiry\Inquiry;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
+use App\Helper\FlashHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,12 +15,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends AbstractController
 {
-    protected $inquiryService;
-    protected $inquiryFactory;
-    protected $translator;
+    protected InquiryService $inquiryService;
+    protected InquiryFactory $inquiryFactory;
+    protected TranslatorInterface $translator;
+    protected InquiryOperation $inquiryOperation;
 
-    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
+    public function __construct(InquiryOperation $inquiryOperation, InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
     {
+        $this->inquiryOperation = $inquiryOperation;
         $this->inquiryService = $inquiryService;
         $this->translator = $translator;
         $this->inquiryFactory = $inquiryFactory;
@@ -60,12 +64,17 @@ class InquiryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            dump($data);
+            //dump($data);
             dump($inquiry);
 
-            // ... perform some action, such as saving the task to the database
+            // Save the inquiry.
+            $this->inquiryOperation->createInquiry($inquiry);
 
-            //return $this->redirectToRoute('task_success');
+            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("inquiries.created"));
+
+            // TODO: remove form data.
+
+            return $this->redirectToRoute('inquiries');
         }
 
         // Same as $this->render('...', ['form' => $form->createView()])

@@ -8,6 +8,7 @@ use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
 use App\Repository\InquiryRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Inquiry
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
+ * @ORM\HasLifecycleCallbacks 
  */
 class Inquiry
 {
@@ -53,13 +55,13 @@ class Inquiry
     protected $city;
 
     /**
-     * @ORM\OneToOne(targetEntity=PersonalContact::class, inversedBy="inquiry", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=PersonalContact::class, inversedBy="inquiry", orphanRemoval=true, cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     protected $personalContact;
 
     /**
-     * @ORM\OneToOne(targetEntity=CompanyContact::class, inversedBy="inquiry", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=CompanyContact::class, inversedBy="inquiry", orphanRemoval=true, cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     protected $companyContact;
@@ -162,11 +164,11 @@ class Inquiry
         return $this->personalContact;
     }
 
-    public function setPersonalContact(PersonalContact $personalContact): self
+    public function setPersonalContact(?PersonalContact $personalContact): self
     {
         // set the owning side of the relation if necessary
-        if ($personalContact->getInquiry() !== $this) {
-            $personalContact->setInquiry($this);
+        if ($personalContact !== null && $personalContact->getInquiry() !== $this) {
+        //    $personalContact->setInquiry($this);
         }
 
         $this->personalContact = $personalContact;
@@ -179,11 +181,11 @@ class Inquiry
         return $this->companyContact;
     }
 
-    public function setCompanyContact(CompanyContact $companyContact): self
+    public function setCompanyContact(?CompanyContact $companyContact): self
     {
         // set the owning side of the relation if necessary
-        if ($companyContact->getInquiry() !== $this) {
-            $companyContact->setInquiry($this);
+        if ($companyContact !== null && $companyContact->getInquiry() !== $this) {
+            //$companyContact->setInquiry($this);
         }
 
         $this->companyContact = $companyContact;
@@ -208,7 +210,7 @@ class Inquiry
         return $this->state;
     }
 
-    public function setState(?InquiryState $state): self
+    public function setState(InquiryState $state): self
     {
         $this->state = $state;
 

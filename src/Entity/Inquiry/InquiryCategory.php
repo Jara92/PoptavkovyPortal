@@ -23,12 +23,6 @@ class InquiryCategory
     use AliasTrait;
 
     /**
-     * @ORM\Column(type="string", length=70, nullable=false, unique=true)
-     * @Assert\Length(min=4, max=70)
-     */
-    protected $alias;
-
-    /**
      * @ORM\Column(type="text", nullable=false)
      */
     protected $description;

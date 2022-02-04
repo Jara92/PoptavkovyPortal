@@ -23,12 +23,14 @@ class InquiryState
 
     use OrderingTrait;
 
+    const STATE_NEW = "new";
+
     /**
-     * @ORM\Column(type="string", length=16, unique=true)
+     * @ORM\Column(type="string", length=16, unique=true, nullable=true)
      * @Assert\Length(min=1, max=16)
      * @Assert\Unique
      */
-    protected $alias;
+    protected ?string $alias;
 
     /**
      * @ORM\Column(type="text", nullable=false)
