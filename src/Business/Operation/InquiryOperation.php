@@ -10,6 +10,7 @@ use App\Business\Service\UserService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
+use App\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Helper\UrlHelper;
 use Exception;
@@ -37,10 +38,20 @@ class InquiryOperation
 
     public function getNewInquiryDefaultType(): ?InquiryType
     {
-        if ($this->userService->isCompany()) {
-            $typeAlias = InquiryType::ALIAS_COMPANY;
-        } else {
-            $typeAlias = InquiryType::ALIAS_PERSONAL;
+        $user = $this->userService->getCurrentUser();
+
+        // According to userType set default Inquiry type.
+        $userType = $user? $user->getType()->getAlias():"";
+
+        switch ($userType ){
+            case UserType::TYPE_COMPANY:
+                $typeAlias = InquiryType::ALIAS_COMPANY;
+                break;
+            case UserType::TYPE_PERSONAL:
+                $typeAlias = InquiryType::ALIAS_PERSONAL;
+                break;
+            default:
+                $typeAlias = InquiryType::ALIAS_PERSONAL;
         }
 
         return $this->inquiryTypeService->getInquiryTypeByAlias($typeAlias);

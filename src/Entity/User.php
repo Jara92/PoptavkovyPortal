@@ -39,24 +39,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email
      */
-    protected $email;
+    protected string $email;
 
     /**
      * Contact phone number.
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    protected $phone;
+    protected ?string $phone;
 
     /**
      * @ORM\Column(type="json")
      */
-    protected $roles = [];
+    protected array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    protected $password;
+    protected string $password;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -66,12 +66,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    protected $isVerified = false;
+    protected bool $isVerified = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Inquiry::class, mappedBy="author")
      */
-    protected $inquiries;
+    protected Collection $inquiries;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UserType::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?UserType $type;
 
     public function __construct()
     {
@@ -239,6 +245,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $inquiry->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?UserType
+    {
+        return $this->type;
+    }
+
+    public function setType(?UserType $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
