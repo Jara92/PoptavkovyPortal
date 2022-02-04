@@ -36,10 +36,10 @@ terms-and-conditions:
     methods: GET
 
 # Auth
-login:
+app_login:
     path: /prihlaseni
-    controller: App\Controller\HomeController::home
-    methods: GET
+    controller: App\Controller\Auth\LoginController::login
+    methods: GET|POST
 
 app_register:
     path: /registrace
