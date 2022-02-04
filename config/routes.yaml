@@ -41,9 +41,14 @@ login:
     controller: App\Controller\HomeController::home
     methods: GET
 
-register:
+app_register:
     path: /registrace
-    controller: App\Controller\HomeController::home
+    controller: App\Controller\RegistrationController::register
+    methods: GET|POST
+
+app_verify_email:
+    path: /overeni-emailu
+    controller: App\Controller\RegistrationController::verifyUserEmail
     methods: GET
 
 logout:
