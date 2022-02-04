@@ -28,9 +28,11 @@ trait TimeStampTrait
     /**
      * @param mixed $createdAt
      */
-    public function setCreatedAt($createdAt): void
+    public function setCreatedAt($createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -44,9 +46,11 @@ trait TimeStampTrait
     /**
      * @param mixed $updatedAt
      */
-    public function setUpdatedAt($updatedAt): void
+    public function setUpdatedAt($updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
 
