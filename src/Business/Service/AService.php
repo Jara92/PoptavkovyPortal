@@ -71,7 +71,13 @@ class AService implements ICrudService
      */
     public function existsById($id): bool
     {
-        // TODO: Implement existsById() method.
+        $entity = $this->readById($id);
+
+        if($entity){
+            return true;
+        }
+
+        return false;
     }
 
     /**
