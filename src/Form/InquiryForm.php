@@ -42,7 +42,7 @@ class InquiryForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Inquiry::class,
-            'translation_domain' => "inquiries"
+            'translation_domain' => "messages"
         ]);
     }
 
@@ -51,21 +51,21 @@ class InquiryForm extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'required' => true,
-                'label' => "field_title",
+                'label' => "inquiries.field_title",
                 'attr' => [
-                    "placeholder" => "field_title_ph",
+                    "placeholder" => "inquiries.field_title_ph",
                 ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
-                'label' => "field_description",
+                'label' => "inquiries.field_description",
                 'attr' => [
-                    "placeholder" => "field_description_ph",
+                    "placeholder" => "inquiries.field_description_ph",
                 ]
             ])
             ->add("region", EntityType::class, [
                 'required' => true,
-                'label' => "field_region",
+                'label' => "inquiries.field_region",
                 // looks for choices from this entity
                 'class' => Region::class,
 
@@ -80,30 +80,29 @@ class InquiryForm extends AbstractType
             ])
             ->add("value", EntityType::class, [
                 'required' => true,
-                'label' => "field_value",
+                'label' => "inquiries.field_value",
                 // looks for choices from this entity
                 'class' => InquiryValue::class,
 
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',
+                'choice_translation_domain' => "messages",
 
-                'translation_domain' => "inquiries",
-                'choice_translation_domain' => "inquiries",
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
             ->add("deadline", EntityType::class, [
                 'required' => true,
-                'label' => "field_deadline",
+                'label' => "inquiries.field_deadline",
                 // looks for choices from this entity
                 'class' => Deadline::class,
 
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',
 
-                'translation_domain' => "inquiries",
-                'choice_translation_domain' => "inquiries",
+                'choice_translation_domain' => "messages",
+
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 // 'expanded' => true,
@@ -124,24 +123,25 @@ class InquiryForm extends AbstractType
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',
 
-                'choice_translation_domain' => "inquiries",
+                'translation_domain' => "messages",
+                'choice_translation_domain' => "messages",
+
                 // used to render a select box, check boxes or radios
                 // 'multiple' => true,
                 'expanded' => true,
             ])->add($builder->create('personalContact', FormType::class, [
-                'translation_domain' => "inquiries",
                 'by_reference' => false
             ])->add('name', TextType::class, [
-                'label' => "field_individual_name",
+                'label' => "inquiries.field_individual_name",
                 'attr' => [
-                    "placeholder" => "field_individual_name_ph",
+                    "placeholder" => "inquiries.field_individual_name_ph",
                 ],
                 'required' => true,
             ])
                 ->add('surname', TextType::class, [
-                    'label' => "field_individual_surname",
+                    'label' => "inquiries.field_individual_surname",
                     'attr' => [
-                        "placeholder" => "field_individual_surname_ph",
+                        "placeholder" => "inquiries.field_individual_surname_ph",
                     ],
                     'required' => true
                 ])
@@ -150,38 +150,38 @@ class InquiryForm extends AbstractType
                 'by_reference' => false
             ])
                 ->add('name', TextType::class, [
-                    'label' => "field_firm_name",
+                    'label' => "inquiries.field_firm_name",
                     'attr' => [
-                        "placeholder" => "field_firm_name_ph",
+                        "placeholder" => "inquiries.field_firm_name_ph",
                     ],
                     'required' => true
                 ])
             )
             ->add("contactEmail", EmailType::class, [
-                'label' => "field_email",
+                'label' => "inquiries.field_email",
                 'attr' => [
-                    "placeholder" => "field_email_ph",
+                    "placeholder" => "inquiries.field_email_ph",
                 ],
             ])
             // TODO: Create a custom type for a phone number.
             ->add("contactPhone", TextType::class, [
                 'required' => false,
-                'label' => "field_phone",
+                'label' => "inquiries.field_phone",
                 'attr' => [
-                    "placeholder" => "field_phone_ph",
+                    "placeholder" => "inquiries.field_phone_ph",
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "btn_submit",
+                'label' => "inquiries.btn_submit",
             ])
             ->add("gdpr", CheckboxType::class, [
-                'label' => "field_gdpr_agree",
+                'label' => "inquiries.field_gdpr_agree",
                 'required' => true,
                 // This is an extra field which is not represented in Inquiry entity.
                 'mapped' => false,
             ])
             ->add("terms", CheckboxType::class, [
-                'label' => "field_terms_agree",
+                'label' => "inquiries.field_terms_agree",
                 'label_html' => true,
                 'required' => true,
                 // This is an extra field which is not represented in Inquiry entity.
