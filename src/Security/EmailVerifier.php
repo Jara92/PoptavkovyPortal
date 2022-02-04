@@ -35,7 +35,7 @@ class EmailVerifier
             ->from(new Address('info@poptejsi.cz', 'Poptejsi.cz'))
             ->to($user->getEmail())
             ->subject('Please Confirm your Email')
-            ->htmlTemplate('registration/confirmation_email.html.twig');
+            ->htmlTemplate('auth/confirmation_email.html.twig');
     }
 
     /**

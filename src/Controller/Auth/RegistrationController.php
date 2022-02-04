@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Auth;
 
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
@@ -59,7 +59,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('auth/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
