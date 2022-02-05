@@ -36,7 +36,7 @@ auth:
   register_company: "Jsem podnikatel / firma"
   register_company_desc: "Tuto možnost využijte, pokud jste podnikatel / firma a chcete získat přístup k naší databázi poptávek. Jako firma také můžete služby poptávat."
 
-  already_registered: "Už jste zaregistrován?"
+  already_registered: "Už u nás máte účet?"
   already_logged_in: "Už jste přihlášen."
 
   btn_register_person: "Registrace zákazníka"
