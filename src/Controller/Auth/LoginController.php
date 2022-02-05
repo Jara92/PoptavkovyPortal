@@ -13,6 +13,8 @@ class LoginController extends AbstractController
 {
     public function login(LoginFormFactory $loginFormFactory, UserService $userService, TranslatorInterface $translator): Response
     {
+        // TODO: flash message "please log in to access this page" when "next" URL is set.
+
         // Check if the user is already logged in
         if($userService->isLoggedIn()){
             $this->addFlash(FlashHelper::NOTICE, $translator->trans("auth.already_logged_in"));

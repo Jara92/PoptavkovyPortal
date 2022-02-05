@@ -15,26 +15,27 @@
                 <div class="col-md-6 login-form">
                     <h3>{{ "auth.login"|trans }}</h3>
                     {{ form_start(form) }}
-                        <div class="errors">
-                            {{ form_errors(form) }}
-                        </div>
+                    {# Style errors. #}
+                    <div class="errors">
+                        {{ form_errors(form) }}
+                    </div>
 
-                        <div class="form-group">
-                            {{ form_row(form._username, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="form-group">
-                            {{ form_row(form._password, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                    <div class="form-group">
+                        {{ form_row(form._username, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form._password, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                     <div class="form-group">
                         {{ form_row(form._remember_me, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                        <div class="form-group">
-                            {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-submit'}}) }}
-                        </div>
+                    <div class="form-group">
+                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-submit'}}) }}
+                    </div>
 
-                        <div class="form-group">
-                            <a href="#" class="btn-forget-password">{{ "auth.btn_forgotten_password"|trans }}</a>
-                        </div>
+                    <div class="form-group">
+                        <a href="#" class="btn-forget-password">{{ "auth.btn_forgotten_password"|trans }}</a>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
