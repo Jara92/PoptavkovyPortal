@@ -137,6 +137,14 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
 }
 
 /** Category multichoise */
+.radios-inline .form-check{
+  float: left;
+}
+
+.form-check{
+  padding-left: 1.7em;
+}
+
 .choices__list--multiple .choices__item {
   background-color: $template !important;
   border: 1px solid $template_dark !important;
