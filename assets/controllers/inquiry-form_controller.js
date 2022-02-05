@@ -5,27 +5,26 @@ import {Controller} from '@hotwired/stimulus';
  * Implements switching between personal/company contact forms.
  */
 export default class extends Controller {
-    static targets = [ "inquiryType", "companyFields", "personalFields" ];
+    static targets = ["inquiryType", "companyFields", "personalFields"];
 
-    personalFields = ["#inquiry_form_personalContact_name", "#inquiry_form_personalContact_surname"];
-    companyFields = ["#inquiry_form_companyContact_companyName"]
-
-    personalAlias;
-    companyAlias;
+    personalAlias = "personal";
+    companyAlias = "company";
 
     constructor(context) {
         super(context);
-
-        this.personalAlias = "personal";
-        this.companyAlias = "company";
 
         // Update fields state on load.
         this.updateFields();
     }
 
+    /**
+     * Update dynamic contact fields according to selected inquiry type.
+     */
     updateFields() {
+        // Get inquiry type value.
         let inquiryType = jQuery(this.inquiryTypeTarget).find("input:checked").first().val();
 
+        // Show correct fields and hide the other ones.
         if (inquiryType === this.personalAlias) {
             return this.makeInquiryPersonal();
         } else if (inquiryType === this.companyAlias) {
@@ -36,31 +35,50 @@ export default class extends Controller {
         console.error("Unknown inquiry type: " + inquiryType);
     }
 
+    /** Returns all personal input fields. */
+    getPersonalFields() {
+        return this.getChildInputs(this.personalFieldsTarget);
+    }
+
+    /** Returns all company input fields. */
+    getCompanyFields() {
+        return this.getChildInputs(this.companyFieldsTarget);
+    }
+
+    /** Returns all <input> element in given element. */
+    getChildInputs(element) {
+        return jQuery(element).find("input");
+    }
+
+    /** Shows personal data and hides the others. */
     makeInquiryPersonal() {
-        this.makeRequired(this.personalFields);
-        this.makeUnrequired(this.companyFields);
+        this.makeRequired(this.getPersonalFields());
+        this.makeUnrequired(this.getCompanyFields());
 
         jQuery(this.personalFieldsTarget).show();
         jQuery(this.companyFieldsTarget).hide();
     }
 
+    /** Shows company data and hides the others. */
     makeInquiryCompany() {
-        this.makeRequired(this.companyFields);
-        this.makeUnrequired(this.personalFields);
+        this.makeRequired(this.getCompanyFields());
+        this.makeUnrequired(this.getPersonalFields());
 
         jQuery(this.companyFieldsTarget).show();
         jQuery(this.personalFieldsTarget).hide();
     }
 
+    /** Adds "required" attribute to given fields. */
     makeRequired(fields) {
-        fields.forEach(function (value) {
-            jQuery(value).prop('required', true);
+        fields.each(function () {
+            jQuery(this).attr('required', true);
         });
     }
 
+    /** Removes "required" attribute of the given fields. */
     makeUnrequired(fields) {
-        fields.forEach(function (value) {
-            jQuery(value).removeAttr('required');
+        fields.each(function () {
+            jQuery(this).removeAttr('required');
         });
     }
 }
