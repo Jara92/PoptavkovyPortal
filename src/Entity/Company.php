@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\IdTrait;
 use App\Repository\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
@@ -15,31 +16,42 @@ class Company
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Assert\Length (max=64)
      */
     private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Assert\NotBlank
+     * @Assert\Length (max=32)
      */
     private ?string $indentificationNumber;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, nullable=true)
+     * @Assert\Length (max=32)
      */
     private ?string $taxIdentificationNumber;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Assert\Length (max=64)
      */
     private ?string $addressStreet;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Assert\NotBlank
+     * @Assert\Length (max=32)
      */
     private ?string $addressCity;
 
     /**
      * @ORM\Column(type="string", length=16)
+     * @Assert\NotBlank
+     * @Assert\Length (max=16)
      */
     private ?string $addressZipCode;
 
