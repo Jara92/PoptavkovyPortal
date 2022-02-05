@@ -11,6 +11,7 @@ use App\Factory\UserFactory;
 use App\Form\RegisterPersonForm;
 use App\Form\RegistrationFormType;
 use App\Form\UserForm;
+use App\Helper\FlashHelper;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -23,6 +24,7 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -32,6 +34,8 @@ class RegistrationController extends AbstractController
     protected $userService;
 
     protected $userFactory;
+
+    protected TranslatorInterface $translator;
 
     /** @required */
     public EmailVerifier $emailVerifier;
@@ -43,15 +47,22 @@ class RegistrationController extends AbstractController
     const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
     const AFTER_VERIFY = "inquiries";
 
-    public function __construct(UserOperation $userOperation, UserService $userService, UserFactory $userFactory)
+    public function __construct(UserOperation $userOperation, UserService $userService, UserFactory $userFactory,
+                                TranslatorInterface $translator)
     {
         $this->userOperation = $userOperation;
         $this->userService = $userService;
         $this->userFactory = $userFactory;
+        $this->translator = $translator;
     }
 
     public function index():Response{
-        // Redirect logged users.
+        // Check if the user is already logged in
+        if($this->userService->isLoggedIn()){
+            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_registered"));
+
+            return $this->redirectToRoute("home");
+        }
 
         return $this->render('auth/register.html.twig');
     }
@@ -79,6 +90,13 @@ class RegistrationController extends AbstractController
      * @throws TransportExceptionInterface
      */
     protected function register(FormInterface $form, User $user, Request $request) : Response{
+        // Check if the user is already logged in
+        if($this->userService->isLoggedIn()){
+            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_registered"));
+
+            return $this->redirectToRoute("home");
+        }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
