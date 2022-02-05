@@ -5,10 +5,7 @@ import {Controller} from '@hotwired/stimulus';
  * Implements switching between personal/company contact forms.
  */
 export default class extends Controller {
-    static targets = [ "inquiryType" ];
-
-    companyFieldsContainerId = "#company-inquiry-fields";
-    personalFieldsContainerId = "#personal-inquiry-fields";
+    static targets = [ "inquiryType", "companyFields", "personalFields" ];
 
     personalFields = ["#inquiry_form_personalContact_name", "#inquiry_form_personalContact_surname"];
     companyFields = ["#inquiry_form_companyContact_companyName"]
@@ -43,16 +40,16 @@ export default class extends Controller {
         this.makeRequired(this.personalFields);
         this.makeUnrequired(this.companyFields);
 
-        jQuery(this.personalFieldsContainerId).show();
-        jQuery(this.companyFieldsContainerId).hide();
+        jQuery(this.personalFieldsTarget).show();
+        jQuery(this.companyFieldsTarget).hide();
     }
 
     makeInquiryCompany() {
         this.makeRequired(this.companyFields);
         this.makeUnrequired(this.personalFields);
 
-        jQuery(this.companyFieldsContainerId).show();
-        jQuery(this.personalFieldsContainerId).hide();
+        jQuery(this.companyFieldsTarget).show();
+        jQuery(this.personalFieldsTarget).hide();
     }
 
     makeRequired(fields) {

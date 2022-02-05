@@ -87,7 +87,7 @@
 
                                     {{ form_row(form.type, {'attr': {'class': 'form-check', 'id':'inquiry-type', 'data-action':'change->inquiry-form#updateFields', 'data-inquiry-form-target':'inquiryType'}}) }}
 
-                                    <div class="row" id="personal-inquiry-fields">
+                                    <div class="row" id="personal-inquiry-fields" data-inquiry-form-target="personalFields">
                                         <div class="col-md-6">
                                             {{ form_row(form.personalContact.name, {'attr': {'class': 'form-control', 'id': 'personal-name'}}) }}
                                         </div>
@@ -97,7 +97,7 @@
                                         </div>
                                     </div>
 
-                                    <div id="company-inquiry-fields">
+                                    <div id="company-inquiry-fields" data-inquiry-form-target="companyFields">
                                         {{ form_row(form.companyContact.companyName, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
                                     </div>
 
