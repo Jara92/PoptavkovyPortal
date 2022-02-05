@@ -54,8 +54,20 @@ auth:
   field_password_again: "Heslo znovu"
 
 # Users
-users:
-
+user:
+  field_address_street: "Ulice a číslo popisné"
+  field_address_street_ph: ""
+  field_address_city: "Město"
+  field_address_city_ph: ""
+  field_address_zip_code: "PSČ"
+  field_address_zip_code_ph: ""
+  field_identification_number: "IČ"
+  field_identification_number_ph: ""
+  field_tax_identification_number: "DIČ"
+  field_tax_identification_number_ph: ""
+  field_company_name: "Jméno firmy"
+  field_company_name_ph: "Firma s.r.o"
+  company_information_note: "Uvedné údaje nejsou kromě názvu firmy viditelné pro ostatní uživatele systému."
 
 #Articles
 articles:
@@ -169,23 +181,11 @@ inquiries:
   admin_field_categories_desc: "Pečlivě zvolte kategorie, do kterých spadá daná poptávka."
   select_categories: "Vyhledejte kategorie..."
   field_attachments: "Přílohy"
-  field_firm_name: "Název firmy"
-  field_firm_name_ph: "Např. Novák s.r.o."
-  firm_information_note: "Níže uvedené údaje nejsou viditelné pro veřejnost."
   field_gdpr_agree: "Souhlasím se zpracováním osobních údajů"
   field_terms_agree: "Souhlasím s <a href='%link%' target='_blank' class='btn btn-link p-0'>obchodními podmínkami</a>"
-  field_firm_address_street: "Ulice a číslo popisné"
-  field_firm_address_street_ph: ""
-  field_firm_address_city: "Město"
-  field_firm_address_city_ph: ""
-  field_firm_address_zip_code: "PSČ"
-  field_firm_address_zip_code_ph: ""
-  field_firm_in: "IČ"
-  field_firm_in_ph: ""
-  field_firm_tin: "DIČ"
-  field_firm_tin_ph: ""
   field_person_name: "Jméno"
   field_person_name_ph: "Např. Pavel"
+
   field_person_surname: "Příjmení"
   field_person_surname_ph: "Např. Novák"
   admin_field_state: "Stav poptávky"

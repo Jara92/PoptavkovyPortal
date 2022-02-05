@@ -8,6 +8,7 @@ use App\Business\Service\UserTypeService;
 use App\Entity\User;
 use App\Entity\UserType;
 use App\Factory\UserFactory;
+use App\Form\RegisterCompanyForm;
 use App\Form\RegisterPersonForm;
 use App\Helper\FlashHelper;
 use App\Security\EmailVerifier;
@@ -71,17 +72,25 @@ class RegistrationController extends AbstractController
 
         $form = $this->createForm(RegisterPersonForm::class, $user);
 
-        return $this->register($form, $user, $request);
+        return $this->register($form, $user, $request, "auth/register_person.html.twig");
     }
 
-    public function registerCompany(Request $request){
-        // TODO:
+    public function registerCompany(Request $request): Response
+    {
+        $user = $this->userFactory->createBlank();
+
+        // Set user type.
+        $user->setType($this->userTypeService->readByAlias(UserType::TYPE_COMPANY));
+
+        $form = $this->createForm(RegisterCompanyForm::class, $user);
+
+        return $this->register($form, $user, $request, "auth/register_company.html.twig");
     }
 
     /**
      * @throws TransportExceptionInterface
      */
-    protected function register(FormInterface $form, User $user, Request $request) : Response{
+    protected function register(FormInterface $form, User $user, Request $request, $template) : Response{
         // Check if the user is already logged in
         if($this->userService->isLoggedIn()){
             $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_registered"));
@@ -107,7 +116,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
         }
 
-        return $this->render('auth/register_person.html.twig', [
+        return $this->render($template, [
             'form' => $form->createView(),
         ]);
     }

@@ -26,7 +26,7 @@ class Company
      * @Assert\NotBlank
      * @Assert\Length (max=32)
      */
-    private ?string $indentificationNumber;
+    private ?string $identificationNumber;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
@@ -72,14 +72,14 @@ class Company
         return $this;
     }
 
-    public function getIndentificationNumber(): ?string
+    public function getIdentificationNumber(): ?string
     {
-        return $this->indentificationNumber;
+        return $this->identificationNumber;
     }
 
-    public function setIndentificationNumber(string $indentificationNumber): self
+    public function setIdentificationNumber(string $identificationNumber): self
     {
-        $this->indentificationNumber = $indentificationNumber;
+        $this->identificationNumber = $identificationNumber;
 
         return $this;
     }

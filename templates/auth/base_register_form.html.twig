@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 register-tab-right">
-                    <h3 class="register-tab-heading">{{ "auth.btn_register_person"|trans }}</h3>
+                    <h3 class="register-tab-heading">{% block registration_type %}{% endblock %}</h3>
                     {% block register_form %}
                         <div class="row register-tab-form">
                             <div class="col-md-6">
