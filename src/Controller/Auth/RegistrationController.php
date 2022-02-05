@@ -4,9 +4,13 @@ namespace App\Controller\Auth;
 
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
+use App\Business\Service\UserTypeService;
 use App\Entity\User;
+use App\Entity\UserType;
 use App\Factory\UserFactory;
+use App\Form\RegisterPersonForm;
 use App\Form\RegistrationFormType;
+use App\Form\UserForm;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -53,15 +57,19 @@ class RegistrationController extends AbstractController
     public function registerPerson(Request $request): Response
     {
         $user = $this->userFactory->createBlank();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+
+        $form = $this->createForm(RegisterPersonForm::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Get blank password and register the user.
             $blankPassword = $form->get('plainPassword')->getData();
 
-            if ($this->userOperation->register($user, $blankPassword)) {
-                $this->addFlash('success', "successfully_registred");
+            dump($user);
+
+            if ($this->userOperation->registerPersonal($user, $blankPassword)) {
+                $this->addFlash('success', "auth.successfully_registred");
+
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
             }
@@ -70,7 +78,7 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('auth/register_person.html.twig', [
-            'registrationForm' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 

@@ -39,8 +39,13 @@ auth:
   btn_register_person: "Registrace zákazníka"
   btn_register_company: "Registrace firmy"
 
+  passwords_must_match: "Hesla se musí shodovat."
   email_already_registred: "Zadaná emailová adresa je již zabraná."
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím klikněte na odkaz zaslaný na Váš email."
+
+# Users
+users:
+
 
 #Articles
 articles:
@@ -166,10 +171,10 @@ inquiries:
   "field_firm_in_ph": ""
   "field_firm_tin": "DIČ"
   "field_firm_tin_ph": ""
-  "field_individual_name": "Jméno"
-  "field_individual_name_ph": "Např. Pavel"
-  "field_individual_surname": "Příjmení"
-  "field_individual_surname_ph": "Např. Novák"
+  "field_person_name": "Jméno"
+  "field_person_name_ph": "Např. Pavel"
+  "field_person_surname": "Příjmení"
+  "field_person_surname_ph": "Např. Novák"
   "admin_field_state": "Stav poptávky"
   "SEARCH_CATEGORY": "Vyhledat kategorie: "
   "personal_informations": "Osobní údaje"

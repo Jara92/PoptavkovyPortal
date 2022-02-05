@@ -21,4 +21,8 @@ class UserTypeService extends AService
     {
         parent::__construct($userRepository);
     }
+
+    public function readByAlias(string $alias){
+        return $this->repository->findOneBy(["alias" => $alias]);
+    }
 }
