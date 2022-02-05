@@ -112,11 +112,14 @@ inquiries:
   new_inquiry_help: "Nevíte si rady?"
 
   form_card_info_title: "Informace o poptávce"
-  form_card_info_desc: "Zadejte základní informace o Vaší poptávce. Snažte se co nejlépe popsat, co potřebujete,
-  aby byli dodavatelé schopni Vám nabídnout co nejlepší cenu. Nebojte se doplnit poptávku přílohami."
+  form_card_info_step: "1. krok"
+  form_card_info_desc: "Vyplňte informace o tom, co poptáváte. Pro získání nejlepších nabídek je potřeba co nejspřesnější popis.
+   Nebojte se doplnit poptávku přílohami."
   form_card_params_title: "Detaily poptávky"
+  form_card_params_step: "2. krok"
   form_card_params_desc: "Zadejte doplňující informace poptávky, které nám pomohou najít správného dodavatele."
   form_card_contact_title: "Kontaktní údaje"
+  form_card_contact_step: "3. krok"
   form_card_contact_desc: "Zadejte Vaše kontaktní údaje, aby Vás potencionální dodavatel mohl kontaktovat."
 
   attachments: "Přílohy"
