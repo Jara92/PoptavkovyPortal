@@ -5,6 +5,8 @@ import {Controller} from '@hotwired/stimulus';
  * Implements switching between personal/company contact forms.
  */
 export default class extends Controller {
+    static targets = [ "inquiryType" ];
+
     companyFieldsContainerId = "#company-inquiry-fields";
     personalFieldsContainerId = "#personal-inquiry-fields";
 
@@ -25,7 +27,7 @@ export default class extends Controller {
     }
 
     updateFields() {
-        let inquiryType = jQuery('#inquiry_form_type > input:checked').val();
+        let inquiryType = jQuery(this.inquiryTypeTarget).find("input:checked").first().val();
 
         if (inquiryType === this.personalAlias) {
             return this.makeInquiryPersonal();
@@ -33,7 +35,8 @@ export default class extends Controller {
             return this.makeInquiryCompany()
         }
 
-        console.error("Unknown inquiry type.");
+        // This should not happen
+        console.error("Unknown inquiry type: " + inquiryType);
     }
 
     makeInquiryPersonal() {
@@ -53,13 +56,13 @@ export default class extends Controller {
     }
 
     makeRequired(fields) {
-        fields.forEach(function (value, index, array) {
+        fields.forEach(function (value) {
             jQuery(value).prop('required', true);
         });
     }
 
     makeUnrequired(fields) {
-        fields.forEach(function (value, index, array) {
+        fields.forEach(function (value) {
             jQuery(value).removeAttr('required');
         });
     }

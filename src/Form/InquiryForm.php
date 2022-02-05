@@ -125,7 +125,6 @@ class InquiryForm extends AbstractType
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',
 
-                'translation_domain' => "messages",
                 'choice_translation_domain' => "messages",
 
                 // used to render a select box, check boxes or radios
