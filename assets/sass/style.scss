@@ -141,8 +141,8 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   float: left;
 }
 
-.form-check{
-  padding-left: 1.7em;
+label.form-check-label.required:before{
+  content: none;
 }
 
 .choices__list--multiple .choices__item {

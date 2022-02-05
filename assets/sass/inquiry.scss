@@ -65,11 +65,10 @@
     margin-right: 5px;
 }
 .inquiry-create form .form-footer{
-    text-align: center;
 
-    label{
-        margin: 0 10px 5px 0;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .btn-primary{
         font-size: 1.5rem;
@@ -338,3 +337,5 @@
 .inquiry-saved .saved-container p{
     font-size: 1.0rem;
 }
+
+
