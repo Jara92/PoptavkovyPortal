@@ -32,19 +32,8 @@
                             {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-submit'}}) }}
                         </div>
 
-                    {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
-                    </div>
-                    #}
-
                         <div class="form-group">
-                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                            <a href="#" class="btn-forget-password">{{ "auth.btn_forgotten_password"|trans }}</a>
                         </div>
                     {{ form_end(form) }}
                 </div>

@@ -41,10 +41,12 @@ auth:
 
   btn_register_person: "Registrace zákazníka"
   btn_register_company: "Registrace firmy"
+  btn_forgotten_password: "Zapomenuté heslo?"
+  field_remember_me: "Pamatuj si mě"
 
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím klikněte na odkaz zaslaný na Váš email."
 
-  field_email: "Kontaktní email"
+  field_email: "Email"
   field_email_ph: "Např. pavel.novak@seznam.cz"
   field_phone: "Kontaktní telefon"
   field_phone_ph: "Např. 123 456 789"
