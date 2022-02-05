@@ -2,8 +2,58 @@
 
 {% block title %}Hello LoginController!{% endblock %}
 
-{% block content %}
+{% block styles %}
+    <style>
 
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="auth-login">
+        <div class="container login-container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 login-form">
+                    <h3>{{ "auth.login"|trans }}</h3>
+                    {{ form_start(form) }}
+                        <div class="errors">
+                            {{ form_errors(form) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_row(form._username, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form._password, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    <div class="form-group">
+                        {{ form_row(form._remember_me, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                        <div class="form-group">
+                            {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-submit'}}) }}
+                        </div>
+
+                    {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                    #}
+
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block old %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -20,5 +70,4 @@
 
         <button type="submit">login</button>
     </form>
-
 {% endblock %}

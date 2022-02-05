@@ -277,12 +277,49 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   }
 }
 
-
 @media (max-width: 768px) {
   .auth.register {
     .register-options {
       flex-direction: column;
     }
+  }
+}
+
+/* Login page */
+.auth-login{
+  .login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  .login-form{
+    padding: 5%;
+    background: $template;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+  .login-form h3{
+    text-align: center;
+    color: #fff;
+  }
+  .login-container form{
+    padding: 10%;
+  }
+  .btn-submit
+  {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+  }
+  .login-form .btn-submit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+  }
+  .login-form .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
   }
 }
 

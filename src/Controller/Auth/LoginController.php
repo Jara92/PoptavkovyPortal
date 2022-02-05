@@ -2,24 +2,29 @@
 
 namespace App\Controller\Auth;
 
+use App\Business\Service\UserService;
+use App\Factory\LoginFormFactory;
+use App\Helper\FlashHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginController extends AbstractController
 {
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(LoginFormFactory $loginFormFactory, UserService $userService, TranslatorInterface $translator): Response
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
+        // Check if the user is already logged in
+        if($userService->isLoggedIn()){
+            $this->addFlash(FlashHelper::NOTICE, $translator->trans("auth.already_logged_in"));
 
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+            return $this->redirectToRoute("home");
+        }
 
-        return $this->render('auth/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
+        // Create a login form.
+        $form = $loginFormFactory->createLoginForm();
+
+        return $this->renderForm('auth/login.html.twig', [
+            'form' => $form
         ]);
     }
 }
