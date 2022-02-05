@@ -79,6 +79,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?UserType $type;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Person::class, cascade={"persist", "remove"})
+     */
+    private $person;
+
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
@@ -257,6 +262,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setType(?UserType $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }
