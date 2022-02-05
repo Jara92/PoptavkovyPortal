@@ -59,25 +59,25 @@ class UserForm extends AbstractType
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
-                'invalid_message' => 'auth.passwords_must_match',
+                'invalid_message' => 'passwords_must_match',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'auth.field_password'],
                 'second_options' => ['label' => 'auth.field_password_again'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'auth.empty_password',
+
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "auth.btn_register",
+                'label' => "auth.register"
             ])
             ->add("gdpr", CheckboxType::class, [
                 'label' => "inquiries.field_gdpr_agree",

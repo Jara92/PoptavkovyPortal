@@ -1,25 +1,74 @@
-{% extends 'base.html.twig' %}
+{% extends 'auth/base_register_form.html.twig' %}
+
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
 
 {% block title %}{{ "auth.registration"|trans }}{% endblock %}
 
-{% block content %}
-    {{ form(form) }}
+{% block registration_title %}Vítejte{% endblock %}
+{% block registration_desc %}Jste jen krůček od přístupu k jedné z nějvětších databází poptávek!{% endblock %}
+
+{% block register_form %}
+    {{ form_start(form) }}
+    <div class="row register-tab-form">
+        <div class="errors">
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                {{ form_row(form.person.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.person.surname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.phone, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.gdpr, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.terms, {'attr': {'class': 'form-control'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-register'}}) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}
 
-{% block a %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+        {% block a %}
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
 
-    <h1>Registrace</h1>
+            <h1>Registrace</h1>
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword, {
-        label: 'Password'
-    }) }}
-    {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
 
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+            <button type="submit" class="btn">Register</button>
+            {{ form_end(registrationForm) }}
+        {% endblock %}
