@@ -15,6 +15,8 @@ use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -34,6 +36,9 @@ class RegistrationController extends AbstractController
     /** @required */
     public EmailVerifier $emailVerifier;
 
+    /** @required */
+    public UserTypeService $userTypeService;
+
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
     const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
     const AFTER_VERIFY = "inquiries";
@@ -45,7 +50,7 @@ class RegistrationController extends AbstractController
         $this->userFactory = $userFactory;
     }
 
-    public function register():Response{
+    public function index():Response{
         // Redirect logged users.
 
         return $this->render('auth/register.html.twig');
@@ -58,7 +63,22 @@ class RegistrationController extends AbstractController
     {
         $user = $this->userFactory->createBlank();
 
+        // Set user type.
+        $user->setType($this->userTypeService->readByAlias(UserType::TYPE_PERSONAL));
+
         $form = $this->createForm(RegisterPersonForm::class, $user);
+
+        return $this->register($form, $user, $request);
+    }
+
+    public function registerCompany(Request $request){
+        // TODO:
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    protected function register(FormInterface $form, User $user, Request $request) : Response{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +87,7 @@ class RegistrationController extends AbstractController
 
             dump($user);
 
-            if ($this->userOperation->registerPersonal($user, $blankPassword)) {
+            if ($this->userOperation->register($user, $blankPassword)) {
                 $this->addFlash('success', "auth.successfully_registred");
 
                 // generate a signed url and email it to the user
@@ -80,10 +100,6 @@ class RegistrationController extends AbstractController
         return $this->render('auth/register_person.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    public function registerCompany(Request $request){
-        // TODO:
     }
 
     public function verifyUserEmail(Request $request): Response

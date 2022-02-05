@@ -21,9 +21,6 @@ class UserOperation
     /** @var EmailVerifier */
     protected $emailVerifier;
 
-    /** @required */
-    public UserTypeService $userTypeService;
-
     public function __construct(UserService $userService, UserPasswordHasherInterface $passwordHasher, EmailVerifier $emailVerifier)
     {
         $this->userService = $userService;
@@ -31,19 +28,18 @@ class UserOperation
         $this->emailVerifier = $emailVerifier;
     }
 
-    public function registerPersonal(User $user, string $blankPassword): bool
-    {
-        // Set user type.
-        $user->setType($this->userTypeService->readByAlias(UserType::TYPE_PERSONAL));
-
-        // Set roles
-        $user->addRole(User::ROLE_INQUIRING);
-
-        return $this->register($user, $blankPassword);
-    }
-
     public function register(User $user, string $blankPassword): bool
     {
+        // Set roles
+        switch ($user->getType()->getAlias()) {
+            case UserType::TYPE_PERSONAL:
+                $user->addRole(User::ROLE_INQUIRING);
+                break;
+
+            case UserType::TYPE_COMPANY:
+                $user->addRole(User::ROLE_SUPPLIER);
+        }
+
         $passwordHash = $this->passwordHasher->hashPassword($user, $blankPassword);
 
         $user->setPassword($passwordHash);

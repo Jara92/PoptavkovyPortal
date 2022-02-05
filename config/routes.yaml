@@ -48,7 +48,7 @@ app_login:
 
 app_register:
     path: /registrace
-    controller: App\Controller\Auth\RegistrationController::register
+    controller: App\Controller\Auth\RegistrationController::index
     methods: GET|POST
 
 app_register_person:
