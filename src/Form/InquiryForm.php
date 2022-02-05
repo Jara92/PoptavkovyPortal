@@ -135,16 +135,16 @@ class InquiryForm extends AbstractType
                 'by_reference' => true,
                 'data_class' => PersonalContact::class
             ])->add('name', TextType::class, [
-                'label' => "inquiries.field_individual_name",
+                'label' => "inquiries.field_person_name",
                 'attr' => [
-                    "placeholder" => "inquiries.field_individual_name_ph",
+                    "placeholder" => "inquiries.field_person_name_ph",
                 ],
                 'required' => true,
             ])
                 ->add('surname', TextType::class, [
-                    'label' => "inquiries.field_individual_surname",
+                    'label' => "inquiries.field_person_surname",
                     'attr' => [
-                        "placeholder" => "inquiries.field_individual_surname_ph",
+                        "placeholder" => "inquiries.field_person_surname_ph",
                     ],
                     'required' => true
                 ])
