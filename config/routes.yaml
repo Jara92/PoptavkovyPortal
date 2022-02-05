@@ -51,6 +51,16 @@ app_register:
     controller: App\Controller\Auth\RegistrationController::register
     methods: GET|POST
 
+app_register_person:
+    path: /registrace/zakaznik
+    controller: App\Controller\Auth\RegistrationController::registerPerson
+    methods: GET|POST
+
+app_register_company:
+    path: /registrace/firma
+    controller: App\Controller\Auth\RegistrationController::registerCompany
+    methods: GET|POST
+
 app_verify_email:
     path: /overeni-emailu
     controller: App\Controller\Auth\RegistrationController::verifyUserEmail

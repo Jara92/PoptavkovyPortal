@@ -13,6 +13,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +41,16 @@ class RegistrationController extends AbstractController
         $this->userFactory = $userFactory;
     }
 
-    public function register(Request $request): Response
+    public function register():Response{
+        // Redirect logged users.
+
+        return $this->render('auth/register.html.twig');
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    public function registerPerson(Request $request): Response
     {
         $user = $this->userFactory->createBlank();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -59,9 +69,13 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
         }
 
-        return $this->render('auth/register.html.twig', [
+        return $this->render('auth/register_person.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    public function registerCompany(Request $request){
+        // TODO:
     }
 
     public function verifyUserEmail(Request $request): Response
