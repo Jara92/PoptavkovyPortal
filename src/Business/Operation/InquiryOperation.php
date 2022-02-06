@@ -13,6 +13,7 @@ use App\Entity\Inquiry\InquiryType;
 use App\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Helper\UrlHelper;
+use App\Security\UserSecurity;
 use Exception;
 
 class InquiryOperation
@@ -29,6 +30,9 @@ class InquiryOperation
     /** @required */
     public InquiryStateService $inquiryStateService;
 
+    /** @required  */
+    public UserSecurity $security;
+
     public function __construct(InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, UserService $userService)
     {
         $this->inquiryService = $inquiryService;
@@ -38,7 +42,7 @@ class InquiryOperation
 
     public function getNewInquiryDefaultType(): ?InquiryType
     {
-        $user = $this->userService->getCurrentUser();
+        $user = $this->security->getUser();
 
         // According to userType set default Inquiry type.
         $userType = $user? $user->getType()->getAlias():"";
@@ -82,7 +86,7 @@ class InquiryOperation
         $inquiry->setState($state);
 
         // Set inquiry author.
-        $inquiry->setAuthor($this->userService->getCurrentUser());
+        $inquiry->setAuthor($this->security->getUser());
 
         $this->inquiryService->create($inquiry);
 

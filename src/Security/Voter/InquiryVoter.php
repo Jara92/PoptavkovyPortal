@@ -2,7 +2,6 @@
 
 namespace App\Security\Voter;
 
-use App\Business\Service\UserService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\User;
@@ -30,7 +29,7 @@ class InquiryVoter extends AVoter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        $user = $this->userService->getCurrentUser();
+        $user = $this->security->getUser();
 
         // SuperUser can do anything.
         if($this->security->isGranted(User::ROLE_SUPER_ADMIN)){
@@ -72,7 +71,7 @@ class InquiryVoter extends AVoter
     private function canEdit(Inquiry $inquiry, ?User $user): bool
     {
         // The use must be logged in.
-        if(!$this->userService->isLoggedIn()){
+        if(!$this->security->isLoggedIn()){
             return false;
         }
 

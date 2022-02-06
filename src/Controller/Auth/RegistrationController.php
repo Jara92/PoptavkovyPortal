@@ -12,6 +12,7 @@ use App\Form\RegisterCompanyForm;
 use App\Form\RegisterPersonForm;
 use App\Helper\FlashHelper;
 use App\Security\EmailVerifier;
+use App\Security\UserSecurity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,9 @@ class RegistrationController extends AbstractController
     /** @required */
     public UserTypeService $userTypeService;
 
+    /** @required */
+    public UserSecurity $security;
+
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
     const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
     const AFTER_VERIFY = "inquiries";
@@ -51,7 +55,7 @@ class RegistrationController extends AbstractController
 
     public function index():Response{
         // Check if the user is already logged in
-        if($this->userService->isLoggedIn()){
+        if($this->security->isLoggedIn()){
             $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
@@ -92,7 +96,7 @@ class RegistrationController extends AbstractController
      */
     protected function register(FormInterface $form, User $user, Request $request, $template) : Response{
         // Check if the user is already logged in
-        if($this->userService->isLoggedIn()){
+        if($this->security->isLoggedIn()){
             $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");

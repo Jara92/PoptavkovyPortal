@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnusedAliasInspection */
 
 namespace App\Business\Service;
 
@@ -22,37 +22,9 @@ class UserService extends AService
     /** @var IUserRepository */
     protected IRepository $repository;
 
-    /** @required */
-    public Security $security;
-
     public function __construct(IUserRepository $userRepository, UserFactory $userFactory)
     {
         parent::__construct($userRepository);
         $this->userFactory = $userFactory;
-    }
-
-    /**
-     * Returns currently logged user or null.
-     * @return User|null
-     */
-    public function getCurrentUser(): ?User
-    {
-        $user = $this->security->getUser();
-
-        // Is user valid?
-        if ($user instanceof User) {
-            return $user;
-        }
-
-        return null;
-    }
-
-    /**
-     * Is the user logged in?
-     * @return bool
-     */
-    public function isLoggedIn(): bool
-    {
-        return $this->getCurrentUser() !== null;
     }
 }

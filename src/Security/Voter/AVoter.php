@@ -2,9 +2,8 @@
 
 namespace App\Security\Voter;
 
-use App\Business\Service\UserService;
+use App\Security\UserSecurity;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * NOTE: For better performance use:
@@ -18,8 +17,5 @@ abstract class AVoter extends Voter
     const DELETE = 'delete';
 
     /** @required */
-    public Security $security;
-
-    /** @required  */
-    public UserService $userService;
+    public UserSecurity $security;
 }
