@@ -52,7 +52,7 @@ class RegistrationController extends AbstractController
     public function index():Response{
         // Check if the user is already logged in
         if($this->userService->isLoggedIn()){
-            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_registered"));
+            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
         }
@@ -93,7 +93,7 @@ class RegistrationController extends AbstractController
     protected function register(FormInterface $form, User $user, Request $request, $template) : Response{
         // Check if the user is already logged in
         if($this->userService->isLoggedIn()){
-            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_registered"));
+            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
         }
