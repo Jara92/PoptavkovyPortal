@@ -1,6 +1,6 @@
 .idea
 node_modules
-migration
+migrations
 
 ###> symfony/framework-bundle ###
 /.env.local
