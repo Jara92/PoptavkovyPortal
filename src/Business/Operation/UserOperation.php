@@ -14,12 +14,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class UserOperation
 {
-    protected $userService;
+    protected UserService $userService;
 
-    protected $passwordHasher;
+    protected UserPasswordHasherInterface $passwordHasher;
 
     /** @var EmailVerifier */
-    protected $emailVerifier;
+    protected EmailVerifier $emailVerifier;
 
     public function __construct(UserService $userService, UserPasswordHasherInterface $passwordHasher, EmailVerifier $emailVerifier)
     {

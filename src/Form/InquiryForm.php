@@ -28,17 +28,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InquiryForm extends AbstractType
 {
-    protected $translator;
-    protected $inquiryRepository;
-    private $inquiryTypeRepository;
-    protected $inquiryOperation;
+    /** @required  */
+    public TranslatorInterface $translator;
 
-    public function __construct(TranslatorInterface $translator, InquiryOperation $inquiryOperation, IInquiryTypeRepository $inquiryTypeRepository)
-    {
-        $this->translator = $translator;
-        $this->inquiryOperation = $inquiryOperation;
-        $this->inquiryTypeRepository = $inquiryTypeRepository;
-    }
+    /** @required  */
+    public InquiryOperation $inquiryOperation;
 
     public function configureOptions(OptionsResolver $resolver): void
     {

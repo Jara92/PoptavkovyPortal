@@ -13,7 +13,7 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class InquiryTypeFixtures extends Fixture implements FixtureGroupInterface
 {
-    protected $inquiryTypeFactory;
+    protected InquiryTypeFactory $inquiryTypeFactory;
 
     public function __construct(InquiryTypeFactory $inquiryTypeFactory){
         $this->inquiryTypeFactory = $inquiryTypeFactory;

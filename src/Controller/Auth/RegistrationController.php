@@ -23,11 +23,11 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    protected $userOperation;
+    protected UserOperation $userOperation;
 
-    protected $userService;
+    protected UserService $userService;
 
-    protected $userFactory;
+    protected UserFactory $userFactory;
 
     protected TranslatorInterface $translator;
 

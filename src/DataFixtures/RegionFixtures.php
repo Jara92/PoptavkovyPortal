@@ -13,7 +13,7 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class RegionFixtures extends Fixture implements FixtureGroupInterface
 {
-    protected $regionFactory;
+    protected RegionFactory $regionFactory;
 
     public function __construct(RegionFactory $regionFactory){
         $this->regionFactory = $regionFactory;

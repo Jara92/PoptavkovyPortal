@@ -11,7 +11,7 @@ trait TitleTrait
      * @ORM\Column(type="string", length=64, nullable=false)
      * @Assert\Length(min=2, max=64)
      */
-    protected $title;
+    protected ?string $title;
 
     public function getTitle(): ?string
     {

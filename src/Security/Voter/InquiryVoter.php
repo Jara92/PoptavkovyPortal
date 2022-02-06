@@ -5,6 +5,7 @@ namespace App\Security\Voter;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\User;
+use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 
@@ -53,7 +54,7 @@ class InquiryVoter extends AVoter
                 return $this->canReact($inquiry, $user);
         }
 
-        throw new \LogicException('This code should not be reached!');
+        throw new LogicException('This code should not be reached!');
     }
 
     private function canCreate(?User $user): bool

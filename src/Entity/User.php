@@ -83,19 +83,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToOne(targetEntity=Person::class, cascade={"persist", "remove"})
      */
-    private $person;
+    private ?Person $person;
 
     /**
      * @ORM\OneToOne(targetEntity=Company::class, cascade={"persist", "remove"})
      */
-    private $company;
+    private ?Company $company;
 
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
     }
 
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -138,7 +138,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**
@@ -146,7 +146,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return $this->email;
     }
 
     /**

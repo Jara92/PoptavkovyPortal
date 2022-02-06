@@ -9,7 +9,7 @@ trait OrderingTrait
     /**
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $ordering;
+    protected ?int $ordering;
 
     public function getOrdering(): ?int
     {

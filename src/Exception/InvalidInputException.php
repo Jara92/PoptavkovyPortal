@@ -2,7 +2,9 @@
 
 namespace App\Exception;
 
-class InvalidInputException extends \Exception
+use Exception;
+
+class InvalidInputException extends Exception
 {
 
 }

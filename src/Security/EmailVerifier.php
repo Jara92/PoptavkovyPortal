@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Business\Service\UserService;
 use App\Entity\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -70,7 +71,7 @@ class EmailVerifier
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);
-        $user->setEmailVerifiedAt(new \DateTime());
+        $user->setEmailVerifiedAt(new DateTime());
 
         $this->userService->update($user);
     }

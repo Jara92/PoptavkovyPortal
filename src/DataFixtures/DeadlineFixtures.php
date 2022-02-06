@@ -13,7 +13,7 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
  */
 class DeadlineFixtures extends Fixture implements FixtureGroupInterface
 {
-    protected $deadlineFactory;
+    protected DeadlineFactory $deadlineFactory;
 
     public function __construct(DeadlineFactory $deadlineFactory){
         $this->deadlineFactory = $deadlineFactory;
