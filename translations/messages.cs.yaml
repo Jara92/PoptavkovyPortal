@@ -45,6 +45,8 @@ auth:
   field_remember_me: "Pamatuj si mě"
 
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím klikněte na odkaz zaslaný na Váš email."
+  #TODO: Odkaz na přihlášení
+  successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
 
   field_email: "Email"
   field_email_ph: "Např. pavel.novak@seznam.cz"

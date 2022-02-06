@@ -111,7 +111,7 @@ class RegistrationController extends AbstractController
             dump($user);
 
             if ($this->userOperation->register($user, $blankPassword)) {
-                $this->addFlash('success', "auth.successfully_registred");
+                $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("auth.successfully_registred"));
 
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
@@ -143,13 +143,13 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+            $this->addFlash(FlashHelper::ERROR, $exception->getReason());
 
             return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
 
         // TODO: Flash messages.
-        $this->addFlash('success', 'Your email address has been verified.');
+        $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans('auth.successfully_verified'));
 
         return $this->redirectToRoute(self::AFTER_VERIFY);
     }
