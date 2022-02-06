@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
-use App\Entity\Inquiry\Inquiry;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
@@ -11,7 +10,6 @@ use App\Helper\FlashHelper;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use \Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends AController
@@ -65,19 +63,21 @@ class InquiryController extends AController
      */
     public function create(Request $request): Response
     {
+        // Create blank inquiry
         $inquiry = $this->inquiryFactory->createBlank();
 
+        // Check permissions
         $this->denyAccessUnlessGranted("create", $inquiry);
 
+        // Fill inquiry contact data if possible
+        $this->inquiryOperation->fillUserData($inquiry, $this->getUser());
+
+        // Create inquiry form
         $form = $this->createForm(InquiryForm::class, $inquiry);
 
+        // Handle form
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-
-            //dump($data);
-            dump($inquiry);
-
             // Save the inquiry.
             $this->inquiryOperation->createInquiry($inquiry);
 
