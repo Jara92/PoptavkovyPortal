@@ -133,7 +133,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * A visual identifier that represents this user.
-     *
      * @see UserInterface
      */
     public function getUserIdentifier(): string
@@ -168,15 +167,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function addRole(string $role){
+    public function addRole(string $role)
+    {
         $this->roles[] = $role;
     }
 
-    public function removeRole(string $role){
+    public function removeRole(string $role)
+    {
         $itemKey = array_search($role, $this->roles);
 
         // Remove the item if exists
-        if($itemKey){
+        if ($itemKey) {
             unset($this->roles[$itemKey]);
             // reindex the array.
             $this->roles = array_values($this->roles);
@@ -201,7 +202,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
      * @see UserInterface
      */
     public function getSalt(): ?string
@@ -294,5 +294,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->company = $company;
 
         return $this;
+    }
+
+    public function isType(string $type): bool
+    {
+        return $this->getType()->is($type);
     }
 }

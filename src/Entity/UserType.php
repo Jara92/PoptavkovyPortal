@@ -21,4 +21,8 @@ class UserType
 
     const TYPE_PERSONAL = "personal";
     const TYPE_COMPANY = "company";
+
+    public function is(string $type):bool{
+        return ($this->getAlias() === $type);
+    }
 }
