@@ -14,7 +14,7 @@ use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class InquiryController extends AbstractController
+class InquiryController extends AController
 {
     protected InquiryService $inquiryService;
     protected InquiryFactory $inquiryFactory;
