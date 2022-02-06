@@ -5,11 +5,14 @@
  * (and its CSS file) in your base layout (base.html.twig).
  */
 
-// any CSS you import will output into a single css file (app.css in this case)
+// Compile CSCC files.
+import './sass/app.scss';
+
+// Jquery
+import 'jquery';
+
+// Bootstrap javascript
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 // start the Stimulus application
 import './bootstrap';
-
-import './sass/app.scss';
-
-import 'jquery';
