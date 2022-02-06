@@ -136,33 +136,6 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   margin-top: -2rem;
 }
 
-/** Category multichoise */
-.radios-inline .form-check{
-  float: left;
-}
-
-label.form-check-label.required:before{
-  content: none;
-}
-
-.choices__list--multiple .choices__item {
-  background-color: $template !important;
-  border: 1px solid $template_dark !important;
-}
-
-.choices__item--selectable.is-highlighted {
-  background-color: $template;
-  border: 1px solid $template;
-}
-
-.choices[data-type*=select-multiple] .choices__button, .choices[data-type*=text] .choices__button {
-  border-left: 1px solid $template_dark;
-}
-
-.choices__heading {
-  color: $template;
-}
-
 /* Registation page */
 .auth-register {
   .jumbotron {
@@ -260,7 +233,7 @@ label.form-check-label.required:before{
   }
 
   .register-tab .register-tab-form {
-    padding: 10%;
+    padding: 10% 0.5rem 10% 10%;
     margin-top: 10%;
   }
 
