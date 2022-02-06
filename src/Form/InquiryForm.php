@@ -147,9 +147,9 @@ class InquiryForm extends AbstractType
                 'data_class' => CompanyContact::class
             ])
                 ->add('companyName', TextType::class, [
-                    'label' => "inquiries.field_firm_name",
+                    'label' => "user.field_company_name",
                     'attr' => [
-                        "placeholder" => "inquiries.field_firm_name_ph",
+                        "placeholder" => "user.field_company_name_ph",
                     ],
                     'required' => true
                 ])
