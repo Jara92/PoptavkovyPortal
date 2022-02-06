@@ -77,41 +77,6 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   border: none;
 }
 
-.main-menu {
-  background-color: $template !important;
-  color: $template_font_color;
-}
-
-.main-menu .navbar-brand {
-  color: $template_font_color;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-.main-menu .nav-item, .main-menu .nav-item .nav-link {
-  color: $template_font_color;
-  font-weight: normal;
-}
-
-.main-menu .nav-item {
-  color: white;
-}
-
-.main-menu .nav-item .nav-link:active, .main-menu .nav-item .nav-link:focus {
-  border: none;
-}
-
-.main-menu .nav-item .nav-link:hover {
-  color: white;
-  background-color: $template_lighter;
-  border-radius: 10px;
-}
-
-.main-menu .nav-item.active .nav-link {
-  font-weight: bold;
-  color: #000000;
-}
-
 .main-page .search-container input {
   width: 80%;
 }
