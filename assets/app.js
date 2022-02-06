@@ -13,6 +13,8 @@ import 'jquery';
 
 // Bootstrap javascript
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import "bootstrap/js/dist/alert";
+
 
 // start the Stimulus application
 import './bootstrap';

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Helper\FlashHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController

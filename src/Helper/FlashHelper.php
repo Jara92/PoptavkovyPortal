@@ -5,7 +5,7 @@ namespace App\Helper;
 class FlashHelper
 {
    const SUCCESS = "success";
-   const NOTICE = "notice";
+   const NOTICE = "primary";
    const WARNING = "warning";
-   const ERROR = "error";
+   const ERROR = "danger";
 }
