@@ -3,13 +3,13 @@
 /* -------------------------------------------------------------------------- */
 
 @import "~bootstrap/scss/functions";
-@import "theme/functions";
+@import "./theme/functions";
 
 @import "~bootstrap/scss/mixins";
-@import "theme/mixins";
+@import "./theme/mixins";
 
-@import "theme/variables";
-@import 'theme/_utilities.scss';
+@import "./theme/variables";
+@import './theme/utilities';
 @import "~bootstrap/scss/variables";
 
 /*-----------------------------------------------
@@ -20,5 +20,5 @@
 /*-----------------------------------------------
 |   Theme Styles
 -----------------------------------------------*/
-@import "theme/theme";
+@import "./theme/theme";
 

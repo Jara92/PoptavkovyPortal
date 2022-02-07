@@ -12,8 +12,8 @@ use Doctrine\Persistence\ObjectManager;
 
 /**
  * Abstract service which implements basic service features.
- * @template E
- * @template K
+ * @laslesvpn_template E
+ * @laslesvpn_template K
  * @implements ICrudService<E, K>
  */
 class AService implements ICrudService

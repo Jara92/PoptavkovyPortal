@@ -15,13 +15,10 @@ import 'jquery';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/js/dist/alert";
 
-
 // start the Stimulus application
 import './bootstrap';
 
-import "./template/js/utils";
-import "./template/js/theme";
-//import "template/js/bootstrap-navbar";
-//import "template/js/detector";
-//import "./template/js/is.min.js";
+// Template scripts.
+import "./libs/laslesvpn_template/js/theme";
+import "./libs/laslesvpn_template/js/is.min.js";
 

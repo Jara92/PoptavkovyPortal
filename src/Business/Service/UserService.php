@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * Abstract service which implements basic service features.
- * @template E
- * @template K
+ * @laslesvpn_template E
+ * @laslesvpn_template K
  * @extends AService<User, int>
  */
 class UserService extends AService

@@ -4,8 +4,8 @@ namespace App\Business\Service\Interfaces;
 
 /**
  * CRUD service interface.
- * @template E
- * @template K
+ * @laslesvpn_template E
+ * @laslesvpn_template K
  */
 interface ICrudService
 {

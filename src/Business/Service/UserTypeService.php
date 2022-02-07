@@ -8,8 +8,8 @@ use App\Repository\Interfaces\IUserTypeRepository;
 
 /**
  * Service to manager UserType.
- * @template E
- * @template K
+ * @laslesvpn_template E
+ * @laslesvpn_template K
  * @extends AService<UserType, int>
  */
 class UserTypeService extends AService

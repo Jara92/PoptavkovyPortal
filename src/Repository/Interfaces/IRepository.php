@@ -3,8 +3,8 @@
 namespace App\Repository\Interfaces;
 
 /**
- * @template E
- * @template K
+ * @laslesvpn_template E
+ * @laslesvpn_template K
  */
 interface IRepository
 {
