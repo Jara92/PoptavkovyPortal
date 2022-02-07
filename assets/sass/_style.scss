@@ -278,17 +278,19 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
 
   .login-form {
     padding: 5%;
-    background: $template;
+
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
   }
 
-  .login-form h3 {
+  .login-form h2 {
     text-align: center;
-    color: #fff;
+    color: $template;
+    font-weight: bold;
   }
 
   .login-container form {
     padding: 10%;
+    padding-bottom: 0;
   }
 
   .btn-submit {
@@ -306,9 +308,13 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   }
 
   .login-form .btn-forget-password {
-    color: #fff;
-    font-weight: 600;
+    color: $template;
     text-decoration: none;
+  }
+
+  .login-form .btn-login{
+    display: block;
+    margin: 0 auto;
   }
 }
 

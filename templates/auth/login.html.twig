@@ -12,8 +12,8 @@
     <section class="auth-login">
         <div class="container login-container">
             <div class="row justify-content-center">
-                <div class="col-md-6 login-form">
-                    <h3>{{ "auth.login"|trans }}</h3>
+                <div class="col-md-8 login-form">
+                    <h2>{{ "auth.login"|trans }}</h2>
                     {{ form_start(form) }}
                     {# Style errors. #}
                     <div class="errors">
@@ -29,12 +29,22 @@
                     <div class="form-group">
                         {{ form_row(form._remember_me, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <div class="form-group">
-                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-submit'}}) }}
+
+                    <div class="form-group mb-4">
+                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-login'}}) }}
                     </div>
 
-                    <div class="form-group">
-                        <a href="#" class="btn-forget-password">{{ "auth.btn_forgotten_password"|trans }}</a>
+                    <div class="row">
+                        <div class="col-md-6 pb-2 text-left">
+                            <a href="#" class="btn-link btn-lost-password">
+                                {{ "auth.btn_forgotten_password"|trans }}
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-right" style="text-align: right">
+                            <a href="{{ path("app_register") }}" class="btn-link btn-not-registred">
+                                {{ "auth.not_registred_yet"|trans }}
+                            </a>
+                        </div>
                     </div>
                     {{ form_end(form) }}
                 </div>

@@ -38,6 +38,7 @@ auth:
 
   already_registered: "Už u nás máte účet?"
   already_logged_in: "Už jste přihlášen."
+  not_registred_yet: "Ještě nemáte účet?"
 
   btn_register_person: "Soukromá registrace"
   btn_register_company: "Firemní registrace"
