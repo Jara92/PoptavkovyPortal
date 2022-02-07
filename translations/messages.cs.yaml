@@ -30,7 +30,7 @@ auth:
   logout: "Odhlásit"
   register: "Registrovat"
   registration: "Registrace"
-  registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností."
+  registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností:"
   register_person: "Jsem soukromá osoba"
   register_person_desc: "Tuto možnost využijte, pokud jste koncový zákazník a chcete na našem serveru poptávat služby našich dodavatelů."
   register_company: "Jsem podnikatel / firma"
