@@ -6,11 +6,19 @@
 
 {% block content %}
     <div class="inquiry inquiry-create">
-        <div class="container">
-            <header>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container text-center">
                 <h1>{{ "inquiries.new_inquiry"|trans }}</h1>
                 <p>{{ "inquiries.new_inquiry_desc"|trans }}</p>
-            </header>
+            </div>
+        </div>
+
+        <div class="jumbotron d-none">
+            <h1>{{ "inquiries.new_inquiry"|trans }}</h1>
+            <p>{{ "inquiries.new_inquiry_desc"|trans }}</p>
+        </div>
+
+        <div class="container">
             <div class="page-content">
                 <div data-controller="inquiry-form">
                     {{ form_start(form) }}

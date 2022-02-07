@@ -31,7 +31,7 @@ auth:
   register: "Registrovat"
   registration: "Registrace"
   registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností."
-  register_person: "Jsem fyzická osoba"
+  register_person: "Jsem soukromá osoba"
   register_person_desc: "Tuto možnost využijte, pokud jste koncový zákazník a chcete na našem serveru poptávat služby našich dodavatelů."
   register_company: "Jsem podnikatel / firma"
   register_company_desc: "Tuto možnost využijte, pokud jste podnikatel / firma a chcete získat přístup k naší databázi poptávek. Jako firma také můžete služby poptávat."
@@ -39,8 +39,8 @@ auth:
   already_registered: "Už u nás máte účet?"
   already_logged_in: "Už jste přihlášen."
 
-  btn_register_person: "Registrace zákazníka"
-  btn_register_company: "Registrace firmy"
+  btn_register_person: "Soukromá registrace"
+  btn_register_company: "Firemní registrace"
   btn_forgotten_password: "Zapomenuté heslo?"
   field_remember_me: "Pamatuj si mě"
 
