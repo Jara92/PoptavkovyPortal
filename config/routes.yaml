@@ -52,7 +52,7 @@ app_register:
     methods: GET|POST
 
 app_register_person:
-    path: /registrace/zakaznik
+    path: /registrace/soukromnik
     controller: App\Controller\Auth\RegistrationController::registerPerson
     methods: GET|POST
 
