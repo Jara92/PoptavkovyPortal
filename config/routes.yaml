@@ -2,7 +2,7 @@
 inquiries:
     path: /poptavky
     controller: App\Controller\InquiryController::index
-    methods: GET
+    methods: GET|POST
 
 inquiries/new:
     path: /poptavky/nova-poptavka

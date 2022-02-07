@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
 use App\Factory\Inquiry\InquiryFactory;
+use App\Factory\InquiryFilterFactory;
+use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
@@ -19,6 +21,9 @@ class InquiryController extends AController
     protected TranslatorInterface $translator;
     protected InquiryOperation $inquiryOperation;
 
+    /** @required */
+    public InquiryFilterFactory $inquiryFilterFactory;
+
     public function __construct(InquiryOperation $inquiryOperation, InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
     {
         $this->inquiryOperation = $inquiryOperation;
@@ -31,11 +36,17 @@ class InquiryController extends AController
      * Show inquiries list.
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $filter = $this->inquiryFilterFactory->createBlankInquiryFilter();
+
+        $form = $this->createForm(InquiryFilterForm::class, $filter);
+
+        $form->handleRequest($request);
+
         $inquiries = $this->inquiryService->readAll();
 
-        return $this->render("inquiry/index.html.twig", ["inquiries" => $inquiries]);
+        return $this->renderForm("inquiry/index.html.twig", ["form" => $form, "inquiries" => $inquiries]);
     }
 
     /**

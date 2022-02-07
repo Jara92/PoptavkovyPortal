@@ -10,12 +10,14 @@
             <h1 class="text-center">Poptávky</h1>
         </div>
 
-        <section id="inquiry-filter">
-
-        </section>
-
         <div class="container">
-            {% include "inquiry/layouts/list.html.twig" with inquiries %}
+            <div id="inquiry-filter">
+                {{ form(form) }}
+            </div>
+
+            <div class="container">
+                {% include "inquiry/layouts/list.html.twig" with inquiries %}
+            </div>
         </div>
     </section>
 {% endblock %}
