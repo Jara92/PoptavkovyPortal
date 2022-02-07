@@ -10,12 +10,12 @@
             <h1 class="text-center">Poptávky</h1>
         </div>
 
+        <section id="inquiry-filter">
+
+        </section>
+
         <div class="container">
-            <ul>
-                {% for inquiry in inquiries %}
-                    <li><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></li>
-                {% endfor %}
-            </ul>
+            {% include "inquiry/layouts/list.html.twig" with inquiries %}
         </div>
     </section>
 {% endblock %}
