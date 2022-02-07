@@ -44,7 +44,7 @@ auth:
   btn_forgotten_password: "Zapomenuté heslo?"
   field_remember_me: "Pamatuj si mě"
 
-  successfully_registred: "Byl jste úspěšně zaregistrován. Prosím klikněte na odkaz zaslaný na Váš email."
+  successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
 
