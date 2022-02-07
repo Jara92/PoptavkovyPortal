@@ -40,9 +40,6 @@
   padding-top: 4rem;
 }
 
-/*input.form-control, textarea.form-control{
-    border: 1px solid $template;
-}*/
 .form-control, .form-select, .form-check {
   margin-bottom: 1rem;
 }
@@ -96,13 +93,6 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   background: white;
   font-family: lato, sans-serif;
   box-shadow: rgba(0, 0, 0, 0.15) 0 8px 20px 0;
-}
-
-.main-page .jumbotron {
-  padding: 0;
-  background: url('../images/intro.png') no-repeat;
-  background-size: 100%;
-  border-radius: 0;
 }
 
 /* Registation page */
