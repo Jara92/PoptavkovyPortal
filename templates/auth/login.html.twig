@@ -12,7 +12,7 @@
     <section class="auth-login">
         <div class="container login-container">
             <div class="row justify-content-center">
-                <div class="col-md-8 login-form">
+                <div class="col-md-8 col-lg-6 login-form">
                     <h2>{{ "auth.login"|trans }}</h2>
                     {{ form_start(form) }}
                     {# Style errors. #}
@@ -35,12 +35,12 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 pb-2 text-left">
+                        <div class="col-md-12 pb-2">
                             <a href="#" class="btn-link btn-lost-password">
                                 {{ "auth.btn_forgotten_password"|trans }}
                             </a>
                         </div>
-                        <div class="col-md-6 text-right" style="text-align: right">
+                        <div class="col-md-12">
                             <a href="{{ path("app_register") }}" class="btn-link btn-not-registred">
                                 {{ "auth.not_registred_yet"|trans }}
                             </a>

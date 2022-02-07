@@ -30,7 +30,7 @@ class LoginForm extends AbstractType
                 'label' => "auth.field_remember_me"
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "auth.login"
+                'label' => "auth.log_in"
             ]);
     }
 

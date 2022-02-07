@@ -26,8 +26,10 @@ footer:
 
 #Authorization
 auth:
-  login: "Přihlásit"
-  logout: "Odhlásit"
+  login: "Přihlášení"
+  log_in: "Přihlásit"
+  logout: "Odhlášení"
+  log_out: "Odhlásit"
   register: "Registrovat"
   registration: "Registrace"
   registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností:"

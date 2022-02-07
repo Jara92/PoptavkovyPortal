@@ -33,7 +33,7 @@
             <section class="d-flex py-3 py-lg-0">
                 {% if app.user %}
                     <a class="btn btn-link text-1000 fw-medium order-1 order-lg-0" href="{{ path('app_logout') }}">
-                        {{ "auth.logout"|trans }}</a>
+                        {{ "auth.log_out"|trans }}</a>
 
                     <!--
             <a href="#" class="nav-link"></a>
@@ -48,13 +48,13 @@
                     @if($user->GetIsAdmin())
                     <a class="dropdown-item" href="#!">Administrace</a>
                     @endif
-                    <a class="dropdown-item" href="{{ path('app_logout') }}">{{ "auth.logout"|trans }}</a>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">{{ "auth.log_out"|trans }}</a>
                 </div>
             </li>
             -->
                 {% else %}
                     <a class="btn btn-link text-1000 fw-medium order-1 order-lg-0" href="{{ path('app_login') }}">
-                        {{ "auth.login"|trans }}</a>
+                        {{ "auth.log_in"|trans }}</a>
                 {% endif %}
 
                 <a class="btn btn-outline-danger rounded-pill order-0" href="{{ path("inquiries/new") }}">

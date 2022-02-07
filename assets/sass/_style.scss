@@ -92,6 +92,9 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
 .btn-link {
   color: $template;
 }
+.btn-link:active{
+  box-shadow: none;
+}
 
 .btn-link:hover {
   color: $template_dark;
