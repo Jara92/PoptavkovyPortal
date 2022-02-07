@@ -1,5 +1,17 @@
 <ul>
+    {# @var inquiry \App\Entity\Inquiry\Inquiry #}
     {% for inquiry in inquiries %}
-        <li><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></li>
+        <li class="row">
+            <div class="col-md-8">
+                <h3><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></h3>
+            </div>
+            <div class="col-md-4">
+                <ul class="" style="list-style-type: none;">
+                    <li>{{ inquiry.createdAt|date("d.m.Y") }}</li>
+                    <li>{{ inquiry.region.title }}</li>
+                    <li>Stavebnictví</li>
+                </ul>
+            </div>
+        </li>
     {% endfor %}
 </ul>
