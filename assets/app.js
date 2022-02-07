@@ -18,3 +18,10 @@ import "bootstrap/js/dist/alert";
 
 // start the Stimulus application
 import './bootstrap';
+
+import "./template/js/utils";
+import "./template/js/theme";
+//import "template/js/bootstrap-navbar";
+//import "template/js/detector";
+//import "./template/js/is.min.js";
+

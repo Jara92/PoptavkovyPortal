@@ -1,0 +1,24 @@
+/* -------------------------------------------------------------------------- */
+/*                                 Theme                                      */
+/* -------------------------------------------------------------------------- */
+
+@import "~bootstrap/scss/functions";
+@import "theme/functions";
+
+@import "~bootstrap/scss/mixins";
+@import "theme/mixins";
+
+@import "theme/variables";
+@import 'theme/_utilities.scss';
+@import "~bootstrap/scss/variables";
+
+/*-----------------------------------------------
+|   Bootstrap Styles
+-----------------------------------------------*/
+@import "~bootstrap/scss/bootstrap";
+
+/*-----------------------------------------------
+|   Theme Styles
+-----------------------------------------------*/
+@import "theme/theme";
+

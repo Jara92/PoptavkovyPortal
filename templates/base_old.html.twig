@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Poptejsi.cz{% endblock %}</title>
+    <link rel="icon" href="{{asset("img/global/thumb.ico")}}">
+
+    <!-- CSS -->
+    {{ encore_entry_link_tags('app') }}
+    {% block styles %}
+
+    {% endblock %}
+
+    <!-- Scripts -->
+    {{ encore_entry_script_tags('app') }}
+    {% block scripts %}
+
+    {% endblock %}
+</head>
+<body>
+<div id="app">
+    {% include "layouts/nav.html.twig" %}
+
+    {% include "layouts/flash_messages.html.twig" %}
+
+    <main class="py-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% include "layouts/footer.html.twig" %}
+</div>
+</body>
+</html>

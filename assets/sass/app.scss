@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+//@import "~bootstrap/scss/bootstrap";
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
@@ -6,21 +6,23 @@
 // Variables
 @import 'variables';
 
-@import "menu.scss";
+@import "template/theme.scss";
+
+//@import "menu.scss";
 
 // Custom styles.
-@import "style.scss";
+//@import "style.scss";
 
 // Inquiry styles.
-@import "inquiry.scss";
+//@import "inquiry.scss";
 
 // Article styles.
-@import "articles.scss";
+//@import "articles.scss";
 
-@import "profile.scss";
+//@import "profile.scss";
 
-@import "forms.scss";
+//@import "forms.scss";
 
 // Custom components styles
-@import "components.scss";
+//@import "components.scss";
 
