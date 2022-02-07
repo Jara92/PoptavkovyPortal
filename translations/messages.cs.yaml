@@ -118,6 +118,7 @@ inquiries:
   input_key_word_search_label: "Co sháníte?"
   input_key_word_search_ph: "Např. Zednické práce"
   btn_inquire: "Poptat"
+  btn_create_inquiry: "Zadat poptávku"
   btn_submit: "Zadat poptávku"
   created: "Nová poptávka byla úspěšně vytvořena."
 
