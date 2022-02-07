@@ -88,6 +88,10 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   border: 1px solid $template_dark;
 }
 
+.pr-2{
+  padding-right: 0.5rem;
+}
+
 /* End Autocomplete */
 .btn-link {
   color: $template;
