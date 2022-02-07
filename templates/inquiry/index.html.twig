@@ -5,15 +5,17 @@
 {% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="text-center">Poptávky</h1>
-    </div>
+    <section class="inquiry-index">
+        <div class="jumbotron">
+            <h1 class="text-center">Poptávky</h1>
+        </div>
 
-    <div class="container">
-        <ul>
-            {% for inquiry in inquiries %}
-                <li><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+        <div class="container">
+            <ul>
+                {% for inquiry in inquiries %}
+                    <li><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
 {% endblock %}
