@@ -51,6 +51,11 @@ app_register:
     controller: App\Controller\Auth\RegistrationController::index
     methods: GET|POST
 
+app_recover_password:
+    path: /obnova-hesla
+    controller: App\Controller\Auth\PasswordRecoveryController::recoverPassword
+    methods: GET|POST
+
 app_register_person:
     path: /registrace/soukromnik
     controller: App\Controller\Auth\RegistrationController::registerPerson
