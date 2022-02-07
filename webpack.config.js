@@ -30,13 +30,6 @@ Encore
         to: "libs/laslesvpn_template/img/[path][name].[ext]"
     })
 
-    // Copy template js
-    .copyFiles({
-        from: "./assets/libs/laslesvpn_template/js",
-        to: "libs/laslesvpn_template/js/[path][name].[ext]"
-    })
-
-
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
