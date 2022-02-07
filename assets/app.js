@@ -25,5 +25,6 @@ import './bootstrap';
 
 // Template scripts.
 import "./libs/laslesvpn_template/js/theme";
-import "./libs/laslesvpn_template/js/is.min.js";
+
+
 
