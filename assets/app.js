@@ -14,17 +14,16 @@ import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/fontawesome";
 
 // Jquery
-import 'jquery';
+import 'jquery/dist/jquery.min';
 
 // Bootstrap javascript
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/js/dist/alert";
 
-// start the Stimulus application
-import './bootstrap';
-
 // Template scripts.
 import "./libs/laslesvpn_template/js/theme";
 
+// start the Stimulus application
+import './bootstrap';
 
 

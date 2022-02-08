@@ -1,9 +1,7 @@
 {% extends "base.html.twig" %}
 
-{% block styles %}
-    <style>
+{% block scripts %}
 
-    </style>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +11,7 @@
         </div>
 
         <div class="container">
-            <div id="inquiry-filter">
+            <div id="inquiry-filter" data-controller="inquiry-filter">
                 {{ form_start(form, {"method":"GET"}) }}
 
                 <div class="row justify-content-center search-container">
@@ -36,6 +34,50 @@
                                 <li><a class="dropdown-item" href="#">Separated link</a></li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center mt-3 search-filters">
+                    <div class="card col-md-12 col-lg-10">
+                        <ul>
+                            <li>Kategorie A</li>
+                            <li>Kategorie B</li>
+                            <li>Kategorie C</li>
+                            <li>Trochu delší název kategorie D</li>
+                        </ul>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    {{ form_row(form.categories, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                                <div class="col-lg-4">
+                                    {{ form_row(form.regions, {'attr': {'class': 'form-select', 'data-inquiry-filter-target':'regions'}}) }}
+                                </div>
+                                <div class="col-lg-4">
+                                    {{ form_row(form.values, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    {{ form_row(form.types, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                                <div class="col-lg-4">
+
+                                </div>
+                                <div class="col-lg-4">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center mt-3 search-note">
+                    <div class="col-md-12 col-lg-10">
+                        <p class="float-start">Bylo nalezeno <strong>356</strong> poptávek odpovídajích Vašim požadavkům.</p>
+                        <button class="btn btn-link float-end">Zobrazit rozšířený filtr</button>
                     </div>
                 </div>
                 {{ form_end(form) }}
