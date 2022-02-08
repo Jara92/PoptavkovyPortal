@@ -6,8 +6,8 @@ use App\Filter\Pagination;
 
 class PaginatorFactory
 {
-    public function createPaginatorDefault(int $page, int $itemsPerPage):Pagination
+    public function createPaginatorDefault(string $pagesUrl, int $page, int $itemsPerPage):Pagination
     {
-        return new Pagination($page, $itemsPerPage);
+        return new Pagination($pagesUrl, $page, $itemsPerPage);
     }
 }

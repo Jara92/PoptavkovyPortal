@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Factory\PaginatorFactory;
 use App\Filter\Pagination;
+use http\Url;
 use Symfony\Component\HttpFoundation\Request;
 
 trait PaginableTrait
@@ -16,10 +17,13 @@ trait PaginableTrait
         return "page";
     }
 
-    protected function getPaginator(Request $request, $itemsPerPage = 10): Pagination
+    protected function getPagination(Request $request, $itemsPerPage = 10): Pagination
     {
         $page = $request->get($this->getPageNumberKey(), 1);
+        $urlParam = $this->getPageNumberKey() . "=" . $page;
 
-        return $this->paginatorFactory->createPaginatorDefault($page, $itemsPerPage);
+        $pagesUrl = str_replace(["?".$urlParam, "&".$urlParam], "", $request->getUri());
+
+        return $this->paginatorFactory->createPaginatorDefault($pagesUrl, $page, $itemsPerPage);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Filter;
 
 class Pagination
 {
+    protected string $pagesUrl;
+
     protected int $currentPage;
 
     protected int $itemsPerPage;
@@ -13,13 +15,73 @@ class Pagination
     protected ?int $pageCount;
 
     /**
+     * @param string $pagesUrl
      * @param int $currentPage
      * @param int $itemsPerPage
      */
-    public function __construct(int $currentPage, int $itemsPerPage)
+    public function __construct(string $pagesUrl, int $currentPage, int $itemsPerPage)
     {
+        $this->pagesUrl = $pagesUrl;
         $this->currentPage = $currentPage;
         $this->itemsPerPage = $itemsPerPage;
+    }
+
+    function addGetParamToUrl($url, $varName, $value)
+    {
+        // is there already an ?
+        if (strpos($url, "?")) {
+            $url .= "&" . $varName . "=" . $value;
+        } else {
+            $url .= "?" . $varName . "=" . $value;
+        }
+
+        return $url;
+    }
+
+    public function getItems()
+    {
+        $maxItems = 10;
+        $items = [];
+
+        $count = 0;
+
+
+
+        return $items;
+    }
+
+    public function getNext(): string
+    {
+        if ($this->currentPage < $this->pageCount) {
+            return $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage + 1));
+        }
+
+        return "";
+    }
+
+    public function getPrevious(): string
+    {
+        if ($this->currentPage > 1) {
+            return $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage - 1));
+        }
+
+        return "";
+    }
+
+    /**
+     * @return string
+     */
+    public function getPagesUrl(): string
+    {
+        return $this->pagesUrl;
+    }
+
+    /**
+     * @param string $pagesUrl
+     */
+    public function setPagesUrl(string $pagesUrl): void
+    {
+        $this->pagesUrl = $pagesUrl;
     }
 
     /**
@@ -82,7 +144,7 @@ class Pagination
     /**
      * @return ?int
      */
-    public function getPageCount():?int
+    public function getPageCount(): ?int
     {
         return $this->pageCount;
     }

@@ -35,6 +35,7 @@ class InquiryFilterForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->setMethod("GET")
             ->add('text', TextType::class, [
                 'required' => false,
                 'label' => "inquiries.field_search_text",

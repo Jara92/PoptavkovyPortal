@@ -12,12 +12,29 @@
 
         <div class="container">
             <div id="inquiry-filter">
-                {{ form(form) }}
+                {{ form(form, {"method":"GET"}) }}
             </div>
 
             <div class="container">
                 {% include "inquiry/layouts/list.html.twig" with inquiries %}
             </div>
+
+            {# @var pagination \App\Filter\Pagination #}
+            <section class="pagination">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item {% if pagination.previous is same as "" %}disabled{% endif %}" >
+                            <a class="page-link" href="{{ pagination.previous }}" tabindex="-1">Previous</a>
+                        </li>
+                        {% for page in pagination.items %}
+                            <li class="page-item"><a class="page-link" href="{{ page }}">1</a></li>
+                        {% endfor %}
+                        <li class="page-item {% if pagination.next is same as "" %}disabled{% endif %}">
+                            <a class="page-link" href="{{ pagination.next }}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
         </div>
     </section>
 {% endblock %}
