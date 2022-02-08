@@ -3,13 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Inquiry\Inquiry;
-use App\Filter\InquiryFilter;
+use App\Tools\Filter\InquiryFilter;
 use App\Repository\Interfaces\IInquiryIRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use App\Filter\Pagination;
+use App\Tools\Pagination\PaginationData;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Inquiry|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,10 +26,10 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
 
     /**
      * @param InquiryFilter $filter
-     * @param Pagination $pagination
+     * @param PaginationData $paginationData
      * @return Inquiry[]
      */
-    public function findByFilter(InquiryFilter $filter, Pagination $pagination)
+    public function findByFilter(InquiryFilter $filter, PaginationData $paginationData)
     {
         $queryBuilder = $this->createQueryBuilder("i");
 
@@ -42,7 +40,8 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
             ->setParameter("text", "%" . $filter->getText() . "%")
             ->getQuery();
 
-        $this->paginate($query, $pagination);
+        $this->paginate($query, $paginationData);
+        dump($paginationData);
 
         return $query->getResult();
     }

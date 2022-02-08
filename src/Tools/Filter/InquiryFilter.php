@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filter;
+namespace App\Tools\Filter;
 
 use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\Region;

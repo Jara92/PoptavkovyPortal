@@ -3,8 +3,8 @@
 namespace App\Repository\Interfaces;
 
 use App\Entity\Inquiry\Inquiry;
-use App\Filter\InquiryFilter;
-use App\Filter\Pagination;
+use App\Tools\Filter\InquiryFilter;
+use App\Tools\Pagination\PaginationData;
 
 /**
  * @implements IRepository<Inquiry, int>
@@ -14,8 +14,8 @@ interface IInquiryIRepository extends IRepository
     /**
      * Returns results given by filter object.
      * @param InquiryFilter $filter
-     * @param Pagination $pagination
+     * @param PaginationData $paginationData
      * @return mixed
      */
-    public function findByFilter(InquiryFilter $filter, Pagination $pagination);
+    public function findByFilter(InquiryFilter $filter, PaginationData $paginationData);
 }

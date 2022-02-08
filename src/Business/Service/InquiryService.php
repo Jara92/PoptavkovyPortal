@@ -3,8 +3,8 @@
 namespace App\Business\Service;
 
 use App\Entity\Inquiry\Inquiry;
-use App\Filter\InquiryFilter;
-use App\Filter\Pagination;
+use App\Tools\Filter\InquiryFilter;
+use App\Tools\Pagination\PaginationData;
 use App\Repository\Interfaces\IInquiryIRepository;
 use App\Repository\Interfaces\IRepository;
 
@@ -31,7 +31,7 @@ class InquiryService extends AService
      * Returns filtered results.
      * @param InquiryFilter $filter
      */
-    public function readAllFiltered(InquiryFilter $filter, Pagination $paginator)
+    public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator)
     {
         return $this->repository->findByFilter($filter, $paginator);
     }

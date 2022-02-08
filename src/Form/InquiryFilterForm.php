@@ -7,7 +7,7 @@ use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
-use App\Filter\InquiryFilter;
+use App\Tools\Filter\InquiryFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

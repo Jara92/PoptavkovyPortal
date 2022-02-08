@@ -19,7 +19,7 @@
                 {% include "inquiry/layouts/list.html.twig" with inquiries %}
             </div>
 
-            {# @var pagination \App\Filter\Pagination #}
+            {# @var pagination \App\Tools\Pagination\PaginationComponent #}
             <section class="pagination">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
@@ -33,6 +33,7 @@
                             <a class="page-link" href="{{ pagination.next.url|default("") }}">Next</a>
                         </li>
                     </ul>
+                    <p>Zobrazeno {{ pagination.displayedItems }} z {{ pagination.totalItems }}</p>
                 </nav>
             </section>
         </div>

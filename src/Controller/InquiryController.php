@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Business\Operation\InquiryOperation;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\InquiryFilterFactory;
-use App\Factory\PaginatorFactory;
 use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
@@ -52,7 +51,7 @@ class InquiryController extends AController
         $form->handleRequest($request);
 
         // Get all inquiries using the filter.
-        $inquiries = $this->inquiryService->readAllFiltered($filter, $pagination);
+        $inquiries = $this->inquiryService->readAllFiltered($filter, $pagination->getPaginationData());
 
         return $this->renderForm("inquiry/index.html.twig",
             ["form" => $form, "pagination" => $pagination, "inquiries" => $inquiries]);

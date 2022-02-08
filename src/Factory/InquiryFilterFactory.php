@@ -2,7 +2,7 @@
 
 namespace App\Factory;
 
-use App\Filter\InquiryFilter;
+use App\Tools\Filter\InquiryFilter;
 
 class InquiryFilterFactory
 {
