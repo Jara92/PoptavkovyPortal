@@ -9,7 +9,7 @@ use App\Entity\Inquiry\InquiryType;
 
 class InquiryFilter
 {
-    protected ?string $text;
+    protected ?string $text = "";
 
     protected array $categories = [];
 
@@ -25,7 +25,7 @@ class InquiryFilter
     protected ?string $ordering;
 
     /**
-     * @return null|string
+     * @return ?string
      */
     public function getText(): ?string
     {

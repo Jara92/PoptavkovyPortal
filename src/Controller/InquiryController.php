@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\Operation\InquiryOperation;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\InquiryFilterFactory;
+use App\Factory\PaginatorFactory;
 use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
@@ -24,6 +25,9 @@ class InquiryController extends AController
     /** @required */
     public InquiryFilterFactory $inquiryFilterFactory;
 
+    /** @required */
+    public PaginatorFactory $paginatorFactory;
+
     public function __construct(InquiryOperation $inquiryOperation, InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
     {
         $this->inquiryOperation = $inquiryOperation;
@@ -32,19 +36,30 @@ class InquiryController extends AController
         $this->inquiryFactory = $inquiryFactory;
     }
 
+    protected function getPaginator(Request $request)
+    {
+        $page = $request->get("page", 1);
+        $itemsPerPage = 2;
+
+        return $this->paginatorFactory->createPaginatorDefault($page, $itemsPerPage);
+    }
+
     /**
      * Show inquiries list.
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
+        // Get filter and paginator
         $filter = $this->inquiryFilterFactory->createBlankInquiryFilter();
+        $paginator = $this->getPaginator($request);
 
         $form = $this->createForm(InquiryFilterForm::class, $filter);
 
         $form->handleRequest($request);
 
-        $inquiries = $this->inquiryService->readAll();
+        $inquiries = $this->inquiryService->readAllFiltered($filter, $paginator);
 
         return $this->renderForm("inquiry/index.html.twig", ["form" => $form, "inquiries" => $inquiries]);
     }

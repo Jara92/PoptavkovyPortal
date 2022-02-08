@@ -36,7 +36,7 @@ class InquiryFilterForm extends AbstractType
     {
         $builder
             ->add('text', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => "inquiries.field_search_text",
                 'attr' => [
                     "placeholder" => "inquiries.field_search_text",
