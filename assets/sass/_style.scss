@@ -88,7 +88,7 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   border: 1px solid $template_dark;
 }
 
-.pr-2{
+.pr-2 {
   padding-right: 0.5rem;
 }
 
@@ -96,7 +96,8 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
 .btn-link {
   color: $template;
 }
-.btn-link:active{
+
+.btn-link:active {
   box-shadow: none;
 }
 
@@ -120,22 +121,6 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
   background-color: $template_lighter;
   color: #fff;
   border: none;
-}
-
-.main-page .search-container input {
-  width: 80%;
-}
-
-.main-page .search-container input#text {
-  height: 100%;
-  border: 0;
-  display: block;
-  padding: 10px 32px 10px 32px;
-  font-size: 18px;
-  color: $template_font_color;
-  background: white;
-  font-family: lato, sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.15) 0 8px 20px 0;
 }
 
 /* Registation page */
@@ -217,7 +202,7 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
     animation: mover 1s infinite alternate;
   }
 
-  h2.register-tab-heading{
+  h2.register-tab-heading {
     color: $template;
     font-weight: bold;
   }
@@ -319,7 +304,7 @@ a.ui-button:active, .ui-button:active, .ui-state-active.ui-button:hover {
     text-decoration: none;
   }
 
-  .login-form .btn-login{
+  .login-form .btn-login {
     display: block;
     margin: 0 auto;
   }

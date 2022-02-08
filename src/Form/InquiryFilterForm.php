@@ -38,7 +38,7 @@ class InquiryFilterForm extends AbstractType
             ->setMethod("GET")
             ->add('text', TextType::class, [
                 'required' => false,
-                'label' => "inquiries.field_search_text",
+                'label' => false,
                 'attr' => [
                     "placeholder" => "inquiries.field_search_text",
                 ]

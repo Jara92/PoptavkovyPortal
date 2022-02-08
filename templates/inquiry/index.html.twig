@@ -1,7 +1,9 @@
 {% extends "base.html.twig" %}
 
-{% block scripts %}
+{% block styles %}
+    <style>
 
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -12,7 +14,31 @@
 
         <div class="container">
             <div id="inquiry-filter">
-                {{ form(form, {"method":"GET"}) }}
+                {{ form_start(form, {"method":"GET"}) }}
+
+                <div class="row justify-content-center search-container">
+                    <div class="col-md-12 col-lg-10 ">
+                        <div class="input-group">
+                            {{ form_widget(form.text, {"class": "form-control"}) }}
+                            {{ form_row(form.submit, {'attr': {'class': 'btn-outline-secondary btn btn-primary btn-search'}}) }}
+                            <div>
+                                <a class="btn-outline-secondary btn btn-link btn-clear-filter"
+                                   href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
+                            </div>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(form) }}
             </div>
 
             <div class="container">

@@ -1,72 +1,118 @@
-/* Inquiry form */
-.inquiry-create form .form-item .card{
-    border:none;
-}
-.inquiry-create form .form-item{
-    margin-bottom: 2rem;
-    /* box-shadow */
-    -moz-box-shadow: rgba(0,0,0,0.15) 0 0 10px;
-    -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-}
-.inquiry-create form .form-item .sidebar{
-    background: $template_light;
-    text-align: center;
-}
-.inquiry-create form .form-item .sidebar .card-header{
-    border-bottom: 1px solid rgba(250, 250, 250, 0.5);
-}
-.inquiry-create form .form-item .sidebar .card-header h4{
-    color: #ffffff;
-}
-.inquiry-create form .form-item .sidebar .card-body{
-    text-align: left;
-    padding-top: 0;
-    color: #fefefe;
-    font-size: 0.8rem;
-}
-.inquiry-create form .form-item .sidebar .card-footer h5{
-    color: #ffffff;
-}
-.inquiry-create form .form-item .sidebar .card-footer{
-    border-top: 1px solid rgba(250, 250, 250, 0.5);
-}
-.inquiry-create form .form-item .form-check input, .inquiry-create form .form-item .form-check label{
-    margin-right: 5px;
-}
-.inquiry-create form .form-footer{
+/* Filter */
+#inquiry-filter {
+  .btn-clear-filter, .btn-clear-filter:hover {
+    background: none;
+    border: none;
+  }
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .search-container {
+    input, input:focus {
+      background: #fff;
+      color: #333;
+      border: 1px solid #e5e5e5;
+      margin-bottom: 0;
 
-    .btn-primary{
-        font-size: 1.5rem;
+      box-shadow: none;
+      outline: 0;
     }
+
+    input, .btn {
+      font-size: 1.5rem;
+    }
+  }
+
 }
+
+@include media-breakpoint-down(md){
+  #inquiry-filter{
+    .search-container {
+      input{
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* Inquiry form */
+.inquiry-create form .form-item .card {
+  border: none;
+}
+
+.inquiry-create form .form-item {
+  margin-bottom: 2rem;
+  /* box-shadow */
+  -moz-box-shadow: rgba(0, 0, 0, 0.15) 0 0 10px;
+  -webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.inquiry-create form .form-item .sidebar {
+  background: $template_light;
+  text-align: center;
+}
+
+.inquiry-create form .form-item .sidebar .card-header {
+  border-bottom: 1px solid rgba(250, 250, 250, 0.5);
+}
+
+.inquiry-create form .form-item .sidebar .card-header h4 {
+  color: #ffffff;
+}
+
+.inquiry-create form .form-item .sidebar .card-body {
+  text-align: left;
+  padding-top: 0;
+  color: #fefefe;
+  font-size: 0.8rem;
+}
+
+.inquiry-create form .form-item .sidebar .card-footer h5 {
+  color: #ffffff;
+}
+
+.inquiry-create form .form-item .sidebar .card-footer {
+  border-top: 1px solid rgba(250, 250, 250, 0.5);
+}
+
+.inquiry-create form .form-item .form-check input, .inquiry-create form .form-item .form-check label {
+  margin-right: 5px;
+}
+
+.inquiry-create form .form-footer {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .btn-primary {
+    font-size: 1.5rem;
+  }
+}
+
 .inquiry-create .form-group {
-    width: 100%;
+  width: 100%;
 }
+
 .inquiry-create textarea {
-    width: 100%;
+  width: 100%;
 }
 
 .inner .form-row .form-holder input::placeholder,
 .inner .form-row .form-holder input:-ms-input-placeholder,
 .inner .form-row .form-holder input::-ms-input-placeholder {
-    color: $template_font_color !important;
-    opacity: 1;
-    font-size: 12px;
+  color: $template_font_color !important;
+  opacity: 1;
+  font-size: 12px;
 }
 
 /* Inquiry states */
 .state.new {
-    background: gray;
-    color: white;
+  background: gray;
+  color: white;
 }
 
 .state.active {
-    background: $green;
-    color: white;
+  background: $green;
+  color: white;
 }
 
 .state.approved {
@@ -74,133 +120,138 @@
 }
 
 .state.cancel, .state.deleted {
-    background: $red;
-    color: white;
+  background: $red;
+  color: white;
 }
 
 .state.final {
-    background: gray;
-    color: white;
+  background: gray;
+  color: white;
 }
 
 .controls .btn-report {
-    color: $template;
+  color: $template;
 }
 
 /* Inquiries properties icons */
 .inquiry-index .inquiries .info {
-    border-left: 1px solid rgba(0, 0, 0, 0.125);
+  border-left: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .inquiry-index .inquiries .info .icon,
 .inquiry-show .sidebar .icon {
-    background-repeat: no-repeat;
-    background-size: 16px;
-    background-position-x: .5rem;
-    background-position-y: center;
-    padding-left: 30px;
-    margin: .2rem 0;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position-x: .5rem;
+  background-position-y: center;
+  padding-left: 30px;
+  margin: .2rem 0;
 }
 
 .inquiry-index .inquiries .info .icon.date,
 .inquiry-show .sidebar .icon.date {
-    background-image: url("/assets/images/inquiry/date.png");
+  background-image: url("/assets/images/inquiry/date.png");
 }
 
 .inquiry-index .inquiries .info .icon.state,
 .inquiry-show .sidebar .icon.state {
-    /*background-image: url("/assets/images/inquiry/state.png");*/
+  /*background-image: url("/assets/images/inquiry/state.png");*/
 }
 
 .inquiry-index .inquiries .info .icon.type-company,
 .inquiry-show .sidebar .icon.type-company {
-    background-image: url("/assets/images/inquiry/type_company.png");
+  background-image: url("/assets/images/inquiry/type_company.png");
 }
 
 .inquiry-index .inquiries .info .icon.type-personal,
 .inquiry-show .sidebar .icon.type-personal {
-    background-image: url("/assets/images/inquiry/type_personal.png");
+  background-image: url("/assets/images/inquiry/type_personal.png");
 }
 
 .inquiry-index .inquiries .info .icon.region,
 .inquiry-show .sidebar .icon.region {
-    background-image: url("/assets/images/inquiry/region.png");
+  background-image: url("/assets/images/inquiry/region.png");
 }
 
 .inquiry-index .inquiries .info .icon.city,
 .inquiry-show .sidebar .icon.city {
-    background-image: url("/assets/images/inquiry/city.png");
+  background-image: url("/assets/images/inquiry/city.png");
 }
 
 .inquiry-index .inquiries .info .icon.value,
 .inquiry-show .sidebar .icon.value {
-    background-image: url("/assets/images/inquiry/value.png");
+  background-image: url("/assets/images/inquiry/value.png");
 }
 
 .inquiry-index .inquiries .info .icon.email,
 .inquiry-show .sidebar .icon.email {
-    background-image: url("/assets/images/inquiry/email.png");
+  background-image: url("/assets/images/inquiry/email.png");
 }
 
 .inquiry-index .inquiries .info .icon.phone,
 .inquiry-show .sidebar .icon.phone {
-    background-image: url("/assets/images/inquiry/phone.png");
+  background-image: url("/assets/images/inquiry/phone.png");
 }
 
 .inquiry-index .inquiries .info .icon.contact-firm,
 .inquiry-index .inquiries .info .icon.contact-individual,
 .inquiry-show .sidebar .icon.contact-firm,
 .inquiry-show .sidebar .icon.contact-individual {
-    background-image: url("/assets/images/inquiry/contact.png");
+  background-image: url("/assets/images/inquiry/contact.png");
 }
 
 /* Attachments rendering */
-.attachments-list .attachment a{
-    padding-left: 30px;
-    margin: .2rem 0;
-    background-repeat: no-repeat;
-    background-size: 16px;
-    background-position-x: .5rem;
-    background-position-y: center;
-    font-size: 1rem;
-    line-break: anywhere;
-    text-align: left;
-    width: 100%;
+.attachments-list .attachment a {
+  padding-left: 30px;
+  margin: .2rem 0;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position-x: .5rem;
+  background-position-y: center;
+  font-size: 1rem;
+  line-break: anywhere;
+  text-align: left;
+  width: 100%;
 }
 
 /* Contact client button */
 .btn-contact-client {
-    background-color: $template;
-    border: 1px solid $template_dark;
+  background-color: $template;
+  border: 1px solid $template_dark;
 }
 
 .btn-contact-client:hover, .btn-contact-client:active, .btn-contact-client:focus,
 .btn-primary:not(:disabled):not(.disabled):active {
-    background-color: $template_dark;
-    border: 1px solid $template_dark;
+  background-color: $template_dark;
+  border: 1px solid $template_dark;
 }
 
-.inquiry-saved .saved-container p{
-    font-size: 1.0rem;
+.inquiry-saved .saved-container p {
+  font-size: 1.0rem;
 }
 
 /* Attachment icons */
 .attachments-list .attachment.png a {
-    background-image: url("/assets/images/attachments/png.png");
+  background-image: url("/assets/images/attachments/png.png");
 }
-.attachments-list .attachment.jpg a, .attachments-list .attachment.jpeg a{
-    background-image: url("/assets/images/attachments/jpg.png");
+
+.attachments-list .attachment.jpg a, .attachments-list .attachment.jpeg a {
+  background-image: url("/assets/images/attachments/jpg.png");
 }
+
 .attachments-list .attachment.gif a {
-    background-image: url("/assets/images/attachments/gif.png");
+  background-image: url("/assets/images/attachments/gif.png");
 }
+
 .attachments-list .attachment.pdf a {
-    background-image: url("/assets/images/attachments/pdf.png");
+  background-image: url("/assets/images/attachments/pdf.png");
 }
+
 .attachments-list .attachment.zip a, .attachments-list .attachment.sevenzip a {
-    background-image: url("/assets/images/attachments/zip.png");
+  background-image: url("/assets/images/attachments/zip.png");
 }
+
 .attachments-list .attachment.rar a {
-    background-image: url("/assets/images/attachments/rar.png");
+  background-image: url("/assets/images/attachments/rar.png");
 }
 

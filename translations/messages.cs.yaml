@@ -125,9 +125,12 @@ inquiries:
   category_select: "Vyberte kategorii"
   input_key_word_search_label: "Co sháníte?"
   input_key_word_search_ph: "Např. Zednické práce"
+
   btn_inquire: "Poptat"
   btn_create_inquiry: "Zadat poptávku"
   btn_submit: "Zadat poptávku"
+  btn_filter: "Vyhledat"
+  btn_clear: "Smazat filtr"
   created: "Nová poptávka byla úspěšně vytvořena."
 
   new_inquiry: "Zadání poptávky"
@@ -219,7 +222,6 @@ inquiries:
   label_email: "Kontaktní email"
   label_phone: "Kontaktní telefon"
   button_search: "Vyhledat"
-  button_clear: "Smazat filtr"
   button_show_more_filters: "Zobrazit rozšířený filtr"
   button_submit: "Zveřejnit"
   button_contact_client: "Kontaktovat klienta"
