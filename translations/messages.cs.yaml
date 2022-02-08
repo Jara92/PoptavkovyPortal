@@ -24,6 +24,11 @@ footer:
   registration: "Registrace"
   contact: "Kontakt"
 
+#Pagination
+pagination:
+  next: "Další"
+  previous: "Přechozí"
+
 #Authorization
 auth:
   login: "Přihlášení"

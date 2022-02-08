@@ -4,7 +4,7 @@ namespace App\Tools\Pagination;
 
 class PaginationData
 {
-    protected string $pagesUrl;
+    protected string $url;
 
     protected string $paramName;
 
@@ -25,7 +25,7 @@ class PaginationData
      */
     public function __construct(string $pagesUrl, int $currentPage, int $itemsPerPage, string $paramName)
     {
-        $this->pagesUrl = $pagesUrl;
+        $this->url = $pagesUrl;
         $this->paramName = $paramName;
         $this->currentPage = $currentPage;
         $this->itemsPerPage = $itemsPerPage;
@@ -34,17 +34,17 @@ class PaginationData
     /**
      * @return string
      */
-    public function getPagesUrl(): string
+    public function getUrl(): string
     {
-        return $this->pagesUrl;
+        return $this->url;
     }
 
     /**
-     * @param string $pagesUrl
+     * @param string $url
      */
-    public function setPagesUrl(string $pagesUrl): self
+    public function setUrl(string $url): self
     {
-        $this->pagesUrl = $pagesUrl;
+        $this->url = $url;
 
         return $this;
     }

@@ -43,7 +43,7 @@ class InquiryController extends AController
     {
         // Get filter and paginator
         $filter = $this->inquiryFilterFactory->createBlankInquiryFilter();
-        $pagination = $this->getPagination($request, $this->getParameter("app.items_per_page"));
+        $pagination = $this->getPaginationComponent($request, $this->getParameter("app.items_per_page"));
 
         // Create filter form.
         $form = $this->createForm(InquiryFilterForm::class, $filter);
@@ -51,7 +51,7 @@ class InquiryController extends AController
         $form->handleRequest($request);
 
         // Get all inquiries using the filter.
-        $inquiries = $this->inquiryService->readAllFiltered($filter, $pagination->getPaginationData());
+        $inquiries = $this->inquiryService->readAllFiltered($filter, $pagination->getData());
 
         return $this->renderForm("inquiry/index.html.twig",
             ["form" => $form, "pagination" => $pagination, "inquiries" => $inquiries]);

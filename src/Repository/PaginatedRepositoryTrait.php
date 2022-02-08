@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Tools\Pagination\PaginationData;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Exception;
 
 trait PaginatedRepositoryTrait
 {
@@ -66,7 +67,7 @@ trait PaginatedRepositoryTrait
      * @param Query $query
      * @param PaginationData $paginationData
      * @return PaginationData
-     * @throws \Exception
+     * @throws Exception
      */
     protected function paginate(Query $query, PaginationData $paginationData): PaginationData
     {

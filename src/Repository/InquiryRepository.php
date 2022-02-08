@@ -41,7 +41,6 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
             ->getQuery();
 
         $this->paginate($query, $paginationData);
-        dump($paginationData);
 
         return $query->getResult();
     }

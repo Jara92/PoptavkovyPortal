@@ -19,23 +19,7 @@
                 {% include "inquiry/layouts/list.html.twig" with inquiries %}
             </div>
 
-            {# @var pagination \App\Tools\Pagination\PaginationComponent #}
-            <section class="pagination">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item {% if not pagination.previous.isValid %}disabled{% endif %}" >
-                            <a class="page-link" href="{{ pagination.previous.url }}" tabindex="-1">Previous</a>
-                        </li>
-                        {% for page in pagination.items %}
-                            <li class="page-item {% if page.active %}active{% endif %}"><a class="page-link" href="{{ page.url }}">{{ page.id }}</a></li>
-                        {% endfor %}
-                        <li class="page-item {% if not pagination.next.isValid %}disabled{% endif %}">
-                            <a class="page-link" href="{{ pagination.next.url|default("") }}">Next</a>
-                        </li>
-                    </ul>
-                    <p>Zobrazeno {{ pagination.displayedItems }} z {{ pagination.totalItems }}</p>
-                </nav>
-            </section>
+            {% include "layouts/pagination.html.twig" with {pagination} %}
         </div>
     </section>
 {% endblock %}

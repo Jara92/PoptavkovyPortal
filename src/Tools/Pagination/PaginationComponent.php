@@ -2,82 +2,111 @@
 
 namespace App\Tools\Pagination;
 
+use App\Factory\Tools\PaginationLinkFactory;
+
 class PaginationComponent
 {
-    protected PaginationData $paginationData;
+    protected PaginationLinkFactory $paginationLinkFactory;
 
-    public function __construct(PaginationData $paginationData)
+    protected PaginationData $data;
+
+    public function __construct(PaginationLinkFactory $paginationLinkFactory, PaginationData $paginationData)
     {
-        $this->paginationData = $paginationData;
+        $this->paginationLinkFactory = $paginationLinkFactory;
+        $this->data = $paginationData;
     }
 
-    public function getPaginationData(): PaginationData
+    public function getData(): PaginationData
     {
-        return $this->paginationData;
+        return $this->data;
     }
 
-    public function getTotalItems():int{
-        return $this->paginationData->getTotalItems();
-    }
-
-    public function getDisplayedItems():int
+    public function getTotalItems(): int
     {
-        return $this->paginationData->getDisplayedItems();
+        return $this->data->getTotalItems();
     }
 
-    protected function addGetParamToUrl($url, $varName, $value)
+    public function getDisplayedItems(): int
+    {
+        return $this->data->getDisplayedItems();
+    }
+
+    /**
+     * Ads given $param and its $value to given $url.
+     * @param $url
+     * @param $param
+     * @param $value
+     * @return string
+     */
+    protected function addUrlParam($url, $param, $value): string
     {
         // is there already an ?
         if (strpos($url, "?")) {
-            $url .= "&" . $varName . "=" . $value;
+            $url .= "&" . $param . "=" . $value;
         } else {
-            $url .= "?" . $varName . "=" . $value;
+            $url .= "?" . $param . "=" . $value;
         }
 
         return $url;
     }
 
     /**
+     * Returns pagination link items.
      * @return PaginationLink[]
      */
-    public function getItems()
+    public function getItems(): array
     {
         $maxItems = 10;
-
+        $currentPage = $this->data->getCurrentPage();
 
         $items = [];
 
         $count = 0;
 
-        for ($i = max(1, $this->paginationData->getCurrentPage() - $maxItems / 2); $i < $this->paginationData->getCurrentPage(); $i++) {
-            $items[] = new PaginationLink(++$count, $this->addGetParamToUrl($this->paginationData->getPagesUrl(), "page", $i), false);
+        // Pages smaller than current page.
+        for ($i = max(1, $currentPage - $maxItems / 2); $i < $currentPage; $i++) {
+            $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $i);
+            $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $url);
         }
 
-        $items[] = new PaginationLink(++$count, $this->addGetParamToUrl($this->paginationData->getPagesUrl(), "page", $this->paginationData->getCurrentPage()), true);
+        // Current page.
+        $currentUrl = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $currentPage);
+        $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $currentUrl, true);
 
-        for ($i = $this->paginationData->getCurrentPage() + 1; $i <= $this->paginationData->getPageCount() && $count <= $maxItems; $i++) {
-            $items[] = new PaginationLink(++$count, $this->addGetParamToUrl($this->paginationData->getPagesUrl(), "page", $i), false);
+        // Pages bigger than current page. W
+        for ($i = $currentPage + 1; $i <= $this->data->getPageCount() && $count <= $maxItems; $i++) {
+            $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $i);
+            $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $url);
         }
 
         return $items;
     }
 
+    /**
+     * Returns PaginationLink to next page.
+     * @return PaginationLink|null
+     */
     public function getNext(): ?PaginationLink
     {
-        if ($this->paginationData->getCurrentPage() < $this->paginationData->getPageCount()) {
-            return new PaginationLink(0, $this->addGetParamToUrl($this->paginationData->getPagesUrl(), "page", ($this->paginationData->getCurrentPage() + 1)), false);
-            //return $this->addGetParamToUrl($this->$this->pagination->$this->getPagesUrl(), "page", ($this->pagination->getCurrentPage() + 1));
+        if ($this->data->getCurrentPage() < $this->data->getPageCount()) {
+            $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), ($this->data->getCurrentPage() + 1));
+            return $this->paginationLinkFactory->createPaginationItem($url);
         }
 
-        return new PaginationLink(0, "", false);
+        return $this->paginationLinkFactory->createBlankPaginationItem();
     }
 
+    /**
+     * Returns PaginationLink to previous page.
+     * @return PaginationLink|null
+     */
     public function getPrevious(): ?PaginationLink
     {
-        if ($this->paginationData->getCurrentPage() > 1) {
-            return new PaginationLink(0, $this->addGetParamToUrl($this->paginationData->getPagesUrl(), "page", ($this->paginationData->getCurrentPage() - 1)), false);
+        if ($this->data->getCurrentPage() > 1) {
+            $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), ($this->data->getCurrentPage() - 1));
+            return $this->paginationLinkFactory->createPaginationItem($url);
         }
 
-        return new PaginationLink(0, "", false);
+        return $this->paginationLinkFactory->createBlankPaginationItem();
     }
 }
