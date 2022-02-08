@@ -38,34 +38,48 @@ class Pagination
         return $url;
     }
 
+    /**
+     * @return PaginationLink[]
+     */
     public function getItems()
     {
         $maxItems = 10;
+
+
         $items = [];
 
         $count = 0;
 
+        for ($i = max(1, $this->currentPage - $maxItems / 2); $i < $this->currentPage; $i++) {
+            $items[] =  new PaginationLink(++$count, $this->addGetParamToUrl($this->pagesUrl, "page", $i), false);
+        }
 
+        $items[] = new PaginationLink(++$count, $this->addGetParamToUrl($this->pagesUrl, "page", $this->currentPage), true);
+
+        for ($i = $this->currentPage + 1; $i <= $this->pageCount && $count <= $maxItems; $i++) {
+            $items[] = new PaginationLink(++$count, $this->addGetParamToUrl($this->pagesUrl, "page", $i), false);
+        }
 
         return $items;
     }
 
-    public function getNext(): string
+    public function getNext(): ?PaginationLink
     {
         if ($this->currentPage < $this->pageCount) {
-            return $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage + 1));
+            return new PaginationLink(0, $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage + 1)), false);
+            //return $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage + 1));
         }
 
-        return "";
+        return new PaginationLink(0, "", false);
     }
 
-    public function getPrevious(): string
+    public function getPrevious(): ?PaginationLink
     {
         if ($this->currentPage > 1) {
-            return $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage - 1));
+            return new PaginationLink(0, $this->addGetParamToUrl($this->pagesUrl, "page", ($this->currentPage - 1)), false);
         }
 
-        return "";
+        return new PaginationLink(0, "", false);
     }
 
     /**
