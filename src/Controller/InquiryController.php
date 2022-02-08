@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends AController
 {
+    use PaginableTrait;
+
     protected InquiryService $inquiryService;
     protected InquiryFactory $inquiryFactory;
     protected TranslatorInterface $translator;
@@ -25,23 +27,12 @@ class InquiryController extends AController
     /** @required */
     public InquiryFilterFactory $inquiryFilterFactory;
 
-    /** @required */
-    public PaginatorFactory $paginatorFactory;
-
     public function __construct(InquiryOperation $inquiryOperation, InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
     {
         $this->inquiryOperation = $inquiryOperation;
         $this->inquiryService = $inquiryService;
         $this->translator = $translator;
         $this->inquiryFactory = $inquiryFactory;
-    }
-
-    protected function getPaginator(Request $request)
-    {
-        $page = $request->get("page", 1);
-        $itemsPerPage = 2;
-
-        return $this->paginatorFactory->createPaginatorDefault($page, $itemsPerPage);
     }
 
     /**
@@ -53,8 +44,9 @@ class InquiryController extends AController
     {
         // Get filter and paginator
         $filter = $this->inquiryFilterFactory->createBlankInquiryFilter();
-        $paginator = $this->getPaginator($request);
+        $paginator = $this->getPaginator($request, $this->getParameter("app.items_per_page"));
 
+        // Create filter form.
         $form = $this->createForm(InquiryFilterForm::class, $filter);
 
         $form->handleRequest($request);
