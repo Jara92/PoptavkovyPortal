@@ -20,6 +20,8 @@ import 'jquery/dist/jquery.min';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/js/dist/alert";
 
+import "select2/dist/js/select2.min";
+
 // Template scripts.
 import "./libs/laslesvpn_template/js/theme";
 
