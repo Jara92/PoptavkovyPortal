@@ -113,6 +113,21 @@
   font-size: 12px;
 }
 
+/* Inquiry list */
+ul.inquiry-list {
+  padding-left: 0;
+
+  > li {
+    border-radius: 0;
+    padding: 10px;
+    flex-direction: row;
+
+    a.btn-link {
+      padding-left: 0;
+    }
+  }
+}
+
 /* Inquiry states */
 .state.new {
   background: gray;

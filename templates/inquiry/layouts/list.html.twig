@@ -1,12 +1,14 @@
-<ul>
+<ul class="inquiry-list">
     {# @var inquiry \App\Entity\Inquiry\Inquiry #}
     {% for inquiry in inquiries %}
-        <li class="row">
+        <li class="card row">
             <div class="col-md-8">
-                <h3><a href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">{{ inquiry.title }}</a></h3>
+                <a class="btn btn-link" href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">
+                    <h3>{{ inquiry.title }}</h3>
+                </a>
             </div>
             <div class="col-md-4">
-                <ul class="" style="list-style-type: none;">
+                <ul class="properties-list" style="list-style-type: none;">
                     <li>{{ inquiry.createdAt|date("d.m.Y") }}</li>
                     <li>{{ inquiry.region.title }}</li>
                     <li>Stavebnictví</li>

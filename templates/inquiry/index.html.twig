@@ -82,11 +82,15 @@
                 {{ form_end(form) }}
             </div>
 
-            <div class="container">
-                {% include "inquiry/layouts/list.html.twig" with inquiries %}
-            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <section class="pt-3 pb-3">
+                        {% include "inquiry/layouts/list.html.twig" with inquiries %}
+                    </section>
 
-            {% include "layouts/pagination.html.twig" with {pagination} %}
+                    {% include "layouts/pagination.html.twig" with {pagination} %}
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}
