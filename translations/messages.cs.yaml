@@ -139,6 +139,8 @@ inquiries:
   new_inquiry_desc_3: "Nové nabídky denně na Váš email"
   new_inquiry_help: "Nevíte si rady?"
 
+  filtered_inquiries: "Bylo nalezeno <strong>%value%</strong> poptávek odpovídajích Vašim požadavkům."
+
   form_card_info_title: "Informace o poptávce"
   form_card_info_step: "1. krok"
   form_card_info_desc: "Vyplňte informace o tom, co poptáváte. Pro získání nejlepších nabídek je potřeba co nejspřesnější popis.

@@ -32,12 +32,16 @@
   }
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(lg) {
   #inquiry-filter {
     .search-container {
       input {
         width: 100%;
       }
+    }
+
+    .btn-clear-filter{
+      margin-left: auto;
     }
   }
 }
@@ -127,13 +131,15 @@ ul.inquiry-list {
     }
   }
 
-  ul.properties-list{
+  ul.properties-list {
     padding-left: 0;
+  }
+}
 
-    > li{
-      float: left;
-      padding-left: 5px;
-    }
+@include media-breakpoint-down(md) {
+  ul.properties-list > li {
+    float: left;
+    padding-left: 5px;
   }
 }
 

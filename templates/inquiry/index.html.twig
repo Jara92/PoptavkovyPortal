@@ -4,6 +4,7 @@
 
 {% endblock %}
 
+{# @var pagination \App\Tools\Pagination\PaginationComponent #}
 {% block content %}
     <section class="content inquiry-index">
         <div class="jumbotron">
@@ -19,20 +20,8 @@
                         <div class="input-group">
                             {{ form_widget(form.text, {"class": "form-control"}) }}
                             {{ form_row(form.submit, {'attr': {'class': 'btn-outline-secondary btn btn-primary btn-search'}}) }}
-                            <div>
-                                <a class="btn-outline-secondary btn btn-link btn-clear-filter"
-                                   href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
-                            </div>
-
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Separated link</a></li>
-                            </ul>
+                            <a class="btn-outline-secondary btn btn-link btn-clear-filter"
+                               href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +64,7 @@
 
                 <div class="row justify-content-center mt-3 search-note">
                     <div class="col-md-12 col-lg-10">
-                        <p class="float-start">Bylo nalezeno <strong>356</strong> poptávek odpovídajích Vašim požadavkům.</p>
+                        <p class="float-start">{{ "inquiries.filtered_inquiries"|trans({"%value%": pagination.totalItems})|raw }}</p>
                         {# <button class="btn btn-link float-end">Zobrazit rozšířený filtr</button> #}
                     </div>
                 </div>
