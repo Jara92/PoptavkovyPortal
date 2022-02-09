@@ -78,3 +78,7 @@ input.select2-search__field, input.select2-search__field:focus {
 .no-search .select2-search {
   display:none
 }
+
+ul.select2-selection__rendered{
+  padding: 0;
+}

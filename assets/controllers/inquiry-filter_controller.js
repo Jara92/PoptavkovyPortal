@@ -12,25 +12,28 @@ export default class extends Controller {
     constructor(context) {
         super(context);
 
+        let dropdownSearchAdapter = this.getDropdownAdapter();
+        // dropdownSearchAdapter = null;
         this.initSelect2GlobalOptions();
 
         let categories = this.prepareSelect2Field(this.categoriesTarget, {
-            multiple: true
+            multiple: true,
+            dropdownAdapter: dropdownSearchAdapter
         });
 
         let regions = this.prepareSelect2Field(this.regionsTarget, {
-            multiple: true
+            multiple: true,
+            dropdownAdapter: dropdownSearchAdapter
         });
 
         let values = this.prepareSelect2Field(this.valuesTarget, {
             multiple: false,
-            minimumResultsForSearch: Infinity
-
+            minimumResultsForSearch: Infinity,
         });
 
         let types = this.prepareSelect2Field(this.typesTarget, {
             multiple: true,
-            minimumResultsForSearch: -1, // disable searchBox
+            minimumResultsForSearch: -1, // disable searchBox,
         });
     }
 
@@ -39,18 +42,16 @@ export default class extends Controller {
         let Utils = $.fn.select2.amd.require('select2/utils');
         let Dropdown = $.fn.select2.amd.require('select2/dropdown');
         let DropdownSearch = $.fn.select2.amd.require('select2/dropdown/search');
-        let CloseOnSelect = $.fn.select2.amd.require('select2/dropdown/closeOnSelect');
+        // let CloseOnSelect = $.fn.select2.amd.require('select2/dropdown/closeOnSelect');
         let AttachBody = $.fn.select2.amd.require('select2/dropdown/attachBody');
 
-        return Utils.Decorate(Utils.Decorate(Utils.Decorate(Dropdown, DropdownSearch), CloseOnSelect), AttachBody);
+        return Utils.Decorate(Utils.Decorate(Dropdown, DropdownSearch), AttachBody);
     }
 
     initSelect2GlobalOptions() {
-        let dropdownAdapter = this.getDropdownAdapter();
-
         this.select2GlobalOptions = {
-            dropdownAdapter: dropdownAdapter,
             closeOnSelect: false,
+            language: "cs",
             selectionCssClass: "form-control",
             placeholder: "Zvolte možnost"
         };
@@ -67,9 +68,10 @@ export default class extends Controller {
             //Disable original search (https://select2.org/searching#multi-select)
             var searchfield = jQuery(this).parent().find('.select2-search__field');
             searchfield.prop('disabled', true);
-        }).on('select2:close', function (evt) {
-            controller.showSelectedNumber(this);
-        });
+        })   // On value changed
+            .on('change.select2', function (evt) {
+                controller.showSelectedNumber(this);
+            });
 
         // Hide given options in input and replate it by number of selected options.
         this.showSelectedNumber(selection);
@@ -83,7 +85,6 @@ export default class extends Controller {
         if (count === 0) {
             uldiv.html("");
         } else {
-            uldiv.addClass("p-2");
             uldiv.html("" + count + " položek vybráno" + "");
         }
     }

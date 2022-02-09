@@ -21,6 +21,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/js/dist/alert";
 
 import "select2/dist/js/select2.full.min";
+import "select2/dist/js/i18n/cs"
 
 // Template scripts.
 import "./libs/laslesvpn_template/js/theme";
