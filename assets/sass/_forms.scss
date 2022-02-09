@@ -10,6 +10,12 @@
   margin-right: 5px;
 }
 
+.input-group-prepend .input-group-text {
+  background-color: $template_lighter;
+  color: #fff;
+  border: none;
+}
+
 .form-control, .form-select, .form-check {
   margin-bottom: 1rem;
   background-position: right 1rem center;
@@ -65,6 +71,10 @@ textarea.select2-search__field {
 input.select2-search__field, input.select2-search__field:focus {
   @extend .form-control;
   box-shadow: none;
+}
+
+.select2-selection{
+  @extend .form-select;
 }
 
 .select2-container--default.select2-container--focus .select2-selection,
