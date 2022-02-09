@@ -12,9 +12,8 @@ export default class extends Controller {
     constructor(context) {
         super(context);
 
-        let dropdownSearchAdapter = this.getDropdownAdapter();
-        // dropdownSearchAdapter = null;
         this.initSelect2GlobalOptions();
+        let dropdownSearchAdapter = this.getDropdownAdapter();
 
         let categories = this.prepareSelect2Field(this.categoriesTarget, {
             multiple: true,
@@ -52,6 +51,7 @@ export default class extends Controller {
         this.select2GlobalOptions = {
             closeOnSelect: false,
             language: "cs",
+            width: "100%",
             selectionCssClass: "form-control",
             placeholder: "Zvolte možnost"
         };
@@ -68,10 +68,15 @@ export default class extends Controller {
             //Disable original search (https://select2.org/searching#multi-select)
             var searchfield = jQuery(this).parent().find('.select2-search__field');
             searchfield.prop('disabled', true);
-        })   // On value changed
-            .on('change.select2', function (evt) {
-                controller.showSelectedNumber(this);
-            });
+        }).on('change.select2', function (evt) { // On value changed
+            controller.showSelectedNumber(this);
+        }).on('select2:open', function (evt) { // Before dropdown open
+            let searchInput = jQuery(jQuery(elem).data("select2").dropdown.$search)[0];
+
+            if (searchInput) {
+                searchInput.focus();
+            }
+        });
 
         // Hide given options in input and replate it by number of selected options.
         this.showSelectedNumber(selection);

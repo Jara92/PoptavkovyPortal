@@ -21,12 +21,21 @@
     }
   }
 
+  .search-filters {
+    label.form-label {
+      width: 100%;
+    }
+
+    .active-filters {
+      display: none;
+    }
+  }
 }
 
-@include media-breakpoint-down(md){
-  #inquiry-filter{
+@include media-breakpoint-down(md) {
+  #inquiry-filter {
     .search-container {
-      input{
+      input {
         width: 100%;
       }
     }

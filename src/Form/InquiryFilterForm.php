@@ -67,7 +67,7 @@ class InquiryFilterForm extends AbstractType
             ])->add("types", EntityType::class, [
                 'required' => false,
                 'multiple' => true,
-                'label' => "inquiries.field_categories",
+                'label' => "inquiries.field_type",
                 'class' => InquiryType::class,
                 'choice_label' => 'title',
                 'choice_translation_domain' => "messages",

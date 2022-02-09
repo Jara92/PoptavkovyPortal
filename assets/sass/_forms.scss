@@ -36,6 +36,8 @@ label.form-check-label.required:after {
 /* Select2 */
 .select2-container {
   margin-bottom: 1rem;
+  min-width: unset;
+  /*width: 100%;*/
 }
 
 .select2-container .select2-selection--multiple, .select2-container .select2-selection--single {
