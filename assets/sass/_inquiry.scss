@@ -126,6 +126,15 @@ ul.inquiry-list {
       padding-left: 0;
     }
   }
+
+  ul.properties-list{
+    padding-left: 0;
+
+    > li{
+      float: left;
+      padding-left: 5px;
+    }
+  }
 }
 
 /* Inquiry states */

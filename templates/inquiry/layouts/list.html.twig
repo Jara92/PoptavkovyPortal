@@ -9,8 +9,8 @@
             </div>
             <div class="col-md-4">
                 <ul class="properties-list" style="list-style-type: none;">
-                    <li>{{ inquiry.createdAt|date("d.m.Y") }}</li>
-                    <li>{{ inquiry.region.title }}</li>
+                    <li><span class="me-2 fas fa-calendar-day"></span>{{ inquiry.createdAt|date("d.m.Y") }}</li>
+                    <li><span class="me-2 fas fa-map-marker-alt"></span>{{ inquiry.region.title }}</li>
                     <li>Stavebnictví</li>
                 </ul>
             </div>
