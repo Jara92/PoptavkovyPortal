@@ -1,8 +1,8 @@
-.form-control{
+.form-control {
   padding-left: 0.5rem;
 }
 
-.form-select{
+.form-select {
   padding-left: 0.5rem;
 }
 
@@ -25,43 +25,56 @@ label.required:after {
 }
 
 /* No required mark for radiobuttons */
-label.form-check-label.required:after{
+label.form-check-label.required:after {
   content: none;
 }
 
-.radios-inline .form-check{
+.radios-inline .form-check {
   float: left;
 }
 
 /* Select2 */
-.select2-container{
+.select2-container {
   margin-bottom: 1rem;
 }
 
-.select2-container .select2-selection--multiple {
+.select2-container .select2-selection--multiple, .select2-container .select2-selection--single {
   min-height: unset;
+  height: auto;
 }
-.select2-selection.select2-selection--multiple{
-    padding-bottom: 0;
-  }
-.select2-selection.select2-selection--multiple.form-control{
+
+.select2-selection.select2-selection--multiple {
+  padding-bottom: 0;
+}
+
+.select2-selection.select2-selection--single{
+  margin-bottom: 0;
+}
+
+.select2-selection.select2-selection--multiple.form-control {
   margin-bottom: 0;
   padding-bottom: 5px;
 }
 
-textarea.select2-search__field{
+textarea.select2-search__field {
   margin-bottom: 5px;
 }
-input.select2-search__field, input.select2-search__field:focus{
+
+input.select2-search__field, input.select2-search__field:focus {
   @extend .form-control;
   box-shadow: none;
 }
-.select2-container--default.select2-container--focus .select2-selection--multiple,
-.select2-container--default.select2-container--focus .select2-selection--multiple:focus{
+
+.select2-container--default.select2-container--focus .select2-selection,
+.select2-container--default.select2-container--focus .select2-selection:focus {
   border: 1px solid #aaa;
   box-shadow: none;
 }
 
-.form-control, input.select2-search__field, input.select2-search__field:focus{
+.select2-selection .form-control, input.select2-search__field, input.select2-search__field:focus {
   padding: inherit;
+}
+
+.no-search .select2-search {
+  display:none
 }

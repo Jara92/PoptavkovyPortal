@@ -49,19 +49,17 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-4">
-                                    {{ form_row(form.categories, {'attr': {'class': 'form-select'}}) }}
+                                    {{ form_row(form.categories, {'attr': {'class': 'form-select', 'data-inquiry-filter-target':'categories'}}) }}
                                 </div>
                                 <div class="col-lg-4">
                                     {{ form_row(form.regions, {'attr': {'class': 'form-select', 'data-inquiry-filter-target':'regions'}}) }}
                                 </div>
                                 <div class="col-lg-4">
-                                    {{ form_row(form.values, {'attr': {'class': 'form-select'}}) }}
+                                    {{ form_row(form.values, {'attr': {'class': 'form-select', 'data-inquiry-filter-target':'values'}}) }}
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-lg-4">
-                                    {{ form_row(form.types, {'attr': {'class': 'form-select'}}) }}
+                                    {{ form_row(form.types, {'attr': {'class': 'form-select', 'data-inquiry-filter-target':'types'}}) }}
                                 </div>
                                 <div class="col-lg-4">
 

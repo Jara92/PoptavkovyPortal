@@ -5,7 +5,7 @@ import {Controller} from '@hotwired/stimulus';
  * Implements switching between personal/company contact forms.
  */
 export default class extends Controller {
-    static targets = ["categories", "regions"];
+    static targets = ["categories", "regions", "values", "types"];
 
     select2GlobalOptions = {};
 
@@ -14,8 +14,23 @@ export default class extends Controller {
 
         this.initSelect2GlobalOptions();
 
+        let categories = this.prepareSelect2Field(this.categoriesTarget, {
+            multiple: true
+        });
+
         let regions = this.prepareSelect2Field(this.regionsTarget, {
             multiple: true
+        });
+
+        let values = this.prepareSelect2Field(this.valuesTarget, {
+            multiple: false,
+            minimumResultsForSearch: Infinity
+
+        });
+
+        let types = this.prepareSelect2Field(this.typesTarget, {
+            multiple: true,
+            minimumResultsForSearch: -1, // disable searchBox
         });
     }
 
@@ -55,6 +70,9 @@ export default class extends Controller {
         }).on('select2:close', function (evt) {
             controller.showSelectedNumber(this);
         });
+
+        // Hide given options in input and replate it by number of selected options.
+        this.showSelectedNumber(selection);
 
         return selection;
     }
