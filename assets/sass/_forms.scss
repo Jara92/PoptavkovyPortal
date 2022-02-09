@@ -32,3 +32,36 @@ label.form-check-label.required:after{
 .radios-inline .form-check{
   float: left;
 }
+
+/* Select2 */
+.select2-container{
+  margin-bottom: 1rem;
+}
+
+.select2-container .select2-selection--multiple {
+  min-height: unset;
+}
+.select2-selection.select2-selection--multiple{
+    padding-bottom: 0;
+  }
+.select2-selection.select2-selection--multiple.form-control{
+  margin-bottom: 0;
+  padding-bottom: 5px;
+}
+
+textarea.select2-search__field{
+  margin-bottom: 5px;
+}
+input.select2-search__field, input.select2-search__field:focus{
+  @extend .form-control;
+  box-shadow: none;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default.select2-container--focus .select2-selection--multiple:focus{
+  border: 1px solid #aaa;
+  box-shadow: none;
+}
+
+.form-control, input.select2-search__field, input.select2-search__field:focus{
+  padding: inherit;
+}
