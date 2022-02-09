@@ -56,7 +56,7 @@ class InquiryFilterForm extends AbstractType
                 'label' => "inquiries.field_region",
                 'class' => Region::class,
                 'choice_label' => 'title',
-                'choice_translation_domain' => "messages",
+                'choice_translation_domain' => false,
             ])->add("values", EntityType::class, [
                 'required' => false,
                 'multiple' => true,
