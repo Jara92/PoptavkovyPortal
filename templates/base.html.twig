@@ -23,16 +23,11 @@
 
     <!-- CSS -->
     {{ encore_entry_link_tags('app') }}
-    {% block styles %}
-
-    {% endblock %}
+    {% block styles %}{% endblock %}
 
     <!-- Scripts -->
     {{ encore_entry_script_tags('app') }}
-    {% block scripts %}
-
-    {% endblock %}
-
+    {% block scripts %}{% endblock %}
 </head>
 
 <body>
@@ -185,8 +180,5 @@
 
     {% include "layouts/footer.html.twig" %}
 </div>
-
-<!--    Template JavaScripts -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
 </body>
 </html>
