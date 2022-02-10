@@ -2,7 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquiryType;
+use App\Entity\Inquiry\InquiryValue;
+use App\Entity\Inquiry\Region;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -29,7 +33,7 @@ class MainDashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-         return $this->render('admin/main_dashboard.html.twig');
+        return $this->render('admin/main_dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -44,7 +48,12 @@ class MainDashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::linkToCrud("inquiries.inquiries", "fa fa-tags", Inquiry::class)];
+            MenuItem::linkToCrud("inquiries.inquiries", "fa fa-tags", Inquiry::class),
+            MenuItem::linkToCrud("inquiries.inquiry_types", "fa fa-tags", InquiryType::class),
+            MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-tags", InquiryValue::class),
+            MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
+            MenuItem::linkToCrud("inquiries.regions", "fa", Region::class)
+        ];
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

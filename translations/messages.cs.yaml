@@ -122,6 +122,11 @@ articles:
 #Inquiries
 inquiries:
   inquiries: "Poptávky"
+  inquiry_types: "Typy poptávek"
+  inquiry_values: "Hodnoty poptávek"
+  deadlines: "Termíny"
+  regions: "Kraje"
+
   category_select: "Vyberte kategorii"
   input_key_word_search_label: "Co sháníte?"
   input_key_word_search_ph: "Např. Zednické práce"
