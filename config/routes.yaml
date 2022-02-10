@@ -79,4 +79,4 @@ app_logout:
 admin:
     path: /admin
     controller: App\Controller\Admin\MainDashboardController::index
-    methods: GET
+    methods: GET|POST

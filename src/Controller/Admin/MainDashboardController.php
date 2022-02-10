@@ -35,7 +35,8 @@ class MainDashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Poptejsi.cz');
+            ->setTitle('Poptejsi.cz')
+            ->setTranslationDomain("messages");
     }
 
     public function configureMenuItems(): iterable
@@ -43,7 +44,7 @@ class MainDashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::linkToCrud("Inquiries", "fa fa-tags", Inquiry::class)];
+            MenuItem::linkToCrud("inquiries.inquiries", "fa fa-tags", Inquiry::class)];
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

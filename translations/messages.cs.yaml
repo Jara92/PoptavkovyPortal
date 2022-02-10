@@ -172,10 +172,10 @@ inquiries:
   field_phone_ph: "Např. 123 456 789"
   field_title: "Název poptávky"
   field_title_pre: "Poptávám: "
-  admin_field_title_pre: "Název poptávky"
   field_title_dv: "Poptávám: "
   field_title_ph: "Např. Zhotovení webové prezentace pro rodinnou restauraci"
   field_title_desc: "Název by měl stručne shrnovat co poptáváte."
+  field_alias: "Alias"
   field_description: "Detailní popis"
   field_description_ph_old: "Webová stránka bude obsahovat úvodní stránku, jídelní list, historii, fotogalerii a kontaktní stránku. \nKontaktní stránka bude obsahovat kontaktní formulář a naše kontaktní údaje. Na kontaktní stránce bychom chtěli google/seznam mapu s naší restaurací."
   field_description_ph: "Popis by měl být podrobný a měl by obsahovat dostatek informací, aby si dodavatel udělal představu o pracnosti Vaší poptávky. Díky tomu bude potencionální dodavatel schopen Vám rychleji udělat nabídku a nabídnout lepší cenu."
@@ -188,6 +188,7 @@ inquiries:
   field_region_desc: "Zvolte kraj, ve kterém chcete poptávku realizovat."
   field_deadline: "Termín realizace"
   field_deadline_desc: "Termín realizace poptávky"
+  field_state: "Stav poptávky"
   field_type: "Typ poptávky"
   field_type_desc: "Typ poptávky"
   field_city: "Město"
@@ -203,9 +204,10 @@ inquiries:
   field_terms_agree: "Souhlasím s <a href='%link%' target='_blank' class='btn btn-link p-0'>obchodními podmínkami</a>"
   field_person_name: "Jméno"
   field_person_name_ph: "Např. Pavel"
-
   field_person_surname: "Příjmení"
   field_person_surname_ph: "Např. Novák"
+  field_personal_contact: "Osobní kontakt"
+  field_company_contact: "Firemní kontakt"
   admin_field_state: "Stav poptávky"
   search_category: "Vyhledat kategorie: "
   personal_informations: "Osobní údaje"
@@ -257,10 +259,22 @@ inquiries:
   admin_state_final: "Dokončená"
   state_label_final: "Poptávka už našla svého dodavatele."
 
+admin:
+  inquiries:
+    title_common: "Základní informace"
+    title_contact: "Kontaktní údaje"
+    title_others: "Ostatní"
+
 # Option titles
 inquiry_type.personal: "Osobní poptávka"
 inquiry_type.company: "Firemní poptávka"
 inquiry_type.public: "Veřejná poptávka"
+
+inquiry_state.new: "Nová"
+inquiry_state.active: "Aktivní"
+inquiry_state.processing: "Zpracovává se"
+inquiry_state.archived: "Archivovaná"
+inquiry_state.deleted: "Smazaná"
 
 inquiry_value.agreement: "Dohodou"
 inquiry_value.make_offer: "Nabídněte"
