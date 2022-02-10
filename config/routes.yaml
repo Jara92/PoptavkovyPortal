@@ -75,3 +75,8 @@ app_logout:
     path: /odhlasit
     controller: App\Controller\Auth\LogoutController::logout
     methods: GET
+
+admin:
+    path: /admin
+    controller: App\Controller\Admin\MainDashboardController::index
+    methods: GET
