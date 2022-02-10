@@ -40,7 +40,7 @@
       }
     }
 
-    .btn-clear-filter{
+    .btn-clear-filter {
       margin-left: auto;
     }
   }
@@ -238,6 +238,70 @@ ul.inquiry-list {
 .inquiry-show .sidebar .icon.contact-firm,
 .inquiry-show .sidebar .icon.contact-individual {
   background-image: url("/assets/images/inquiry/contact.png");
+}
+
+/* Detail page */
+.inquiry-detail {
+  ul.inquiry-tags {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    > li {
+      float: left;
+      margin-right: 5px;
+    }
+  }
+
+  .inquiry-detail-left {
+
+  }
+
+  .inquiry-detail-right {
+    background-color: #2f2f82;
+    border: 1px solid #2f2f82;
+    /*margin-left: 1rem;*/
+    border-radius: 10px;
+    color: white;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  ul.inquiry-properties {
+    list-style-type: none;
+    padding: 0;
+    font-size: 1rem;
+  }
+}
+
+/** Border radius for large displays */
+@include media-breakpoint-up(lg) {
+  .inquiry-detail {
+    .inquiry-detail-left {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .inquiry-detail-right {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+/** Border radius for small displays */
+@include media-breakpoint-down(md) {
+  .inquiry-detail {
+    .inquiry-detail-left {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .inquiry-detail-right {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
 }
 
 /* Attachments rendering */
