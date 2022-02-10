@@ -1,3 +1,27 @@
+{# https://stackoverflow.com/questions/9496212/navigation-highlight-current-page/27134506 #}
+{% macro menuItem(name, url, subitems) %}
+    {% apply spaceless %}
+        {% set subitems = subitems|default({}) %}
+        {% set currentUrl = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+        {% set isActive = currentUrl == url %}
+
+        {% for name, suburl in subitems %}
+            {% set isActive = not isActive and currentUrl == suburl %}
+        {% endfor %}
+
+        <li class="nav-item">
+            <a href="{{ url }}" class="nav-link {% if subitems|length > 0 %}has-sub-menu{% endif %} {% if isActive %}active{% endif %}">{{ name }}</a>
+            {% if subitems|length > 0 %}
+                <ul class="main-sub-menu">
+                    {% for name, url in subitems %}
+                        {{ _self.menuItem(name, url) }}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endapply %}
+{% endmacro %}
+
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" data-navbar-on-scroll="data-navbar-on-scroll">
     <div class="container">
         {# Logo #}
@@ -15,19 +39,10 @@
         {# Menu items #}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto border-bottom border-lg-bottom-0 pt-2 pt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ path("inquiries") }}">
-                        {{ "mainnav.inquiries"|trans }}</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ path("inquiring") }}">{{ "mainnav.inquiring"|trans }}</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ path("suppliers") }}">{{ "mainnav.suppliers"|trans }}</a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="{{ path("how-it-works") }}">{{ "mainnav.about_project"|trans }}</a>
-                </li>
+                {{ _self.menuItem("mainnav.inquiries"|trans, path("inquiries")) }}
+                {{ _self.menuItem("mainnav.inquiring"|trans, path("inquiring")) }}
+                {{ _self.menuItem("mainnav.suppliers"|trans, path("suppliers")) }}
+                {{ _self.menuItem("mainnav.about_project"|trans, path("how-it-works")) }}
             </ul>
 
             <section class="d-flex py-3 py-lg-0">
