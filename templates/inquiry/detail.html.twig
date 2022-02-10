@@ -7,8 +7,7 @@
                 <section class="inquiry-detail-left card col-md-10 col-lg-6">
                     <h1>{{ inquiry.title }}</h1>
                     <ul class="inquiry-tags">
-                        <li><span class="badge bg-primary">Čeká na nabídky</span></li>
-                        <li><span class="badge bg-primary">Čeká na nabídky</span></li>
+                        {# <li><span class="badge bg-primary">Čeká na nabídky</span></li> #}
                     </ul>
 
                     <hr/>
@@ -20,14 +19,32 @@
 
                     <button class="btn btn-primary">Kontaktovat</button>
                 </section>
-                <div class="inquiry-detail-right col-md-10 col-lg-4">
-                    <ul class="inquiry-properties">
-                        <li><span class="fas fa-hashtag me-2"></span>Evidenční číslo: {{ inquiry.id }}</li>
-                        <li><span class="fas fa-calendar-day me-2"></span>Zadáno: {{ inquiry.createdAt|date("d.m.Y H:m") }}</li>
-                        <li><span class="fas fa-map-marker-alt me-2"></span>Místo realizace: {{ inquiry.region.title }}</li>
-                        <li>Typ: {{ inquiry.type.title|trans }}</li>
-                        <li><span class="fas fa-clock me-2"></span>Termín: {{ inquiry.deadline.title|trans }}</li>
-                        <li><span class="fas fa-dollar-sign me-2"></span>Předpokládaná cena: {{ inquiry.value.title|trans }}</li>
+                <div class="inquiry-detail-right col-md-10 col-lg-3">
+                    <ul class="row inquiry-properties">
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span class="fas fa-hashtag me-2"></span>Evidenční číslo</div>
+                            <div class="value">{{ inquiry.id }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span class="fas fa-calendar-day me-2"></span>Zadáno</div>
+                            <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span class="fas fa-map-marker-alt me-2"></span>Místo realizace</div>
+                            <div class="value">{{ inquiry.region.title }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title">Typ</div>
+                            <div class="value">{{ inquiry.type.title|trans }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span class="fas fa-clock me-2"></span>Termín</div>
+                            <div class="value">{{ inquiry.deadline.title|trans }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span class="fas fa-dollar-sign me-2"></span>Předpokládaná cena</div>
+                            <div class="value">{{ inquiry.value.title|trans }}</div>
+                        </li>
                     </ul>
                 </div>
             </div>
