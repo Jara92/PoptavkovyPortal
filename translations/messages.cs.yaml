@@ -271,25 +271,29 @@ admin:
     title_others: "Ostatní"
 
 # Option titles
-inquiry_type.personal: "Osobní poptávka"
-inquiry_type.company: "Firemní poptávka"
-inquiry_type.public: "Veřejná poptávka"
+inquiry_type:
+  personal: "Osobní poptávka"
+  company: "Firemní poptávka"
+  public: "Veřejná poptávka"
 
-inquiry_state.new: "Nová"
-inquiry_state.active: "Aktivní"
-inquiry_state.processing: "Zpracovává se"
-inquiry_state.archived: "Archivovaná"
-inquiry_state.deleted: "Smazaná"
+inquiry_state:
+  new: "Nová"
+  active: "Aktivní"
+  processing: "Zpracovává se"
+  archived: "Archivovaná"
+  deleted: "Smazaná"
 
-inquiry_value.agreement: "Dohodou"
-inquiry_value.make_offer: "Nabídněte"
-inquiry_value.according_offers: "Dle nabídek"
-inquiry_value.max_5k: "Do 5 tisíc"
-inquiry_value.max_50k: "Do 50 tisíc"
-inquiry_value.max_200k: "Do 200 tisíc"
-inquiry_value.max_1M: "Do 1 milionu"
-inquiry_value.more: "Více než milion"
+inquiry_value:
+  agreement: "Dohodou"
+  make_offer: "Nabídněte"
+  according_offers: "Dle nabídek"
+  max_5k: "Do 5 tisíc"
+  max_50k: "Do 50 tisíc"
+  max_200k: "Do 200 tisíc"
+  max_1M: "Do 1 milionu"
+  more: "Více než milion"
 
-deadline.agreement: "Dohodou"
-deadline.now: "Hned"
-deadline.as_soon_as_possible: "Co nejdříve"
+deadline:
+  agreement: "Dohodou"
+  now: "Hned"
+  as_soon_as_possible: "Co nejdříve"
