@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Inquiry\Inquiry;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -12,7 +13,7 @@ class MainDashboardController extends AbstractDashboardController
 {
     public function index(): Response
     {
-        return parent::index();
+        //return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -28,18 +29,21 @@ class MainDashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        // return $this->render('some/path/my-dashboard.html.twig');
+         return $this->render('admin/main_dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Poptavky');
+            ->setTitle('Poptejsi.cz');
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        return [
+            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+
+            MenuItem::linkToCrud("Inquiries", "fa fa-tags", Inquiry::class)];
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
