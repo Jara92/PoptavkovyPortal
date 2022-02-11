@@ -54,10 +54,6 @@ trait PaginatedRepositoryTrait
         if($paginationData->getCurrentPage() > $paginationData->getPageCount()){
             $paginationData->setCurrentPage($paginationData->getPageCount());
         }
-        // Given page is smaller than 1.
-        else if($paginationData->getCurrentPage() < 1){
-            $paginationData->setCurrentPage(1);
-        }
 
         return $paginationData;
     }
@@ -82,9 +78,12 @@ trait PaginatedRepositoryTrait
         $this->validateCurrentPage($paginationData);
         $this->setDisplayedItems($paginationData);
 
+        dump($paginationData);
+
         // Set query first item and LIMIT
         $paginator->getQuery()
-            ->setFirstResult($paginationData->getItemsPerPage() * ($paginationData->getCurrentPage() - 1)) // set the offset
+            // set the offset - minimum is 0
+            ->setFirstResult(max(0, $paginationData->getItemsPerPage() * ($paginationData->getCurrentPage() - 1)))
             ->setMaxResults($paginationData->getItemsPerPage()); // set the limit
 
         $paginator->getIterator();
