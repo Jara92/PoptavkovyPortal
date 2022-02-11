@@ -103,7 +103,7 @@ class InquiryOperation
         $this->inquiryService->create($inquiry);
 
         // Generate inquiry alias and update entity.
-        $inquiry->setAlias(UrlHelper::createAlias($inquiry->getId(), $inquiry->getTitle()));
+        $inquiry->setAlias(UrlHelper::createIdAlias($inquiry->getId(), $inquiry->getTitle()));
         $this->inquiryService->update($inquiry);
 
         return true;

@@ -4,8 +4,7 @@ namespace App\Helper;
 
 class UrlHelper
 {
-    public static function createAlias($id, $title, $divider = "-"): string
-    {
+    public static function createAlias(string $title, string $divider = "-"):string{
         // replace non letter or digits by divider
         $title = preg_replace('~[^\pL\d]+~u', $divider, $title);
 
@@ -28,6 +27,11 @@ class UrlHelper
             return 'n-a';
         }
 
-        return $id . $divider . $title;
+        return $title;
+    }
+
+    public static function createIdAlias(int $id, string $title, string $divider = "-"): string
+    {
+        return $id . $divider . self::createAlias($title);
     }
 }
