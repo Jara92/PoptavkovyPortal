@@ -3,6 +3,7 @@
 namespace App\Tools\Filter;
 
 use App\Entity\Inquiry\InquiryCategory;
+use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\Region;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\InquiryType;
@@ -18,6 +19,8 @@ class InquiryFilter
     protected array $values = [];
 
     protected array $types = [];
+
+    protected array $states = [];
 
     // TODO: figure out datatype and better name.
     protected mixed $old;
@@ -136,5 +139,21 @@ class InquiryFilter
         $this->ordering = $ordering;
     }
 
+    /**
+     * @return InquiryState[]
+     */
+    public function getStates(): array
+    {
+        return $this->states;
+    }
 
+    /**
+     * @param InquiryState[] $states
+     * @return InquiryFilter
+     */
+    public function setStates(array $states): self
+    {
+        $this->states = $states;
+        return $this;
+    }
 }
