@@ -33,6 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const ROLE_INQUIRING = "ROLE_INQUIRING";
     // Can respond to inquiries.
     const ROLE_SUPPLIER = "ROLE_SUPPLIER";
+    // Can access features for logged in users.
+    const ROLE_VERIFIED = "ROLE_VERIFIED";
+
     const ROLE_USER = "ROLE_USER";
 
     /**
