@@ -17,17 +17,15 @@ class AService implements ICrudService
 {
     protected IRepository $repository;
 
-    protected ManagerRegistry $doctrine;
-
     protected ObjectManager $entityManager;
 
     /**
-     * @param ManagerRegistry $doctrine
-     * @required
+     * @param ObjectManager $manager
+     * @internal
      */
-    public function setDoctrine(ManagerRegistry $doctrine){
-        $this->doctrine = $doctrine;
-        $this->entityManager = $this->doctrine->getManager();
+    public function setObjectManager(ObjectManager $manager)
+    {
+        $this->entityManager = $manager;
     }
 
     /**
@@ -76,7 +74,7 @@ class AService implements ICrudService
     {
         $entity = $this->readById($id);
 
-        if($entity){
+        if ($entity) {
             return true;
         }
 
@@ -117,7 +115,7 @@ class AService implements ICrudService
     {
         $entity = $this->readById($id);
 
-        if(!$entity){
+        if (!$entity) {
             $this->onDeleteNonExistingItem($id);
         }
 
@@ -140,5 +138,7 @@ class AService implements ICrudService
      * Called after trying to delete a non-existing item.
      * @param mixed $id
      */
-    protected function onDeleteNonExistingItem(mixed $id){}
+    protected function onDeleteNonExistingItem(mixed $id)
+    {
+    }
 }
