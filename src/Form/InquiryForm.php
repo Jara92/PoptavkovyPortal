@@ -60,10 +60,11 @@ class InquiryForm extends AbstractType
                 ]
             ])
             ->add("region", EntityType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => "inquiries.field_region",
                 // looks for choices from this entity
                 'class' => Region::class,
+                'placeholder' => "inquiries.field_region_ph",
 
                 // uses the User.username property as the visible option string
                 'choice_label' => 'title',

@@ -190,6 +190,7 @@ inquiries:
   field_value_ph: ""
   field_value_desc: "Zadejte očekávanou hodnotu poptávky v KČ."
   field_region: "Kraj"
+  field_region_ph: "Celá ČR"
   field_region_desc: "Zvolte kraj, ve kterém chcete poptávku realizovat."
   field_deadline: "Termín realizace"
   field_deadline_desc: "Termín realizace poptávky"

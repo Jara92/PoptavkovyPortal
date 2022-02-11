@@ -31,7 +31,9 @@
                         </li>
                         <li class="col-md-6 col-lg-12">
                             <div class="title"><span class="fas fa-map-marker-alt me-2"></span>Místo realizace</div>
-                            <div class="value">{{ inquiry.region.title }}</div>
+                            <div class="value">
+                                {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
+                            </div>
                         </li>
                         <li class="col-md-6 col-lg-12">
                             <div class="title">Typ</div>
