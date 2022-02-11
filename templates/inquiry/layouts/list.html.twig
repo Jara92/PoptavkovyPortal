@@ -1,22 +1,26 @@
-<ul class="inquiry-list">
-    {# @var inquiry \App\Entity\Inquiry\Inquiry #}
-    {% for inquiry in inquiries %}
-        <li class="card row">
-            <div class="col-md-8">
-                <a class="btn btn-link" href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">
-                    <h3>{{ inquiry.title }}</h3>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <ul class="properties-list" style="list-style-type: none;">
-                    <li><span class="me-2 fas fa-calendar-day"></span>{{ inquiry.createdAt|date("d.m.Y") }}</li>
-                    <li>
-                        <span class="me-2 fas fa-map-marker-alt"></span>
-                        {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
-                    </li>
-                    <li>Stavebnictví</li>
-                </ul>
-            </div>
-        </li>
-    {% endfor %}
-</ul>
+{% if inquiries|length > 0 %}
+    <ul class="inquiry-list">
+        {# @var inquiry \App\Entity\Inquiry\Inquiry #}
+        {% for inquiry in inquiries %}
+            <li class="card row">
+                <div class="col-md-8">
+                    <a class="btn btn-link" href="{{ path("inquiries/detail", {"alias" : inquiry.alias}) }}">
+                        <h3>{{ inquiry.title }}</h3>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <ul class="properties-list" style="list-style-type: none;">
+                        <li><span class="me-2 fas fa-calendar-day"></span>{{ inquiry.createdAt|date("d.m.Y") }}</li>
+                        <li>
+                            <span class="me-2 fas fa-map-marker-alt"></span>
+                            {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
+                        </li>
+                        <li>Stavebnictví</li>
+                    </ul>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p class="pt-7 text-center">{{ "inquiries.no_inquiries_found"|trans }}</p>
+{% endif %}
