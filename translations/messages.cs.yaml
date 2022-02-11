@@ -122,6 +122,7 @@ articles:
 #Inquiries
 inquiries:
   inquiries: "Poptávky"
+  inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
   inquiry_values: "Hodnoty poptávek"
   deadlines: "Termíny"

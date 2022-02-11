@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
@@ -49,6 +50,7 @@ class MainDashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
             MenuItem::linkToCrud("inquiries.inquiries", "fa fa-tags", Inquiry::class),
+            MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
             MenuItem::linkToCrud("inquiries.inquiry_types", "fa fa-tags", InquiryType::class),
             MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-tags", InquiryValue::class),
             MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
