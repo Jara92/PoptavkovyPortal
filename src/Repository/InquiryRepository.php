@@ -8,6 +8,7 @@ use App\Repository\Interfaces\IInquiryIRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Tools\Pagination\PaginationData;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @method Inquiry|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,8 +29,7 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
      * @param InquiryFilter $filter
      * @param PaginationData $paginationData
      * @return Inquiry[]
-     * @throws \Exception
-     * @throws \Exception
+     * @throws Exception
      */
     public function findByFilter(InquiryFilter $filter, PaginationData $paginationData): array
     {
