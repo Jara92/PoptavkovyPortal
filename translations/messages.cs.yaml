@@ -272,6 +272,8 @@ admin:
     title_contact: "Kontaktní údaje"
     title_others: "Ostatní"
 
+    field_parent_category: "Nadřazená kategorie"
+
 # Option titles
 inquiry_type:
   personal: "Osobní poptávka"
