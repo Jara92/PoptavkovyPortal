@@ -6,15 +6,20 @@ use App\Business\Service\AService;
 use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IRepository;
 use PHPUnit\Framework\TestCase;
+use Doctrine\Persistence\ObjectManager;
 
 class AServiceTest extends TestCase
 {
     /** IRepository mock */
     protected IRepository $repository;
 
+    /** ObjectManager mock */
+    protected ObjectManager $em;
+
     protected AService $service;
 
     protected Inquiry $entity;
+
     protected array $entities;
 
     function setUp(): void
@@ -22,7 +27,11 @@ class AServiceTest extends TestCase
         parent::setUp();
 
         $this->repository = $this->createStub(IRepository::class);
+        $this->em = $this->createStub(ObjectManager::class);
+
+        // Create a service using mocked dependencies.
         $this->service = new AService($this->repository);
+        $this->service->setObjectManager($this->em);
 
         $this->entity = (new Inquiry())->setId(13);
         $this->entities = [
@@ -86,5 +95,12 @@ class AServiceTest extends TestCase
         $this->repository->expects($this->once())->method("find")->with($id)->willReturn(null);
 
         $this->assertEquals(false, $this->service->existsById($id));
+    }
+
+    public function testCreate():void{
+        $this->em->expects($this->once())->method("persist")->with($this->entity);
+        $this->em->expects($this->once())->method("flush");
+
+        $this->assertEquals(true, $this->service->create($this->entity));
     }
 }

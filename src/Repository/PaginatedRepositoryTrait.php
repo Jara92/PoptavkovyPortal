@@ -78,8 +78,6 @@ trait PaginatedRepositoryTrait
         $this->validateCurrentPage($paginationData);
         $this->setDisplayedItems($paginationData);
 
-        dump($paginationData);
-
         // Set query first item and LIMIT
         $paginator->getQuery()
             // set the offset - minimum is 0
