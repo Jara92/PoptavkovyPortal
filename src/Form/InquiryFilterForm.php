@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Business\Operation\InquiryOperation;
+use App\Business\Service\InquiryCategoryService;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
@@ -23,6 +24,9 @@ class InquiryFilterForm extends AbstractType
 
     /** @required */
     public InquiryOperation $inquiryOperation;
+
+    /** @required */
+    public InquiryCategoryService $inquiryCategoryService;
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -48,6 +52,7 @@ class InquiryFilterForm extends AbstractType
                 'multiple' => true,
                 'label' => "inquiries.field_categories",
                 'class' => InquiryCategory::class,
+                'choices' => $this->inquiryCategoryService->readAllRootCategories(),
                 'choice_label' => 'title',
                 // We dont want to translate categories
                 'choice_translation_domain' => false,
