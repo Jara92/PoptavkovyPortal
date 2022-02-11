@@ -78,7 +78,8 @@ class PaginationLink
 
 
 
-    public function getIsValid(){
+    public function getIsValid(): bool
+    {
         return $this->url !== "";
     }
 }

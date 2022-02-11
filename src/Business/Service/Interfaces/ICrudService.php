@@ -14,7 +14,7 @@ interface ICrudService
      * @param K $id
      * @return E|null
      */
-    public function readById($id);
+    public function readById(mixed $id);
 
     /**
      * Read all saved entities.
@@ -34,25 +34,25 @@ interface ICrudService
      * @param K $id
      * @return boolean True if the entity already exists.
      */
-    public function existsById($id): bool;
+    public function existsById(mixed $id): bool;
 
     /**
      * Create a new entity.
      * @param E $entity
      * @return boolean Success.
      */
-    public function create($entity): bool;
+    public function create(mixed $entity): bool;
 
     /**
      * Update an entity.
      * @param E $entity
      * @return boolean Success.
      */
-    public function update($entity): bool;
+    public function update(mixed $entity): bool;
 
     /**
      * @param K $id
      * @return boolean Success.
      */
-    public function deleteById($id): bool;
+    public function deleteById(mixed $id): bool;
 }

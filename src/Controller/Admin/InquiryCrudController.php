@@ -6,6 +6,7 @@ use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\PersonalContact;
+use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -28,13 +29,13 @@ class InquiryCrudController extends AbstractCrudController
         return $crud;
     }
 
-    public function new(AdminContext $context)
+    public function new(AdminContext $context): \EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
     {
         $out = parent::new($context);
 
         /** @var Inquiry $inquiry */
         $inquiry = $context->getEntity()->getInstance();
-        $now = new \DateTime();
+        $now = new DateTime();
         $inquiry->setCreatedAt($now)->setUpdatedAt($now);
 
         return $out;

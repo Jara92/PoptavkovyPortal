@@ -29,7 +29,7 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
      * @param PaginationData $paginationData
      * @return Inquiry[]
      */
-    public function findByFilter(InquiryFilter $filter, PaginationData $paginationData)
+    public function findByFilter(InquiryFilter $filter, PaginationData $paginationData): array
     {
         $queryBuilder = $this->createQueryBuilder("i");
 

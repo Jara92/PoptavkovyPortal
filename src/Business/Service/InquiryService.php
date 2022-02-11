@@ -30,6 +30,8 @@ class InquiryService extends AService
     /**
      * Returns filtered results.
      * @param InquiryFilter $filter
+     * @param PaginationData $paginator
+     * @return mixed
      */
     public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator)
     {

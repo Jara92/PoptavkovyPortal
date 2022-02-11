@@ -46,7 +46,7 @@ class AService implements ICrudService
      * @param K $id
      * @return E|null
      */
-    public function readById($id)
+    public function readById(mixed $id)
     {
         return $this->repository->find($id);
     }
@@ -75,7 +75,7 @@ class AService implements ICrudService
      * @param K $id
      * @return boolean True if the entity already exists.
      */
-    public function existsById($id): bool
+    public function existsById(mixed $id): bool
     {
         $entity = $this->readById($id);
 
@@ -91,7 +91,7 @@ class AService implements ICrudService
      * @param E $entity
      * @return boolean Success.
      */
-    public function create($entity): bool
+    public function create(mixed $entity): bool
     {
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
@@ -104,7 +104,7 @@ class AService implements ICrudService
      * @param E $entity
      * @return boolean Success.
      */
-    public function update($entity): bool
+    public function update(mixed $entity): bool
     {
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
@@ -116,7 +116,7 @@ class AService implements ICrudService
      * @param K $id
      * @return boolean Success.
      */
-    public function deleteById($id): bool
+    public function deleteById(mixed $id): bool
     {
         $entity = $this->readById($id);
 
@@ -131,7 +131,7 @@ class AService implements ICrudService
      * @param E $entity
      * @return boolean Success.
      */
-    public function delete($entity): bool
+    public function delete(mixed $entity): bool
     {
         $this->entityManager->remove($entity);
         $this->entityManager->flush();

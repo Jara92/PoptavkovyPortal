@@ -9,9 +9,10 @@ use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
+use Exception;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class InquiryController extends AController
@@ -79,7 +80,7 @@ class InquiryController extends AController
      * Show and handle a new inquiry form.
      * @param Request $request
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(Request $request): Response
     {

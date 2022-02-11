@@ -208,7 +208,7 @@ class Inquiry
     }
 
     /**
-     * @return Collection|InquiryCategory[]
+     * @return Collection
      */
     public function getCategories(): Collection
     {

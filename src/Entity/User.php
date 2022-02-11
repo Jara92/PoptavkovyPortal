@@ -234,7 +234,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Inquiry[]
+     * @return Collection
      */
     public function getInquiries(): Collection
     {

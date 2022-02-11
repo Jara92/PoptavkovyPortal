@@ -110,7 +110,7 @@ class InquiryFilter
     /**
      * @return mixed
      */
-    public function getOld()
+    public function getOld(): mixed
     {
         return $this->old;
     }
@@ -118,7 +118,7 @@ class InquiryFilter
     /**
      * @param mixed $old
      */
-    public function setOld($old): void
+    public function setOld(mixed $old): void
     {
         $this->old = $old;
     }

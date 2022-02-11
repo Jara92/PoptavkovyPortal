@@ -22,6 +22,7 @@ class PaginationData
      * @param string $pagesUrl
      * @param int $currentPage
      * @param int $itemsPerPage
+     * @param string $paramName
      */
     public function __construct(string $pagesUrl, int $currentPage, int $itemsPerPage, string $paramName)
     {
@@ -41,6 +42,7 @@ class PaginationData
 
     /**
      * @param string $url
+     * @return PaginationData
      */
     public function setUrl(string $url): self
     {

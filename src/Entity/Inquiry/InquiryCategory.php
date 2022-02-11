@@ -67,7 +67,7 @@ class InquiryCategory
     }
 
     /**
-     * @return Collection|self[]
+     * @return Collection
      */
     public function getChildren(): Collection
     {

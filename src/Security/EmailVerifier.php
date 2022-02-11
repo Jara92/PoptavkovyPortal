@@ -30,7 +30,7 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
-    protected function createVerificationEmail(User $user)
+    protected function createVerificationEmail(User $user): TemplatedEmail
     {
         return (new TemplatedEmail())
             ->from(new Address('info@poptejsi.cz', 'Poptejsi.cz'))
