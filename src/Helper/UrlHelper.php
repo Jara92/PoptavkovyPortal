@@ -32,6 +32,6 @@ class UrlHelper
 
     public static function createIdAlias(int $id, string $title, string $divider = "-"): string
     {
-        return $id . $divider . self::createAlias($title);
+        return self::createAlias($id . $divider . $title);
     }
 }
