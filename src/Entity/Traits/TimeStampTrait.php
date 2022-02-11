@@ -4,7 +4,6 @@ namespace App\Entity\Traits;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This trait contains base timestamps createdAt and updatedAt.
@@ -47,6 +46,7 @@ trait TimeStampTrait
 
     /**
      * @param mixed $createdAt
+     * @return \App\Entity\User|\App\Entity\Inquiry\Inquiry|TimeStampTrait
      */
     public function setCreatedAt(mixed $createdAt): self
     {
@@ -65,6 +65,7 @@ trait TimeStampTrait
 
     /**
      * @param mixed $updatedAt
+     * @return \App\Entity\User|\App\Entity\Inquiry\Inquiry|TimeStampTrait
      */
     public function setUpdatedAt(mixed $updatedAt): self
     {

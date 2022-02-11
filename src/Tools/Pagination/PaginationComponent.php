@@ -40,7 +40,7 @@ class PaginationComponent
      */
     protected function addUrlParam($url, $param, $value): string
     {
-        // is there already an ?
+        // is there a question mark already?
         if (strpos($url, "?")) {
             $url .= "&" . $param . "=" . $value;
         } else {

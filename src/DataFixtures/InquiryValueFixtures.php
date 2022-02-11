@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Inquiry\InquiryValue;
 use App\Factory\Inquiry\InquiryValueFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

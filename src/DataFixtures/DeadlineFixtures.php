@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Inquiry\Deadline;
 use App\Factory\Inquiry\DeadlineFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

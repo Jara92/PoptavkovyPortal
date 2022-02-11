@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Inquiry\Region;
 use App\Factory\Inquiry\RegionFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;

@@ -54,7 +54,7 @@ class InquiryFilterForm extends AbstractType
                 'class' => InquiryCategory::class,
                 'choices' => $this->inquiryCategoryService->readAllRootCategories(),
                 'choice_label' => 'title',
-                // We dont want to translate categories
+                // We don't want to translate categories
                 'choice_translation_domain' => false,
             ])->add("regions", EntityType::class, [
                 'required' => false,
@@ -62,7 +62,7 @@ class InquiryFilterForm extends AbstractType
                 'label' => "inquiries.field_region",
                 'class' => Region::class,
                 'choice_label' => 'title',
-                // We dont want to translate regions
+                // We don't want to translate regions
                 'choice_translation_domain' => false,
             ])->add("values", EntityType::class, [
                 'required' => false,

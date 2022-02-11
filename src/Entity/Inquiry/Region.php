@@ -7,7 +7,6 @@ use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\RegionRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)

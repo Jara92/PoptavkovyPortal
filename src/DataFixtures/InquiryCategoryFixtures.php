@@ -2,9 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Inquiry\InquiryState;
 use App\Factory\Inquiry\InquiryCategoryFactory;
-use App\Factory\Inquiry\InquiryStateFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;

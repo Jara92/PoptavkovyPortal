@@ -3,15 +3,8 @@
 namespace App\Form;
 
 use App\Business\Service\UserTypeService;
-use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
-use App\Entity\User;
-use App\Entity\UserType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterPersonForm extends UserForm
 {

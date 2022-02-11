@@ -28,6 +28,8 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
      * @param InquiryFilter $filter
      * @param PaginationData $paginationData
      * @return Inquiry[]
+     * @throws \Exception
+     * @throws \Exception
      */
     public function findByFilter(InquiryFilter $filter, PaginationData $paginationData): array
     {

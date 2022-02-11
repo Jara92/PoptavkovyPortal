@@ -31,9 +31,9 @@ class InquiryService extends AService
      * Returns filtered results.
      * @param InquiryFilter $filter
      * @param PaginationData $paginator
-     * @return mixed
+     * @return Inquiry[]
      */
-    public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator)
+    public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator): array
     {
         return $this->repository->findByFilter($filter, $paginator);
     }

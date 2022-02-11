@@ -5,7 +5,6 @@ namespace App\Business\Service;
 use App\Entity\Inquiry\InquiryType;
 use App\Repository\Interfaces\IInquiryTypeRepository;
 use App\Repository\Interfaces\IRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
 class InquiryTypeService extends AService
 {

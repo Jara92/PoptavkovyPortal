@@ -3,14 +3,10 @@
 namespace App\Business\Operation;
 
 use App\Business\Service\UserService;
-use App\Business\Service\UserTypeService;
 use App\Entity\User;
 use App\Entity\UserType;
 use App\Security\EmailVerifier;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class UserOperation
 {

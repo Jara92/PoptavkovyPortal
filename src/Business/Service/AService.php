@@ -2,11 +2,8 @@
 
 namespace App\Business\Service;
 
-use App\Entity\Inquiry\Inquiry;
-use App\Repository\Interfaces\IInquiryIRepository;
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
-use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 
@@ -121,7 +118,7 @@ class AService implements ICrudService
         $entity = $this->readById($id);
 
         if(!$entity){
-            // TODO: do something
+            $this->onDeleteNonExistingItem($id);
         }
 
         return $this->delete($entity);
@@ -138,4 +135,10 @@ class AService implements ICrudService
 
         return true;
     }
+
+    /**
+     * Called after trying to delete a non-existing item.
+     * @param mixed $id
+     */
+    protected function onDeleteNonExistingItem(mixed $id){}
 }

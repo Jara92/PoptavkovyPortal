@@ -8,7 +8,6 @@ use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\InquiryTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=InquiryTypeRepository::class)

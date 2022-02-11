@@ -6,7 +6,6 @@ use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\InquiryState;
 use App\Repository\Interfaces\IInquiryStateRepository;
 use App\Repository\Interfaces\IRepository;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Service class which handles everything about CompanyContact.
