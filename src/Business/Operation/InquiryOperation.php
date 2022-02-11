@@ -52,40 +52,40 @@ class InquiryOperation
         $this->inquiryTypeService = $inquiryTypeService;
     }
 
+    /**
+     * Get default inquiry type for the user.
+     * @return InquiryType|null
+     */
     public function getNewInquiryDefaultType(): ?InquiryType
     {
         $user = $this->security->getUser();
+        $typeAlias = InquiryType::ALIAS_PERSONAL;
 
         // According to userType set default Inquiry type.
-        $userType = $user ? $user->getType()->getAlias() : "";
-
-        switch ($userType) {
-            case UserType::TYPE_COMPANY:
+        if($user){
+            if($user->isType(UserType::TYPE_PERSONAL)){
+                $typeAlias = InquiryType::ALIAS_PERSONAL;
+            }
+            else if($user->isType(UserType::TYPE_COMPANY)){
                 $typeAlias = InquiryType::ALIAS_COMPANY;
-                break;
-            case UserType::TYPE_PERSONAL:
-                $typeAlias = InquiryType::ALIAS_PERSONAL;
-                break;
-            default:
-                $typeAlias = InquiryType::ALIAS_PERSONAL;
+            }
         }
 
         return $this->inquiryTypeService->getInquiryTypeByAlias($typeAlias);
     }
 
     /**
+     * Create a new inquiry.
      * @throws Exception
      */
     public function createInquiry(Inquiry $inquiry): bool
     {
         // Remove useless contact object.
-        switch ($inquiry->getType()->getAlias()) {
-            case  InquiryType::ALIAS_PERSONAL:
-                $inquiry->setCompanyContact(null);
-                break;
-            case InquiryType::ALIAS_COMPANY:
-                $inquiry->setPersonalContact(null);
-                break;
+        if($inquiry->isType(InquiryType::ALIAS_PERSONAL)){
+            $inquiry->setCompanyContact(null);
+        }
+        else if($inquiry->isType(InquiryType::ALIAS_COMPANY)){
+            $inquiry->setPersonalContact(null);
         }
 
         // Set state

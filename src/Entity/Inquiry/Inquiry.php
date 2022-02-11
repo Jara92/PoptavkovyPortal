@@ -278,4 +278,9 @@ class Inquiry
 
         return $this;
     }
+
+    public function isType(string $type): bool
+    {
+        return $this->getType()->is($type);
+    }
 }

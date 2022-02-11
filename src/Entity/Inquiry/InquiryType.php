@@ -15,14 +15,19 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class InquiryType
 {
-   const ALIAS_PERSONAL = "personal";
-   const ALIAS_COMPANY = "company";
-
-   use IdTrait;
+    use IdTrait;
 
     use TitleTrait;
 
     use AliasTrait;
 
     use OrderingTrait;
+
+    const ALIAS_PERSONAL = "personal";
+    const ALIAS_COMPANY = "company";
+
+    public function is(string $type): bool
+    {
+        return ($this->getAlias() === $type);
+    }
 }
