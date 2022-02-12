@@ -30,26 +30,32 @@ class InquiryOperation
 
     protected InquiryTypeService $inquiryTypeService;
 
-    /** @required */
-    public PersonalContactFactory $personalContactFactory;
+    protected PersonalContactFactory $personalContactFactory;
 
-    /** @required */
-    public CompanyContactFactory $companyContactFactory;
+    protected CompanyContactFactory $companyContactFactory;
 
-    /** @required */
-    public CompanyContactService $companyContactService;
+    protected InquiryStateService $inquiryStateService;
 
-    /** @required */
-    public InquiryStateService $inquiryStateService;
+    protected UserSecurity $security;
 
-    /** @required */
-    public UserSecurity $security;
-
-    public function __construct(InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, UserService $userService)
+    /**
+     * @param UserService $userService
+     * @param InquiryService $inquiryService
+     * @param InquiryTypeService $inquiryTypeService
+     * @param PersonalContactFactory $personalContactFactory
+     * @param CompanyContactFactory $companyContactFactory
+     * @param InquiryStateService $inquiryStateService
+     * @param UserSecurity $security
+     */
+    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, InquiryStateService $inquiryStateService, UserSecurity $security)
     {
-        $this->inquiryService = $inquiryService;
         $this->userService = $userService;
+        $this->inquiryService = $inquiryService;
         $this->inquiryTypeService = $inquiryTypeService;
+        $this->personalContactFactory = $personalContactFactory;
+        $this->companyContactFactory = $companyContactFactory;
+        $this->inquiryStateService = $inquiryStateService;
+        $this->security = $security;
     }
 
     /**
@@ -62,11 +68,10 @@ class InquiryOperation
         $typeAlias = InquiryType::ALIAS_PERSONAL;
 
         // According to userType set default Inquiry type.
-        if($user){
-            if($user->isType(UserType::TYPE_PERSONAL)){
+        if ($user) {
+            if ($user->isType(UserType::TYPE_PERSONAL)) {
                 $typeAlias = InquiryType::ALIAS_PERSONAL;
-            }
-            else if($user->isType(UserType::TYPE_COMPANY)){
+            } else if ($user->isType(UserType::TYPE_COMPANY)) {
                 $typeAlias = InquiryType::ALIAS_COMPANY;
             }
         }
@@ -81,10 +86,9 @@ class InquiryOperation
     public function createInquiry(Inquiry $inquiry): bool
     {
         // Remove useless contact object.
-        if($inquiry->isType(InquiryType::ALIAS_PERSONAL)){
+        if ($inquiry->isType(InquiryType::ALIAS_PERSONAL)) {
             $inquiry->setCompanyContact(null);
-        }
-        else if($inquiry->isType(InquiryType::ALIAS_COMPANY)){
+        } else if ($inquiry->isType(InquiryType::ALIAS_COMPANY)) {
             $inquiry->setPersonalContact(null);
         }
 
@@ -129,9 +133,8 @@ class InquiryOperation
         // Personal user
         if ($user->isType(UserType::TYPE_PERSONAL)) {
             return $this->fillPersonData($inquiry, $user->getPerson());
-        }
-        // Company user
-        else if($user->isType(UserType::TYPE_COMPANY)){
+        } // Company user
+        else if ($user->isType(UserType::TYPE_COMPANY)) {
             return $this->fillCompanyData($inquiry, $user->getCompany());
         }
 

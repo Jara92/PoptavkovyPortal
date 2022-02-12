@@ -23,16 +23,22 @@ class InquiryController extends AController
     protected InquiryFactory $inquiryFactory;
     protected TranslatorInterface $translator;
     protected InquiryOperation $inquiryOperation;
+    protected InquiryFilterFactory $inquiryFilterFactory;
 
-    /** @required */
-    public InquiryFilterFactory $inquiryFilterFactory;
-
-    public function __construct(InquiryOperation $inquiryOperation, InquiryService $inquiryService, TranslatorInterface $translator, InquiryFactory $inquiryFactory)
+    /**
+     * @param InquiryService $inquiryService
+     * @param InquiryFactory $inquiryFactory
+     * @param TranslatorInterface $translator
+     * @param InquiryOperation $inquiryOperation
+     * @param InquiryFilterFactory $inquiryFilterFactory
+     */
+    public function __construct(InquiryService $inquiryService, InquiryFactory $inquiryFactory, TranslatorInterface $translator, InquiryOperation $inquiryOperation, InquiryFilterFactory $inquiryFilterFactory)
     {
-        $this->inquiryOperation = $inquiryOperation;
         $this->inquiryService = $inquiryService;
-        $this->translator = $translator;
         $this->inquiryFactory = $inquiryFactory;
+        $this->translator = $translator;
+        $this->inquiryOperation = $inquiryOperation;
+        $this->inquiryFilterFactory = $inquiryFilterFactory;
     }
 
     /**
