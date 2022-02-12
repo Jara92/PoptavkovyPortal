@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
 use App\Factory\Inquiry\InquiryFactory;
-use App\Factory\InquiryFilterFactory;
 use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
@@ -23,22 +22,19 @@ class InquiryController extends AController
     protected InquiryFactory $inquiryFactory;
     protected TranslatorInterface $translator;
     protected InquiryOperation $inquiryOperation;
-    protected InquiryFilterFactory $inquiryFilterFactory;
 
     /**
      * @param InquiryService $inquiryService
      * @param InquiryFactory $inquiryFactory
      * @param TranslatorInterface $translator
      * @param InquiryOperation $inquiryOperation
-     * @param InquiryFilterFactory $inquiryFilterFactory
      */
-    public function __construct(InquiryService $inquiryService, InquiryFactory $inquiryFactory, TranslatorInterface $translator, InquiryOperation $inquiryOperation, InquiryFilterFactory $inquiryFilterFactory)
+    public function __construct(InquiryService $inquiryService, InquiryFactory $inquiryFactory, TranslatorInterface $translator, InquiryOperation $inquiryOperation)
     {
         $this->inquiryService = $inquiryService;
         $this->inquiryFactory = $inquiryFactory;
         $this->translator = $translator;
         $this->inquiryOperation = $inquiryOperation;
-        $this->inquiryFilterFactory = $inquiryFilterFactory;
     }
 
     /**
@@ -49,7 +45,8 @@ class InquiryController extends AController
     public function index(Request $request): Response
     {
         // Get filter and paginator
-        $filter = $this->inquiryFilterFactory->createBlankInquiryFilter();
+        $filter = $this->inquiryOperation->getDefaultFilter();
+
         $pagination = $this->getPaginationComponent($request, $this->getParameter("app.items_per_page"));
 
         // Create filter form.

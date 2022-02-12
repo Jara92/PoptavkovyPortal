@@ -17,8 +17,10 @@ use App\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
+use App\Factory\InquiryFilterFactory;
 use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
+use App\Tools\Filter\InquiryFilter;
 use Exception;
 use LogicException;
 
@@ -28,13 +30,15 @@ class InquiryOperation
 
     protected InquiryService $inquiryService;
 
+    protected InquiryStateService $inquiryStateService;
+
     protected InquiryTypeService $inquiryTypeService;
+
+    protected InquiryFilterFactory $filterFactory;
 
     protected PersonalContactFactory $personalContactFactory;
 
     protected CompanyContactFactory $companyContactFactory;
-
-    protected InquiryStateService $inquiryStateService;
 
     protected UserSecurity $security;
 
@@ -42,16 +46,18 @@ class InquiryOperation
      * @param UserService $userService
      * @param InquiryService $inquiryService
      * @param InquiryTypeService $inquiryTypeService
+     * @param InquiryFilterFactory $filterFactory
      * @param PersonalContactFactory $personalContactFactory
      * @param CompanyContactFactory $companyContactFactory
      * @param InquiryStateService $inquiryStateService
      * @param UserSecurity $security
      */
-    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, InquiryStateService $inquiryStateService, UserSecurity $security)
+    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, InquiryStateService $inquiryStateService, UserSecurity $security)
     {
         $this->userService = $userService;
         $this->inquiryService = $inquiryService;
         $this->inquiryTypeService = $inquiryTypeService;
+        $this->filterFactory = $filterFactory;
         $this->personalContactFactory = $personalContactFactory;
         $this->companyContactFactory = $companyContactFactory;
         $this->inquiryStateService = $inquiryStateService;
@@ -77,6 +83,19 @@ class InquiryOperation
         }
 
         return $this->inquiryTypeService->getInquiryTypeByAlias($typeAlias);
+    }
+
+    /**
+     * Returns an inquiry filter objects with default options.
+     * @return InquiryFilter
+     */
+    public function getDefaultFilter(): InquiryFilter
+    {
+        // Default inquiry states visible for all users.
+        $activeState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ACTIVE);
+        $archivedState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ARCHIVED);
+
+        return $this->filterFactory->createBlankInquiryFilter()->setStates([$activeState, $archivedState]);
     }
 
     /**
