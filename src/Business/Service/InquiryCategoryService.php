@@ -33,6 +33,6 @@ class InquiryCategoryService extends AService
      */
     public function readAllRootCategories(array $orderBy = ["title" => "ASC"]): array
     {
-        return $this->repository->findBy(["parent" => null], $orderBy);
+        return $this->repository->findRootCategories($orderBy);
     }
 }
