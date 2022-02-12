@@ -20,6 +20,16 @@ class InquiryCategoryRepository extends ServiceEntityRepository implements IInqu
         parent::__construct($registry, InquiryCategory::class);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function findRootCategories(array $orderBy = null): array
+    {
+        $criteria = ["parent" => null];
+
+        return $this->findBy($criteria, $orderBy);
+    }
+
     // /**
     //  * @return InquiryCategory[] Returns an array of InquiryCategory objects
     //  */

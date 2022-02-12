@@ -3,6 +3,8 @@
 namespace App\Controller\Admin\Inquiry;
 
 use App\Entity\Inquiry\InquiryCategory;
+use App\Repository\InquiryCategoryRepository;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -11,11 +13,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class InquiryCategoryCrudController extends AbstractCrudController
 {
+    /** @required */
+    public InquiryCategoryRepository $repository;
+
     public static function getEntityFqcn(): string
     {
         return InquiryCategory::class;
     }
-
 
     public function configureFields(string $pageName): iterable
     {
@@ -25,9 +29,12 @@ class InquiryCategoryCrudController extends AbstractCrudController
             TextField::new('alias'),
             TextareaField::new('description')->hideOnIndex(),
 
-            // TODO: check for cycle when updating
-            AssociationField::new("parent", "admin.inquiries.field_parent_category")
-                ->setFormTypeOptions(['choice_label' => "title"])
+            AssociationField::new('parent', "admin.inquiries.field_parent_category")
+                ->setFormTypeOptions([
+                    // Show only root categories
+                    'choices' => $this->repository->findRootCategories(),
+                ])
+
         ];
     }
 
