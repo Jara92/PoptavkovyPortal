@@ -25,6 +25,9 @@ class InquiryState
 
     const STATE_NEW = "new";
     const STATE_ACTIVE = "active";
+    const STATE_PROCESSING = "processing";
+    const STATE_ARCHIVED = "archived";
+    const STATE_DELETED = "deleted";
 
     /**
      * @ORM\Column(type="string", length=16, unique=true, nullable=true)
