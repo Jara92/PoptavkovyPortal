@@ -4,7 +4,7 @@ namespace App\Business\Service;
 
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
@@ -17,13 +17,13 @@ class AService implements ICrudService
 {
     protected IRepository $repository;
 
-    protected ObjectManager $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     /**
-     * @param ObjectManager $manager
+     * @required
      * @internal
      */
-    public function setObjectManager(ObjectManager $manager)
+    public function setObjectManager(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
     }
