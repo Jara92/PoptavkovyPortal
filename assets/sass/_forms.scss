@@ -21,6 +21,10 @@
   background-position: right 1rem center;
 }
 
+.form-check-input[type=checkbox] {
+  padding: 0;
+}
+
 /* Required mark after labels */
 label.required:after {
   content: "*";
