@@ -95,6 +95,22 @@ class AService implements ICrudService
     }
 
     /**
+     * Create new entities.
+     * @param E[] $entities
+     * @return boolean Success.
+     */
+    public function createAll(array $entities): bool
+    {
+        foreach ($entities as $entity) {
+            $this->entityManager->persist($entity);
+        }
+
+        $this->entityManager->flush();
+
+        return true;
+    }
+
+    /**
      * Update an entity.
      * @param E $entity
      * @return boolean Success.
