@@ -59,13 +59,16 @@
             <div class="col-6 col-sm-4 col-lg-3 mb-3">
                 <h5 class="lh-lg text-uppercase fw-bold">{{ "footer.useful_links"|trans }}</h5>
                 <ul class="list-unstyled mb-md-4 mb-lg-0">
-                    <li class="lh-lg"><a class="text-900 text-decoration-none" href="{{ path("terms-and-conditions") }}">
+                    <li class="lh-lg"><a class="text-900 text-decoration-none"
+                                         href="{{ path("terms-and-conditions") }}">
                             {{ "footer.terms_and_conditions"|trans }}</a>
                     </li>
                     <li class="lh-lg"><a class="text-900 text-decoration-none" href="">FAQ</a></li>
-                    <li class="lh-lg"><a class="text-900 text-decoration-none" href="{{ path("app_register") }}">
-                            {{ "footer.registration"|trans }}</a>
-                    </li>
+                    {% if not app.user %}
+                        <li class="lh-lg"><a class="text-900 text-decoration-none" href="{{ path("app_register") }}">
+                                {{ "footer.registration"|trans }}</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
 
