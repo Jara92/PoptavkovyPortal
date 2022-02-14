@@ -18,20 +18,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InquiryForm extends AbstractType
 {
-    /** @required  */
+    /** @required */
     public TranslatorInterface $translator;
 
-    /** @required  */
+    /** @required */
     public InquiryOperation $inquiryOperation;
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -58,6 +61,37 @@ class InquiryForm extends AbstractType
                 'attr' => [
                     "placeholder" => "inquiries.field_description_ph",
                 ]
+            ])
+            ->add('attachments', FileType::class, [
+                // TODO: fill accept attribute.
+                'label' => 'inquiries.field_attachments',
+
+                'multiple' => true,
+
+                // unmapped means that this field is not associated to any entity property
+                'mapped' => false,
+
+                // make it optional so you don't have to re-upload the PDF file
+                // every time you edit the Product details
+                'required' => false,
+
+                // unmapped fields can't define their validation using annotations
+                // in the associated entity, so you can use the PHP constraint classes
+                'constraints' => new All([
+                    new File([
+                        'maxSize' => '4096k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                            'application/msword',
+                            'application/zip',
+                            'image/png',
+                            'image/gif',
+                            'image/jpeg'
+                        ],
+                        // 'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
+                ]),
             ])
             ->add("region", EntityType::class, [
                 'required' => false,

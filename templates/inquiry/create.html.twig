@@ -52,8 +52,9 @@
 
                                             {{ form_row(form.description, {'attr': {'class': 'form-control', 'rows':5}}) }}
 
-                                            <label for="attachments">Přílohy</label>
-                                            <input type="file" id="attachments" multiple class="form-control"/>
+                                            {# <label for="attachments">Přílohy</label>
+                                            <input type="file" id="attachments" multiple class="form-control"/> #}
+                                            {{ form_row(form.attachments, {'attr': {}}) }}
                                         </div>
                                     </div>
                                 </div>
