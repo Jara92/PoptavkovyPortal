@@ -134,6 +134,7 @@ inquiries:
   no_inquiries_found: "Bohužel nebyly nalezeny žádné poptávky odpovídající Vašim požadavkům."
 
   btn_inquire: "Poptat"
+  btn_contact: "Kontaktovat"
   btn_create_inquiry: "Zadat poptávku"
   btn_submit: "Zadat poptávku"
   btn_filter: "Vyhledat"

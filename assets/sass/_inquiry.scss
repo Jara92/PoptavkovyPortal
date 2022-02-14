@@ -275,7 +275,7 @@ ul.inquiry-list {
     > li {
       padding-bottom: 0.7rem;
 
-      .title{
+      .title {
         font-weight: bold;
         width: 100%;
       }
@@ -284,6 +284,10 @@ ul.inquiry-list {
 
       }
     }
+  }
+
+  #btn-contact {
+    margin-top: auto;
   }
 }
 
@@ -315,7 +319,7 @@ ul.inquiry-list {
       border-top-right-radius: 0;
     }
 
-    ul.inquiry-properties > li{
+    ul.inquiry-properties > li {
 
     }
   }
