@@ -106,9 +106,15 @@ class Inquiry
      */
     private ?CompanyContact $companyContact;
 
+    /**
+     * @ORM\OneToMany(targetEntity=InquiryAttachment::class, mappedBy="inquiry", orphanRemoval=true)
+     */
+    private Collection $attachments;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     public function getDescription(): string
@@ -282,5 +288,35 @@ class Inquiry
     public function isType(string $type): bool
     {
         return $this->getType()->is($type);
+    }
+
+    /**
+     * @return Collection|InquiryAttachment[]
+     */
+    public function getAttachments(): Collection
+    {
+        return $this->attachments;
+    }
+
+    public function addAttachment(InquiryAttachment $attachment): self
+    {
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments[] = $attachment;
+            $attachment->setInquiry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttachment(InquiryAttachment $attachment): self
+    {
+        if ($this->attachments->removeElement($attachment)) {
+            // set the owning side to null (unless already changed)
+            if ($attachment->getInquiry() === $this) {
+                $attachment->setInquiry(null);
+            }
+        }
+
+        return $this;
     }
 }
