@@ -12,11 +12,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class InquiryVoter extends AVoter
 {
     const REACT = 'react';
+    const VIEW_ATTACHMENTS = "view_attachments";
 
     protected function supports(string $attribute, $subject): bool
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, [self::VIEW, self::EDIT, self::CREATE, self::DELETE, self::REACT])) {
+        if (!in_array($attribute, [self::VIEW, self::EDIT, self::CREATE, self::DELETE, self::REACT, self::VIEW_ATTACHMENTS])) {
             return false;
         }
 
@@ -52,6 +53,8 @@ class InquiryVoter extends AVoter
                 return $this->canEdit($inquiry, $user);
             case self::REACT:
                 return $this->canReact($inquiry, $user);
+            case self::VIEW_ATTACHMENTS:
+                return $this->canViewAttachments($inquiry, $user);
         }
 
         throw new LogicException('This code should not be reached!');
@@ -94,11 +97,17 @@ class InquiryVoter extends AVoter
     private function canReact(Inquiry $inquiry, ?User $user): bool
     {
         // If user cannot view, he absolutely cannot react.
-        if(!$this->canView($inquiry, $user)){
+        if (!$this->canView($inquiry, $user)) {
             return false;
         }
 
         // Only suppliers are able to react.
         return $this->security->isGranted(User::ROLE_SUPPLIER);
+    }
+
+    private function canViewAttachments(Inquiry $inquiry, ?User $user): bool
+    {
+        // For now it is the same as "canReact()"
+        return $this->canReact($inquiry, $user);
     }
 }

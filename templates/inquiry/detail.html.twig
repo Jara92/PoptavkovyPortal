@@ -1,5 +1,6 @@
 {% extends "base.html.twig" %}
 
+{# @var inquiry \App\Entities\Inquiry\Inquiry #}
 {% block content %}
     <section class="content inquiry-detail">
         <div class="container">
@@ -13,8 +14,26 @@
                     <hr/>
                     <p>{{ inquiry.description|nl2br }}</p>
 
-                    <section class="inquiry-attachments">
-
+                    <section class="row inquiry-attachments">
+                        <h4>{{ "inquiries.attachments" |trans }}</h4>
+                        {# Display attachments if user is granted. #}
+                        {% if is_granted("view_attachments", inquiry) %}
+                            {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
+                            <ul class="">
+                                {% for attachment in inquiry.attachments %}
+                                    <li class="col-sm-12 col-md-6">
+                                        <a href="#" class="btn btn-link btn-download-attachment">
+                                            <i class="fa fa-paperclip"></i>
+                                            {{ attachment.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            {# TODO: Replace by translation with param #}
+                            <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}" class="btn-link">přihlaste</a>.
+                            </p>
+                        {% endif %}
                     </section>
 
                     <button id="btn-contact" class="btn btn-primary">{{ "inquiries.btn_contact"|trans }}</button>

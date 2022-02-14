@@ -286,6 +286,21 @@ ul.inquiry-list {
     }
   }
 
+  .inquiry-attachments {
+    > ul {
+      list-style-type: none;
+    }
+
+    > ul > li a {
+      padding-left: 0;
+      padding-right: 10px;
+    }
+  }
+
+  .btn-download-attachment {
+    color: $template_light;
+  }
+
   #btn-contact {
     margin-top: auto;
   }
