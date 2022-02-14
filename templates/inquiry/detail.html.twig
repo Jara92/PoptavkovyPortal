@@ -18,11 +18,12 @@
                         <h4>{{ "inquiries.attachments" |trans }}</h4>
                         {# Display attachments if user is granted. #}
                         {% if is_granted("view_attachments", inquiry) %}
-                            {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
                             <ul class="">
                                 {% for attachment in inquiry.attachments %}
+                                    {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
                                     <li class="col-sm-12 col-md-6">
-                                        <a href="#" class="btn btn-link btn-download-attachment">
+                                        <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
+                                           class="btn btn-link btn-download-attachment">
                                             <i class="fa fa-paperclip"></i>
                                             {{ attachment.title }}
                                         </a>

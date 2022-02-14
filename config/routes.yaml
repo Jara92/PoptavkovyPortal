@@ -14,6 +14,11 @@ inquiries/detail:
     controller: App\Controller\InquiryController::detail
     methods: GET
 
+inquiries/attachments:
+    path: /poptavky/prilohy/{hash}
+    controller: App\Controller\InquiryAttachmentsController::download
+    methods: GET
+
 # Articles
 home:
     path: /

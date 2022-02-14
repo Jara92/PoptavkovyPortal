@@ -19,4 +19,9 @@ class InquiryAttachmentService extends AService
     {
         parent::__construct($attachmentRepository);
     }
+
+    public function readByHash(string $hash): InquiryAttachment
+    {
+        return $this->repository->findOneBy(["hash" => $hash]);
+    }
 }
