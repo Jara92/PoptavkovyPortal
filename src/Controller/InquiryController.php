@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
-use App\Factory\Inquiry\InquiryFactory;
 use App\Form\InquiryFilterForm;
 use App\Form\InquiryForm;
 use App\Business\Service\InquiryService;
@@ -19,20 +18,17 @@ class InquiryController extends AController
     use PaginableTrait;
 
     protected InquiryService $inquiryService;
-    protected InquiryFactory $inquiryFactory;
     protected TranslatorInterface $translator;
     protected InquiryOperation $inquiryOperation;
 
     /**
      * @param InquiryService $inquiryService
-     * @param InquiryFactory $inquiryFactory
      * @param TranslatorInterface $translator
      * @param InquiryOperation $inquiryOperation
      */
-    public function __construct(InquiryService $inquiryService, InquiryFactory $inquiryFactory, TranslatorInterface $translator, InquiryOperation $inquiryOperation)
+    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator, InquiryOperation $inquiryOperation)
     {
         $this->inquiryService = $inquiryService;
-        $this->inquiryFactory = $inquiryFactory;
         $this->translator = $translator;
         $this->inquiryOperation = $inquiryOperation;
     }
@@ -87,14 +83,11 @@ class InquiryController extends AController
      */
     public function create(Request $request): Response
     {
-        // Create blank inquiry
-        $inquiry = $this->inquiryFactory->createBlank();
+        // Get blank inquiry
+        $inquiry = $this->inquiryOperation->createBlankInquiry($this->getUser());
 
         // Check permissions
         $this->denyAccessUnlessGranted("create", $inquiry);
-
-        // Fill inquiry contact data if possible
-        $this->inquiryOperation->fillUserData($inquiry, $this->getUser());
 
         // Create inquiry form
         $form = $this->createForm(InquiryForm::class, $inquiry);

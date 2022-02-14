@@ -16,6 +16,7 @@ use App\Entity\User;
 use App\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
+use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
 use App\Helper\UrlHelper;
@@ -34,6 +35,8 @@ class InquiryOperation
 
     protected InquiryTypeService $inquiryTypeService;
 
+    protected InquiryFactory $inquiryFactory;
+
     protected InquiryFilterFactory $filterFactory;
 
     protected PersonalContactFactory $personalContactFactory;
@@ -45,22 +48,24 @@ class InquiryOperation
     /**
      * @param UserService $userService
      * @param InquiryService $inquiryService
+     * @param InquiryStateService $inquiryStateService
      * @param InquiryTypeService $inquiryTypeService
+     * @param InquiryFactory $inquiryFactory
      * @param InquiryFilterFactory $filterFactory
      * @param PersonalContactFactory $personalContactFactory
      * @param CompanyContactFactory $companyContactFactory
-     * @param InquiryStateService $inquiryStateService
      * @param UserSecurity $security
      */
-    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryTypeService $inquiryTypeService, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, InquiryStateService $inquiryStateService, UserSecurity $security)
+    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryStateService $inquiryStateService, InquiryTypeService $inquiryTypeService, InquiryFactory $inquiryFactory, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, UserSecurity $security)
     {
         $this->userService = $userService;
         $this->inquiryService = $inquiryService;
+        $this->inquiryStateService = $inquiryStateService;
         $this->inquiryTypeService = $inquiryTypeService;
+        $this->inquiryFactory = $inquiryFactory;
         $this->filterFactory = $filterFactory;
         $this->personalContactFactory = $personalContactFactory;
         $this->companyContactFactory = $companyContactFactory;
-        $this->inquiryStateService = $inquiryStateService;
         $this->security = $security;
     }
 
@@ -133,34 +138,45 @@ class InquiryOperation
     }
 
     /**
-     * Fill inquiry contact data by User information.
-     * @param Inquiry $inquiry
+     * Creates a blank inquiry and fills default inquiry data for given user.
      * @param User|null $user
      * @return Inquiry
      */
-    public function fillUserData(Inquiry $inquiry, ?User $user): Inquiry
+    public function createBlankInquiry(?User $user): Inquiry
     {
+        // Create blank inquiry
+        $inquiry = $this->inquiryFactory->createBlank();
+
+        // Set type inquiry type.
+        $inquiry->setType($this->getNewInquiryDefaultType());
+
         // No autofill for unauthenticated user.
         if (is_null($user)) {
             return $inquiry;
         }
 
+        // Returns inquiry and autofilled data.
+        return $this->fillContactData($inquiry, $user);
+    }
+
+    protected function fillContactData(Inquiry $inquiry, User $user): Inquiry
+    {
         // Common user data
         $inquiry->setContactEmail($user->getEmail());
         $inquiry->setContactPhone($user->getPhone());
 
         // Personal user
         if ($user->isType(UserType::TYPE_PERSONAL)) {
-            return $this->fillPersonData($inquiry, $user->getPerson());
+            return $this->fillPersonContactData($inquiry, $user->getPerson());
         } // Company user
         else if ($user->isType(UserType::TYPE_COMPANY)) {
-            return $this->fillCompanyData($inquiry, $user->getCompany());
+            return $this->fillCompanyContactData($inquiry, $user->getCompany());
         }
 
         throw new LogicException("Unknown user type: " . $user->getType()->getAlias());
     }
 
-    protected function fillPersonData(Inquiry $inquiry, ?Person $person): Inquiry
+    protected function fillPersonContactData(Inquiry $inquiry, ?Person $person): Inquiry
     {
         // Check if person is valid.
         if (is_null($person)) {
@@ -174,7 +190,7 @@ class InquiryOperation
         return $inquiry;
     }
 
-    protected function fillCompanyData(Inquiry $inquiry, ?Company $company): Inquiry
+    protected function fillCompanyContactData(Inquiry $inquiry, ?Company $company): Inquiry
     {
         // Check if person is valid.
         if (is_null($company)) {

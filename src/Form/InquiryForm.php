@@ -112,8 +112,6 @@ class InquiryForm extends AbstractType
                     return $entity ? $entity->getAlias() : '';
                 },
 
-                // Set default option
-                'data' => $this->inquiryOperation->getNewInquiryDefaultType(),
                 // looks for choices from this entity
                 'class' => InquiryType::class,
 
