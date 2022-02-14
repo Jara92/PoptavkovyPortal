@@ -3,12 +3,14 @@
 namespace App\Business\Operation;
 
 use App\Business\Service\CompanyContactService;
+use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
 use App\Business\Service\InquiryStateService;
 use App\Business\Service\InquiryTypeService;
 use App\Business\Service\UserService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquiryAttachment;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
@@ -16,6 +18,7 @@ use App\Entity\User;
 use App\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
+use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
@@ -24,6 +27,10 @@ use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use Exception;
 use LogicException;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class InquiryOperation
 {
@@ -31,11 +38,16 @@ class InquiryOperation
 
     protected InquiryService $inquiryService;
 
+    /** @required */
+    public InquiryAttachmentService $attachmentService;
+
     protected InquiryStateService $inquiryStateService;
 
     protected InquiryTypeService $inquiryTypeService;
 
     protected InquiryFactory $inquiryFactory;
+
+    protected InquiryAttachmentFactory $attachmentFactory;
 
     protected InquiryFilterFactory $filterFactory;
 
@@ -45,24 +57,33 @@ class InquiryOperation
 
     protected UserSecurity $security;
 
+    /** @required */
+    public SluggerInterface $slugger;
+
+    /** @required */
+    // public Configuration $configuration;
+    public ContainerBagInterface $params;
+
     /**
      * @param UserService $userService
      * @param InquiryService $inquiryService
      * @param InquiryStateService $inquiryStateService
      * @param InquiryTypeService $inquiryTypeService
      * @param InquiryFactory $inquiryFactory
+     * @param InquiryAttachmentFactory $attachmentFactory
      * @param InquiryFilterFactory $filterFactory
      * @param PersonalContactFactory $personalContactFactory
      * @param CompanyContactFactory $companyContactFactory
      * @param UserSecurity $security
      */
-    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryStateService $inquiryStateService, InquiryTypeService $inquiryTypeService, InquiryFactory $inquiryFactory, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, UserSecurity $security)
+    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryStateService $inquiryStateService, InquiryTypeService $inquiryTypeService, InquiryFactory $inquiryFactory, InquiryAttachmentFactory $attachmentFactory, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, UserSecurity $security)
     {
         $this->userService = $userService;
         $this->inquiryService = $inquiryService;
         $this->inquiryStateService = $inquiryStateService;
         $this->inquiryTypeService = $inquiryTypeService;
         $this->inquiryFactory = $inquiryFactory;
+        $this->attachmentFactory = $attachmentFactory;
         $this->filterFactory = $filterFactory;
         $this->personalContactFactory = $personalContactFactory;
         $this->companyContactFactory = $companyContactFactory;
@@ -105,9 +126,12 @@ class InquiryOperation
 
     /**
      * Create a new inquiry.
-     * @throws Exception
+     * @param Inquiry $inquiry
+     * @param UploadedFile[] $attachments
+     * @return bool
+     * @throws InvalidInquiryState
      */
-    public function createInquiry(Inquiry $inquiry): bool
+    public function createInquiry(Inquiry $inquiry, array $attachments = []): bool
     {
         // Remove useless contact object.
         if ($inquiry->isType(InquiryType::ALIAS_PERSONAL)) {
@@ -134,7 +158,59 @@ class InquiryOperation
         $inquiry->setAlias(UrlHelper::createIdAlias($inquiry->getId(), $inquiry->getTitle()));
         $this->inquiryService->update($inquiry);
 
+        // If there are any attachments, save them
+        if (!empty($attachments)) {
+            $this->saveAttachments($inquiry, $attachments);
+        }
+
         return true;
+    }
+
+    /**
+     * @param Inquiry $inquiry
+     * @param UploadedFile[] $attachments
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    protected function saveAttachments(Inquiry $inquiry, array $attachments)
+    {
+        $attachmentEntities = [];
+
+        // Directory for the entitie's attachments.
+        $directory = $this->params->get("app.inquiries.attachments_directory");
+        $directory .= "/" . $inquiry->getId();
+
+        foreach ($attachments as $attachment) {
+            $fileName = pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME);
+            // this is needed to safely include the file name as part of the URL
+            $safeFilename = $this->slugger->slug($fileName);
+            $newFilename = $safeFilename . '.' . $attachment->guessExtension();
+            $type = $attachment->guessExtension();
+            $hash = hash_file("sha256", $attachment->getRealPath());
+            $description = "";
+            $size = $attachment->getSize();
+            $path = $directory . "/" . $newFilename;
+
+            // Create an entity using the params.
+            $entity = $this->attachmentFactory->createAttachment($inquiry, $newFilename, $hash, $description, $size, $path, $type);
+
+            // Move the file to the directory where brochures are stored
+            try {
+                $attachment->move(
+                    $directory,
+                    $newFilename
+                );
+
+                // Add entity into the array to be saved.
+                $attachmentEntities[] = $entity;
+
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+        }
+
+        // Save new entities
+        $this->attachmentService->createAll($attachmentEntities);
     }
 
     /**

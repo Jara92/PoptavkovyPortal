@@ -95,8 +95,13 @@ class InquiryController extends AController
         // Handle form
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // Load attachments.
+            $attachments = $form->get('attachments')->getData();
+
+            dump($attachments);
+
             // Save the inquiry.
-            $this->inquiryOperation->createInquiry($inquiry);
+            $this->inquiryOperation->createInquiry($inquiry, $attachments);
 
             $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("inquiries.created"));
 
