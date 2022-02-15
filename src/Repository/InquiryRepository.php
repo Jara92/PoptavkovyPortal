@@ -35,13 +35,34 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
     {
         $queryBuilder = $this->createQueryBuilder("i");
 
-        $query = $queryBuilder
-            ->andWhere(
-                $queryBuilder->expr()->like("i.title", ":text")
-            )
-            ->setParameter("text", "%" . $filter->getText() . "%")
-            ->getQuery();
+        // Filter by text
+        if ($filter->getText()) {
+            $queryBuilder->andWhere($queryBuilder->expr()->like("i.title", ":text"))
+                ->setParameter("text", "%" . $filter->getText() . "%");
+        }
 
+        // Filter by types - Inquiry type must be in types array.
+        if (!empty($filter->getTypes())) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in("i.type", ":types"))
+                ->setParameter("types", $filter->getTypes());
+        }
+
+        // Filter by regions - Inquiry region must be in types array.
+        // TODO: Display inquiries without a region when filtering???
+        if (!empty($filter->getRegions())) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in("i.region", ":regions"))
+                ->setParameter("regions", $filter->getRegions());
+        }
+
+        // Filter by regions - One of inquiry category must be in categories array.
+        if (!empty($filter->getCategories())) {
+            // TODO: Filter by categories
+        }
+
+        // Get final query
+        $query = $queryBuilder->getQuery();
+
+        // Paginate result
         $this->paginate($query, $paginationData);
 
         return $query->getResult();
