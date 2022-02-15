@@ -5,23 +5,13 @@ namespace App\Business\Operation;
 use App\Business\Service\UserService;
 use App\Entity\User;
 use App\Entity\UserType;
-use App\Security\EmailVerifier;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserOperation
 {
-    protected UserService $userService;
-
-    protected UserPasswordHasherInterface $passwordHasher;
-
-    /** @var EmailVerifier */
-    protected EmailVerifier $emailVerifier;
-
-    public function __construct(UserService $userService, UserPasswordHasherInterface $passwordHasher, EmailVerifier $emailVerifier)
+    public function __construct(
+        private UserService $userService, private UserPasswordHasherInterface $passwordHasher)
     {
-        $this->userService = $userService;
-        $this->passwordHasher = $passwordHasher;
-        $this->emailVerifier = $emailVerifier;
     }
 
     public function register(User $user, string $blankPassword): bool
