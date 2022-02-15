@@ -2,15 +2,12 @@
 
 namespace App\Business\Operation;
 
-use App\Business\Service\CompanyContactService;
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
 use App\Business\Service\InquiryStateService;
 use App\Business\Service\InquiryTypeService;
-use App\Business\Service\UserService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
-use App\Entity\Inquiry\InquiryAttachment;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
@@ -25,7 +22,6 @@ use App\Factory\InquiryFilterFactory;
 use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
-use Exception;
 use LogicException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -34,60 +30,14 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 class InquiryOperation
 {
-    protected UserService $userService;
-
-    protected InquiryService $inquiryService;
-
-    /** @required */
-    public InquiryAttachmentService $attachmentService;
-
-    protected InquiryStateService $inquiryStateService;
-
-    protected InquiryTypeService $inquiryTypeService;
-
-    protected InquiryFactory $inquiryFactory;
-
-    protected InquiryAttachmentFactory $attachmentFactory;
-
-    protected InquiryFilterFactory $filterFactory;
-
-    protected PersonalContactFactory $personalContactFactory;
-
-    protected CompanyContactFactory $companyContactFactory;
-
-    protected UserSecurity $security;
-
-    /** @required */
-    public SluggerInterface $slugger;
-
-    /** @required */
-    // public Configuration $configuration;
-    public ContainerBagInterface $params;
-
-    /**
-     * @param UserService $userService
-     * @param InquiryService $inquiryService
-     * @param InquiryStateService $inquiryStateService
-     * @param InquiryTypeService $inquiryTypeService
-     * @param InquiryFactory $inquiryFactory
-     * @param InquiryAttachmentFactory $attachmentFactory
-     * @param InquiryFilterFactory $filterFactory
-     * @param PersonalContactFactory $personalContactFactory
-     * @param CompanyContactFactory $companyContactFactory
-     * @param UserSecurity $security
-     */
-    public function __construct(UserService $userService, InquiryService $inquiryService, InquiryStateService $inquiryStateService, InquiryTypeService $inquiryTypeService, InquiryFactory $inquiryFactory, InquiryAttachmentFactory $attachmentFactory, InquiryFilterFactory $filterFactory, PersonalContactFactory $personalContactFactory, CompanyContactFactory $companyContactFactory, UserSecurity $security)
+    public function __construct(
+        private InquiryService           $inquiryService,
+        private InquiryAttachmentService $attachmentService, private InquiryStateService $inquiryStateService,
+        private InquiryTypeService       $inquiryTypeService, private InquiryFactory $inquiryFactory,
+        private InquiryAttachmentFactory $attachmentFactory, private InquiryFilterFactory $filterFactory,
+        private PersonalContactFactory   $personalContactFactory, private CompanyContactFactory $companyContactFactory,
+        private UserSecurity             $security, private SluggerInterface $slugger, private ContainerBagInterface $params)
     {
-        $this->userService = $userService;
-        $this->inquiryService = $inquiryService;
-        $this->inquiryStateService = $inquiryStateService;
-        $this->inquiryTypeService = $inquiryTypeService;
-        $this->inquiryFactory = $inquiryFactory;
-        $this->attachmentFactory = $attachmentFactory;
-        $this->filterFactory = $filterFactory;
-        $this->personalContactFactory = $personalContactFactory;
-        $this->companyContactFactory = $companyContactFactory;
-        $this->security = $security;
     }
 
     /**
@@ -172,7 +122,7 @@ class InquiryOperation
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function saveAttachments(Inquiry $inquiry, array $attachments)
+    private function saveAttachments(Inquiry $inquiry, array $attachments)
     {
         $attachmentEntities = [];
 
@@ -235,7 +185,7 @@ class InquiryOperation
         return $this->fillContactData($inquiry, $user);
     }
 
-    protected function fillContactData(Inquiry $inquiry, User $user): Inquiry
+    private function fillContactData(Inquiry $inquiry, User $user): Inquiry
     {
         // Common user data
         $inquiry->setContactEmail($user->getEmail());
@@ -252,7 +202,7 @@ class InquiryOperation
         throw new LogicException("Unknown user type: " . $user->getType()->getAlias());
     }
 
-    protected function fillPersonContactData(Inquiry $inquiry, ?Person $person): Inquiry
+    private function fillPersonContactData(Inquiry $inquiry, ?Person $person): Inquiry
     {
         // Check if person is valid.
         if (is_null($person)) {
@@ -266,7 +216,7 @@ class InquiryOperation
         return $inquiry;
     }
 
-    protected function fillCompanyContactData(Inquiry $inquiry, ?Company $company): Inquiry
+    private function fillCompanyContactData(Inquiry $inquiry, ?Company $company): Inquiry
     {
         // Check if person is valid.
         if (is_null($company)) {

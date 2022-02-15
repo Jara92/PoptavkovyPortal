@@ -59,6 +59,8 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
             // TODO: Filter by categories
         }
 
+        // TODO: add filtering by state
+
         // Get final query
         $query = $queryBuilder->getQuery();
 
