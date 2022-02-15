@@ -9,10 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait PaginableTrait
 {
-    /** @required */
+    /**
+     * @required
+     * @internal
+     */
     public PaginationFactory $paginatorFactory;
 
-    /** @required */
+    /**
+     * @required
+     * @internal
+     */
     public PaginationLinkFactory $paginationLinkFactory;
 
     private function getPageNumberKey(): string

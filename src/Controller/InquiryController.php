@@ -17,20 +17,9 @@ class InquiryController extends AController
 {
     use PaginableTrait;
 
-    protected InquiryService $inquiryService;
-    protected TranslatorInterface $translator;
-    protected InquiryOperation $inquiryOperation;
-
-    /**
-     * @param InquiryService $inquiryService
-     * @param TranslatorInterface $translator
-     * @param InquiryOperation $inquiryOperation
-     */
-    public function __construct(InquiryService $inquiryService, TranslatorInterface $translator, InquiryOperation $inquiryOperation)
+    public function __construct(
+        private InquiryService $inquiryService, private TranslatorInterface $translator, private InquiryOperation $inquiryOperation)
     {
-        $this->inquiryService = $inquiryService;
-        $this->translator = $translator;
-        $this->inquiryOperation = $inquiryOperation;
     }
 
     /**

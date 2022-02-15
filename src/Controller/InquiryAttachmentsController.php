@@ -13,14 +13,8 @@ use Symfony\Component\Mime\FileinfoMimeTypeGuesser;
 
 class InquiryAttachmentsController extends AbstractController
 {
-    protected InquiryAttachmentService $attachmentService;
-
-    /**
-     * @param InquiryAttachmentService $attachmentService
-     */
-    public function __construct(InquiryAttachmentService $attachmentService)
+    public function __construct(private InquiryAttachmentService $attachmentService)
     {
-        $this->attachmentService = $attachmentService;
     }
 
     public function download(string $hash): Response

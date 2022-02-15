@@ -23,39 +23,21 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    protected UserOperation $userOperation;
-
-    protected UserService $userService;
-
-    protected UserFactory $userFactory;
-
-    protected TranslatorInterface $translator;
-
-    /** @required */
-    public EmailVerifier $emailVerifier;
-
-    /** @required */
-    public UserTypeService $userTypeService;
-
-    /** @required */
-    public UserSecurity $security;
-
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
     const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
     const AFTER_VERIFY = "inquiries";
 
-    public function __construct(UserOperation $userOperation, UserService $userService, UserFactory $userFactory,
-                                TranslatorInterface $translator)
+    public function __construct(
+        private UserOperation       $userOperation, private UserService $userService, private UserFactory $userFactory,
+        private TranslatorInterface $translator, private EmailVerifier $emailVerifier, private private UserTypeService $userTypeService,
+        private UserSecurity        $security)
     {
-        $this->userOperation = $userOperation;
-        $this->userService = $userService;
-        $this->userFactory = $userFactory;
-        $this->translator = $translator;
     }
 
-    public function index():Response{
+    public function index(): Response
+    {
         // Check if the user is already logged in
-        if($this->security->isLoggedIn()){
+        if ($this->security->isLoggedIn()) {
             $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
@@ -94,9 +76,10 @@ class RegistrationController extends AbstractController
     /**
      * @throws TransportExceptionInterface
      */
-    protected function register(FormInterface $form, User $user, Request $request, $template) : Response{
+    protected function register(FormInterface $form, User $user, Request $request, $template): Response
+    {
         // Check if the user is already logged in
-        if($this->security->isLoggedIn()){
+        if ($this->security->isLoggedIn()) {
             $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
