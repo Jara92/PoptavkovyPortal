@@ -18,7 +18,10 @@ class InquiryController extends AController
     use PaginableTrait;
 
     public function __construct(
-        private InquiryService $inquiryService, private TranslatorInterface $translator, private InquiryOperation $inquiryOperation)
+        private InquiryService      $inquiryService,
+        private TranslatorInterface $translator,
+        private InquiryOperation    $inquiryOperation
+    )
     {
     }
 

@@ -10,7 +10,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserOperation
 {
     public function __construct(
-        private UserService $userService, private UserPasswordHasherInterface $passwordHasher)
+        private UserService                 $userService,
+        private UserPasswordHasherInterface $passwordHasher
+    )
     {
     }
 

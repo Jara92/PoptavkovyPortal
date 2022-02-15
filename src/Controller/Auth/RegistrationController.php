@@ -28,9 +28,14 @@ class RegistrationController extends AbstractController
     const AFTER_VERIFY = "inquiries";
 
     public function __construct(
-        private UserOperation       $userOperation, private UserService $userService, private UserFactory $userFactory,
-        private TranslatorInterface $translator, private EmailVerifier $emailVerifier, private private UserTypeService $userTypeService,
-        private UserSecurity        $security)
+        private UserOperation       $userOperation,
+        private UserService         $userService,
+        private UserFactory         $userFactory,
+        private TranslatorInterface $translator,
+        private EmailVerifier       $emailVerifier,
+        private UserTypeService     $userTypeService,
+        private UserSecurity        $security
+    )
     {
     }
 

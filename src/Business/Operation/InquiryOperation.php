@@ -32,11 +32,18 @@ class InquiryOperation
 {
     public function __construct(
         private InquiryService           $inquiryService,
-        private InquiryAttachmentService $attachmentService, private InquiryStateService $inquiryStateService,
-        private InquiryTypeService       $inquiryTypeService, private InquiryFactory $inquiryFactory,
-        private InquiryAttachmentFactory $attachmentFactory, private InquiryFilterFactory $filterFactory,
-        private PersonalContactFactory   $personalContactFactory, private CompanyContactFactory $companyContactFactory,
-        private UserSecurity             $security, private SluggerInterface $slugger, private ContainerBagInterface $params)
+        private InquiryAttachmentService $attachmentService,
+        private InquiryStateService      $inquiryStateService,
+        private InquiryTypeService       $inquiryTypeService,
+        private InquiryFactory           $inquiryFactory,
+        private InquiryAttachmentFactory $attachmentFactory,
+        private InquiryFilterFactory     $filterFactory,
+        private PersonalContactFactory   $personalContactFactory,
+        private CompanyContactFactory    $companyContactFactory,
+        private UserSecurity             $security,
+        private SluggerInterface         $slugger,
+        private ContainerBagInterface    $params
+    )
     {
     }
 
