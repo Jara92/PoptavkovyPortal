@@ -11,10 +11,10 @@ class CompanyContactFactory
         return new CompanyContact();
     }
 
-    public function createCompanyContact(string $companyName): CompanyContact
+    public function createCompanyContact(string $companyName, string $identificationNumber): CompanyContact
     {
         $companyContact = new CompanyContact();
 
-        return $companyContact->setCompanyName($companyName);
+        return $companyContact->setCompanyName($companyName)->setIdentificationNumber($identificationNumber);
     }
 }

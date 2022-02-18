@@ -231,7 +231,7 @@ class InquiryOperation
         }
 
         // Create new company contact instance.
-        $companyContact = $this->companyContactFactory->createCompanyContact($company->getName());
+        $companyContact = $this->companyContactFactory->createCompanyContact($company->getName(), $company->getIdentificationNumber());
         $inquiry->setCompanyContact($companyContact);
 
         return $inquiry;
