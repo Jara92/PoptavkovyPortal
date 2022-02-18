@@ -78,7 +78,7 @@ class InquiryOperation
         $activeState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ACTIVE);
         $archivedState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ARCHIVED);
 
-        return $this->filterFactory->createBlankInquiryFilter()->setStates([$activeState, $archivedState]);
+        return $this->filterFactory->createInquiryFilter([$activeState, $archivedState]);
     }
 
     /**

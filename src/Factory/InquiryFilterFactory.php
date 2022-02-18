@@ -13,4 +13,9 @@ class InquiryFilterFactory
     {
         return new  InquiryFilter();
     }
+
+    public function createInquiryFilter(array $states): InquiryFilter
+    {
+        return $this->createBlankInquiryFilter()->setStates($states);
+    }
 }
