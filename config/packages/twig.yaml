@@ -1,6 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: ['form/bootstrap_5_layout_custom.html.twig']
+    form_themes: [
+            'form/bootstrap_5_layout_custom.html.twig',     # Bootrap forms
+            'form/fields.html.twig'                         # Field overrides (fa-icons...)
+    ]
 
 when@test:
     twig:

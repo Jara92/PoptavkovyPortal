@@ -80,6 +80,7 @@ class InquiryFilterForm extends AbstractType
                 'choice_translation_domain' => "messages",
             ])->add('submit', SubmitType::class, [
                 'label' => "inquiries.btn_filter",
+                'icon_before' => "fa-search me-2"
             ])->getForm();
     }
 }
