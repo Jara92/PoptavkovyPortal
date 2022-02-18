@@ -1,10 +1,5 @@
 /* Filter */
 #inquiry-filter {
-  .btn-clear-filter, .btn-clear-filter:hover {
-    background: none;
-    border: none;
-  }
-
   .search-container {
     input, input:focus {
       background: #fff;
@@ -16,9 +11,17 @@
       outline: 0;
     }
 
-    input, .btn {
+    input, .btn-search {
       font-size: 1.5rem;
     }
+  }
+
+  .btn-clear-filter, .btn-clear-filter:hover {
+    font-size: 1.2rem;
+    color: $secondary;
+    border: none;
+    background: none;
+    margin: auto 0;
   }
 
   .search-filters {
