@@ -125,9 +125,10 @@ ul.inquiry-list {
   padding-left: 0;
 
   > li {
-    border-radius: 0;
+    border-radius: 5px;
     padding: 10px;
     flex-direction: row;
+    margin-bottom: 0.5rem;
 
     a.btn-link {
       padding-left: 0;

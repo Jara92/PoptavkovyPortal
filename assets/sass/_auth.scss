@@ -45,6 +45,7 @@
     background: -webkit-linear-gradient(left, $template_dark, $template_lightest);
     margin-top: 3%;
     padding: 3%;
+    border-radius: 10px;
   }
 
   .register-tab-left {
@@ -72,6 +73,7 @@
   .register-tab-right {
     background: #fff;
     padding: 0.5rem;
+    border-radius: 10px;
   }
 
   .register-tab-left img {
@@ -150,8 +152,8 @@
 
   .login-form {
     padding: 5%;
-
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
   }
 
   .login-form h2 {
