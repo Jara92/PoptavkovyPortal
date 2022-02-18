@@ -49,11 +49,11 @@ class InquiryOperation
 
     /**
      * Get default inquiry type for the user.
+     * @param User|null $user
      * @return InquiryType|null
      */
-    public function getNewInquiryDefaultType(): ?InquiryType
+    public function getNewInquiryDefaultType(?User $user): ?InquiryType
     {
-        $user = $this->security->getUser();
         $typeAlias = InquiryType::ALIAS_PERSONAL;
 
         // According to userType set default Inquiry type.
@@ -181,7 +181,7 @@ class InquiryOperation
         $inquiry = $this->inquiryFactory->createBlank();
 
         // Set type inquiry type.
-        $inquiry->setType($this->getNewInquiryDefaultType());
+        $inquiry->setType($this->getNewInquiryDefaultType($user));
 
         // No autofill for unauthenticated user.
         if (is_null($user)) {
