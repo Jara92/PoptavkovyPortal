@@ -16,14 +16,7 @@
                 {{ form_start(form, {"method":"GET"}) }}
 
                 <div class="row justify-content-center search-container">
-                    <div class="col-md-12 col-lg-10 ">
-                        <div class="input-group">
-                            {{ form_widget(form.text, {"class": "form-control"}) }}
-                            {{ form_row(form.submit, {'attr': {'class': 'btn-outline-secondary btn btn-primary btn-search'}}) }}
-                            <a class="btn-outline-secondary btn btn-link btn-clear-filter"
-                               href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="row justify-content-center mt-3 search-filters">
@@ -39,17 +32,26 @@
 
                         <div class="container">
                             <div class="row">
+                                <div class="col-md-12 col-lg-12 mb-3 search-container">
+                                    <div class="input-group">
+                                        {{ form_widget(form.text, {"class": "form-control"}) }}
+                                        {{ form_row(form.submit, {'attr': {'class': 'btn-outline-secondary btn btn-primary btn-search'}}) }}
+                                        <a class="btn-outline-secondary btn btn-link btn-clear-filter"
+                                           href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-4 col-md-6">
                                     {{ form_row(form.categories, {'attr': {'class': 'select2-hidden-accessible', 'data-inquiry-filter-target':'categories'}}) }}
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    {{ form_row(form.types, {'attr': {'class': 'select2-hidden-accessible', 'data-inquiry-filter-target':'types'}}) }}
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     {{ form_row(form.regions, {'attr': {'class': 'select2-hidden-accessible', 'data-inquiry-filter-target':'regions'}}) }}
                                 </div>
                                 <div class="col-lg-4 col-md-6 d-none">
                                     {{ form_row(form.values, {'attr': {'class': 'select2-hidden-accessible', 'data-inquiry-filter-target':'values'}}) }}
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    {{ form_row(form.types, {'attr': {'class': 'select2-hidden-accessible', 'data-inquiry-filter-target':'types'}}) }}
                                 </div>
                                 <div class="col-lg-4 col-md-6">
 
