@@ -186,6 +186,13 @@ class InquiryForm extends AbstractType
                     ],
                     'required' => true
                 ])
+                ->add('identificationNumber', TextType::class, [
+                    'label' => "user.field_identification_number",
+                    'attr' => [
+                        "placeholder" => "user.field_identification_number_ph",
+                    ],
+                    'required' => true
+                ])
             )
             ->add("contactEmail", EmailType::class, [
                 'label' => "inquiries.field_email",

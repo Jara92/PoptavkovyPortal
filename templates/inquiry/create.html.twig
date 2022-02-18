@@ -99,6 +99,8 @@
 
                                             <div id="company-inquiry-fields" data-inquiry-form-target="companyFields">
                                                 {{ form_row(form.companyContact.companyName, {'attr': {'class': 'form-control', 'id':'company-name'}}) }}
+
+                                                {{ form_row(form.companyContact.identificationNumber, {'attr': {'class': 'form-control', 'id':'company-identification-number'}}) }}
                                             </div>
 
                                             {{ form_row(form.contactEmail, {'attr': {'class': 'form-control'}}) }}
