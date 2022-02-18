@@ -5,8 +5,8 @@ namespace App\Tests\Unit\Business\Service;
 use App\Business\Service\AService;
 use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
-use Doctrine\Persistence\ObjectManager;
 
 class AServiceTest extends TestCase
 {
@@ -14,7 +14,7 @@ class AServiceTest extends TestCase
     protected IRepository $repository;
 
     /** ObjectManager mock */
-    protected ObjectManager $em;
+    protected EntityManagerInterface $em;
 
     protected AService $service;
 
@@ -27,7 +27,7 @@ class AServiceTest extends TestCase
         parent::setUp();
 
         $this->repository = $this->createStub(IRepository::class);
-        $this->em = $this->createStub(ObjectManager::class);
+        $this->em = $this->createStub(EntityManagerInterface::class);
 
         // Create a service using mocked dependencies.
         $this->service = new AService($this->repository);
