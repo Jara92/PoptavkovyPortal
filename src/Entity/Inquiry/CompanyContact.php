@@ -18,7 +18,13 @@ class CompanyContact
      * @ORM\Column(type="string", length=64)
      * @Assert\Length(min=5, max=64)
      */
-    protected string $companyName;
+    protected ?string $companyName;
+
+    /**
+     * @ORM\Column(type="string", length=16)
+     * @Assert\NotBlank
+     */
+    private ?string $identificationNumber;
 
     public function getCompanyName(): ?string
     {
@@ -28,6 +34,18 @@ class CompanyContact
     public function setCompanyName(string $companyName): self
     {
         $this->companyName = $companyName;
+
+        return $this;
+    }
+
+    public function getIdentificationNumber(): ?string
+    {
+        return $this->identificationNumber;
+    }
+
+    public function setIdentificationNumber(string $identificationNumber): self
+    {
+        $this->identificationNumber = $identificationNumber;
 
         return $this;
     }
