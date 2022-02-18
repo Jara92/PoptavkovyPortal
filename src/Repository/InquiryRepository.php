@@ -48,7 +48,6 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
         }
 
         // Filter by regions - Inquiry region must be in types array.
-        // TODO: Display inquiries without a region when filtering???
         if (!empty($filter->getRegions())) {
             $queryBuilder->andWhere($queryBuilder->expr()->in("i.region", ":regions"))
                 ->setParameter("regions", $filter->getRegions());
@@ -59,7 +58,11 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
             // TODO: Filter by categories
         }
 
-        // TODO: add filtering by state
+        // Filter by state - Inquiry state must be in states array.
+        if (!empty($filter->getStates())) {
+            $queryBuilder->andWhere($queryBuilder->expr()->in("i.state", ":states"))
+                ->setParameter("states", $filter->getStates());
+        }
 
         // Get final query
         $query = $queryBuilder->getQuery();
