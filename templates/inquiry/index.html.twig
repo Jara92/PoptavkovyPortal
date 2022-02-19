@@ -32,7 +32,8 @@
                                         {{ form_widget(form.text, {"class": "form-control"}) }}
                                         {{ form_row(form.submit, {'attr': {'class': 'btn-outline-secondary btn btn-primary btn-search'}}) }}
                                         <a class="btn-outline-secondary btn btn-link btn-clear-filter"
-                                           href="{{ path("inquiries") }}">{{ "inquiries.btn_clear"|trans }}</a>
+                                           href="{{ path("inquiries") }}"><span
+                                                    class="fa fa-redo me-2"></span>{{ "inquiries.btn_clear"|trans }}</a>
                                     </div>
                                 </div>
 
