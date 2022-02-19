@@ -32,7 +32,6 @@ class InquiryState
     /**
      * @ORM\Column(type="string", length=16, unique=true, nullable=true)
      * @Assert\Length(min=1, max=16)
-     * @Assert\Unique
      */
     protected ?string $alias;
 
