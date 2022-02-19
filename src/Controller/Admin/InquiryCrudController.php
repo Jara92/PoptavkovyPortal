@@ -107,6 +107,8 @@ class InquiryCrudController extends AbstractCrudController
 
             AssociationField::new("state", "inquiries.field_state")
                 ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
+
+            AssociationField::new("categories", "inquiries.field_categories")->onlyOnForms()
         ];
     }
 
