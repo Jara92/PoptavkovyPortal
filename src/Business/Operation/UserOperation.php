@@ -5,6 +5,8 @@ namespace App\Business\Operation;
 use App\Business\Service\UserService;
 use App\Entity\User;
 use App\Entity\UserType;
+use App\Exception\InvalidOldPasswordException;
+use App\Exception\OperationFailedException;
 use App\Form\User\CompanySettingsForm;
 use App\Form\User\PersonSettingsForm;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -48,16 +50,17 @@ class UserOperation
         throw new \LogicException("Unknown user type.");
     }
 
-    public function userPasswordMatch(User $user, string $plainPassword): bool
+    public function updateUserPassword(User $user, string $plainOldPassword, string $plainNewPassword)
     {
-        return $this->passwordHasher->isPasswordValid($user, $plainPassword);
-    }
+        if (!$this->passwordHasher->isPasswordValid($user, $plainOldPassword)) {
+            throw new InvalidOldPasswordException();
+        }
 
-    public function updateUserPassword(User $user, string $plainPassword)
-    {
-        $passwordHash = $this->passwordHasher->hashPassword($user, $plainPassword);
+        $passwordHash = $this->passwordHasher->hashPassword($user, $plainNewPassword);
         $user->setPassword($passwordHash);
 
-        return $this->userService->update($user);
+        if (!$this->userService->update($user)) {
+            throw new OperationFailedException();
+        }
     }
 }

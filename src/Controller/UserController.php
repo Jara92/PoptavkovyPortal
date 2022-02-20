@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
+use App\Exception\InvalidOldPasswordException;
+use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
 use App\Form\User\UserSettingsForm;
 use App\Helper\FlashHelper;
@@ -46,16 +48,14 @@ class UserController extends AController
             $oldPass = $form->get('oldPassword')->getData();
             $newPass = $form->get('newPassword')->getData();
 
-            // Check if old password match.
-            if ($this->userOperation->userPasswordMatch($user, $oldPass)) {
-                // Try to set the new password
-                if ($this->userOperation->updateUserPassword($user, $newPass)) {
-                    $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("auth.msg_password_changed"));
-                } else {
-                    $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_password_not_changed"));
-                }
-            } else {
+            // Try to update the password
+            try {
+                $this->userOperation->updateUserPassword($user, $oldPass, $newPass);
+                $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("auth.msg_password_changed"));
+            } catch (InvalidOldPasswordException $ex) {
                 $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_old_password_incorrect"));
+            } catch (OperationFailedException $ex) {
+                $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_password_not_changed"));
             }
         }
 
