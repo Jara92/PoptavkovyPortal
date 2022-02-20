@@ -91,7 +91,7 @@ class InquiryVoter extends AVoter
         }
 
         // Inquiry is visible for public.
-        return $inquiry->getState() === InquiryState::STATE_ACTIVE;
+        return $inquiry->getState()->getAlias() === InquiryState::STATE_ACTIVE;
     }
 
     private function canReact(Inquiry $inquiry, ?User $user): bool
