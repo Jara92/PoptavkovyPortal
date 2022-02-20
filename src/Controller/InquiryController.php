@@ -7,7 +7,9 @@ use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
+use App\Tools\Filter\InquiryFilter;
 use Exception;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +28,44 @@ class InquiryController extends AController
     }
 
     /**
-     * Show inquiries list.
+     * Show all public inquiries list.
      * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
     {
-        // Get filter and paginator
+        // Get filter and return list
         $filter = $this->inquiryOperation->getDefaultFilter();
+        return $this->list($request, $filter);
+    }
 
+    /**
+     * Show my inquiries (all of them)
+     * @param Request $request
+     * @return Response
+     */
+    public function myInquiries(Request $request): Response
+    {
+        // Get user and check if the user is valid
+        $user = $this->getUser();
+        if (!$user) {
+            throw new AccessDeniedHttpException();
+        }
+
+        // Get filter and return list
+        $filter = $this->inquiryOperation->getUserFilter($user);
+        return $this->list($request, $filter);
+    }
+
+    /**
+     * Show a list of inquiries given by the filter.
+     * @param Request $request
+     * @param InquiryFilter $filter
+     * @return Response
+     */
+    private function list(Request $request, InquiryFilter $filter): Response
+    {
+        // Get pagination
         $pagination = $this->getPaginationComponent($request, $this->getParameter("app.items_per_page"));
 
         // Create filter form.

@@ -36,6 +36,12 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
     {
         $queryBuilder = $this->createQueryBuilder("i");
 
+        // Filter by author
+        if ($filter->getAuthor()) {
+            $queryBuilder->andWhere($queryBuilder->expr()->eq("i.author", ":author"))
+                ->setParameter("author", $filter->getAuthor());
+        }
+
         // Filter by text
         if ($filter->getText()) {
             $queryBuilder->andWhere($queryBuilder->expr()->like("i.title", ":text"))

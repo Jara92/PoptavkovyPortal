@@ -1,18 +1,23 @@
 # Inquiries
 inquiries:
-    path: /poptavky
-    controller: App\Controller\InquiryController::index
-    methods: GET|POST
+  path: /poptavky
+  controller: App\Controller\InquiryController::index
+  methods: GET|POST
+
+my-inquiries:
+  path: /moje-poptavky
+  controller: App\Controller\InquiryController::myInquiries
+  methods: GET|POST
 
 inquiries/new:
-    path: /poptavky/nova-poptavka
-    controller: App\Controller\InquiryController::create
-    methods: GET|POST
+  path: /poptavky/nova-poptavka
+  controller: App\Controller\InquiryController::create
+  methods: GET|POST
 
 inquiries/detail:
-    path: /poptavky/{alias}
-    controller: App\Controller\InquiryController::detail
-    methods: GET
+  path: /poptavky/{alias}
+  controller: App\Controller\InquiryController::detail
+  methods: GET
 
 inquiries/attachments:
     path: /poptavky/prilohy/{hash}

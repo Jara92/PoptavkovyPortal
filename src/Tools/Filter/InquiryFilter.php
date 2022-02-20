@@ -7,6 +7,7 @@ use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\Region;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\InquiryType;
+use App\Entity\User;
 
 class InquiryFilter
 {
@@ -24,6 +25,8 @@ class InquiryFilter
 
     // TODO: figure out datatype and better name.
     protected mixed $old;
+
+    protected ?User $author = null;
 
     protected ?string $ordering;
 
@@ -137,6 +140,24 @@ class InquiryFilter
     public function setOrdering(?string $ordering): void
     {
         $this->ordering = $ordering;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User|null $author
+     * @return InquiryFilter
+     */
+    public function setAuthor(?User $author): InquiryFilter
+    {
+        $this->author = $author;
+        return $this;
     }
 
     /**

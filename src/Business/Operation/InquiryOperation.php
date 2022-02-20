@@ -82,6 +82,16 @@ class InquiryOperation
     }
 
     /**
+     * Returns an inquiry filter object with current user as an author.
+     * @param User $user
+     * @return InquiryFilter
+     */
+    public function getUserFilter(User $user): InquiryFilter
+    {
+        return $this->filterFactory->createBlankInquiryFilter()->setAuthor($user);
+    }
+
+    /**
      * Create a new inquiry.
      * @param Inquiry $inquiry
      * @param UploadedFile[] $attachments
