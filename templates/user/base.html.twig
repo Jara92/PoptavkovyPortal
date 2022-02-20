@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "profiles.my_profile"|trans }}{% endblock %}
+
+{% block content %}
+    <section class="content profile-settings">
+        <div class="container">
+            <div class="row profile-dashboard">
+                <div class="col-md-3 profile-menu">
+                    <nav class="list-group list-group-flush">
+                        <div class="dropdown mb-2 profile-intro">
+                            <a href="#"
+                               class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                                     class="rounded-circle">
+                                {# TODO: use real person/company name instead of username #}
+                                <span class="d-none d-sm-inline mx-1">{{ app.user.username }}</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
+                                aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="{{ path("inquiries/new") }}">Nová poptávka</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="{{ path("app_logout") }}">{{ "auth.log_out"|trans }}</a></li>
+                            </ul>
+                        </div>
+
+                        {# Dashboard Collapse #}
+                        <button class="list-group-item list-group-item-action py-2 ripple" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#dashboard-collapse"
+                                aria-expanded="false"
+                                aria-controls="dashboard-collapse">
+                            <span class="fas fa-tachometer-alt fa-fw me-2"></span><span>{{ "profiles.dashboard"|trans }}</span>
+                        </button>
+
+                        <ul id="dashboard-collapse" class="collapse show list-group list-group-flush">
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "profiles.dashboard_summaries"|trans }}</a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "inquiries.my_inquiries"|trans }}</a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "inquiries.reacted_inquiries"|trans }}</a>
+                            </li>
+                        </ul>
+
+                        {# Settings Collapse #}
+                        <button class="list-group-item list-group-item-action py-2 ripple" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#settings-collapse"
+                                aria-expanded="false"
+                                aria-controls="settings-collapse">
+                            <span class="fa fa-tools me-2"></span><span>{{ "profiles.settings"|trans }}</span>
+                        </button>
+
+                        <ul id="settings-collapse" class="collapse list-group list-group-flush">
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "profiles.settings_basic"|trans }}</a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "profiles.settings_profile"|trans }}</a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "profiles.settings_change_password"|trans }}</a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset">{{ "profiles.settings_inquiry_subscription"|trans }}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="card col-md-9 profile-content">
+                    {% block tab_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -57,7 +57,7 @@
                         <ul class="dropdown-menu" aria-labelledby="my-account-dropdown">
                             <li><a class="dropdown-item" href="#!">
                                     <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a></li>
-                            <li><a class="dropdown-item" href="#!">
+                            <li><a class="dropdown-item" href="{{ path("my-profile") }}">
                                     <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>
                             </li>
                             {% if is_granted("ROLE_ADMIN") %}

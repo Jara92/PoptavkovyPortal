@@ -45,6 +45,12 @@ terms-and-conditions:
     controller: App\Controller\HomeController::termsAndConditions
     methods: GET
 
+# User
+my-profile:
+    path: /muj-profil
+    controller: App\Controller\UserController::myProfile
+    methods: GET
+
 # Auth
 app_login:
     path: /prihlaseni
