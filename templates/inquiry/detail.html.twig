@@ -42,29 +42,39 @@
                 <div class="inquiry-detail-right col-md-10 col-lg-3">
                     <ul class="row inquiry-properties">
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-hashtag me-2"></span>Evidenční číslo</div>
+                            <div class="title"><span
+                                        class="fas fa-hashtag me-2"></span>{{ "inquiries.label_registration_number"|trans }}
+                            </div>
                             <div class="value">{{ inquiry.id }}</div>
                         </li>
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-calendar-day me-2"></span>Zadáno</div>
+                            <div class="title"><span
+                                        class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
+                            </div>
                             <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
                         </li>
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-map-marker-alt me-2"></span>Místo realizace</div>
+                            <div class="title"><span
+                                        class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_created"|trans }}
+                            </div>
                             <div class="value">
                                 {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
                             </div>
                         </li>
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-tag me-2"></span>Typ</div>
+                            <div class="title"><span class="fas fa-tag me-2"></span>{{ "inquiries.label_type"|trans }}
+                            </div>
                             <div class="value">{{ inquiry.type.title|trans }}</div>
                         </li>
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-clock me-2"></span>Termín</div>
+                            <div class="title"><span
+                                        class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}</div>
                             <div class="value">{{ inquiry.deadline.title|trans }}</div>
                         </li>
                         <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-dollar-sign me-2"></span>Předpokládaná cena</div>
+                            <div class="title"><span
+                                        class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
+                            </div>
                             <div class="value">{{ inquiry.value.title|trans }}</div>
                         </li>
                     </ul>
