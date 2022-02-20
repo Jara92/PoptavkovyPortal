@@ -122,6 +122,7 @@ articles:
 #Inquiries
 inquiries:
   inquiries: "Poptávky"
+  my_inquiries: "Moje poptávky"
   inquiries_filter_all: "Všechny poptávky"
   inquiries_filter_new: "Ke schválení"
   inquiry_categories: "Kategorie poptávek"
@@ -270,7 +271,13 @@ inquiries:
   admin_state_final: "Dokončená"
   state_label_final: "Poptávka už našla svého dodavatele."
 
+#Profiles
+profiles:
+  my_profile: "Můj profil"
+
+#Admin
 admin:
+  administration: "Administrace"
   inquiries:
     title_common: "Základní informace"
     title_contact: "Kontaktní údaje"

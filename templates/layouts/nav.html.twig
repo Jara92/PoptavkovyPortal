@@ -10,7 +10,8 @@
         {% endfor %}
 
         <li class="nav-item">
-            <a href="{{ url }}" class="nav-link {% if subitems|length > 0 %}has-sub-menu{% endif %} {% if isActive %}active{% endif %}">{{ name }}</a>
+            <a href="{{ url }}"
+               class="nav-link {% if subitems|length > 0 %}has-sub-menu{% endif %} {% if isActive %}active{% endif %}">{{ name }}</a>
             {% if subitems|length > 0 %}
                 <ul class="main-sub-menu">
                     {% for name, url in subitems %}
@@ -47,29 +48,34 @@
 
             <section class="d-flex py-3 py-lg-0">
                 {% if app.user %}
-                    <a class="btn btn-link text-1000 fw-medium order-1 order-lg-0" href="{{ path('app_logout') }}">
-                        <span class="fas fa-sign-out-alt"></span> {{ "auth.log_out"|trans }}</a>
-
-                    <!--
-            <a href="#" class="nav-link"></a>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false">JMÉNO UŽIVATELE</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#!">Moje poptávky</a>
-                    <a class="dropdown-item" href="#!">Můj
-                        profil</a>
-                    @if($user->GetIsAdmin())
-                    <a class="dropdown-item" href="#!">Administrace</a>
-                    @endif
-                    <a class="dropdown-item" href="{{ path('app_logout') }}">{{ "auth.log_out"|trans }}</a>
-                </div>
-            </li>
-            -->
+                    <li class="nav-item dropdown" style="list-style-type: none;">
+                        <a class="dropdown-toggle btn btn-link text-1000 fw-medium order-1 order-lg-0" href="#"
+                           id="my-account-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {# TODO: Use Person/Company name instead of username #}
+                            <span class="fa fa-user me-2"></span>{{ app.user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="my-account-dropdown">
+                            <li><a class="dropdown-item" href="#!">
+                                    <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a></li>
+                            <li><a class="dropdown-item" href="#!">
+                                    <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>
+                            </li>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <li><a class="dropdown-item" href="{{ path("admin") }}">
+                                        <span class="fa fa-toolbox me-2"></span>{{ "admin.administration"|trans }}</a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item btn btn-link text-1000 fw-medium order-1 order-lg-0"
+                                   href="{{ path('app_logout') }}">
+                                    <span class="fas fa-sign-out-alt"></span> {{ "auth.log_out"|trans }}</a></li>
+                        </ul>
+                    </li>
                 {% else %}
                     <a class="btn btn-link text-1000 fw-medium order-1 order-lg-0" href="{{ path('app_login') }}">
-                        <span class="fas fa-sign-in-alt"></span> {{ "auth.log_in"|trans }}</a>
+                        <span class="fas fa-lock me-2"></span> {{ "auth.log_in"|trans }}</a>
                 {% endif %}
 
                 <a class="btn btn-outline-primary rounded-pill order-0" href="{{ path("inquiries/new") }}">
