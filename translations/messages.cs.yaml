@@ -37,6 +37,7 @@ auth:
   log_out: "Odhlásit"
   register: "Registrovat"
   registration: "Registrace"
+  password_change: "Změna hesla"
   registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností:"
   register_person: "Jsem soukromá osoba"
   register_person_desc: "Tuto možnost využijte, pokud jste koncový zákazník a chcete na našem serveru poptávat služby našich dodavatelů."
@@ -50,18 +51,24 @@ auth:
   btn_register_person: "Soukromá registrace"
   btn_register_company: "Firemní registrace"
   btn_forgotten_password: "Zapomenuté heslo?"
-  field_remember_me: "Pamatuj si mě"
+  btn_change_password: "Změnit heslo"
 
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
 
+  field_remember_me: "Pamatuj si mě"
   field_email: "Email"
   field_email_ph: "Např. pavel.novak@seznam.cz"
   field_phone: "Kontaktní telefon"
   field_phone_ph: "Např. 123 456 789"
+  field_old_password: "Staré heslo"
   field_password: "Heslo"
   field_password_again: "Heslo znovu"
+
+  msg_password_changed: "Heslo bylo úspěšně změněno"
+  msg_password_not_changed: "Heslo se nepodařilo změnit"
+  msg_old_password_incorrect: "Staré heslo je neplatné"
 
 # Users
 user:

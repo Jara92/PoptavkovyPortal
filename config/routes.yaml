@@ -61,6 +61,11 @@ my-profile/base-settings:
   controller: App\Controller\UserController::baseSettings
   methods: GET|POST
 
+my-profile/change-password:
+  path: /muj-profil/zmena-hesla
+  controller: App\Controller\UserController::changePassword
+  methods: GET|POST
+
 # Auth
 app_login:
   path: /prihlaseni

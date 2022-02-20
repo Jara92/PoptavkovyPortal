@@ -47,4 +47,17 @@ class UserOperation
 
         throw new \LogicException("Unknown user type.");
     }
+
+    public function userPasswordMatch(User $user, string $plainPassword): bool
+    {
+        return $this->passwordHasher->isPasswordValid($user, $plainPassword);
+    }
+
+    public function updateUserPassword(User $user, string $plainPassword)
+    {
+        $passwordHash = $this->passwordHasher->hashPassword($user, $plainPassword);
+        $user->setPassword($passwordHash);
+
+        return $this->userService->update($user);
+    }
 }
