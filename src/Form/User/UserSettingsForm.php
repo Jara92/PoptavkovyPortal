@@ -51,7 +51,8 @@ abstract class UserSettingsForm extends AbstractType
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => "btn_save"
+                'label' => "btn_save",
+                'attr' => ["class" => "btn btn-primary"]
             ])->getForm();
     }
 }
