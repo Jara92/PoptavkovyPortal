@@ -2,7 +2,7 @@
 
 namespace App\Controller\Auth;
 
-use App\Factory\LoginFormFactory;
+use App\Factory\Form\LoginFormFactory;
 use App\Helper\FlashHelper;
 use App\Security\UserSecurity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

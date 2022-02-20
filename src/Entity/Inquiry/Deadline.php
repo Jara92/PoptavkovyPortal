@@ -6,7 +6,7 @@ use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
-use App\Repository\DeadlineRepository;
+use App\Repository\Inquiry\DeadlineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

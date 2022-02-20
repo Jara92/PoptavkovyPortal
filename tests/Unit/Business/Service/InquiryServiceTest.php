@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Business\Service;
 
 use App\Business\Service\InquiryService;
-use App\Repository\Interfaces\IInquiryIRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
 use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
 

@@ -5,7 +5,7 @@ namespace App\Business\Service;
 use App\Entity\Inquiry\Inquiry;
 use App\Tools\Filter\InquiryFilter;
 use App\Tools\Pagination\PaginationData;
-use App\Repository\Interfaces\IInquiryIRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
 use App\Repository\Interfaces\IRepository;
 
 /**

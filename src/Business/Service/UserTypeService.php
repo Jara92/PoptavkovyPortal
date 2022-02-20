@@ -4,7 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\UserType;
 use App\Repository\Interfaces\IRepository;
-use App\Repository\Interfaces\IUserTypeRepository;
+use App\Repository\Interfaces\User\IUserTypeRepository;
 
 /**
  * Service to manager UserType.

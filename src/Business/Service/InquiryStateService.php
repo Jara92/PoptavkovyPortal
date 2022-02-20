@@ -4,7 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\InquiryState;
-use App\Repository\Interfaces\IInquiryStateRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryStateRepository;
 use App\Repository\Interfaces\IRepository;
 
 /**

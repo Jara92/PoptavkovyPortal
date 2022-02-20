@@ -3,7 +3,7 @@
 namespace App\Business\Service;
 
 use App\Entity\Inquiry\CompanyContact;
-use App\Repository\Interfaces\ICompanyContactRepository;
+use App\Repository\Interfaces\Inquiry\ICompanyContactRepository;
 use App\Repository\Interfaces\IRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -3,7 +3,7 @@
 namespace App\Business\Service;
 
 use App\Entity\Inquiry\InquiryType;
-use App\Repository\Interfaces\IInquiryTypeRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryTypeRepository;
 use App\Repository\Interfaces\IRepository;
 
 class InquiryTypeService extends AService

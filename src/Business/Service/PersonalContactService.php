@@ -3,7 +3,7 @@
 namespace App\Business\Service;
 
 use App\Entity\Inquiry\PersonalContact;
-use App\Repository\Interfaces\IPersonalContactRepository;
+use App\Repository\Interfaces\Inquiry\IPersonalContactRepository;
 use App\Repository\Interfaces\IRepository;
 
 /**

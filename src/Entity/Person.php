@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\IdTrait;
-use App\Repository\PersonRepository;
+use App\Repository\User\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 

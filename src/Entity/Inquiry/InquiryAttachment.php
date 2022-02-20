@@ -4,7 +4,7 @@ namespace App\Entity\Inquiry;
 
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TitleTrait;
-use App\Repository\InquiryAttachmentRepository;
+use App\Repository\Inquiry\InquiryAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

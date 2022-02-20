@@ -4,7 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
-use App\Repository\Interfaces\IInquiryCategoryRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryCategoryRepository;
 use App\Repository\Interfaces\IRepository;
 
 /**

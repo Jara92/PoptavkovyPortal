@@ -3,7 +3,7 @@
 namespace App\Entity\Inquiry;
 
 use App\Entity\Traits\IdTrait;
-use App\Repository\PersonalContactRepository;
+use App\Repository\Inquiry\PersonalContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

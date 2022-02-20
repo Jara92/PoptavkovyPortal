@@ -5,7 +5,7 @@ namespace App\Entity\Inquiry;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TitleTrait;
-use App\Repository\InquiryCategoryRepository;
+use App\Repository\Inquiry\InquiryCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

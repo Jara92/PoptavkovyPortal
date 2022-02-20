@@ -5,7 +5,7 @@ namespace App\Entity\Inquiry;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
-use App\Repository\InquiryValueRepository;
+use App\Repository\Inquiry\InquiryValueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

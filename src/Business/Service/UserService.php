@@ -5,7 +5,7 @@ namespace App\Business\Service;
 use App\Entity\User;
 use App\Factory\UserFactory;
 use App\Repository\Interfaces\IRepository;
-use App\Repository\Interfaces\IUserRepository;
+use App\Repository\Interfaces\User\IUserRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Security;
 

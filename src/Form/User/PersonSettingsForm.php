@@ -3,7 +3,7 @@
 namespace App\Form\User;
 
 use App\Entity\Person;
-use App\Form\PersonForm;
+use App\Form\User\PersonForm;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

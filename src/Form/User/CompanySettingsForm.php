@@ -3,7 +3,7 @@
 namespace App\Form\User;
 
 use App\Entity\Company;
-use App\Form\CompanyForm;
+use App\Form\User\CompanyForm;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CompanySettingsForm extends UserSettingsForm

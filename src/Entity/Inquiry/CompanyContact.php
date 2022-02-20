@@ -3,7 +3,7 @@
 namespace App\Entity\Inquiry;
 
 use App\Entity\Traits\IdTrait;
-use App\Repository\CompanyContactRepository;
+use App\Repository\Inquiry\CompanyContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 

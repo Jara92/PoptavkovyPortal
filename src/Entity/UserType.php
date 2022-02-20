@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TitleTrait;
-use App\Repository\UserTypeRepository;
+use App\Repository\User\UserTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

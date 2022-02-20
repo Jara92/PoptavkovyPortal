@@ -4,7 +4,7 @@ namespace App\Business\Service;
 
 use App\Entity\Inquiry\InquiryAttachment;
 use App\Repository\Interfaces\IRepository;
-use App\Repository\Interfaces\IInquiryAttachmentRepository;
+use App\Repository\Interfaces\Inquiry\IInquiryAttachmentRepository;
 
 /**
  * Service class which handles Inquiry attachments.

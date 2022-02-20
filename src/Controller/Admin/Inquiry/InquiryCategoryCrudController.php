@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\Inquiry;
 
 use App\Entity\Inquiry\InquiryCategory;
-use App\Repository\InquiryCategoryRepository;
+use App\Repository\Inquiry\InquiryCategoryRepository;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;

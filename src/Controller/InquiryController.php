@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
-use App\Form\InquiryFilterForm;
-use App\Form\InquiryForm;
+use App\Form\Inquiry\InquiryFilterForm;
+use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
 use Exception;
