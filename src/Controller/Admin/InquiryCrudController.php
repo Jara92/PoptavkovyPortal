@@ -7,6 +7,7 @@ use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\PersonalContact;
 use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -23,6 +24,18 @@ class InquiryCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Inquiry::class;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('title')
+            ->add('alias')
+            ->add("categories")
+            ->add("deadline")
+            ->add("type")
+            ->add("state")
+            ->add("value");
     }
 
     public function configureCrud(Crud $crud): Crud

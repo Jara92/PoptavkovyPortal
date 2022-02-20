@@ -2,9 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Business\Service\InquiryStateService;
+use App\Controller\Admin\Inquiry\NewInquiriesCrudController;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
+use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
@@ -15,6 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MainDashboardController extends AbstractDashboardController
 {
+    public function __construct(
+        private InquiryStateService $inquiryStateService
+    )
+    {
+    }
+
     public function index(): Response
     {
         //return parent::index();
@@ -45,10 +54,16 @@ class MainDashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        $newState = $this->inquiryStateService->readByAlias(InquiryState::STATE_NEW);
+
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::linkToCrud("inquiries.inquiries", "fa fa-tags", Inquiry::class),
+            MenuItem::subMenu("inquiries.inquiries", "fa fa-tags")->setSubItems([
+                MenuItem::linkToCrud("inquiries.inquiries_filter_all", "fa fa-tags", Inquiry::class),
+                MenuItem::linkToCrud("inquiries.inquiries_filter_new", "fa fa-folder-plus", Inquiry::class)
+                    ->setQueryParameter("filters[state]", ["comparison" => "=", "value" => $newState->getId()])
+            ]),
             MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
             MenuItem::linkToCrud("inquiries.inquiry_types", "fa fa-tags", InquiryType::class),
             MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-tags", InquiryValue::class),

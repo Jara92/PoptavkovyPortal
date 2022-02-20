@@ -122,6 +122,8 @@ articles:
 #Inquiries
 inquiries:
   inquiries: "Poptávky"
+  inquiries_filter_all: "Všechny poptávky"
+  inquiries_filter_new: "Ke schválení"
   inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
   inquiry_values: "Hodnoty poptávek"
