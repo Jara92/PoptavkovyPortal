@@ -284,6 +284,8 @@ profiles:
   settings_change_password: "Změna hesla"
   settings_inquiry_subscription: "Odběr poptávek"
 
+  information_updated: "Nové údaje byly uloženy."
+
 #Admin
 admin:
   administration: "Administrace"
@@ -321,3 +323,5 @@ deadline:
   agreement: "Dohodou"
   now: "Hned"
   as_soon_as_possible: "Co nejdříve"
+
+btn_save: "Uložit"

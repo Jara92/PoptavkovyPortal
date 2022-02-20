@@ -1,0 +1,7 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}{{ "profiles.settings_basic"|trans }} | {{ parent() }}{% endblock %}
+
+{% block tab_content %}
+    {{ form(form) }}
+{% endblock %}

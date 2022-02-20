@@ -41,26 +41,31 @@ how-it-works:
     methods: GET
 
 terms-and-conditions:
-    path: /obchodni-podminky
-    controller: App\Controller\HomeController::termsAndConditions
-    methods: GET
+  path: /obchodni-podminky
+  controller: App\Controller\HomeController::termsAndConditions
+  methods: GET
 
 # User
 my-profile:
-    path: /muj-profil
-    controller: App\Controller\UserController::myProfile
-    methods: GET
+  path: /muj-profil
+  controller: App\Controller\UserController::myProfile
+  methods: GET
+
+my-profile/base-settings:
+  path: /muj-profil/zakladni-nastaveni
+  controller: App\Controller\UserController::baseSettings
+  methods: GET|POST
 
 # Auth
 app_login:
-    path: /prihlaseni
-    controller: App\Controller\Auth\LoginController::login
-    methods: GET|POST
+  path: /prihlaseni
+  controller: App\Controller\Auth\LoginController::login
+  methods: GET|POST
 
 app_register:
-    path: /registrace
-    controller: App\Controller\Auth\RegistrationController::index
-    methods: GET|POST
+  path: /registrace
+  controller: App\Controller\Auth\RegistrationController::index
+  methods: GET|POST
 
 app_recover_password:
     path: /obnova-hesla
