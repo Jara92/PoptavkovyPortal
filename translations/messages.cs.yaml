@@ -57,6 +57,7 @@ auth:
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
   msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."
+  msg_link_expired: "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."
 
   field_remember_me: "Pamatuj si mě"
   field_email: "Email"
@@ -358,3 +359,4 @@ deadline:
   as_soon_as_possible: "Co nejdříve"
 
 btn_save: "Uložit"
+#"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."

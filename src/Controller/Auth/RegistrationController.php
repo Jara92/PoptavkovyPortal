@@ -19,12 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\ExpiredSignatureException;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
-    const AFTER_VERIFY_ERROR_REDIRECT = 'app_register';
+    const AFTER_VERIFY_ERROR_REDIRECT = 'home';
     const AFTER_VERIFY = "inquiries";
 
     public function __construct(
@@ -130,8 +131,12 @@ class RegistrationController extends AbstractController
         // Validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
+        } catch (ExpiredSignatureException $exception) {
+            $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_link_expired"));
+
+            return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash(FlashHelper::ERROR, $exception->getReason());
+            $this->addFlash(FlashHelper::ERROR, $this->translator->trans($exception->getReason()));
 
             return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
