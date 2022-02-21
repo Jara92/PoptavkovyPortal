@@ -23,6 +23,12 @@ class UserOperation
     {
     }
 
+    /**
+     * Register a new system user.
+     * @param User $user
+     * @param string $blankPassword
+     * @return bool
+     */
     public function register(User $user, string $blankPassword): bool
     {
         // Set roles
@@ -54,6 +60,11 @@ class UserOperation
         }
     }
 
+    /**
+     * Returns class name of a form for the given user type.
+     * @param User $user
+     * @return string
+     */
     public function getUserSettingsFormClass(User $user): string
     {
         if ($user->isType(UserType::TYPE_PERSONAL)) {
@@ -65,15 +76,26 @@ class UserOperation
         throw new \LogicException("Unknown user type.");
     }
 
+    /**
+     * Updates users password and checks if old passwords match.
+     * @param User $user
+     * @param string $plainOldPassword
+     * @param string $plainNewPassword
+     * @throws InvalidOldPasswordException
+     * @throws OperationFailedException
+     */
     public function updateUserPassword(User $user, string $plainOldPassword, string $plainNewPassword)
     {
+        // Check if old password match current user's password.
         if (!$this->passwordHasher->isPasswordValid($user, $plainOldPassword)) {
             throw new InvalidOldPasswordException();
         }
 
+        // Hash the new password a set the has to the user.
         $passwordHash = $this->passwordHasher->hashPassword($user, $plainNewPassword);
         $user->setPassword($passwordHash);
 
+        // Try to update the entity.
         if (!$this->userService->update($user)) {
             throw new OperationFailedException();
         }
