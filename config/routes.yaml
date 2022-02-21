@@ -52,18 +52,23 @@ terms-and-conditions:
 
 # User
 my-profile:
-  path: /muj-profil
+  path: /muj-ucet
   controller: App\Controller\UserController::myProfile
   methods: GET
 
 my-profile/base-settings:
-  path: /muj-profil/zakladni-nastaveni
+  path: /muj-ucet/zakladni-nastaveni
   controller: App\Controller\UserController::baseSettings
   methods: GET|POST
 
 my-profile/change-password:
-  path: /muj-profil/zmena-hesla
+  path: /muj-ucet/zmena-hesla
   controller: App\Controller\UserController::changePassword
+  methods: GET|POST
+
+my-profile/edit-profile:
+  path: /muj-ucet/upravit-profil
+  controller: App\Controller\ProfileController::editMyProfile
   methods: GET|POST
 
 # Auth

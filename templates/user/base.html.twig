@@ -65,7 +65,8 @@
                                    class="text-reset">{{ "profiles.settings_basic"|trans }}</a>
                             </li>
                             <li class="list-group-item py-1">
-                                <a href="" class="text-reset">{{ "profiles.settings_profile"|trans }}</a>
+                                <a href="{{ path("my-profile/edit-profile") }}"
+                                   class="text-reset">{{ "profiles.settings_profile"|trans }}</a>
                             </li>
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-profile/change-password") }}" class="text-reset">

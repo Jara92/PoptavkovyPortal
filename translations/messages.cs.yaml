@@ -294,7 +294,12 @@ profiles:
   settings_change_password: "Změna hesla"
   settings_inquiry_subscription: "Odběr poptávek"
 
-  information_updated: "Nové údaje byly uloženy."
+  msg_information_updated: "Nové údaje byly uloženy."
+
+  field_description: "Něco o Vás"
+  field_web: "Odkaz na Vaše webové stránky"
+  field_facebook: "Odkaz na Váš Facebookový profil"
+  field_linkedin: "Odkaz na Váš LinkedIn profil"
 
 #Admin
 admin:
