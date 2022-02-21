@@ -26,10 +26,7 @@ class UserOperation
     public function register(User $user, string $blankPassword): bool
     {
         // Set roles
-        switch ($user->getType()->getAlias()) {
-            case UserType::TYPE_PERSONAL:
-                $user->addRole(User::ROLE_INQUIRING);
-                break;
+        $this->addNewUserRoles($user);
 
         // Set password
         $passwordHash = $this->passwordHasher->hashPassword($user, $blankPassword);
@@ -39,6 +36,22 @@ class UserOperation
         $user->setProfile((new Profile()));
 
         return $this->userService->create($user);
+    }
+
+    /**
+     * Add default roles to a new user.
+     * @param User $user
+     */
+    private function addNewUserRoles(User $user)
+    {
+        switch ($user->getType()->getAlias()) {
+            case UserType::TYPE_PERSONAL:
+                $user->addRole(User::ROLE_INQUIRING);
+                break;
+
+            case UserType::TYPE_COMPANY:
+                $user->addRole(User::ROLE_SUPPLIER);
+        }
     }
 
     public function getUserSettingsFormClass(User $user): string
