@@ -17,7 +17,7 @@ class Profile
    // use AliasTrait;
 
     /**
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=true)
      */
     private ?string $description = "";
 
