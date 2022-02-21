@@ -43,6 +43,11 @@ label.form-check-label.required:after {
   float: left;
 }
 
+.errors {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
 /* Select2 */
 .select2-container {
   margin-bottom: 1rem;
