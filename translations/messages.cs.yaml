@@ -319,6 +319,7 @@ profiles:
 
 #Admin
 admin:
+  back_to_frontend: "Frontend"
   administration: "Administrace"
   inquiries:
     title_common: "Základní informace"
