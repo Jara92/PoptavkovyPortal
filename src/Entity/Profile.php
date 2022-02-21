@@ -19,7 +19,7 @@ class Profile
     /**
      * @ORM\Column(type="text", nullable=false)
      */
-    private ?string $description;
+    private ?string $description = "";
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
