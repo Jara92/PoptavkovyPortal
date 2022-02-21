@@ -9,6 +9,7 @@ use App\Business\Service\InquiryService;
 use App\Helper\FlashHelper;
 use App\Tools\Filter\InquiryFilter;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -43,14 +44,12 @@ class InquiryController extends AController
      * Show my inquiries (all of them)
      * @param Request $request
      * @return Response
+     * @IsGranted("ROLE_INQUIRING")
      */
     public function myInquiries(Request $request): Response
     {
         // Get user and check if the user is valid
         $user = $this->getUser();
-        if (!$user) {
-            throw new AccessDeniedHttpException();
-        }
 
         // Get filter and return list
         $filter = $this->inquiryOperation->getUserFilter($user);
