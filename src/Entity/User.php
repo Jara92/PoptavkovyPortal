@@ -93,6 +93,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?Company $company;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Profile::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private Profile $profile;
+
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
@@ -302,5 +307,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isType(string $type): bool
     {
         return $this->getType()->is($type);
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(Profile $profile): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profile->getUser() !== $this) {
+            $profile->setUser($this);
+        }
+
+        $this->profile = $profile;
+
+        return $this;
     }
 }
