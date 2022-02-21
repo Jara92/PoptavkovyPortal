@@ -33,16 +33,18 @@
                 </div>
                 <div class="col-md-5 pt-4 tb-4">
                     <div class="profile-head">
-                        <h5>{{ profile.user.company.name }}</h5>
-                        <h6>{{ profile.description }}</h6>
+                        <h2>{{ profile.user.company.name }}</h2>
+                        <p class="description">{{ profile.description }}</p>
 
-                        <p class="proile-rating">{{ "profiles.ranking"|trans }}: <span>8/10</span></p>
+                        <p class="proile-rating">
+                            <span class="fa fa-star me-2"></span>{{ "profiles.ranking"|trans }}: <span>8/10</span>
+                        </p>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
                                    role="tab" aria-controls="home"
                                    aria-selected="true">
-                                    <span class="fa fa-building me-2"></span>{{ "profiles.about_company"|trans }}
+                                    <span class="fa fa-info-circle me-2"></span>{{ "profiles.about_company"|trans }}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -58,7 +60,10 @@
                              aria-labelledby="home-tab">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{{ "profiles.company_name"|trans }}</label>
+                                    <label>
+                                        <span class="fa fa-building me-2"></span>
+                                        {{ "profiles.company_name"|trans }}
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ profile.user.company.name }}</p>
@@ -66,7 +71,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{{ "profiles.company_identification_number"|trans }}</label>
+                                    <label>
+                                        <span class="fa fa-id-badge me-2"></span>
+                                        {{ "profiles.company_identification_number"|trans }}
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ profile.user.company.identificationNumber }}</p>
@@ -74,7 +82,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{{ "profiles.address"|trans }}</label>
+                                    <label>
+                                        <span class="fa fa-map-marker-alt me-2"></span>
+                                        {{ "profiles.address"|trans }}
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ profile.user.company.addressStreet }},
@@ -84,7 +95,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{{ "profiles.email"|trans }}</label>
+                                    <label>
+                                        <span class="fa fa-envelope me-2"></span>
+                                        {{ "profiles.email"|trans }}
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ profile.user.email }}</p>
@@ -92,7 +106,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>{{ "profiles.phone"|trans }}</label>
+                                    <label>
+                                        <span class="fa fa-phone-alt me-2"></span>
+                                        {{ "profiles.phone"|trans }}
+                                    </label>
                                 </div>
                                 <div class="col-md-6">
                                     <p>{{ profile.user.phone }}</p>
@@ -103,7 +120,10 @@
                             {% if profile.web %}
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>{{ "profiles.web"|trans }}</label>
+                                        <label>
+                                            <span class="fa fa-external-link-alt me-2"></span>
+                                            {{ "profiles.web"|trans }}
+                                        </label>
                                     </div>
                                     <div class="col-md-6">
                                         <p><a href="{{ profile.web }}" target="_blank">{{ profile.web }}</a></p>
@@ -114,7 +134,10 @@
                             {% if profile.facebook %}
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>{{ "profiles.facebook"|trans }}</label>
+                                        <label>
+                                            <span class="fab fa-facebook-square me-2"></span>
+                                            {{ "profiles.facebook"|trans }}
+                                        </label>
                                     </div>
                                     <div class="col-md-6">
                                         <p><a href="{{ profile.facebook }}" target="_blank">{{ profile.facebook }}</a>
@@ -126,7 +149,10 @@
                             {% if profile.linkedin %}
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>{{ "profiles.linkedin"|trans }}</label>
+                                        <label>
+                                            <span class="fab fa-linkedin me-2"></span>
+                                            {{ "profiles.linkedin"|trans }}
+                                        </label>
                                     </div>
                                     <div class="col-md-6">
                                         <p><a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a>
