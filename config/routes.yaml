@@ -71,6 +71,12 @@ my-profile/edit-profile:
   controller: App\Controller\ProfileController::editMyProfile
   methods: GET|POST
 
+# Profiles
+profiles/detail:
+  path: /profily/{profileId}
+  controller: App\Controller\ProfileController::detail
+  methods: GET
+
 # Auth
 app_login:
   path: /prihlaseni

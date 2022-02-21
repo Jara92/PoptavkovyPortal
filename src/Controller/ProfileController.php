@@ -10,7 +10,9 @@ use App\Helper\FlashHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 
 class ProfileController extends AController
 {
@@ -33,6 +35,21 @@ class ProfileController extends AController
     {
         //  $profile = $this->getUser()->getProfile();
         //   $this->denyAccessUnlessGranted("edit", $profile);
+        throw new MethodNotImplementedException("Not implemented yet.");
+    }
+
+    public function detail(int $profileId, Request $request): Response
+    {
+        // Get profile
+        $profile = $this->profileService->readById($profileId);
+        if (!$profile) {
+            throw new NotFoundHttpException("Profile not found");
+        }
+
+        // Check permissions
+        $this->denyAccessUnlessGranted("view", $profile);
+
+        return $this->render("profile/detail.html.twig", ["profile" => $profile]);
     }
 
     /**
