@@ -56,6 +56,7 @@ auth:
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
+  msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."
 
   field_remember_me: "Pamatuj si mě"
   field_email: "Email"
