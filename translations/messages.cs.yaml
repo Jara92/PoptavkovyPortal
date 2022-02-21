@@ -288,11 +288,21 @@ profiles:
   dashboard_summaries: "Souhrny"
   links: "Odkazy"
   my_profile: "Můj profil"
+  main_activity: "Hlavní činnost"
+  about_company: "O firmě"
+  company_name: "Název firmy"
+  company_identification_number: "IČ"
+  email: "Email"
+  phone: "Telefon"
+  tags: "Tagy"
   settings: "Nastavení"
   settings_basic: "Základní nastavení"
   settings_profile: "Nastavení profilu"
   settings_change_password: "Změna hesla"
   settings_inquiry_subscription: "Odběr poptávek"
+
+  btn_change_photo: "Nahrát foto"
+  btn_edit_profile: "Upravit profil"
 
   msg_information_updated: "Nové údaje byly uloženy."
 

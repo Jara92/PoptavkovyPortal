@@ -4,6 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Profile;
 use App\Entity\User;
+use App\Entity\UserType;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -69,8 +70,17 @@ class ProfileVoter extends AVoter
 
     protected function canView(Profile $profile, ?User $user)
     {
-        // TODO: add more logic later
-        return true;
+        // Use can edit the profile if he can edit it.
+        if ($this->canEdit($profile, $user)) {
+            return true;
+        }
+
+        // Company profiles are public.
+        if ($profile->getUser()->isType(UserType::TYPE_COMPANY)) {
+            return true;
+        }
+
+        return false;
     }
 
     protected function canEdit(Profile $profile, ?User $user)
