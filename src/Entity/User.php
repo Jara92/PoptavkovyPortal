@@ -94,7 +94,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Company $company;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profile::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Profile::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private Profile $profile;
 
@@ -309,20 +310,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getType()->is($type);
     }
 
-    public function getProfile(): ?Profile
+    /**
+     * @return Profile
+     */
+    public function getProfile(): Profile
     {
         return $this->profile;
     }
 
-    public function setProfile(Profile $profile): self
+    /**
+     * @param Profile $profile
+     * @return User
+     */
+    public function setProfile(Profile $profile): User
     {
-        // set the owning side of the relation if necessary
-        if ($profile->getUser() !== $this) {
-            $profile->setUser($this);
-        }
-
         $this->profile = $profile;
-
         return $this;
     }
 }

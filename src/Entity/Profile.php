@@ -17,7 +17,7 @@ class Profile
    // use AliasTrait;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=false)
      */
     private ?string $description;
 
@@ -42,8 +42,7 @@ class Profile
     private ?string $linkedin;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="profile", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profile", cascade={"persist", "remove"})
      */
     private ?User $user;
 
