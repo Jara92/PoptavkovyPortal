@@ -2,7 +2,9 @@
 
 namespace App\Business\Operation;
 
+use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
+use App\Entity\Profile;
 use App\Entity\User;
 use App\Entity\UserType;
 use App\Exception\InvalidOldPasswordException;
@@ -15,6 +17,7 @@ class UserOperation
 {
     public function __construct(
         private UserService                 $userService,
+        private ProfileService              $profileService,
         private UserPasswordHasherInterface $passwordHasher
     )
     {
@@ -28,13 +31,12 @@ class UserOperation
                 $user->addRole(User::ROLE_INQUIRING);
                 break;
 
-            case UserType::TYPE_COMPANY:
-                $user->addRole(User::ROLE_SUPPLIER);
-        }
-
+        // Set password
         $passwordHash = $this->passwordHasher->hashPassword($user, $blankPassword);
-
         $user->setPassword($passwordHash);
+
+        // Create a blank profile
+        $user->setProfile((new Profile()));
 
         return $this->userService->create($user);
     }
