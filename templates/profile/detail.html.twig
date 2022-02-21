@@ -24,6 +24,10 @@
                         {% endif %}
                     </div>
 
+                    <p class="profile-rating text-center">
+                        <span class="fa fa-star me-2"></span>{{ "profiles.ranking"|trans }}: <span>8/10</span>
+                    </p>
+
                     {% if is_granted("edit", profile) %}
                         <div class="text-center">
                             <a href="{{ path("my-profile/edit-profile") }}"
@@ -34,17 +38,20 @@
                 <div class="col-md-5 pt-4 tb-4">
                     <div class="profile-head">
                         <h2>{{ profile.user.company.name }}</h2>
-                        <p class="description">{{ profile.description }}</p>
 
-                        <p class="proile-rating">
-                            <span class="fa fa-star me-2"></span>{{ "profiles.ranking"|trans }}: <span>8/10</span>
-                        </p>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
-                                   role="tab" aria-controls="home"
+                                <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about"
+                                   role="tab" aria-controls="about"
                                    aria-selected="true">
                                     <span class="fa fa-info-circle me-2"></span>{{ "profiles.about_company"|trans }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
+                                   role="tab" aria-controls="home"
+                                   aria-selected="true">
+                                    <span class="fa fa-address-book me-2"></span>{{ "profiles.contact"|trans }}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -56,8 +63,10 @@
                         </ul>
                     </div>
                     <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel"
-                             aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                            <p class="description">{{ profile.description }}</p>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>
@@ -66,7 +75,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ profile.user.company.name }}</p>
+                                    <span>{{ profile.user.company.name }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -77,7 +86,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ profile.user.company.identificationNumber }}</p>
+                                    <span>{{ profile.user.company.identificationNumber }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -88,9 +97,9 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ profile.user.company.addressStreet }},
+                                    <span>{{ profile.user.company.addressStreet }},
                                         {{ profile.user.company.addressCity }}
-                                        {{ profile.user.company.addressZipCode }}</p>
+                                        {{ profile.user.company.addressZipCode }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -101,7 +110,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ profile.user.email }}</p>
+                                    <span>{{ profile.user.email }}</span>
                                 </div>
                             </div>
                             <div class="row">
@@ -112,7 +121,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>{{ profile.user.phone }}</p>
+                                    <span>{{ profile.user.phone }}</span>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +135,7 @@
                                         </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><a href="{{ profile.web }}" target="_blank">{{ profile.web }}</a></p>
+                                        <span><a href="{{ profile.web }}" target="_blank">{{ profile.web }}</a></span>
                                     </div>
                                 </div>
                             {% endif %}
@@ -140,8 +149,9 @@
                                         </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><a href="{{ profile.facebook }}" target="_blank">{{ profile.facebook }}</a>
-                                        </p>
+                                        <span><a href="{{ profile.facebook }}"
+                                                 target="_blank">{{ profile.facebook }}</a>
+                                        </span>
                                     </div>
                                 </div>
                             {% endif %}
@@ -155,8 +165,9 @@
                                         </label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p><a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a>
-                                        </p>
+                                        <span><a href="{{ profile.linkedin }}"
+                                                 target="_blank">{{ profile.linkedin }}</a>
+                                        </span>
                                     </div>
                                 </div>
                             {% endif %}

@@ -69,26 +69,26 @@
     color: $template;
   }
 
-  .profile-head .description {
+  .description {
     color: $template_font_color_alt;
     quotes: "„" "“" "‚" "‘";
   }
 
-  .profile-head .description::before {
+  .description::before {
     content: open-quote;
   }
 
-  .profile-head .description::after {
+  .description::after {
     content: close-quote;
   }
 
-  .proile-rating {
+  .profile-rating {
     font-size: 12px;
     color: $template_font_color_alt;
     margin-top: 5%;
   }
 
-  .proile-rating span {
+  .profile-rating span {
     color: $template_font_color_alt;
     font-size: 15px;
     font-weight: 600;
@@ -115,7 +115,7 @@
     color: $template_font_color_alt;
   }
 
-  .profile-tab p {
+  .profile-tab span {
     font-weight: 600;
     color: $template;
   }
