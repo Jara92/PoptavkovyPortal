@@ -7,15 +7,14 @@ use App\Business\Service\UserService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
-use App\Entity\Inquiry\InquiryType;
+use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Region;
-use App\Repository\Inquiry\InquiryTypeRepository;
-use App\Repository\Interfaces\Inquiry\IInquiryTypeRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -138,19 +137,17 @@ class InquiryForm extends AbstractType
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
-            ->add("type", EntityType::class, [
+            ->add("type", ChoiceType::class, [
                 'required' => true,
                 'label' => false,
 
-                'choice_value' => function (?InquiryType $entity) {
-                    return $entity ? $entity->getAlias() : '';
-                },
+                'choices' => [
+                    "inquiry_type.personal" => InquiryType::PERSONAL,
+                    "inquiry_type.company" => InquiryType::COMPANY,
+                ],
 
-                // looks for choices from this entity
-                'class' => InquiryType::class,
-
-                // uses the User.username property as the visible option string
-                'choice_label' => 'title',
+                // Use Enums item value in select
+                'choice_value' => 'value',
 
                 'choice_translation_domain' => "messages",
 

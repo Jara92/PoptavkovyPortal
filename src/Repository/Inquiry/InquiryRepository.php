@@ -3,6 +3,7 @@
 namespace App\Repository\Inquiry;
 
 use App\Entity\Inquiry\Inquiry;
+use App\Enum\Entity\InquiryType;
 use App\Repository\Traits\PaginatedRepositoryTrait;
 use App\Tools\Filter\InquiryFilter;
 use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
@@ -48,10 +49,13 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
                 ->setParameter("text", "%" . $filter->getText() . "%");
         }
 
+        // We need to get string array not InquiryType object array.
+        $types = array_map(fn(InquiryType $type) => $type->value, $filter->getTypes());
+
         // Filter by types - Inquiry type must be in types array.
         if (!empty($filter->getTypes())) {
             $queryBuilder->andWhere($queryBuilder->expr()->in("i.type", ":types"))
-                ->setParameter("types", $filter->getTypes());
+                ->setParameter("types", $types);
         }
 
         // Filter by regions - Inquiry region must be in types array.

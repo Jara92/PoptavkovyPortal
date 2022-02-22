@@ -6,7 +6,7 @@ use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\Region;
 use App\Entity\Inquiry\InquiryValue;
-use App\Entity\Inquiry\InquiryType;
+use App\Enum\Entity\InquiryType;
 use App\Entity\User;
 
 class InquiryFilter

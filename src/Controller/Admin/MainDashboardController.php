@@ -7,7 +7,6 @@ use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\InquiryState;
-use App\Entity\Inquiry\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -66,7 +65,6 @@ class MainDashboardController extends AbstractDashboardController
                     ->setQueryParameter("filters[state]", ["comparison" => "=", "value" => $newState->getId()])
             ]),
             MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
-            MenuItem::linkToCrud("inquiries.inquiry_types", "fa fa-tags", InquiryType::class),
             MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-tags", InquiryValue::class),
             MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
             MenuItem::linkToCrud("inquiries.regions", "fa", Region::class),

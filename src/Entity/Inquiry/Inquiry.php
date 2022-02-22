@@ -7,6 +7,7 @@ use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
+use App\Enum\Entity\InquiryType;
 use App\Repository\Inquiry\InquiryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -83,8 +84,7 @@ class Inquiry
     protected Collection $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity=InquiryType::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", enumType=InquiryType::class)
      */
     protected InquiryType $type;
 
@@ -237,12 +237,12 @@ class Inquiry
         return $this;
     }
 
-    public function getType(): ?InquiryType
+    public function getType(): InquiryType
     {
         return $this->type;
     }
 
-    public function setType(?InquiryType $type): self
+    public function setType(InquiryType $type): self
     {
         $this->type = $type;
 
@@ -285,9 +285,9 @@ class Inquiry
         return $this;
     }
 
-    public function isType(string $type): bool
+    public function isType(InquiryType $type): bool
     {
-        return $this->getType()->is($type);
+        return $this->getType() == $type;
     }
 
     /**

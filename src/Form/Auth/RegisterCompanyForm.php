@@ -3,7 +3,6 @@
 namespace App\Form\Auth;
 
 use App\Entity\Company;
-use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\Entity\UserType;

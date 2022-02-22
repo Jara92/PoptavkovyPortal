@@ -5,12 +5,13 @@ namespace App\Form\Inquiry;
 use App\Business\Operation\InquiryOperation;
 use App\Business\Service\InquiryCategoryService;
 use App\Entity\Inquiry\InquiryCategory;
-use App\Entity\Inquiry\InquiryType;
+use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
 use App\Tools\Filter\InquiryFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -71,14 +72,22 @@ class InquiryFilterForm extends AbstractType
                 'class' => InquiryValue::class,
                 'choice_label' => 'title',
                 'choice_translation_domain' => "messages",
-            ])->add("types", EntityType::class, [
+            ])
+            ->add("types", ChoiceType::class, [
                 'required' => false,
                 'multiple' => true,
                 'label' => "inquiries.field_type",
-                'class' => InquiryType::class,
-                'choice_label' => 'title',
+
+                'choices' => [
+                    "inquiry_type.personal" => InquiryType::PERSONAL,
+                    "inquiry_type.company" => InquiryType::COMPANY,
+                ],
+
+                // Use Enums item value in select
+                'choice_value' => 'value',
                 'choice_translation_domain' => "messages",
-            ])->add('submit', SubmitType::class, [
+            ])
+            ->add('submit', SubmitType::class, [
                 'label' => "inquiries.btn_filter",
                 'icon_before' => "fa-search me-2"
             ])->getForm();

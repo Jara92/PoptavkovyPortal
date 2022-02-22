@@ -5,11 +5,10 @@ namespace App\Business\Operation;
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
 use App\Business\Service\InquiryStateService;
-use App\Business\Service\InquiryTypeService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
-use App\Entity\Inquiry\InquiryType;
+use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
@@ -34,7 +33,6 @@ class InquiryOperation
         private InquiryService           $inquiryService,
         private InquiryAttachmentService $attachmentService,
         private InquiryStateService      $inquiryStateService,
-        private InquiryTypeService       $inquiryTypeService,
         private InquiryFactory           $inquiryFactory,
         private InquiryAttachmentFactory $attachmentFactory,
         private InquiryFilterFactory     $filterFactory,
@@ -54,18 +52,16 @@ class InquiryOperation
      */
     public function getNewInquiryDefaultType(?User $user): ?InquiryType
     {
-        $typeAlias = InquiryType::ALIAS_PERSONAL;
-
         // According to userType set default Inquiry type.
         if ($user) {
             if ($user->isType(UserType::PERSON)) {
-                $typeAlias = InquiryType::ALIAS_PERSONAL;
+                return InquiryType::PERSONAL;
             } else if ($user->isType(UserType::COMPANY)) {
-                $typeAlias = InquiryType::ALIAS_COMPANY;
+                return InquiryType::COMPANY;
             }
         }
 
-        return $this->inquiryTypeService->getInquiryTypeByAlias($typeAlias);
+        return InquiryType::PERSONAL;
     }
 
     /**
@@ -101,9 +97,9 @@ class InquiryOperation
     public function createInquiry(Inquiry $inquiry, array $attachments = []): bool
     {
         // Remove useless contact object.
-        if ($inquiry->isType(InquiryType::ALIAS_PERSONAL)) {
+        if ($inquiry->isType(InquiryType::PERSONAL)) {
             $inquiry->setCompanyContact(null);
-        } else if ($inquiry->isType(InquiryType::ALIAS_COMPANY)) {
+        } else if ($inquiry->isType(InquiryType::COMPANY)) {
             $inquiry->setPersonalContact(null);
         }
 
