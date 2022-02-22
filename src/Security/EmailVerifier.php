@@ -72,7 +72,7 @@ class EmailVerifier
 
         $user->setIsVerified(true);
         $user->setEmailVerifiedAt(new DateTime());
-        $user->addRole(UserRole::ROLE_VERIFIED);
+        $user->addRole(UserRole::VERIFIED);
 
         $this->userService->update($user);
     }

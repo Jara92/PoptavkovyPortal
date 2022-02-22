@@ -35,7 +35,7 @@ class InquiryVoter extends AVoter
         $user = $this->security->getUser();
 
         // SuperUser can do anything.
-        if ($this->security->isGranted(UserRole::ROLE_SUPER_ADMIN->value)) {
+        if ($this->security->isGranted(UserRole::SUPER_ADMIN->value)) {
             return true;
         }
 
@@ -103,7 +103,7 @@ class InquiryVoter extends AVoter
         }
 
         // Only suppliers are able to react.
-        return $this->security->isGranted(UserRole::ROLE_SUPPLIER->value);
+        return $this->security->isGranted(UserRole::SUPPLIER->value);
     }
 
     private function canViewAttachments(Inquiry $inquiry, ?User $user): bool

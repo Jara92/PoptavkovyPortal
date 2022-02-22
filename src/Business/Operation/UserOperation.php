@@ -53,11 +53,11 @@ class UserOperation
     {
         switch ($user->getType()) {
             case UserType::PERSON:
-                $user->addRole(UserRole::ROLE_INQUIRING);
+                $user->addRole(UserRole::INQUIRING);
                 break;
 
             case UserType::COMPANY:
-                $user->addRole(UserRole::ROLE_SUPPLIER);
+                $user->addRole(UserRole::SUPPLIER);
         }
     }
 
