@@ -7,6 +7,7 @@ use App\Business\Service\UserService;
 use App\Entity\Profile;
 use App\Entity\User;
 use App\Entity\UserType;
+use App\Enum\Entity\UserRole;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\User\CompanySettingsForm;
@@ -52,11 +53,11 @@ class UserOperation
     {
         switch ($user->getType()->getAlias()) {
             case UserType::TYPE_PERSONAL:
-                $user->addRole(User::ROLE_INQUIRING);
+                $user->addRole(UserRole::ROLE_INQUIRING);
                 break;
 
             case UserType::TYPE_COMPANY:
-                $user->addRole(User::ROLE_SUPPLIER);
+                $user->addRole(UserRole::ROLE_SUPPLIER);
         }
     }
 

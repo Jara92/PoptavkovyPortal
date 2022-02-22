@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
+use App\Enum\Entity\UserRole;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,19 +25,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use IdTrait;
 
     use TimeStampTrait;
-
-    // Can do anything
-    const ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
-    // Can access admin site
-    const ROLE_ADMIN = "ROLE_ADMIN";
-    // Can post new inquiries.
-    const ROLE_INQUIRING = "ROLE_INQUIRING";
-    // Can respond to inquiries.
-    const ROLE_SUPPLIER = "ROLE_SUPPLIER";
-    // Can access features for logged-in users.
-    const ROLE_VERIFIED = "ROLE_VERIFIED";
-
-    const ROLE_USER = "ROLE_USER";
 
     /**
      * Contact email
@@ -176,14 +164,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function addRole(string $role)
+    public function addRole(UserRole $role)
     {
-        $this->roles[] = $role;
+        $this->roles[] = $role->value;
     }
 
-    public function removeRole(string $role)
+    public function removeRole(UserRole $role)
     {
-        $itemKey = array_search($role, $this->roles);
+        $itemKey = array_search($role->value, $this->roles);
 
         // Remove the item if exists
         if ($itemKey) {

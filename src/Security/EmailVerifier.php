@@ -4,6 +4,7 @@ namespace App\Security;
 
 use App\Business\Service\UserService;
 use App\Entity\User;
+use App\Enum\Entity\UserRole;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -71,7 +72,7 @@ class EmailVerifier
 
         $user->setIsVerified(true);
         $user->setEmailVerifiedAt(new DateTime());
-        $user->addRole(User::ROLE_VERIFIED);
+        $user->addRole(UserRole::ROLE_VERIFIED);
 
         $this->userService->update($user);
     }

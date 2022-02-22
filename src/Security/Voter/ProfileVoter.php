@@ -5,6 +5,7 @@ namespace App\Security\Voter;
 use App\Entity\Profile;
 use App\Entity\User;
 use App\Entity\UserType;
+use App\Enum\Entity\UserRole;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -36,7 +37,7 @@ class ProfileVoter extends AVoter
         $currentUser = $this->security->getUser();
 
         // SuperUser can do anything.
-        if ($this->security->isGranted(User::ROLE_SUPER_ADMIN)) {
+        if ($this->security->isGranted(UserRole::ROLE_SUPER_ADMIN->value)) {
             return true;
         }
 

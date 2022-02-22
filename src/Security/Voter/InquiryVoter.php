@@ -5,6 +5,7 @@ namespace App\Security\Voter;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryState;
 use App\Entity\User;
+use App\Enum\Entity\UserRole;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -34,7 +35,7 @@ class InquiryVoter extends AVoter
         $user = $this->security->getUser();
 
         // SuperUser can do anything.
-        if($this->security->isGranted(User::ROLE_SUPER_ADMIN)){
+        if ($this->security->isGranted(UserRole::ROLE_SUPER_ADMIN->value)) {
             return true;
         }
 
@@ -102,7 +103,7 @@ class InquiryVoter extends AVoter
         }
 
         // Only suppliers are able to react.
-        return $this->security->isGranted(User::ROLE_SUPPLIER);
+        return $this->security->isGranted(UserRole::ROLE_SUPPLIER->value);
     }
 
     private function canViewAttachments(Inquiry $inquiry, ?User $user): bool
