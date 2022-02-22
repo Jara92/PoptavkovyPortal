@@ -82,7 +82,7 @@ class UserController extends AController
             // Save the inquiry.
             $this->userService->update($user);
 
-            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.information_updated"));
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
         }
 
         return $this->renderForm("user/settings/base_settings.html.twig", ["form" => $form]);
