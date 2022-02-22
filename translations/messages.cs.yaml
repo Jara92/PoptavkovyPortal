@@ -57,7 +57,7 @@ auth:
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
   msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."
-  msg_link_expired: "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."
+  msg_link_expired: "Použitý odkaz pro ověření vypršel a proto jsme Vám na email odeslali nový."
 
   field_remember_me: "Pamatuj si mě"
   field_email: "Email"

@@ -123,7 +123,6 @@ class RegistrationController extends AbstractController
         }
 
         $user = $this->userService->readById($id);
-
         if (is_null($user)) {
             return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
@@ -131,19 +130,22 @@ class RegistrationController extends AbstractController
         // Validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (ExpiredSignatureException $exception) {
-            $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_link_expired"));
 
-            return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
-        } catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans('auth.successfully_verified'));
+
+            return $this->redirectToRoute(self::AFTER_VERIFY);
+        } // Link expired exception - generate and send a new one.
+        catch (ExpiredSignatureException $exception) {
+            // generate a new signed url and email it to the user
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
+
+            // Show flash notification
+            $this->addFlash(FlashHelper::WARNING, $this->translator->trans("auth.msg_link_expired"));
+        } // Verification failed
+        catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash(FlashHelper::ERROR, $this->translator->trans($exception->getReason()));
-
-            return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
 
-        // TODO: Flash messages.
-        $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans('auth.successfully_verified'));
-
-        return $this->redirectToRoute(self::AFTER_VERIFY);
+        return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
     }
 }
