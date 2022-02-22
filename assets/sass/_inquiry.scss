@@ -258,14 +258,12 @@ ul.inquiry-list {
   }
 
   .inquiry-detail-left {
-
+    padding: 1rem;
   }
 
   .inquiry-detail-right {
     background-color: #2f2f82;
     border: 1px solid #2f2f82;
-    /*margin-left: 1rem;*/
-    border-radius: 10px;
     color: white;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -307,40 +305,6 @@ ul.inquiry-list {
 
   #btn-contact {
     margin-top: auto;
-  }
-}
-
-/** Border radius for large displays */
-@include media-breakpoint-up(lg) {
-  .inquiry-detail {
-    .inquiry-detail-left {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .inquiry-detail-right {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
-}
-
-/** Border radius for small displays */
-@include media-breakpoint-down(lg) {
-  .inquiry-detail {
-    .inquiry-detail-left {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .inquiry-detail-right {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-
-    ul.inquiry-properties > li {
-
-    }
   }
 }
 

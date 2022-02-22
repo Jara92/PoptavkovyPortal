@@ -5,79 +5,84 @@
     <section class="content inquiry-detail">
         <div class="container">
             <div class="row justify-content-center">
-                <section class="inquiry-detail-left card col-md-10 col-lg-6">
-                    <h1>{{ inquiry.title }}</h1>
-                    <ul class="inquiry-tags">
-                        {# <li><span class="badge bg-primary">Čeká na nabídky</span></li> #}
-                    </ul>
+                <div class="col-md-9 row cardbox">
+                    <section class="inquiry-detail-left col-md-12 col-lg-8">
+                        <h1>{{ inquiry.title }}</h1>
+                        <ul class="inquiry-tags">
+                            {# <li><span class="badge bg-primary">Čeká na nabídky</span></li> #}
+                        </ul>
 
-                    <hr/>
-                    <p>{{ inquiry.description|nl2br }}</p>
+                        <hr/>
+                        <p>{{ inquiry.description|nl2br }}</p>
 
-                    <section class="row inquiry-attachments">
-                        <h4>{{ "inquiries.attachments" |trans }}</h4>
-                        {# Display attachments if user is granted. #}
-                        {% if is_granted("view_attachments", inquiry) %}
-                            <ul class="">
-                                {% for attachment in inquiry.attachments %}
-                                    {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
-                                    <li class="col-sm-12 col-md-6">
-                                        <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
-                                           class="btn btn-link btn-download-attachment">
-                                            <i class="fa fa-paperclip"></i>
-                                            {{ attachment.title }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            {# TODO: Replace by translation with param #}
-                            <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}" class="btn-link">přihlaste</a>.
-                            </p>
-                        {% endif %}
+                        <section class="row inquiry-attachments">
+                            <h4>{{ "inquiries.attachments" |trans }}</h4>
+                            {# Display attachments if user is granted. #}
+                            {% if is_granted("view_attachments", inquiry) %}
+                                <ul class="">
+                                    {% for attachment in inquiry.attachments %}
+                                        {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
+                                        <li class="col-sm-12 col-md-6">
+                                            <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
+                                               class="btn btn-link btn-download-attachment">
+                                                <i class="fa fa-paperclip"></i>
+                                                {{ attachment.title }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                {# TODO: Replace by translation with param #}
+                                <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}"
+                                                              class="btn-link">přihlaste</a>.
+                                </p>
+                            {% endif %}
+                        </section>
+
+                        <button id="btn-contact" class="btn btn-primary">{{ "inquiries.btn_contact"|trans }}</button>
                     </section>
-
-                    <button id="btn-contact" class="btn btn-primary">{{ "inquiries.btn_contact"|trans }}</button>
-                </section>
-                <div class="inquiry-detail-right col-md-10 col-lg-3">
-                    <ul class="row inquiry-properties">
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-hashtag me-2"></span>{{ "inquiries.label_registration_number"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.id }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
-                            </div>
-                            <div class="value">
-                                {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
-                            </div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span class="fas fa-tag me-2"></span>{{ "inquiries.label_type"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.type.title|trans }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}</div>
-                            <div class="value">{{ inquiry.deadline.title|trans }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.value.title|trans }}</div>
-                        </li>
-                    </ul>
+                    <div class="inquiry-detail-right col-md-12 col-lg-4">
+                        <ul class="row inquiry-properties">
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-hashtag me-2"></span>{{ "inquiries.label_registration_number"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.id }}</div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
+                                </div>
+                                <div class="value">
+                                    {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
+                                </div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-tag me-2"></span>{{ "inquiries.label_type"|trans }}
+                                </div>
+                                <div class="value">{{ ("inquiry_type." ~ inquiry.type.value)|trans }}</div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.deadline.title|trans }}</div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.value.title|trans }}</div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
