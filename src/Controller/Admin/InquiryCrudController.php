@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\PersonalContact;
+use App\Enum\Entity\InquiryType;
 use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -12,10 +13,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,7 +36,9 @@ class InquiryCrudController extends AbstractCrudController
             ->add('alias')
             ->add("categories")
             ->add("deadline")
-            ->add("type")
+            ->add(ChoiceFilter::new("type", "inquiries.field_type")
+                ->setChoices(InquiryType::translationCases())
+                ->setFormTypeOption("translation_domain", "messages"))
             ->add("state")
             ->add("value");
     }
@@ -102,8 +107,9 @@ class InquiryCrudController extends AbstractCrudController
 
             TextField::new("contactPhone", "inquiries.field_phone")->onlyOnForms(),
 
-            AssociationField::new("type", "inquiries.field_type")
-                ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
+            ChoiceField::new("type", "inquiries.field_type")
+                ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"])
+                ->setChoices(InquiryType::translationCases()),
 
             AssociationField::new("personalContact", "inquiries.field_personal_contact")
                 ->setFormTypeOptions(['choice_label' => function (PersonalContact $p) {
