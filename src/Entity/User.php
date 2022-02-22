@@ -6,6 +6,7 @@ use App\Entity\Inquiry\Inquiry;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
+use App\Enum\Entity\UserType;
 use App\Repository\User\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -66,10 +67,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected Collection $inquiries;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UserType::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", enumType=UserType::class)
      */
-    private ?UserType $type;
+    private UserType $type;
 
     /**
      * @ORM\OneToOne(targetEntity=Person::class, cascade={"persist", "remove"})
@@ -257,12 +257,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getType(): ?UserType
+    public function getType(): UserType
     {
         return $this->type;
     }
 
-    public function setType(?UserType $type): self
+    public function setType(UserType $type): self
     {
         $this->type = $type;
 
@@ -293,9 +293,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isType(string $type): bool
+    public function isType(UserType $type): bool
     {
-        return $this->getType()->is($type);
+        return $this->getType() == $type;
     }
 
     /**

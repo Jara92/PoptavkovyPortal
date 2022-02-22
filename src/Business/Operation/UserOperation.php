@@ -6,7 +6,7 @@ use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
 use App\Entity\Profile;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Enum\Entity\UserType;
 use App\Enum\Entity\UserRole;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
@@ -51,12 +51,12 @@ class UserOperation
      */
     private function addNewUserRoles(User $user)
     {
-        switch ($user->getType()->getAlias()) {
-            case UserType::TYPE_PERSONAL:
+        switch ($user->getType()) {
+            case UserType::PERSON:
                 $user->addRole(UserRole::ROLE_INQUIRING);
                 break;
 
-            case UserType::TYPE_COMPANY:
+            case UserType::COMPANY:
                 $user->addRole(UserRole::ROLE_SUPPLIER);
         }
     }
@@ -68,9 +68,9 @@ class UserOperation
      */
     public function getUserSettingsFormClass(User $user): string
     {
-        if ($user->isType(UserType::TYPE_PERSONAL)) {
+        if ($user->isType(UserType::PERSON)) {
             return PersonSettingsForm::class;
-        } else if ($user->isType(UserType::TYPE_COMPANY)) {
+        } else if ($user->isType(UserType::COMPANY)) {
             return CompanySettingsForm::class;
         }
 

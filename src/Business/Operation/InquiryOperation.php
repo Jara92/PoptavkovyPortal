@@ -12,7 +12,7 @@ use App\Entity\Inquiry\InquiryState;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Enum\Entity\UserType;
 use App\Exception\InvalidInquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
@@ -58,9 +58,9 @@ class InquiryOperation
 
         // According to userType set default Inquiry type.
         if ($user) {
-            if ($user->isType(UserType::TYPE_PERSONAL)) {
+            if ($user->isType(UserType::PERSON)) {
                 $typeAlias = InquiryType::ALIAS_PERSONAL;
-            } else if ($user->isType(UserType::TYPE_COMPANY)) {
+            } else if ($user->isType(UserType::COMPANY)) {
                 $typeAlias = InquiryType::ALIAS_COMPANY;
             }
         }
@@ -209,14 +209,14 @@ class InquiryOperation
         $inquiry->setContactPhone($user->getPhone());
 
         // Personal user
-        if ($user->isType(UserType::TYPE_PERSONAL)) {
+        if ($user->isType(UserType::PERSON)) {
             return $this->fillPersonContactData($inquiry, $user->getPerson());
         } // Company user
-        else if ($user->isType(UserType::TYPE_COMPANY)) {
+        else if ($user->isType(UserType::COMPANY)) {
             return $this->fillCompanyContactData($inquiry, $user->getCompany());
         }
 
-        throw new LogicException("Unknown user type: " . $user->getType()->getAlias());
+        throw new LogicException("Unknown user type: " . $user->getType()->value);
     }
 
     private function fillPersonContactData(Inquiry $inquiry, ?Person $person): Inquiry

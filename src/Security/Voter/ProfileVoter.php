@@ -4,7 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Profile;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Enum\Entity\UserType;
 use App\Enum\Entity\UserRole;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -77,7 +77,7 @@ class ProfileVoter extends AVoter
         }
 
         // Company profiles are public.
-        if ($profile->getUser()->isType(UserType::TYPE_COMPANY)) {
+        if ($profile->getUser()->isType(UserType::COMPANY)) {
             return true;
         }
 

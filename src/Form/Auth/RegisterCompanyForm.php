@@ -2,12 +2,11 @@
 
 namespace App\Form\Auth;
 
-use App\Business\Service\UserTypeService;
 use App\Entity\Company;
 use App\Entity\Inquiry\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Enum\Entity\UserType;
 use App\Form\User\CompanyForm;
 use App\Form\Auth\UserForm;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,9 +17,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterCompanyForm extends UserForm
 {
-    /** @required */
-    public UserTypeService $userTypeService;
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

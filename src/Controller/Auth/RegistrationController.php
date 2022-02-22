@@ -4,10 +4,9 @@ namespace App\Controller\Auth;
 
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
-use App\Business\Service\UserTypeService;
 use App\Controller\AController;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
 use App\Factory\UserFactory;
 use App\Form\Auth\RegisterCompanyForm;
@@ -35,7 +34,6 @@ class RegistrationController extends AController
         private UserFactory         $userFactory,
         private TranslatorInterface $translator,
         private EmailVerifier       $emailVerifier,
-        private UserTypeService     $userTypeService,
         private UserSecurity        $security
     )
     {
@@ -61,7 +59,7 @@ class RegistrationController extends AController
         $user = $this->userFactory->createBlank();
 
         // Set user type.
-        $user->setType($this->userTypeService->readByAlias(UserType::TYPE_PERSONAL));
+        $user->setType(UserType::PERSON);
 
         $form = $this->createForm(RegisterPersonForm::class, $user);
 
@@ -73,7 +71,7 @@ class RegistrationController extends AController
         $user = $this->userFactory->createBlank();
 
         // Set user type.
-        $user->setType($this->userTypeService->readByAlias(UserType::TYPE_COMPANY));
+        $user->setType(UserType::COMPANY);
 
         $form = $this->createForm(RegisterCompanyForm::class, $user);
 
