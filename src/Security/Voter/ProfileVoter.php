@@ -58,7 +58,7 @@ class ProfileVoter extends AVoter
         throw new LogicException('This code should not be reached!');
     }
 
-    protected function canCreate(Profile $user): bool
+    protected function canCreate(User $user): bool
     {
         return false;
     }
