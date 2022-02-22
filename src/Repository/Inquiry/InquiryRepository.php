@@ -3,6 +3,7 @@
 namespace App\Repository\Inquiry;
 
 use App\Entity\Inquiry\Inquiry;
+use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Repository\Traits\PaginatedRepositoryTrait;
 use App\Tools\Filter\InquiryFilter;
@@ -69,10 +70,13 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
             // TODO: Filter by categories
         }
 
+        // We need to get string array not InquiryState object array.
+        $states = array_map(fn(InquiryState $type) => $type->value, $filter->getStates());
+
         // Filter by state - Inquiry state must be in states array.
         if (!empty($filter->getStates())) {
             $queryBuilder->andWhere($queryBuilder->expr()->in("i.state", ":states"))
-                ->setParameter("states", $filter->getStates());
+                ->setParameter("states", $states);
         }
 
         // Get final query

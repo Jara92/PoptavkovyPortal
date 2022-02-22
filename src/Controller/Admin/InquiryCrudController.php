@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\PersonalContact;
+use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
+use App\Helper\InquiryStateHelper;
 use App\Helper\InquiryTypeHelper;
 use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -20,6 +22,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -40,7 +44,9 @@ class InquiryCrudController extends AbstractCrudController
             ->add(ChoiceFilter::new("type", "inquiries.field_type")
                 ->setChoices(InquiryTypeHelper::translationStringCases())
                 ->setFormTypeOption("translation_domain", "messages"))
-            ->add("state")
+            ->add(ChoiceFilter::new("state", "inquiries.field_state")
+                ->setChoices(InquiryStateHelper::translationStringCases())
+                ->setFormTypeOption("translation_domain", "messages"))
             ->add("value");
     }
 
@@ -60,7 +66,6 @@ class InquiryCrudController extends AbstractCrudController
 
         return $out;
     }
-
 
     /*
      * protected function getRedirectResponseAfterSave(AdminContext $context, string $action): RedirectResponse
@@ -108,9 +113,17 @@ class InquiryCrudController extends AbstractCrudController
 
             TextField::new("contactPhone", "inquiries.field_phone")->onlyOnForms(),
 
+            /* TODO: 2 fields for type and state - missing EnumField and ChoiceField does not work well.
+             * Enum values are accepted on forms.
+             * String values are accepted views.
+             */
             ChoiceField::new("type", "inquiries.field_type")
-                ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"])
-                ->setChoices(InquiryTypeHelper::translationStringCases()),
+                ->setChoices(InquiryTypeHelper::translationCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
+
+            ChoiceField::new("type", "inquiries.field_type")
+                ->setChoices(InquiryTypeHelper::translationStringCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
 
             AssociationField::new("personalContact", "inquiries.field_personal_contact")
                 ->setFormTypeOptions(['choice_label' => function (PersonalContact $p) {
@@ -125,8 +138,13 @@ class InquiryCrudController extends AbstractCrudController
             FormField::addTab("admin.inquiries.title_others")->onlyOnForms(),
             FormField::addPanel("admin.inquiries.title_others")->onlyOnForms(),
 
-            AssociationField::new("state", "inquiries.field_state")
-                ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
+            ChoiceField::new("state", "inquiries.field_state")
+                ->setChoices(InquiryStateHelper::translationCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
+
+            ChoiceField::new("state", "inquiries.field_state")
+                ->setChoices(InquiryStateHelper::translationStringCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
 
             AssociationField::new("categories", "inquiries.field_categories")->onlyOnForms()
         ];

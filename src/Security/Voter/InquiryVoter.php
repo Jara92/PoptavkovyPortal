@@ -3,7 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\Inquiry\Inquiry;
-use App\Entity\Inquiry\InquiryState;
+use App\Enum\Entity\InquiryState;
 use App\Entity\User;
 use App\Enum\Entity\UserRole;
 use LogicException;
@@ -92,7 +92,7 @@ class InquiryVoter extends AVoter
         }
 
         // Inquiry is visible for public.
-        return $inquiry->getState()->getAlias() === InquiryState::STATE_ACTIVE;
+        return $inquiry->getState() === InquiryState::STATE_ACTIVE;
     }
 
     private function canReact(Inquiry $inquiry, ?User $user): bool

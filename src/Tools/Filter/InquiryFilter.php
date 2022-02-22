@@ -3,7 +3,7 @@
 namespace App\Tools\Filter;
 
 use App\Entity\Inquiry\InquiryCategory;
-use App\Entity\Inquiry\InquiryState;
+use App\Enum\Entity\InquiryState;
 use App\Entity\Inquiry\Region;
 use App\Entity\Inquiry\InquiryValue;
 use App\Enum\Entity\InquiryType;

@@ -4,15 +4,13 @@ namespace App\Business\Operation;
 
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
-use App\Business\Service\InquiryStateService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
-use App\Entity\Inquiry\InquiryState;
+use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
-use App\Exception\InvalidInquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -32,7 +30,6 @@ class InquiryOperation
     public function __construct(
         private InquiryService           $inquiryService,
         private InquiryAttachmentService $attachmentService,
-        private InquiryStateService      $inquiryStateService,
         private InquiryFactory           $inquiryFactory,
         private InquiryAttachmentFactory $attachmentFactory,
         private InquiryFilterFactory     $filterFactory,
@@ -71,10 +68,7 @@ class InquiryOperation
     public function getDefaultFilter(): InquiryFilter
     {
         // Default inquiry states visible for all users.
-        $activeState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ACTIVE);
-        $archivedState = $this->inquiryStateService->readByAlias(InquiryState::STATE_ARCHIVED);
-
-        return $this->filterFactory->createInquiryFilter([$activeState, $archivedState]);
+        return $this->filterFactory->createInquiryFilter([InquiryState::STATE_ACTIVE, InquiryState::STATE_ARCHIVED]);
     }
 
     /**
@@ -92,7 +86,6 @@ class InquiryOperation
      * @param Inquiry $inquiry
      * @param UploadedFile[] $attachments
      * @return bool
-     * @throws InvalidInquiryState
      */
     public function createInquiry(Inquiry $inquiry, array $attachments = []): bool
     {
@@ -104,13 +97,7 @@ class InquiryOperation
         }
 
         // Set state
-        $state = $this->inquiryStateService->readByAlias(InquiryState::STATE_NEW);
-
-        if (is_null($state)) {
-            throw new InvalidInquiryState("Unknown state alias = " . InquiryState::STATE_NEW);
-        }
-
-        $inquiry->setState($state);
+        $inquiry->setState(InquiryState::STATE_NEW);
 
         // Set inquiry author.
         $inquiry->setAuthor($this->security->getUser());

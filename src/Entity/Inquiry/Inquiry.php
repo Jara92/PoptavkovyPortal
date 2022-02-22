@@ -8,6 +8,7 @@ use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
 use App\Enum\Entity\InquiryType;
+use App\Enum\Entity\InquiryState;
 use App\Repository\Inquiry\InquiryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -61,8 +62,7 @@ class Inquiry
     protected ?Region $region;
 
     /**
-     * @ORM\ManyToOne(targetEntity=InquiryState::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", enumType=InquiryState::class)
      */
     protected InquiryState $state;
 
@@ -177,7 +177,7 @@ class Inquiry
         return $this;
     }
 
-    public function getState(): ?InquiryState
+    public function getState(): InquiryState
     {
         return $this->state;
     }
