@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Business\Operation\UserOperation;
 use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
+use App\Enum\FlashMessageType;
 use App\Form\User\ProfileForm;
-use App\Helper\FlashHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,7 +70,7 @@ class ProfileController extends AController
             // Update the profile
             $this->profileService->update($profile);
 
-            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
         }
 
         return $this->renderForm("user/settings/profile_settings.html.twig", ["form" => $form]);

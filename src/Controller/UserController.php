@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
+use App\Enum\FlashMessageType;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
 use App\Form\User\UserSettingsForm;
-use App\Helper\FlashHelper;
 use http\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,11 +51,11 @@ class UserController extends AController
             // Try to update the password
             try {
                 $this->userOperation->updateUserPassword($user, $oldPass, $newPass);
-                $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("auth.msg_password_changed"));
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_password_changed"));
             } catch (InvalidOldPasswordException $ex) {
-                $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_old_password_incorrect"));
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("auth.msg_old_password_incorrect"));
             } catch (OperationFailedException $ex) {
-                $this->addFlash(FlashHelper::ERROR, $this->translator->trans("auth.msg_password_not_changed"));
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("auth.msg_password_not_changed"));
             }
         }
 
@@ -84,7 +84,7 @@ class UserController extends AController
             // Save the inquiry.
             $this->userService->update($user);
 
-            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("profiles.information_updated"));
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.information_updated"));
         }
 
         return $this->renderForm("user/settings/base_settings.html.twig", ["form" => $form]);

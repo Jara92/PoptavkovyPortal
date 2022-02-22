@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
+use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\InquiryService;
-use App\Helper\FlashHelper;
 use App\Tools\Filter\InquiryFilter;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -125,7 +125,7 @@ class InquiryController extends AController
             // Save the inquiry.
             $this->inquiryOperation->createInquiry($inquiry, $attachments);
 
-            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("inquiries.created"));
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("inquiries.created"));
 
             // TODO: remove form data.
 

@@ -2,20 +2,10 @@
 
 namespace App\Enum;
 
-enum FlashMessageType
+enum FlashMessageType: string
 {
-    case SUCCESS;
-    case NOTICE;
-    case WARNING;
-    case ERROR;
-
-    public function alias(): string
-    {
-        return match ($this) {
-            FlashMessageType::SUCCESS => 'success',
-            FlashMessageType::NOTICE => 'primary',
-            FlashMessageType::WARNING => 'warning',
-            FlashMessageType::ERROR => 'danger',
-        };
-    }
+    case SUCCESS = "success";
+    case NOTICE = "primary";
+    case WARNING = "warning";
+    case ERROR = "danger";
 }

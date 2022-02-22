@@ -5,12 +5,13 @@ namespace App\Controller\Auth;
 use App\Business\Operation\UserOperation;
 use App\Business\Service\UserService;
 use App\Business\Service\UserTypeService;
+use App\Controller\AController;
 use App\Entity\User;
 use App\Entity\UserType;
+use App\Enum\FlashMessageType;
 use App\Factory\UserFactory;
 use App\Form\Auth\RegisterCompanyForm;
 use App\Form\Auth\RegisterPersonForm;
-use App\Helper\FlashHelper;
 use App\Security\EmailVerifier;
 use App\Security\UserSecurity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\ExpiredSignatureException;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+class RegistrationController extends AController
 {
     const AFTER_REGISTRATION_REDIRECT = 'inquiries';
     const AFTER_VERIFY_ERROR_REDIRECT = 'home';
@@ -44,7 +45,7 @@ class RegistrationController extends AbstractController
     {
         // Check if the user is already logged in
         if ($this->security->isLoggedIn()) {
-            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
+            $this->addFlashMessage(FlashMessageType::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
         }
@@ -86,7 +87,7 @@ class RegistrationController extends AbstractController
     {
         // Check if the user is already logged in
         if ($this->security->isLoggedIn()) {
-            $this->addFlash(FlashHelper::NOTICE, $this->translator->trans("auth.already_logged_in"));
+            $this->addFlashMessage(FlashMessageType::NOTICE, $this->translator->trans("auth.already_logged_in"));
 
             return $this->redirectToRoute("home");
         }
@@ -100,7 +101,7 @@ class RegistrationController extends AbstractController
             dump($user);
 
             if ($this->userOperation->register($user, $blankPassword)) {
-                $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans("auth.successfully_registred"));
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.successfully_registred"));
 
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
@@ -131,7 +132,7 @@ class RegistrationController extends AbstractController
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
 
-            $this->addFlash(FlashHelper::SUCCESS, $this->translator->trans('auth.successfully_verified'));
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans('auth.successfully_verified'));
 
             return $this->redirectToRoute(self::AFTER_VERIFY);
         } // Link expired exception - generate and send a new one.
@@ -140,10 +141,10 @@ class RegistrationController extends AbstractController
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
 
             // Show flash notification
-            $this->addFlash(FlashHelper::WARNING, $this->translator->trans("auth.msg_link_expired"));
+            $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("auth.msg_link_expired"));
         } // Verification failed
         catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash(FlashHelper::ERROR, $this->translator->trans($exception->getReason()));
+            $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans($exception->getReason()));
         }
 
         return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);

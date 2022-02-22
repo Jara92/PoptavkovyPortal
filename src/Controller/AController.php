@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Enum\FlashMessageType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -10,5 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class AController extends AbstractController
 {
-
+    protected function addFlashMessage(FlashMessageType $type, string $text)
+    {
+        $this->addFlash($type->value, $text);
+    }
 }
