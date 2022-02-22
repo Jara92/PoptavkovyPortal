@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Business\Service\InquiryStateService;
-use App\Controller\Admin\Inquiry\NewInquiriesCrudController;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
