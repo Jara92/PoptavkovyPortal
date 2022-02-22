@@ -8,8 +8,6 @@ use App\Enum\FlashMessageType;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
-use App\Form\User\UserSettingsForm;
-use http\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
