@@ -6,6 +6,7 @@ use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\PersonalContact;
 use App\Enum\Entity\InquiryType;
+use App\Helper\InquiryTypeHelper;
 use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -37,7 +38,7 @@ class InquiryCrudController extends AbstractCrudController
             ->add("categories")
             ->add("deadline")
             ->add(ChoiceFilter::new("type", "inquiries.field_type")
-                ->setChoices(InquiryType::translationCases())
+                ->setChoices(InquiryTypeHelper::translationStringCases())
                 ->setFormTypeOption("translation_domain", "messages"))
             ->add("state")
             ->add("value");
@@ -109,7 +110,7 @@ class InquiryCrudController extends AbstractCrudController
 
             ChoiceField::new("type", "inquiries.field_type")
                 ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"])
-                ->setChoices(InquiryType::translationCases()),
+                ->setChoices(InquiryTypeHelper::translationStringCases()),
 
             AssociationField::new("personalContact", "inquiries.field_personal_contact")
                 ->setFormTypeOptions(['choice_label' => function (PersonalContact $p) {

@@ -11,6 +11,7 @@ use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Region;
+use App\Helper\InquiryTypeHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -141,7 +142,7 @@ class InquiryForm extends AbstractType
                 'required' => true,
                 'label' => false,
 
-                'choices' => InquiryType::translationCases(),
+                'choices' => InquiryTypeHelper::translationCases(),
 
                 // Use Enums item value in select
                 'choice_value' => 'value',

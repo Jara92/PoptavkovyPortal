@@ -8,6 +8,7 @@ use App\Entity\Inquiry\InquiryCategory;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
+use App\Helper\InquiryTypeHelper;
 use App\Tools\Filter\InquiryFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -78,7 +79,7 @@ class InquiryFilterForm extends AbstractType
                 'multiple' => true,
                 'label' => "inquiries.field_type",
 
-                'choices' => InquiryType::translationCases(),
+                'choices' => InquiryTypeHelper::translationCases(),
 
                 // Use Enums item value in select
                 'choice_value' => 'value',
