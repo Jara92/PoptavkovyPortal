@@ -8,6 +8,7 @@ use App\Enum\FlashMessageType;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -27,6 +28,7 @@ class UserController extends AController
      * Action to change user's password
      * @param Request $request
      * @return Response
+     * @IsGranted("ROLE_USER")
      */
     public function changePassword(Request $request): Response
     {
@@ -60,11 +62,19 @@ class UserController extends AController
         return $this->renderForm("user/settings/change_password.html.twig", ["form" => $form]);
     }
 
+    /**
+     * @return Response
+     * @IsGranted("ROLE_USER")
+     */
     public function myProfile()
     {
         return $this->render("user/base.html.twig");
     }
 
+    /**
+     * @return Response
+     * @IsGranted("ROLE_USER")
+     */
     public function baseSettings(Request $request)
     {
         // Get blank inquiry
