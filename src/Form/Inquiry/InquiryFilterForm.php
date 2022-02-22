@@ -78,10 +78,7 @@ class InquiryFilterForm extends AbstractType
                 'multiple' => true,
                 'label' => "inquiries.field_type",
 
-                'choices' => [
-                    "inquiry_type.personal" => InquiryType::PERSONAL,
-                    "inquiry_type.company" => InquiryType::COMPANY,
-                ],
+                'choices' => InquiryType::translationCases(),
 
                 // Use Enums item value in select
                 'choice_value' => 'value',

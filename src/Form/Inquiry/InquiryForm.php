@@ -141,10 +141,7 @@ class InquiryForm extends AbstractType
                 'required' => true,
                 'label' => false,
 
-                'choices' => [
-                    "inquiry_type.personal" => InquiryType::PERSONAL,
-                    "inquiry_type.company" => InquiryType::COMPANY,
-                ],
+                'choices' => InquiryType::translationCases(),
 
                 // Use Enums item value in select
                 'choice_value' => 'value',
