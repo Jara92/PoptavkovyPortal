@@ -76,7 +76,12 @@ class ProfileVoter extends AVoter
             return true;
         }
 
-        // Company profiles are public.
+        // Profile must be public.
+        if (!$profile->getIsPublic()) {
+            return false;
+        }
+
+        // Company profiles are visible to anyone.
         if ($profile->getUser()->isType(UserType::COMPANY)) {
             return true;
         }
