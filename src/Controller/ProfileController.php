@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Business\Operation\UserOperation;
 use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
+use App\Entity\Profile;
+use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
 use App\Form\User\ProfileForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -49,7 +51,25 @@ class ProfileController extends AController
         // Check permissions
         $this->denyAccessUnlessGranted("view", $profile);
 
-        return $this->render("profile/detail.html.twig", ["profile" => $profile]);
+
+        switch ($profile->getUser()->getType()) {
+            case UserType::PERSON:
+                return $this->personProfileDetail($profile);
+            case UserType::COMPANY:
+                return $this->companyProfileDetail($profile);
+            default:
+                throw new \HttpRequestException("Invalid profile type.");
+        }
+    }
+
+    private function personProfileDetail(Profile $profile): Response
+    {
+        return $this->render("profile/detail_person.html.twig", ["profile" => $profile]);
+    }
+
+    private function companyProfileDetail(Profile $profile): Response
+    {
+        return $this->render("profile/detail_company.html.twig", ["profile" => $profile]);
     }
 
     /**

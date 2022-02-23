@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ profile.user|user_name }}{% endblock %}
+
+{# @var app->user \App\Entities\User #}
+{% block content %}
+    <!-- Snippet: https://bootsnipp.com/snippets/K0ZmK -->
+    <section class="content profile-detail">
+        <div class="container cardbox" style="border-radius: 10px;overflow: hidden;">
+            <div class="row">
+                <div class="col-md-3 pt-3 pb-3 pe-0">
+                    <div class="profile-img">
+                        {# TODO: Add real avatar #}
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                             alt="profile-img"/>
+
+                        {# Upload avatar link #}
+                        {% if is_granted("edit", profile) %}
+                            <div class="file btn btn-lg btn-primary">
+                                {{ "profiles.btn_change_photo"|trans }}
+                                <input type="file" name="file"/>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <p class="profile-rating text-center">
+                        <span class="fa fa-star me-2"></span>{{ "profiles.ranking"|trans }}: <span>8/10</span>
+                    </p>
+
+                    {% if is_granted("edit", profile) %}
+                        <div class="text-center">
+                            <a href="{{ path("my-profile/edit-profile") }}"
+                               class="btn btn-primary">{{ "profiles.btn_edit_profile"|trans }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 pt-3 tb-3">
+                    {% block profile_body %}{% endblock %}
+                </div>
+                <div class="col-md-3 cardbox-siderbar">
+                    {% block profile_right %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
