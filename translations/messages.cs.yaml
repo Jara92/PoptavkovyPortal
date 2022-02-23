@@ -286,6 +286,7 @@ inquiries:
 
 #Profiles
 profiles:
+  profiles: "Uživatelské profily"
   dashboard: "Hlavní panel"
   dashboard_summaries: "Souhrny"
   links: "Odkazy"
@@ -324,12 +325,21 @@ profiles:
 admin:
   back_to_frontend: "Frontend"
   administration: "Administrace"
+  # AdminInquiries
   inquiries:
     title_common: "Základní informace"
     title_contact: "Kontaktní údaje"
     title_others: "Ostatní"
 
     field_parent_category: "Nadřazená kategorie"
+
+  # AdminProfiles
+  profiles:
+    field_user: "Uživatel"
+    field_is_public: "Veřejný profil"
+    field_web: "Webové stránky"
+    field_facebook: "Facebook"
+    field_linkedin: "Linkedin"
 
 # Option titles
 inquiry_type:

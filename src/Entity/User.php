@@ -27,6 +27,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     use TimeStampTrait;
 
+    public function __toString()
+    {
+        $value = $this->id . ": ";
+
+        if ($this->type == UserType::PERSON) {
+            $value .= $this->person->getName() . " " . $this->person->getSurname();
+        } else if ($this->type == UserType::COMPANY) {
+            $value .= $this->company->getName();
+        }
+
+        return $value . " [" . $this->createdAt->format("d.m.Y") . "]";
+    }
+
     /**
      * Contact email
      * @ORM\Column(type="string", length=180, unique=true)
