@@ -13,7 +13,8 @@ class CompanySettingsForm extends UserSettingsForm
         $builder
             ->add($builder->create('company', CompanyForm::class, [
                 'by_reference' => true,
-                'data_class' => Company::class
+                'data_class' => Company::class,
+                'label' => false
             ]))->getForm();
 
         parent::buildForm($builder, $options);

@@ -16,7 +16,8 @@ class PersonSettingsForm extends UserSettingsForm
         $builder
             ->add($builder->create('person', PersonForm::class, [
                 'by_reference' => true,
-                'data_class' => Person::class
+                'data_class' => Person::class,
+                'label' => false
             ]))->getForm();
 
         parent::buildForm($builder, $options);
