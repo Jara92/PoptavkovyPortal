@@ -51,13 +51,13 @@
                     <li class="nav-item dropdown" style="list-style-type: none;">
                         <a class="dropdown-toggle btn btn-link text-1000 fw-medium order-1 order-lg-0" href="#"
                            id="my-account-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {# TODO: Use Person/Company name instead of username #}
-                            <span class="fa fa-user me-2"></span>{{ app.user.username }}
+                            <span class="fa fa-user me-2"></span>{{ app.user|user_name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="my-account-dropdown">
                             {% if is_granted("ROLE_INQUIRING") %}
                                 <li><a class="dropdown-item" href="{{ path("my-inquiries") }}">
-                                        <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a></li>
+                                        <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a>
+                                </li>
                             {% endif %}
                             <li><a class="dropdown-item" href="{{ path("my-profile") }}">
                                     <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>

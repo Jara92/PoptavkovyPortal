@@ -14,12 +14,12 @@
                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="#!" alt="hugenerd" width="30" height="30"
                                      class="rounded-circle">
-                                {# TODO: use real person/company name instead of username #}
-                                <span class="d-none d-sm-inline mx-1">{{ app.user.username }}</span>
+                                <span class="d-none d-sm-inline mx-1">{{ app.user|user_name }}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
                                 aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="{{ path("inquiries/new") }}">Nová poptávka</a></li>
+                                <li><a class="dropdown-item"
+                                       href="{{ path("inquiries/new") }}">{{ "inquiries.new_inquiry"|trans }}</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
