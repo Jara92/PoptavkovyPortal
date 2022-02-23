@@ -304,6 +304,7 @@ profiles:
   facebook: "Facebooková stránka"
   linkedin: "LinkedIn profil"
   tags: "Tagy"
+  categories: "Oblasti podnikání"
   settings: "Nastavení"
   settings_basic: "Nastavení účtu"
   settings_profile: "Nastavení profilu"

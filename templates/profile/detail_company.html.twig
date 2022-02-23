@@ -14,16 +14,21 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
-                   role="tab" aria-controls="home"
-                   aria-selected="true">
-                    <span class="fa fa-address-book me-2"></span>{{ "profiles.contact"|trans }}
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
                    role="tab" aria-controls="profile" aria-selected="false">
                     <span class="fa fa-link me-2"></span>{{ "profiles.links"|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tags-tab" data-bs-toggle="tab" href="#tags"
+                   role="tab" aria-controls="tags" aria-selected="false">
+                    <span class="fa fa-tags me-2"></span>{{ "profiles.tags"|trans }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="categories-tab" data-bs-toggle="tab" href="#categories"
+                   role="tab" aria-controls="categories" aria-selected="false">
+                    <span class="fa fa-tags me-2"></span>{{ "profiles.categories"|trans }}
                 </a>
             </li>
         </ul>
@@ -31,63 +36,6 @@
     <div class="tab-content profile-tab" id="myTabContent">
         <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
             <p class="description">{{ profile.description }}</p>
-        </div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-building me-2"></span>
-                        {{ "profiles.company_name"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span>{{ profile.user|user_name }}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-id-badge me-2"></span>
-                        {{ "profiles.company_identification_number"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span>{{ profile.user.company.identificationNumber ?? "" }}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-map-marker-alt me-2"></span>
-                        {{ "profiles.address"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span>{{ profile.user.company|company_address }}</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-envelope me-2"></span>
-                        {{ "profiles.email"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-phone-alt me-2"></span>
-                        {{ "profiles.phone"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></span>
-                </div>
-            </div>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             {% if profile.web %}
@@ -136,14 +84,43 @@
                 </div>
             {% endif %}
         </div>
+        <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab"></div>
     </div>
 {% endblock %}
 
 {% block profile_right %}
     <div class="profile-properties">
-        <p>{{ "profiles.main_activity" |trans }}</p>
-        {# TODO: Print categories #}
-        <p>{{ "profiles.tags"|trans }}</p>
-        {# TODO: Print tags #}
+        <ul class="row sidebar-properties">
+            <li class="col-md-6 col-lg-12">
+                <div class="title">
+                    <span class="fas fa-building me-2"></span>{{ "profiles.company_name"|trans }}
+                </div>
+                <div class="value">{{ profile.user|user_name }}</div>
+            </li>
+            <li class="col-md-6 col-lg-12">
+                <div class="title">
+                    <span class="fas fa-building me-2"></span>{{ "profiles.company_identification_number"|trans }}
+                </div>
+                <div class="value">{{ profile.user.company.identificationNumber }}</div>
+            </li>
+            <li class="col-md-6 col-lg-12">
+                <div class="title">
+                    <span class="fas fa-map-marker-alt me-2"></span>{{ "profiles.address"|trans }}
+                </div>
+                <div class="value">{{ profile.user.company|company_address }}</div>
+            </li>
+            <li class="col-md-6 col-lg-12">
+                <div class="title">
+                    <span class="fas fa-envelope me-2"></span>{{ "profiles.email"|trans }}
+                </div>
+                <div class="value"><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></div>
+            </li>
+            <li class="col-md-6 col-lg-12">
+                <div class="title">
+                    <span class="fas fa-phone-alt me-2"></span>{{ "profiles.phone"|trans }}
+                </div>
+                <div class="value"><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></div>
+            </li>
+        </ul>
     </div>
 {% endblock %}

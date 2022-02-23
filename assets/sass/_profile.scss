@@ -45,7 +45,6 @@
 .profile-detail {
   .profile-img {
     text-align: center;
-    padding-left: 1rem;
   }
 
   .profile-img img {
@@ -73,6 +72,7 @@
 
   .profile-head h2 {
     color: $template;
+    font-weight: bold;
   }
 
   .description {
