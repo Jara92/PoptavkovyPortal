@@ -29,26 +29,26 @@ trait TimeStampTrait
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    protected $createdAt;
+    protected ?DateTime $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    protected $updatedAt;
+    protected ?DateTime $updatedAt;
 
     /**
-     * @return mixed
+     * @return ?DateTime
      */
-    public function getCreatedAt(): mixed
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
     /**
-     * @param mixed $createdAt
+     * @param ?DateTime $createdAt
      * @return \App\Entity\User|\App\Entity\Inquiry\Inquiry|TimeStampTrait
      */
-    public function setCreatedAt(mixed $createdAt): self
+    public function setCreatedAt(?DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -56,18 +56,18 @@ trait TimeStampTrait
     }
 
     /**
-     * @return mixed
+     * @return ?DateTime
      */
-    public function getUpdatedAt(): mixed
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param ?DateTime $updatedAt
      * @return \App\Entity\User|\App\Entity\Inquiry\Inquiry|TimeStampTrait
      */
-    public function setUpdatedAt(mixed $updatedAt): self
+    public function setUpdatedAt(?DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
