@@ -59,8 +59,17 @@
                                         <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a>
                                 </li>
                             {% endif %}
-                            <li><a class="dropdown-item" href="{{ path("my-profile") }}">
+                            {% if is_granted("ROLE_INQUIRING") or is_granted("ROLE_SUPPLIER") %}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            {% endif %}
+                            <li><a class="dropdown-item"
+                                   href="{{ path("profiles/detail", {"profileId":app.user.profile.id}) }}">
                                     <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ path("my-profile") }}">
+                                    <span class="fa fa-user-cog me-2"></span>{{ "profiles.settings"|trans }}</a>
                             </li>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <li><a class="dropdown-item" href="{{ path("admin") }}">
