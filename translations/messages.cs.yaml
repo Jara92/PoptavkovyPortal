@@ -308,6 +308,7 @@ profiles:
   settings_profile: "Nastavení profilu"
   settings_change_password: "Změna hesla"
   settings_inquiry_subscription: "Odběr poptávek"
+  settings_notifications: "Upozorňování"
 
   btn_change_photo: "Nahrát foto"
   btn_edit_profile: "Upravit profil"

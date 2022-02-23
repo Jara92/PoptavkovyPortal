@@ -28,16 +28,8 @@
                             </ul>
                         </div>
 
-                        {# Dashboard Collapse #}
-                        <button class="list-group-item list-group-item-action py-2 ripple" type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#dashboard-collapse"
-                                aria-expanded="false"
-                                aria-controls="dashboard-collapse">
-                            <span>{{ "profiles.dashboard"|trans }}</span>
-                        </button>
-
-                        <ul id="dashboard-collapse" class="collapse show list-group list-group-flush">
+                        {# Siderbar nav items #}
+                        <ul class="list-group list-group-flush">
                             <li class="list-group-item py-1">
                                 <a href="" class="text-reset"><span
                                             class="fas fa-tachometer-alt me-2"></span>{{ "profiles.dashboard_summaries"|trans }}
@@ -53,18 +45,7 @@
                                             class="fas fa-history me-2"></span>{{ "inquiries.reacted_inquiries"|trans }}
                                 </a>
                             </li>
-                        </ul>
 
-                        {# Settings Collapse #}
-                        <button class="list-group-item list-group-item-action py-2 ripple" type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#settings-collapse"
-                                aria-expanded="false"
-                                aria-controls="settings-collapse">
-                            <span>{{ "profiles.settings"|trans }}</span>
-                        </button>
-
-                        <ul id="settings-collapse" class="collapse show list-group list-group-flush">
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-profile/base-settings") }}"
                                    class="text-reset"><span
@@ -84,6 +65,11 @@
                             <li class="list-group-item py-1">
                                 <a href="" class="text-reset"><span
                                             class="fas fa-bell me-2"></span>{{ "profiles.settings_inquiry_subscription"|trans }}
+                                </a>
+                            </li>
+                            <li class="list-group-item py-1">
+                                <a href="" class="text-reset"><span
+                                            class="fas fa-flag me-2"></span>{{ "profiles.settings_notifications"|trans }}
                                 </a>
                             </li>
                         </ul>
