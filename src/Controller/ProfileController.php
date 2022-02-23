@@ -51,6 +51,10 @@ class ProfileController extends AController
         // Check permissions
         $this->denyAccessUnlessGranted("view", $profile);
 
+        // Notice user that he viewed a private profile.
+        if (!$profile->getIsPublic()) {
+            $this->addFlashMessage(FlashMessageType::NOTICE, $this->translator->trans("profiles.msg_profile_is_private"));
+        }
 
         switch ($profile->getUser()->getType()) {
             case UserType::PERSON:
