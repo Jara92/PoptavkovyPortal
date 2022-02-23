@@ -108,7 +108,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <span>{{ profile.user.email }}</span>
+                                    <span><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -119,7 +119,7 @@
                                     </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <span>{{ profile.user.phone }}</span>
+                                    <span><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></span>
                                 </div>
                             </div>
                         </div>
