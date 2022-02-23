@@ -46,6 +46,11 @@ class Profile
      */
     private ?User $user;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default"=true})
+     */
+    private ?bool $isPublic;
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -114,6 +119,18 @@ class Profile
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): self
+    {
+        $this->isPublic = $isPublic;
 
         return $this;
     }
