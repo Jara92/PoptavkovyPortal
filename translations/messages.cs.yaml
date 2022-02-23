@@ -304,7 +304,7 @@ profiles:
   linkedin: "LinkedIn profil"
   tags: "Tagy"
   settings: "Nastavení"
-  settings_basic: "Základní nastavení"
+  settings_basic: "Nastavení účtu"
   settings_profile: "Nastavení profilu"
   settings_change_password: "Změna hesla"
   settings_inquiry_subscription: "Odběr poptávek"

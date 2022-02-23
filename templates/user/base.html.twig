@@ -34,19 +34,24 @@
                                 data-bs-target="#dashboard-collapse"
                                 aria-expanded="false"
                                 aria-controls="dashboard-collapse">
-                            <span class="fas fa-tachometer-alt fa-fw me-2"></span><span>{{ "profiles.dashboard"|trans }}</span>
+                            <span>{{ "profiles.dashboard"|trans }}</span>
                         </button>
 
                         <ul id="dashboard-collapse" class="collapse show list-group list-group-flush">
                             <li class="list-group-item py-1">
-                                <a href="" class="text-reset">{{ "profiles.dashboard_summaries"|trans }}</a>
+                                <a href="" class="text-reset"><span
+                                            class="fas fa-tachometer-alt me-2"></span>{{ "profiles.dashboard_summaries"|trans }}
+                                </a>
                             </li>
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-inquiries") }}"
-                                   class="text-reset">{{ "inquiries.my_inquiries"|trans }}</a>
+                                   class="text-reset"><span
+                                            class="fas fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a>
                             </li>
                             <li class="list-group-item py-1">
-                                <a href="" class="text-reset">{{ "inquiries.reacted_inquiries"|trans }}</a>
+                                <a href="" class="text-reset"><span
+                                            class="fas fa-history me-2"></span>{{ "inquiries.reacted_inquiries"|trans }}
+                                </a>
                             </li>
                         </ul>
 
@@ -56,24 +61,30 @@
                                 data-bs-target="#settings-collapse"
                                 aria-expanded="false"
                                 aria-controls="settings-collapse">
-                            <span class="fa fa-tools me-2"></span><span>{{ "profiles.settings"|trans }}</span>
+                            <span>{{ "profiles.settings"|trans }}</span>
                         </button>
 
                         <ul id="settings-collapse" class="collapse show list-group list-group-flush">
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-profile/base-settings") }}"
-                                   class="text-reset">{{ "profiles.settings_basic"|trans }}</a>
+                                   class="text-reset"><span
+                                            class="fas fa-tools me-2"></span>{{ "profiles.settings_basic"|trans }}</a>
                             </li>
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-profile/edit-profile") }}"
-                                   class="text-reset">{{ "profiles.settings_profile"|trans }}</a>
+                                   class="text-reset"><span
+                                            class="fas fa-id-card me-2"></span>{{ "profiles.settings_profile"|trans }}
+                                </a>
                             </li>
                             <li class="list-group-item py-1">
                                 <a href="{{ path("my-profile/change-password") }}" class="text-reset">
-                                    {{ "profiles.settings_change_password"|trans }}</a>
+                                    <span class="fas fa-key me-2"></span>{{ "profiles.settings_change_password"|trans }}
+                                </a>
                             </li>
                             <li class="list-group-item py-1">
-                                <a href="" class="text-reset">{{ "profiles.settings_inquiry_subscription"|trans }}</a>
+                                <a href="" class="text-reset"><span
+                                            class="fas fa-bell me-2"></span>{{ "profiles.settings_inquiry_subscription"|trans }}
+                                </a>
                             </li>
                         </ul>
                     </nav>
