@@ -10,6 +10,7 @@ use App\Enum\Entity\UserType;
 use App\Enum\Entity\UserRole;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
+use App\Factory\ProfileFactory;
 use App\Form\User\CompanySettingsForm;
 use App\Form\User\PersonSettingsForm;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -19,7 +20,8 @@ class UserOperation
     public function __construct(
         private UserService                 $userService,
         private ProfileService              $profileService,
-        private UserPasswordHasherInterface $passwordHasher
+        private UserPasswordHasherInterface $passwordHasher,
+        private ProfileFactory              $profileFactory
     )
     {
     }
@@ -39,8 +41,8 @@ class UserOperation
         $passwordHash = $this->passwordHasher->hashPassword($user, $blankPassword);
         $user->setPassword($passwordHash);
 
-        // Create a blank profile
-        $user->setProfile((new Profile()));
+        // Create a public profile
+        $user->setProfile($this->profileFactory->createPublicProfile());
 
         return $this->userService->create($user);
     }
