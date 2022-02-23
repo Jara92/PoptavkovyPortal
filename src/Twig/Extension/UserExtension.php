@@ -6,12 +6,16 @@ use App\Business\Service\UserService;
 use App\Entity\Company;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class UserExtension extends AbstractExtension
 {
-    public function __construct(private UserService $userService)
+    public function __construct(
+        private UserService         $userService,
+        private TranslatorInterface $translator
+    )
     {
     }
 
@@ -19,6 +23,7 @@ class UserExtension extends AbstractExtension
     {
         return [
             new TwigFilter('user_name', [$this, 'fullName']),
+            new TwigFilter('user_anonymize', [$this, 'anonymize']),
             new TwigFilter('company_address', [$this, 'companyAddress']),
         ];
     }
@@ -35,6 +40,23 @@ class UserExtension extends AbstractExtension
                 return $user->getPerson()->getName() . " " . $user->getPerson()->getSurname();
             case UserType::COMPANY:
                 return $user->getCompany()->getName();
+            default:
+                throw new \LogicException("Invalid userType: " . $user->getType()->value);
+        }
+    }
+
+    /**
+     * Returns user's anonymized name.
+     * @param User $user
+     * @return string
+     */
+    public function anonymize(User $user)
+    {
+        switch ($user->getType()) {
+            case UserType::PERSON:
+                return $user->getPerson()->getName() . " " . $user->getPerson()->getSurname()["0"] . ".";
+            case UserType::COMPANY:
+                return $this->translator->trans("user.company_from") . " " . $user->getCompany()->getAddressCity();
             default:
                 throw new \LogicException("Invalid userType: " . $user->getType()->value);
         }

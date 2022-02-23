@@ -1,112 +1,144 @@
-{% extends "profile/base_detail.html.twig" %}
+{% extends "base.html.twig" %}
+
+{% block title %}{{ profile.user|user_anonymize }}{% endblock %}
 
 {# @var app->user \App\Entities\User #}
-{% block profile_body %}
-    <div class="profile-head">
-        <h2>{{ profile.user|user_name }}</h2>
-
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about"
-                   role="tab" aria-controls="about"
-                   aria-selected="true">
-                    <span class="fa fa-info-circle me-2"></span>{{ "profiles.about_company"|trans }}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
-                   role="tab" aria-controls="home"
-                   aria-selected="true">
-                    <span class="fa fa-address-book me-2"></span>{{ "profiles.contact"|trans }}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
-                   role="tab" aria-controls="profile" aria-selected="false">
-                    <span class="fa fa-link me-2"></span>{{ "profiles.links"|trans }}
-                </a>
-            </li>
-        </ul>
-    </div>
-    <div class="tab-content profile-tab" id="myTabContent">
-        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-            <p class="description">{{ profile.description }}</p>
-        </div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+{% block content %}
+    <!-- Snippet: https://bootsnipp.com/snippets/K0ZmK -->
+    <section class="content profile-detail">
+        <div class="container-lg cardbox w-75">
             <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-envelope me-2"></span>
-                        {{ "profiles.email"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>
-                        <span class="fa fa-phone-alt me-2"></span>
-                        {{ "profiles.phone"|trans }}
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <span><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></span>
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            {% if profile.web %}
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>
-                            <span class="fa fa-external-link-alt me-2"></span>
-                            {{ "profiles.web"|trans }}
-                        </label>
-                    </div>
-                    <div class="col-md-6">
-                        <span><a href="{{ profile.web }}" target="_blank">{{ profile.web }}</a></span>
-                    </div>
-                </div>
-            {% endif %}
+                <div class="col-lg-4 pb-3 pe-0">
+                    <div class="profile-img">
+                        {# TODO: Add real avatar #}
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                             alt="profile-img"/>
 
-            {% if profile.facebook %}
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>
-                            <span class="fab fa-facebook-square me-2"></span>
-                            {{ "profiles.facebook"|trans }}
-                        </label>
+                        {# Upload avatar link #}
+                        {% if is_granted("edit", profile) %}
+                            <div class="file btn btn-lg btn-primary">
+                                {{ "profiles.btn_change_photo"|trans }}
+                                <input type="file" name="file"/>
+                            </div>
+                        {% endif %}
                     </div>
-                    <div class="col-md-6">
+
+                    <p class="profile-rating text-center">
+                        <span class="fa fa-star me-2"></span>{{ "profiles.ranking"|trans }}: <span>8/10</span>
+                    </p>
+
+                    {% if is_granted("edit", profile) %}
+                        <div class="text-center">
+                            <a href="{{ path("my-profile/edit-profile") }}"
+                               class="btn btn-primary">{{ "profiles.btn_edit_profile"|trans }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-lg-8 pt-3 tb-3">
+                    <div class="profile-head">
+                        <h2>{{ profile.user|user_anonymize }}</h2>
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about"
+                                   role="tab" aria-controls="about"
+                                   aria-selected="true">
+                                    <span class="fa fa-info-circle me-2"></span>{{ "profiles.about_person"|trans }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
+                                   role="tab" aria-controls="home"
+                                   aria-selected="true">
+                                    <span class="fa fa-address-book me-2"></span>{{ "profiles.contact"|trans }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
+                                   role="tab" aria-controls="profile" aria-selected="false">
+                                    <span class="fa fa-link me-2"></span>{{ "profiles.links"|trans }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                            <p class="description">{{ profile.description }}</p>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        <span class="fa fa-envelope me-2"></span>
+                                        {{ "profiles.email"|trans }}
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        <span class="fa fa-phone-alt me-2"></span>
+                                        {{ "profiles.phone"|trans }}
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            {% if profile.web %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>
+                                            <span class="fa fa-external-link-alt me-2"></span>
+                                            {{ "profiles.web"|trans }}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span><a href="{{ profile.web }}" target="_blank">{{ profile.web }}</a></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if profile.facebook %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>
+                                            <span class="fab fa-facebook-square me-2"></span>
+                                            {{ "profiles.facebook"|trans }}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
                                         <span><a href="{{ profile.facebook }}"
                                                  target="_blank">{{ profile.facebook }}</a>
                                         </span>
-                    </div>
-                </div>
-            {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
 
-            {% if profile.linkedin %}
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>
-                            <span class="fab fa-linkedin me-2"></span>
-                            {{ "profiles.linkedin"|trans }}
-                        </label>
-                    </div>
-                    <div class="col-md-6">
+                            {% if profile.linkedin %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>
+                                            <span class="fab fa-linkedin me-2"></span>
+                                            {{ "profiles.linkedin"|trans }}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
                                         <span><a href="{{ profile.linkedin }}"
                                                  target="_blank">{{ profile.linkedin }}</a>
                                         </span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            {% endif %}
+            </div>
         </div>
-    </div>
-{% endblock %}
-
-{% block profile_right %}
-    <div class="profile-properties">
-    </div>
+    </section>
 {% endblock %}

@@ -86,7 +86,9 @@ user:
   field_tax_identification_number_ph: ""
   field_company_name: "Jméno firmy"
   field_company_name_ph: "Firma s.r.o"
+
   company_information_note: "Uvedné údaje nejsou kromě názvu firmy viditelné pro ostatní uživatele systému."
+  company_from: "Firma z"
 
 #Articles
 articles:
@@ -294,11 +296,13 @@ profiles:
   my_profile: "Můj profil"
   main_activity: "Hlavní činnost"
   about_company: "O firmě"
+  about_person: "O mně"
   company_name: "Název firmy"
   company_identification_number: "IČ"
   email: "Email"
   phone: "Telefon"
   address: "Adresa"
+  member_since: "Členem od"
   ranking: "Hodnocení"
   web: "Webová stránka"
   facebook: "Facebooková stránka"
