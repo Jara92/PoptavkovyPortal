@@ -6,9 +6,9 @@
 {% block content %}
     <!-- Snippet: https://bootsnipp.com/snippets/K0ZmK -->
     <section class="content profile-detail">
-        <div class="container cardbox">
-            <div class="row">
-                <div class="col-lg-3 pb-3 pe-0">
+        <div class="container col-lg-9">
+            <section class="row cardbox">
+                <div class="col-lg-3 pb-3 px-0">
                     <div class="profile-img">
                         {# TODO: Add real avatar #}
                         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
@@ -40,7 +40,7 @@
                 <div class="col-lg-3 cardbox-siderbar">
                     {% block profile_right %}{% endblock %}
                 </div>
-            </div>
+            </section>
         </div>
     </section>
 {% endblock %}
