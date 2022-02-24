@@ -46,12 +46,13 @@
                                         <ul class="atachments">
                                             {% for attachment in inquiry.attachments %}
                                                 {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
-                                                <li class="col-sm-12 col-md-6">
+                                                <li class="item">
                                                     <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
                                                        class="btn btn-link btn-download-attachment">
                                                         <i class="fa fa-paperclip"></i>
                                                         {{ attachment.title }}
                                                     </a>
+                                                    <i>[{{ attachment.size|file_size }}]</i>
                                                 </li>
                                             {% endfor %}
                                         </ul>

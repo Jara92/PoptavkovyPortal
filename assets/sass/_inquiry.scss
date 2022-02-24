@@ -274,9 +274,9 @@ ul.inquiry-list {
       list-style-type: none;
     }
 
-    > ul > li a {
+    > ul > li.item a {
       padding-left: 0;
-      padding-right: 10px;
+      padding-right: 0;
     }
   }
 
