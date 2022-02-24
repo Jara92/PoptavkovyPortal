@@ -52,6 +52,12 @@
                         </li>
                         <li class="col-md-6 col-lg-12">
                             <div class="title"><span
+                                        class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
+                            </div>
+                            <div class="value">{{ inquiry.author|user_anonymize }}</div>
+                        </li>
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span
                                         class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
                             </div>
                             <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
