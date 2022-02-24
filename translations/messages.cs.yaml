@@ -242,6 +242,7 @@ inquiries:
   contact_information: "Kontaktní údaje"
 
   label_registration_number: "Evidenční číslo"
+  label_author: "Autor"
   label_created: "Zadáno"
   label_deadline: "Termín"
   label_place: "Místo realizace"

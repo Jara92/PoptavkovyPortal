@@ -57,6 +57,12 @@
                             </li>
                             <li class="col-md-6 col-lg-12">
                                 <div class="title"><span
+                                            class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.author|user_anonymize }}</div>
+                            </li>
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
                                             class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
                                 </div>
                                 <div class="value">
