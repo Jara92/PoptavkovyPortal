@@ -4,8 +4,10 @@ namespace App\Business\Operation;
 
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
+use App\Business\Service\OfferService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\Offer;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
@@ -14,6 +16,7 @@ use App\Enum\Entity\UserType;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
+use App\Factory\Inquiry\OfferFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
 use App\Helper\UrlHelper;
@@ -22,6 +25,7 @@ use App\Tools\Filter\InquiryFilter;
 use LogicException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
@@ -33,6 +37,8 @@ class InquiryOperation
         private InquiryFactory           $inquiryFactory,
         private InquiryAttachmentFactory $attachmentFactory,
         private InquiryFilterFactory     $filterFactory,
+        private OfferService             $offerService,
+        private OfferFactory             $offerFactory,
         private PersonalContactFactory   $personalContactFactory,
         private CompanyContactFactory    $companyContactFactory,
         private UserSecurity             $security,
@@ -228,5 +234,23 @@ class InquiryOperation
         $inquiry->setCompanyContact($companyContact);
 
         return $inquiry;
+    }
+
+    public function createOffer(Inquiry $inquiry): Offer
+    {
+        $user = $this->security->getUser();
+
+        if (!$user) {
+            throw new UnauthorizedHttpException("Use must be authorized to do this!");
+        }
+
+        return $this->offerFactory->createOffer($user, $inquiry);
+    }
+
+    public function sendOffer(Offer $offer, bool $sendCopy = false)
+    {
+        $this->offerService->create($offer);
+
+        // TODO send emails
     }
 }

@@ -7,6 +7,7 @@ use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\InquiryService;
+use App\Form\Inquiry\OfferForm;
 use App\Tools\Filter\InquiryFilter;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -84,7 +85,7 @@ class InquiryController extends AController
      * @param string $alias
      * @return Response
      */
-    public function detail(string $alias): Response
+    public function detail(string $alias, Request $request): Response
     {
         $inquiry = $this->inquiryService->readByAlias($alias);
 
@@ -94,7 +95,28 @@ class InquiryController extends AController
 
         $this->denyAccessUnlessGranted("view", $inquiry);
 
-        return $this->render("inquiry/detail.html.twig", ["inquiry" => $inquiry]);
+        $form = null;
+
+        // TODO move this stuff to OfferController
+        if ($this->isGranted("react", $inquiry)) {
+            $offer = $this->inquiryOperation->createOffer($inquiry);
+            $form = $this->createForm(OfferForm::class, $offer);
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $sendCopy = $form->get('sendCopy')->getData();
+
+                $this->inquiryOperation->sendOffer($offer, $sendCopy);
+
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("offers.msg_succesfully_send"));
+
+                // Reset the form
+                $offer = $this->inquiryOperation->createOffer($inquiry);
+                $form = $this->createForm(OfferForm::class, $offer);
+            }
+        }
+
+        return $this->renderForm("inquiry/detail.html.twig", ["inquiry" => $inquiry, "form" => $form]);
     }
 
     /**

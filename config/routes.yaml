@@ -17,7 +17,7 @@ inquiries/new:
 inquiries/detail:
   path: /poptavky/{alias}
   controller: App\Controller\InquiryController::detail
-  methods: GET
+  methods: GET|POST
 
 inquiries/attachments:
     path: /poptavky/prilohy/{hash}

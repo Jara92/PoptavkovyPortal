@@ -4,11 +4,14 @@
     {% if is_granted("react", inquiry) %}
         <hr/>
         <div id="inquiry-contact-form">
-            <h3>Vaše nabídka</h3>
-            <textarea></textarea><br/>
-            <label>Odeslat kopii na můj email</label>
-            <input type="checkbox"/><br/>
-            <button class="btn btn-primary">Odeslat nabídku</button>
+            <h3>{{ "offers.your_offer"|trans }}</h3>
+            {% if form %}
+                {{ form_start(form) }}
+                {{ form_row(form.text) }}
+                {{ form_row(form.sendCopy) }}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            {% endif %}
         </div>
     {% else %}
         <button id="btn-contact" class="btn btn-primary" data-bs-toggle="modal">

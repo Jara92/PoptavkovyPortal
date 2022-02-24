@@ -7,6 +7,7 @@ use App\Entity\Traits\TimeStampTrait;
 use App\Entity\User;
 use App\Repository\Inquiry\OfferRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -19,6 +20,7 @@ class Offer
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=20)
      */
     private ?string $text;
 

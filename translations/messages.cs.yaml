@@ -293,6 +293,16 @@ inquiries:
 
   modal_notice: "Upozornění"
 
+offers:
+  your_offer: "Nabídněte:"
+  field_text: "Text nabídky"
+  field_text_ph: "Text nabídky by měl obsahovat důležité informace k realizaci poptávky"
+  field_send_copy: "Odeslat kopii nabídky na email"
+
+  btn_send_offer: "Odeslat nabídku"
+
+  msg_succesfully_send: "Nabídka byla úspěšně odeslána. Hodně štěstí!"
+
 #Profiles
 profiles:
   profiles: "Uživatelské profily"
