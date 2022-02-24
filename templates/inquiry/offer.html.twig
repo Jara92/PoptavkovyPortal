@@ -1,0 +1,49 @@
+{# @var inquiry \App\Entities\Inquiry\Inquiry #}
+
+<div>
+    {% if is_granted("react", inquiry) %}
+        <hr/>
+        <div id="inquiry-contact-form">
+            <h3>Vaše nabídka</h3>
+            <textarea></textarea><br/>
+            <label>Odeslat kopii na můj email</label>
+            <input type="checkbox"/><br/>
+            <button class="btn btn-primary">Odeslat nabídku</button>
+        </div>
+    {% else %}
+        <button id="btn-contact" class="btn btn-primary" data-bs-toggle="modal">
+            {{ "inquiries.btn_get_contact"|trans }}</button>
+
+        <div class="modal modal-fade" id="inquiry-contact-modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title fw-bold"><span
+                                    class="fa fa-flag me-2"></span>{{ "inquiries.modal_notice"|trans }}</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {# FIXME: doladit překlady #}
+                        {% if app.user and not is_granted("ROLE_SUPPLIER") %}
+                            {# FIXME: app_register_company is disabled for authorized users. #}
+                            <p>Typ Vašeho účtu neumožňuje dělat nabídky na poptávky. Pro pro vytváření nabídek se
+                                prosím <a href="{{ path("app_register_company") }}" class="btn-link">registrujte jako
+                                    firma/podnikatel</a>.</p>
+                        {% elseif app.user and is_granted("ROLE_SUPPLIER") %}
+                            <p>V tuto chvíli nemáte oprávnění udělat na tuto poptávku nabídku.</p>
+                        {% else %}
+                            <p>Pouze přihlášení dodavatelé mohou zasílat nabídky. Pokud ještě nemáte účet, můžete se
+                                <a href="{{ path('app_register_company') }}"
+                                   class="btn-link">{{ "auth.register"|trans|lower }}</a>.</p>
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ path("app_login") }}" class="btn btn-primary">{{ "auth.log_in"|trans }}</a>
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">{{ "btn_close"|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

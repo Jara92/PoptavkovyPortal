@@ -39,7 +39,9 @@
                             {% endif %}
                         </section>
 
-                        <button id="btn-contact" class="btn btn-primary">{{ "inquiries.btn_contact"|trans }}</button>
+                        {# Contact form #}
+                        {{ include("inquiry/offer.html.twig", {inquiry:inquiry}) }}
+
                     </section>
                     <div class="inquiry-detail-right col-md-12 col-lg-4">
                         <ul class="row sidebar-properties">

@@ -33,6 +33,7 @@ pagination:
 auth:
   login: "Přihlášení"
   log_in: "Přihlásit"
+  do_login: "Přihlaste"
   logout: "Odhlášení"
   log_out: "Odhlásit"
   register: "Registrovat"
@@ -259,6 +260,7 @@ inquiries:
   btn_search: "Vyhledat"
   btn_show_more_filters: "Zobrazit rozšířený filtr"
   btn_contact_client: "Kontaktovat klienta"
+  btn_get_contact: "Udělat nabídku"
   btn_report_inquiry: "Nahlásit poptávku"
   btn_save_changes: "Uložit změny"
   type_all_p: "Libovolné"
@@ -288,6 +290,8 @@ inquiries:
   state_final: "Dokončená"
   admin_state_final: "Dokončená"
   state_label_final: "Poptávka už našla svého dodavatele."
+
+  modal_notice: "Upozornění"
 
 #Profiles
 profiles:
@@ -379,4 +383,5 @@ deadline:
   as_soon_as_possible: "Co nejdříve"
 
 btn_save: "Uložit"
+btn_close: "Zavřít"
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."
