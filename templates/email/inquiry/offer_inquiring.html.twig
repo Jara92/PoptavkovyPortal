@@ -1,0 +1,32 @@
+{% extends "email/base.html.twig" %}
+
+{# @var offer \App\Entity\Inquiry\Offer #}
+{% block body %}
+    <p>Dobrý den,<br/>
+        na základě vaší poptávky <a
+                href="{{ url("inquiries/detail", {"alias":offer.inquiry.alias}) }}">#{{ offer.inquiry.id }}</a> Vám náš
+        dodavatel zasílá nabídku. </p>
+    <p>Pro více informací o dodavateli si zobrazte dodavatelův profil <a
+                href="{{ url("profiles/detail", {"profileId":offer.author.id }) }}">{{ offer.author|user_name }}</a>.
+    </p>
+    <h2>Text nabídky</h2>
+    <p>{{ offer.text }}</p>
+    <h3>Pro více informací můžete dodavatele přímo kontaktovat:</h3>
+    <ul>
+        <li>Email: <a href="mailto:{{ offer.author.email }}">{{ offer.author.email }}</a></li>
+        {% if offer.author.phone %}
+            <li>Phone: <a href="tel:{{ offer.author.phone }}">{{ offer.author.phone }}</a></li>
+        {% endif %}
+    </ul>
+
+    <hr/>
+    <p>S přáním pěkného dne,
+        Tým <a href="{{ url("home") }}">{{ "app.name"|trans }}</a><br/>
+        Email: {{ "app.email"|trans }}<br/>
+    </p>
+
+    <footer>
+        <p>Tento email jste obdržel na základě Vašeho souhlasu při zveřejnění poptávky na serveru <a
+                    href="{{ url("home") }}">{{ "app.name"|trans }}</a>.</p>
+    </footer>
+{% endblock %}

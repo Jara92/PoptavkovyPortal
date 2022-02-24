@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.name: "Poptejsi.cz"
+    app.email: "info@poptejsi.cz"
     app.items_per_page: 2
     app.inquiries.attachments_directory: '%kernel.project_dir%/public/uploads/inquiry-attachments'
 services:

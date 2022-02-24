@@ -23,11 +23,15 @@ use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use LogicException;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InquiryOperation
 {
@@ -43,7 +47,9 @@ class InquiryOperation
         private CompanyContactFactory    $companyContactFactory,
         private UserSecurity             $security,
         private SluggerInterface         $slugger,
-        private ContainerBagInterface    $params
+        private ContainerBagInterface    $params,
+        private TranslatorInterface      $translator,
+        private MailerInterface          $mailer
     )
     {
     }
@@ -251,6 +257,20 @@ class InquiryOperation
     {
         $this->offerService->create($offer);
 
+        $this->sendOfferEmail($offer);
+
         // TODO send emails
+    }
+
+    public function sendOfferEmail(Offer $offer)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
+            ->to($offer->getInquiry()->getAuthor()->getEmail())
+            ->subject($this->translator->trans("offers.new_inquiry_offer") . " #" . $offer->getInquiry()->getId())
+            ->htmlTemplate('email/inquiry/offer_inquiring.html.twig')
+            ->context(["offer" => $offer]);
+
+        $this->mailer->send($email);
     }
 }

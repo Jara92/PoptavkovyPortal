@@ -298,6 +298,8 @@ inquiries:
 
 offers:
   your_offer: "Nabídněte:"
+  new_inquiry_offer: "Nová nabídka na poptávku"
+
   field_text: "Text nabídky"
   field_text_ph: "Text nabídky by měl obsahovat důležité informace k realizaci poptávky, zejména: termín, cena a způsob realizace."
   field_send_copy: "Odeslat kopii nabídky na email"
