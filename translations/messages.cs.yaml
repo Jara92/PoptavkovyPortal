@@ -67,6 +67,8 @@ auth:
   field_old_password: "Staré heslo"
   field_password: "Heslo"
   field_password_again: "Heslo znovu"
+  field_new_password: "Nové heslo"
+  field_new_password_again: "Nové heslo znovu"
 
   msg_password_changed: "Heslo bylo úspěšně změněno"
   msg_password_not_changed: "Heslo se nepodařilo změnit"

@@ -28,8 +28,8 @@ class ChangePasswordForm extends AbstractType
                 'invalid_message' => 'passwords_must_match',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options' => ['label' => 'auth.field_password'],
-                'second_options' => ['label' => 'auth.field_password_again'],
+                'first_options' => ['label' => 'auth.field_new_password'],
+                'second_options' => ['label' => 'auth.field_new_password_again'],
                 'constraints' => [
                     new NotBlank([
 
