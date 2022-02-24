@@ -29,12 +29,12 @@ trait TimeStampTrait
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    protected ?DateTime $createdAt;
+    protected ?DateTime $createdAt = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
      */
-    protected ?DateTime $updatedAt;
+    protected ?DateTime $updatedAt = null;
 
     /**
      * @return ?DateTime
