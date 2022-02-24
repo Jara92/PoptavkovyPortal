@@ -111,10 +111,16 @@ class Inquiry
      */
     private Collection $attachments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="inquiry", orphanRemoval=true)
+     */
+    private Collection $offers;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function getDescription(): string
@@ -314,6 +320,36 @@ class Inquiry
             // set the owning side to null (unless already changed)
             if ($attachment->getInquiry() === $this) {
                 $attachment->setInquiry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setInquiry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getInquiry() === $this) {
+                $offer->setInquiry(null);
             }
         }
 

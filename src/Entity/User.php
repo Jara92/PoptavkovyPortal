@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\Offer;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
@@ -100,9 +101,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Profile $profile;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="author", orphanRemoval=true)
+     */
+    private Collection $offers;
+
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
+        $this->offers = new ArrayCollection();
     }
 
     public function getPhone(): ?string
@@ -326,6 +333,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfile(Profile $profile): User
     {
         $this->profile = $profile;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offer>
+     */
+    public function getOffers(): Collection
+    {
+        return $this->offers;
+    }
+
+    public function addOffer(Offer $offer): self
+    {
+        if (!$this->offers->contains($offer)) {
+            $this->offers[] = $offer;
+            $offer->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffer(Offer $offer): self
+    {
+        if ($this->offers->removeElement($offer)) {
+            // set the owning side to null (unless already changed)
+            if ($offer->getAuthor() === $this) {
+                $offer->setAuthor(null);
+            }
+        }
+
         return $this;
     }
 }
