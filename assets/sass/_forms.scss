@@ -25,6 +25,10 @@
   padding: 0;
 }
 
+.invalid-feedback {
+  font-size: 90%;
+}
+
 /* Required mark after labels */
 label.required:after {
   content: "*";
