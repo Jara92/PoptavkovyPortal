@@ -4,9 +4,9 @@
 
 {% block content %}
     <section class="content profile-settings">
-        <div class="container">
-            <div class="row profile-dashboard">
-                <div class="col-md-3 profile-menu">
+        <div class="container col-lg-8">
+            <div class="row cardbox">
+                <div class="col-md-3 cardbox-siderbar profile-menu">
                     <nav class="list-group list-group-flush">
                         <div class="dropdown mb-2 profile-intro">
                             <a href="#"
@@ -77,7 +77,7 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="card col-md-9 profile-content">
+                <div class="col-md-9 profile-content">
                     <h2>{% block tab_title %}{% endblock %}</h2>
                     {% block tab_content %}
                     {% endblock %}
