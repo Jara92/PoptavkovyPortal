@@ -28,6 +28,23 @@
   padding: 1rem;
 }
 
+.nav-tabs .nav-link.active {
+  border: none;
+  border-bottom: 2px solid $template;
+  color: $template;
+}
+
+/* Tabs */
+.nav-tabs {
+  margin-bottom: 5%;
+}
+
+.nav-tabs .nav-link {
+  font-weight: 600;
+  border: none;
+  color: #495057;
+}
+
 /* Card */
 .card {
   background: #fff;

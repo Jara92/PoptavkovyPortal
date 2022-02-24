@@ -4,7 +4,7 @@
     {% if is_granted("react", inquiry) %}
         <hr/>
         <div id="inquiry-contact-form">
-            <h3>{{ "offers.your_offer"|trans }}</h3>
+            <h3 class="fw-bold">{{ "offers.your_offer"|trans }}</h3>
             {% if form %}
                 {{ form_start(form) }}
                 {{ form_row(form.text) }}

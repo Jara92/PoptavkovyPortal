@@ -14,29 +14,67 @@
                     <hr/>
                     <p>{{ inquiry.description|nl2br }}</p>
 
-                    <section class="row inquiry-attachments">
-                        <h4>{{ "inquiries.attachments" |trans }}</h4>
-                        {# Display attachments if user is granted. #}
-                        {% if is_granted("view_attachments", inquiry) %}
-                            <ul class="">
-                                {% for attachment in inquiry.attachments %}
-                                    {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
-                                    <li class="col-sm-12 col-md-6">
-                                        <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
-                                           class="btn btn-link btn-download-attachment">
-                                            <i class="fa fa-paperclip"></i>
-                                            {{ attachment.title }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            {# TODO: Replace by translation with param #}
-                            <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}"
-                                                          class="btn-link">přihlaste</a>.
-                            </p>
-                        {% endif %}
-                    </section>
+                    <ul class="nav nav-tabs mb-1" id="inquiry-tab-menu" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="attachments-tab" data-bs-toggle="tab" href="#attachments"
+                               role="tab" aria-controls="attachments"
+                               aria-selected="true">
+                                <span class="fa fa-file-alt me-2"></span>{{ "inquiries.attachments"|trans }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="categories-tab" data-bs-toggle="tab" href="#categories"
+                               role="tab" aria-controls="categories" aria-selected="false">
+                                <span class="fa fa-folder me-2"></span>{{ "inquiries.categories"|trans }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tags-tab" data-bs-toggle="tab" href="#tags"
+                               role="tab" aria-controls="tags" aria-selected="false">
+                                <span class="fa fa-tags me-2"></span>{{ "inquiries.tags"|trans }}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content inquiry-tab p-2" id="inquiry-tab">
+                        <section class="tab-pane fade show active" id="attachments" role="tabpanel"
+                                 aria-labelledby="attachments-tab">
+                            <div class="row inquiry-attachments">
+                                {# Display attachments if user is granted. #}
+                                {% if is_granted("view_attachments", inquiry) %}
+                                    {% if inquiry.attachments|length > 0 %}
+                                        <ul class="atachments">
+                                            {% for attachment in inquiry.attachments %}
+                                                {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
+                                                <li class="col-sm-12 col-md-6">
+                                                    <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
+                                                       class="btn btn-link btn-download-attachment">
+                                                        <i class="fa fa-paperclip"></i>
+                                                        {{ attachment.title }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>{{ "inquiries.no_attachments_found"|trans }}</p>
+                                    {% endif %}
+                                {% else %}
+                                    {# TODO: Replace by translation with param #}
+                                    <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}"
+                                                                  class="btn-link">přihlaste</a>.
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </section>
+
+                        <section class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+
+                        </section>
+
+                        <section class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
+
+                        </section>
+                    </div>
 
                     {# Contact form #}
                     {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
@@ -61,12 +99,6 @@
                                         class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
                             </div>
                             <div class="value">{{ inquiry.createdAt|date("d.m.Y H:m") }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.author|user_anonymize }}</div>
                         </li>
                         <li class="col-md-6 col-lg-12">
                             <div class="title"><span
