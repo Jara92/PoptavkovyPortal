@@ -394,4 +394,6 @@ deadline:
 
 btn_save: "Uložit"
 btn_close: "Zavřít"
+
+"Invalid credentials.": "Špatné přihlašovací údaje."
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."

@@ -7,26 +7,27 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use function Symfony\Component\Translation\t;
 
 class LoginFormFactory
 {
-    protected FormFactoryInterface $formFactory;
-    protected AuthenticationUtils $authenticationUtils;
-
-    public function __construct(FormFactoryInterface $formFactory, AuthenticationUtils $authenticationUtils)
+    public function __construct(
+        private FormFactoryInterface $formFactory,
+        private AuthenticationUtils  $authenticationUtils,
+        private TranslatorInterface  $translator
+    )
     {
-        $this->formFactory = $formFactory;
-        $this->authenticationUtils = $authenticationUtils;
     }
 
-    public function createLoginForm():FormInterface
+    public function createLoginForm(): FormInterface
     {
         $form = $this->formFactory->create(LoginForm::class);
         $form->get('_username')->setData($this->authenticationUtils->getLastUsername());
         // TODO: set "remember_me" too
 
         if ($error = $this->authenticationUtils->getLastAuthenticationError()) {
-            $form->addError(new FormError($error->getMessage()));
+            $form->addError(new FormError($this->translator->trans($error->getMessageKey())));
         }
 
         return $form;
