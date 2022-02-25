@@ -1,0 +1,19 @@
+{% extends "email/inquiry/offer_inquiring.html.twig" %}
+
+{% block style %}
+    {{ parent() }}
+
+    <style>
+        .message p, .message h1, .message h2, .message h3, .message h4, .message ul, .message li {
+            color: rgba(64, 64, 64, 0.8);
+        }
+    </style>
+{% endblock %}
+
+{# @var offer \App\Entity\Inquiry\Offer #}
+{% block body %}
+    <p>== {{ "offers.this_is_a_copy_of_your_offer"|trans }} ==</p>
+    <div class="message">
+        {{ parent() }}
+    </div>
+{% endblock %}

@@ -253,22 +253,55 @@ class InquiryOperation
         return $this->offerFactory->createOffer($user, $inquiry);
     }
 
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
     public function sendOffer(Offer $offer, bool $sendCopy = false)
     {
         $this->offerService->create($offer);
 
-        $this->sendOfferEmail($offer);
+        // Notification email to the inquiry author.
+        $this->sendOfferEmailToInquiring($offer);
 
-        // TODO send emails
+        // Send copy to offer author.
+        if ($sendCopy) {
+            $this->sendOfferEmailToSupplier($offer);
+        }
     }
 
-    public function sendOfferEmail(Offer $offer)
+    /**
+     * Sends an email to the inquiring of the offer inquriry.
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
+    private function sendOfferEmailToInquiring(Offer $offer)
     {
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
             ->to($offer->getInquiry()->getAuthor()->getEmail())
             ->subject($this->translator->trans("offers.new_inquiry_offer") . " #" . $offer->getInquiry()->getId())
             ->htmlTemplate('email/inquiry/offer_inquiring.html.twig')
+            ->context(["offer" => $offer]);
+
+        $this->mailer->send($email);
+    }
+
+    /**
+     * Sends an email to the supplier of the offer.
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
+    private function sendOfferEmailToSupplier(Offer $offer)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
+            ->to($offer->getAuthor()->getEmail())
+            ->subject($this->translator->trans("offers.new_inquiry_offer_copy") . " #" . $offer->getInquiry()->getId())
+            ->htmlTemplate('email/inquiry/offer_supplier.html.twig')
             ->context(["offer" => $offer]);
 
         $this->mailer->send($email);

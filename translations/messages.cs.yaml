@@ -300,6 +300,8 @@ inquiries:
 offers:
   your_offer: "Nabídněte:"
   new_inquiry_offer: "Nová nabídka na poptávku"
+  new_inquiry_offer_copy: "Kopie nabídky na poptávku"
+  this_is_a_copy_of_your_offer: "Toto je kopie Vaší nabídky"
 
   field_text: "Text nabídky"
   field_text_ph: "Text nabídky by měl obsahovat důležité informace k realizaci poptávky, zejména: termín, cena a způsob realizace."
