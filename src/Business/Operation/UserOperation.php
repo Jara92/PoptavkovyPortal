@@ -7,10 +7,12 @@ use App\Business\Service\UserService;
 use App\Entity\Inquiry\Subscription;
 use App\Entity\Profile;
 use App\Entity\User;
+use App\Enum\Entity\InquiryType;
 use App\Enum\Entity\UserType;
 use App\Enum\Entity\UserRole;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
+use App\Factory\Inquiry\SubscriptionFactory;
 use App\Factory\ProfileFactory;
 use App\Form\User\CompanySettingsForm;
 use App\Form\User\PersonSettingsForm;
@@ -22,7 +24,8 @@ class UserOperation
         private UserService                 $userService,
         private ProfileService              $profileService,
         private UserPasswordHasherInterface $passwordHasher,
-        private ProfileFactory              $profileFactory
+        private ProfileFactory              $profileFactory,
+        private SubscriptionFactory         $subscriptionFactory
     )
     {
     }
@@ -45,9 +48,25 @@ class UserOperation
         // Create a public profile
         $user->setProfile($this->profileFactory->createPublicProfile());
 
-        $user->setSubscription(new Subscription());
+        // Set subscription
+        $user->setSubscription($this->getDefaultSubscription($user));
 
         return $this->userService->create($user);
+    }
+
+    /**
+     * Creates a subscription with default options.
+     * @param User $user
+     * @return Subscription|null
+     */
+    public function getDefaultSubscription(User $user): ?Subscription
+    {
+        // Only companies have subscription.
+        if ($user->isType(UserType::COMPANY)) {
+            return $this->subscriptionFactory->createSubscription(InquiryType::cases(), false, [], []);
+        }
+
+        return null;
     }
 
     /**
