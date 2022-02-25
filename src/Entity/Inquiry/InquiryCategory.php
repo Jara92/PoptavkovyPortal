@@ -37,9 +37,15 @@ class InquiryCategory
      */
     protected Collection $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories")
+     */
+    private $subscriptions;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getDescription(): ?string
@@ -91,6 +97,33 @@ class InquiryCategory
             if ($child->getParent() === $this) {
                 $child->setParent(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+            $subscription->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            $subscription->removeCategory($this);
         }
 
         return $this;

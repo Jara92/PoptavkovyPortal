@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\Offer;
+use App\Entity\Inquiry\Subscription;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
@@ -105,6 +106,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="author", orphanRemoval=true)
      */
     private Collection $offers;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Subscription::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private ?Subscription $subscription;
 
     public function __construct()
     {
@@ -362,6 +368,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $offer->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(Subscription $subscription): self
+    {
+        $this->subscription = $subscription;
 
         return $this;
     }

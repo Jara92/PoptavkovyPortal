@@ -4,6 +4,7 @@ namespace App\Business\Operation;
 
 use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
+use App\Entity\Inquiry\Subscription;
 use App\Entity\Profile;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
@@ -43,6 +44,8 @@ class UserOperation
 
         // Create a public profile
         $user->setProfile($this->profileFactory->createPublicProfile());
+
+        $user->setSubscription(new Subscription());
 
         return $this->userService->create($user);
     }
