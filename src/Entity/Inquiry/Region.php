@@ -2,7 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
-use App\Entity\Traits\IdTrait;
+use App\Entity\AEntity;
 use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\Inquiry\RegionRepository;
@@ -13,10 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
  */
-class Region
+class Region extends AEntity
 {
-    use IdTrait;
-
     use TitleTrait;
 
     use OrderingTrait;

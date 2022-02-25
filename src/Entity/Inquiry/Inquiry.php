@@ -2,8 +2,8 @@
 
 namespace App\Entity\Inquiry;
 
+use App\Entity\AEntity;
 use App\Entity\Traits\AliasTrait;
-use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
@@ -20,11 +20,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Inquiry
+class Inquiry extends AEntity
 {
     use TimeStampTrait;
-
-    use IdTrait;
 
     use TitleTrait;
 

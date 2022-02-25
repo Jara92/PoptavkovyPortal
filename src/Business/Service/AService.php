@@ -2,6 +2,7 @@
 
 namespace App\Business\Service;
 
+use App\Entity\AEntity;
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,7 +87,7 @@ class AService implements ICrudService
      * @param E $entity
      * @return boolean Success.
      */
-    public function create(mixed $entity): bool
+    public function create(AEntity $entity): bool
     {
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
@@ -111,11 +112,25 @@ class AService implements ICrudService
     }
 
     /**
+     * Create an entity or update it if exists.
+     * @param AEntity $entity
+     * @return bool
+     */
+    public function createOrUpdate(AEntity $entity): bool
+    {
+        if ($entity->getId()) {
+            return $this->update($entity);
+        }
+
+        return $this->create($entity);
+    }
+
+    /**
      * Update an entity.
      * @param E $entity
      * @return boolean Success.
      */
-    public function update(mixed $entity): bool
+    public function update(AEntity $entity): bool
     {
         $this->entityManager->persist($entity);
         $this->entityManager->flush();

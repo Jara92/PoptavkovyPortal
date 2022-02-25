@@ -2,17 +2,15 @@
 
 namespace App\Entity\Inquiry;
 
-use App\Entity\Traits\IdTrait;
+use App\Entity\AEntity;
 use App\Repository\Inquiry\PersonalContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PersonalContactRepository::class)
  */
-class PersonalContact
+class PersonalContact extends AEntity
 {
-    use IdTrait;
-
     /**
      * @ORM\Column(type="string", length=64)
      */

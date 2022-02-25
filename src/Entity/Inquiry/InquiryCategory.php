@@ -2,6 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
+use App\Entity\AEntity;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TitleTrait;
@@ -14,10 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=InquiryCategoryRepository::class)
  */
-class InquiryCategory
+class InquiryCategory extends AEntity
 {
-    use IdTrait;
-
     use TitleTrait;
 
     use AliasTrait;

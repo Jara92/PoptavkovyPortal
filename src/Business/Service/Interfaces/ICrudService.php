@@ -2,6 +2,8 @@
 
 namespace App\Business\Service\Interfaces;
 
+use App\Entity\AEntity;
+
 /**
  * CRUD service interface.
  * @template E
@@ -41,14 +43,21 @@ interface ICrudService
      * @param E $entity
      * @return boolean Success.
      */
-    public function create(mixed $entity): bool;
+    public function create(AEntity $entity): bool;
+
+    /**
+     * Create a new entity or update if exists.
+     * @param AEntity $entity
+     * @return bool
+     */
+    public function createOrUpdate(AEntity $entity): bool;
 
     /**
      * Update an entity.
      * @param E $entity
      * @return boolean Success.
      */
-    public function update(mixed $entity): bool;
+    public function update(AEntity $entity): bool;
 
     /**
      * @param K $id

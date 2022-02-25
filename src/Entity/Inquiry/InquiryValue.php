@@ -2,6 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
+use App\Entity\AEntity;
 use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\OrderingTrait;
 use App\Entity\Traits\TitleTrait;
@@ -11,10 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=InquiryValueRepository::class)
  */
-class InquiryValue
+class InquiryValue extends AEntity
 {
-    use IdTrait;
-
     use TitleTrait;
 
     use OrderingTrait;

@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\Offer;
 use App\Entity\Inquiry\Subscription;
-use App\Entity\Traits\IdTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
 use App\Enum\Entity\UserType;
@@ -23,10 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields={"email"}, message="email_already_registred")
  * @ORM\HasLifecycleCallbacks
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User extends AEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use IdTrait;
-
     use TimeStampTrait;
 
     public function __toString()

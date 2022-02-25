@@ -2,7 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
-use App\Entity\Traits\IdTrait;
+use App\Entity\AEntity;
 use App\Entity\Traits\TimeStampTrait;
 use App\Entity\User;
 use App\Repository\Inquiry\OfferRepository;
@@ -13,9 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=OfferRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class Offer
+class Offer extends AEntity
 {
-    use IdTrait;
     use TimeStampTrait;
 
     /**

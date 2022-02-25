@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\IdTrait;
 use App\Repository\User\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,10 +9,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
  */
-class Company
+class Company extends AEntity
 {
-    use IdTrait;
-
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank

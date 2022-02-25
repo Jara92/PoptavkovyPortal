@@ -2,7 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
-use App\Entity\Traits\IdTrait;
+use App\Entity\AEntity;
 use App\Entity\Traits\TitleTrait;
 use App\Repository\Inquiry\InquiryAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,10 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=InquiryAttachmentRepository::class)
  */
-class InquiryAttachment
+class InquiryAttachment extends AEntity
 {
-    use IdTrait;
-
     use TitleTrait;
 
     /**

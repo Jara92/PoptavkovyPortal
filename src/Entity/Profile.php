@@ -3,18 +3,15 @@
 namespace App\Entity;
 
 use App\Entity\Traits\AliasTrait;
-use App\Entity\Traits\IdTrait;
 use App\Repository\User\ProfileRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProfileRepository::class)
  */
-class Profile
+class Profile extends AEntity
 {
-    use IdTrait;
-
-   // use AliasTrait;
+    // use AliasTrait;
 
     /**
      * @ORM\Column(type="text", nullable=true)
