@@ -23,11 +23,7 @@
         {% endif %}
     </ul>
 
-    <p>--</p>
-    <p>S přáním pěkného dne,<br/>
-        Tým <a href="{{ url("home") }}">{{ "app.name"|trans }}</a><br/>
-        Email: {{ "app.email"|trans }}<br/>
-    </p>
+    {% include "email/layout/signature.html.twig" %}
 
     <hr/>
     <footer>

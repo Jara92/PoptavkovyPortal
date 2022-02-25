@@ -1,0 +1,26 @@
+{% include "email/base.html.twig" %}
+
+{% block style %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center">Ověřte svou emailovou adresu</h1>
+    <hr/>
+
+    <p>Dobrý den,<br/>
+        Děkujeme za Vaši registrace na {{ "app.name"|trans }}.</p>
+
+    <p>
+        Pro dokončení Vaší registrace, klikněte, prosím, během 24 hodin na následující tlačítko:<br/><br/>
+
+        {# Tento odkaz je platný {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}. #}
+    </p>
+
+    <a class="btn btn-primary btn-center" style="font-size: 1.5rem;" href="{{ signedUrl }}">Ověřit email</a>
+
+    {% include "email/layout/signature.html.twig" %}
+
+{% endblock %}

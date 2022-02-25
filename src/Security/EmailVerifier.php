@@ -6,28 +6,24 @@ use App\Business\Service\UserService;
 use App\Entity\User;
 use App\Enum\Entity\UserRole;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
 {
-    protected VerifyEmailHelperInterface $verifyEmailHelper;
-    protected MailerInterface $mailer;
-    protected EntityManagerInterface $entityManager;
-    /** @required */
-    public UserService $userService;
-
-    public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
+    public function __construct(
+        private UserService                $userService,
+        private VerifyEmailHelperInterface $verifyEmailHelper,
+        private MailerInterface            $mailer,
+        private TranslatorInterface        $translator
+    )
     {
-        $this->verifyEmailHelper = $helper;
-        $this->mailer = $mailer;
-        $this->entityManager = $manager;
     }
 
     protected function createVerificationEmail(User $user): TemplatedEmail
@@ -35,8 +31,8 @@ class EmailVerifier
         return (new TemplatedEmail())
             ->from(new Address('info@poptejsi.cz', 'Poptejsi.cz'))
             ->to($user->getEmail())
-            ->subject('Please Confirm your Email')
-            ->htmlTemplate('auth/confirmation_email.html.twig');
+            ->subject($this->translator->trans("auth.confirm_your_email"))
+            ->htmlTemplate('email/auth/confirmation.html.twig');
     }
 
     /**
