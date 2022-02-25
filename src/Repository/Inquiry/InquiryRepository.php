@@ -12,6 +12,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Tools\Pagination\PaginationData;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Inquiry|null find($id, $lockMode = null, $lockVersion = null)
@@ -67,7 +68,15 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
 
         // Filter by regions - One of inquiry category must be in categories array.
         if (!empty($filter->getCategories())) {
-            // TODO: Filter by categories
+            // TODO: this way may be a performance problem later.
+            $queryBuilder->innerJoin("i.categories", "cat");
+
+            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            // Category directly
+                $queryBuilder->expr()->in("cat", ":categories"),
+                // Inquiries usually contain categories with a parent category. We need to filter by the parent too.
+                $queryBuilder->expr()->in("cat.parent", ":categories"),
+            ))->setParameter("categories", $filter->getCategories());
         }
 
         // We need to get string array not InquiryState object array.
