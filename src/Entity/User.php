@@ -197,7 +197,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         $itemKey = array_search($role->value, $this->roles);
 
         // Remove the item if exists
-        if ($itemKey) {
+        if ($itemKey >= 0) {
             unset($this->roles[$itemKey]);
             // reindex the array.
             $this->roles = array_values($this->roles);
