@@ -1,30 +1,35 @@
 {% extends "email/base.html.twig" %}
 
+{% block style %}
+
+{% endblock %}
+
 {# @var offer \App\Entity\Inquiry\Offer #}
 {% block body %}
-    <p>Dobrý den,<br/>
-        na základě vaší poptávky <a
-                href="{{ url("inquiries/detail", {"alias":offer.inquiry.alias}) }}">#{{ offer.inquiry.id }}</a> Vám náš
-        dodavatel zasílá nabídku. </p>
-    <p>Pro více informací o dodavateli si zobrazte dodavatelův profil <a
+    <p>Dobrý den, <br/><br/>
+        na základě Vaší poptávky <a
+                href="{{ url("inquiries/detail", {"alias":offer.inquiry.alias}) }}">{{ offer.inquiry.title }}</a>
+        Vám náš dodavatel zasílá nabídku. </p>
+    <p>Pro více informací o dodavateli si zobrazte jeho profil <a
                 href="{{ url("profiles/detail", {"profileId":offer.author.id }) }}">{{ offer.author|user_name }}</a>.
     </p>
-    <h2>Text nabídky</h2>
-    <p>{{ offer.text }}</p>
+    <h3>Text nabídky:</h3>
+    <p>{{ offer.text|nl2br }}</p>
     <h3>Pro více informací můžete dodavatele přímo kontaktovat:</h3>
     <ul>
         <li>Email: <a href="mailto:{{ offer.author.email }}">{{ offer.author.email }}</a></li>
         {% if offer.author.phone %}
-            <li>Phone: <a href="tel:{{ offer.author.phone }}">{{ offer.author.phone }}</a></li>
+            <li>Tel.: <a href="tel:{{ offer.author.phone }}">{{ offer.author.phone }}</a></li>
         {% endif %}
     </ul>
 
-    <hr/>
-    <p>S přáním pěkného dne,
+    <p>--</p>
+    <p>S přáním pěkného dne,<br/>
         Tým <a href="{{ url("home") }}">{{ "app.name"|trans }}</a><br/>
         Email: {{ "app.email"|trans }}<br/>
     </p>
 
+    <hr/>
     <footer>
         <p>Tento email jste obdržel na základě Vašeho souhlasu při zveřejnění poptávky na serveru <a
                     href="{{ url("home") }}">{{ "app.name"|trans }}</a>.</p>

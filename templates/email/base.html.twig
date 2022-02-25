@@ -1,2 +1,30 @@
-{% block body %}
-{% endblock %}
+{# Some clients requires CSS to be inlined. This is handled by inline_css macro. #}
+{% apply inline_css %}
+    <style>
+        body {
+            font-family: "Nunito", sans-serif;
+            line-height: 1.4rem;
+        }
+
+        a {
+            color: #2f2fa2;
+        }
+
+        hr {
+            border: 0;
+            height: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        footer p {
+            color: rgba(64, 64, 64, 0.6);
+        }
+    </style>
+
+    {# CSS overrides #}
+    {% block style %}{% endblock %}
+
+    {# Email body #}
+    {% block body %}{% endblock %}
+{% endapply %}
