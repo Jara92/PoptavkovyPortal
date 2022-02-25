@@ -12,7 +12,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Tools\Pagination\PaginationData;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Inquiry|null find($id, $lockMode = null, $lockVersion = null)
@@ -37,17 +36,17 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
      */
     public function findByFilter(InquiryFilter $filter, PaginationData $paginationData): array
     {
-        $queryBuilder = $this->createQueryBuilder("i");
+        $qb = $this->createQueryBuilder("i");
 
         // Filter by author
         if ($filter->getAuthor()) {
-            $queryBuilder->andWhere($queryBuilder->expr()->eq("i.author", ":author"))
+            $qb->andWhere($qb->expr()->eq("i.author", ":author"))
                 ->setParameter("author", $filter->getAuthor());
         }
 
         // Filter by text
         if ($filter->getText()) {
-            $queryBuilder->andWhere($queryBuilder->expr()->like("i.title", ":text"))
+            $qb->andWhere($qb->expr()->like("i.title", ":text"))
                 ->setParameter("text", "%" . $filter->getText() . "%");
         }
 
@@ -56,26 +55,26 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
 
         // Filter by types - Inquiry type must be in types array.
         if (!empty($filter->getTypes())) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in("i.type", ":types"))
+            $qb->andWhere($qb->expr()->in("i.type", ":types"))
                 ->setParameter("types", $types);
         }
 
         // Filter by regions - Inquiry region must be in types array.
         if (!empty($filter->getRegions())) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in("i.region", ":regions"))
+            $qb->andWhere($qb->expr()->in("i.region", ":regions"))
                 ->setParameter("regions", $filter->getRegions());
         }
 
         // Filter by regions - One of inquiry category must be in categories array.
         if (!empty($filter->getCategories())) {
             // TODO: this way may be a performance problem later.
-            $queryBuilder->innerJoin("i.categories", "cat");
+            $qb->innerJoin("i.categories", "cat");
 
-            $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            $qb->andWhere($qb->expr()->orX(
             // Category directly
-                $queryBuilder->expr()->in("cat", ":categories"),
+                $qb->expr()->in("cat", ":categories"),
                 // Inquiries usually contain categories with a parent category. We need to filter by the parent too.
-                $queryBuilder->expr()->in("cat.parent", ":categories"),
+                $qb->expr()->in("cat.parent", ":categories"),
             ))->setParameter("categories", $filter->getCategories());
         }
 
@@ -84,12 +83,12 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
 
         // Filter by state - Inquiry state must be in states array.
         if (!empty($filter->getStates())) {
-            $queryBuilder->andWhere($queryBuilder->expr()->in("i.state", ":states"))
+            $qb->andWhere($qb->expr()->in("i.state", ":states"))
                 ->setParameter("states", $states);
         }
 
         // Get final query
-        $query = $queryBuilder->getQuery();
+        $query = $qb->getQuery();
 
         // Paginate result
         $this->paginate($query, $paginationData);
