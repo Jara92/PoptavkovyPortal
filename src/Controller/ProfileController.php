@@ -91,8 +91,9 @@ class ProfileController extends AController
         // Handle form
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Update the profile
-            $this->profileService->update($profile);
+            $avatar = $form->get("avatar")->getData();
+
+            $this->userOperation->updateProfile($profile, $avatar);
 
             $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
         }

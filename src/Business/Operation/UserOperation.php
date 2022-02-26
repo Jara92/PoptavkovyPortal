@@ -16,6 +16,9 @@ use App\Factory\Inquiry\SubscriptionFactory;
 use App\Factory\ProfileFactory;
 use App\Form\User\CompanySettingsForm;
 use App\Form\User\PersonSettingsForm;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserOperation
@@ -25,7 +28,8 @@ class UserOperation
         private ProfileService              $profileService,
         private UserPasswordHasherInterface $passwordHasher,
         private ProfileFactory              $profileFactory,
-        private SubscriptionFactory         $subscriptionFactory
+        private SubscriptionFactory         $subscriptionFactory,
+        private ContainerBagInterface       $params,
     )
     {
     }
@@ -124,5 +128,36 @@ class UserOperation
         if (!$this->userService->update($user)) {
             throw new OperationFailedException();
         }
+    }
+
+    /**
+     * Updates profile data and saves new avatar.
+     * @param Profile $profile
+     * @param UploadedFile|null $avatar
+     * @return bool
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function updateProfile(Profile $profile, ?UploadedFile $avatar)
+    {
+        if ($avatar != null) {
+            $directory = $this->params->get("app.profiles.avatars_directory");
+            $newFilename = $profile->getUser()->getId() . "-" . uniqid() . "." . $avatar->guessExtension();
+
+            // Move the file to the directory where brochures are stored
+            try {
+                $avatar->move(
+                    $directory,
+                    $newFilename
+                );
+
+                $profile->setAvatar($newFilename);
+
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+        }
+
+        return $this->profileService->update($profile);
     }
 }

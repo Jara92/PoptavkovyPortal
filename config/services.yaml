@@ -8,6 +8,7 @@ parameters:
     app.email: "info@poptejsi.cz"
     app.items_per_page: 2
     app.inquiries.attachments_directory: '%kernel.project_dir%/public/uploads/inquiry-attachments'
+    app.profiles.avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 services:
     # default configuration for services in *this* file
     _defaults:

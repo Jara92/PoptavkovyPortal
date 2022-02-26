@@ -11,7 +11,8 @@
                 <div class="col-lg-4 pb-3 px-0">
                     <div class="profile-img">
                         {% if profile.avatar %}
-                            {# TODO: Add real avatar #}
+                            <img src="{{ asset("/uploads/avatars/"~profile.avatar) }}"
+                                 alt="{{ profile.user|user_anonymize }} avatar"/>
                         {% else %}
                             <img src="{{ asset("/build/img/profile/avatar_person.png") }}" alt="profile-img"/>
                         {% endif %}
