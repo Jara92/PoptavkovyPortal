@@ -144,7 +144,8 @@ class Subscription extends AEntity
      */
     public function getTypes(): array
     {
-        return $this->types;
+        // Convert string[] to InquiryType[]
+        return array_map(fn(string $value) => InquiryType::tryFrom($value), $this->types);
     }
 
     /**
@@ -153,7 +154,8 @@ class Subscription extends AEntity
      */
     public function setTypes(array $types): Subscription
     {
-        $this->types = $types;
+        // Convert InquiryType[] to string[]
+        $this->types = array_map(fn(InquiryType $type) => $type->value, $types);
         return $this;
     }
 
@@ -167,7 +169,7 @@ class Subscription extends AEntity
         $itemKey = array_search($type->value, $this->types);
 
         // Remove the item if exists
-        if ($itemKey) {
+        if ($itemKey >= 0) {
             unset($this->types[$itemKey]);
             // reindex the array.
             $this->types = array_values($this->types);
