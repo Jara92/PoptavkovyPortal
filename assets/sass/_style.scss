@@ -162,3 +162,9 @@ ul.sidebar-properties {
   border: 1px solid $template_dark;
   color: white
 }
+
+.btn-center {
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+}

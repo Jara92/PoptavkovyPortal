@@ -86,7 +86,7 @@ input.select2-search__field, input.select2-search__field:focus {
   box-shadow: none;
 }
 
-.select2-selection{
+.select2-selection {
   @extend .form-select;
 }
 
@@ -96,14 +96,18 @@ input.select2-search__field, input.select2-search__field:focus {
   box-shadow: none;
 }
 
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: $template;
+}
+
 .select2-selection .form-control, input.select2-search__field, input.select2-search__field:focus {
   padding: inherit;
 }
 
 .no-search .select2-search {
-  display:none
+  display: none
 }
 
-ul.select2-selection__rendered{
+ul.select2-selection__rendered {
   padding: 0;
 }
