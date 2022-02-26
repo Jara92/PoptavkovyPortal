@@ -35,4 +35,14 @@ class InquiryCategoryService extends AService
     {
         return $this->repository->findRootCategories($orderBy);
     }
+
+    /**
+     * Returns all categories with a parent category.
+     * @param array|string[] $orderBy
+     * @return InquiryCategory[]
+     */
+    public function readAllSubCategories(array $orderBy = ["parent" => "ASC", "title" => "ASC"]): array
+    {
+        return $this->repository->findSubCategories($orderBy);
+    }
 }

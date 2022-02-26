@@ -1,0 +1,9 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}{{ "subscriptions.settings"|trans }} | {{ parent() }}{% endblock %}
+
+{% block tab_title %}{{ "subscriptions.settings_desc"|trans }}{% endblock %}
+
+{% block tab_content %}
+    {{ form(form) }}
+{% endblock %}

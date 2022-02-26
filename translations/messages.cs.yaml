@@ -311,6 +311,19 @@ offers:
 
   msg_succesfully_send: "Nabídka byla úspěšně odeslána. Hodně štěstí!"
 
+subscriptions:
+  settings: "Nastavení odebíraných poptávek"
+  settings_desc: "Nastavení odebíraných poptávek"
+
+  field_newsletter: "Zasílat nové poptávky na email"
+  field_categories: "Oblasti, ve kterých podnikám"
+  field_regions: "Kraje, ve kterých jsem schopen poskytovat svoje služby"
+  field_types: "Typy poptávek, které mě zajímají"
+
+  btn_submit: "Uložit změny"
+
+  msg_settings_saved: "Změny byly úspěšně uloženy."
+
 #Profiles
 profiles:
   profiles: "Uživatelské profily"

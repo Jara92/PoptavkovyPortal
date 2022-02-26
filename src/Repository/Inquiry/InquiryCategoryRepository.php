@@ -30,6 +30,21 @@ class InquiryCategoryRepository extends ServiceEntityRepository implements IInqu
         return $this->findBy($criteria, $orderBy);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function findSubCategories(array $orderBy = []): array
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->andWhere($qb->expr()->isNotNull("c.parent"));
+
+        foreach ($orderBy as $key => $value) {
+            $qb->addOrderBy("c." . $key, $value);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return InquiryCategory[] Returns an array of InquiryCategory objects
     //  */

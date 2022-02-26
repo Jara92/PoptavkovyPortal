@@ -71,6 +71,11 @@ my-profile/edit-profile:
   controller: App\Controller\ProfileController::editMyProfile
   methods: GET|POST
 
+my-profile/edit-inquiry-subscriptions:
+  path: /muj-ucet/odber-poptavek
+  controller: App\Controller\SubscriptionController::editMySubscriptions
+  methods: GET|POST
+
 # Profiles
 profiles/detail:
   path: /profily/{profileId}

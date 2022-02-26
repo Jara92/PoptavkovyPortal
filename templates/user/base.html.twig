@@ -64,7 +64,8 @@
                             </li>
                             {% if is_granted("ROLE_SUPPLIER") %}
                                 <li class="list-group-item py-1">
-                                    <a href="" class="text-reset"><span
+                                    <a href="{{ path("my-profile/edit-inquiry-subscriptions") }}"
+                                       class="text-reset"><span
                                                 class="fas fa-bell me-2"></span>{{ "profiles.settings_inquiry_subscription"|trans }}
                                     </a>
                                 </li>
