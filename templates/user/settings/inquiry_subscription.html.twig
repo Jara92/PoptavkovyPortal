@@ -2,8 +2,30 @@
 
 {% block title %}{{ "subscriptions.settings"|trans }} | {{ parent() }}{% endblock %}
 
-{% block tab_title %}{{ "subscriptions.settings_desc"|trans }}{% endblock %}
+{% block styles %}
+    {{ parent() }}
+    {# Hide selected options #}
+    <style>
+        .select2-results__option--selected {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block tab_title %}{{ "subscriptions.settings_title"|trans }}{% endblock %}
 
 {% block tab_content %}
-    {{ form(form) }}
+    <p>{{ "subscriptions.settings_desc"|trans }}</p>
+    <div data-controller="inquiry-subscription">
+        {{ form_start(form) }}
+
+        {{ form_row(form.newsletter) }}
+        {{ form_row(form.categories, {"attr":{'data-inquiry-subscription-target':'categories'}}) }}
+        {{ form_row(form.regions, {"attr":{'data-inquiry-subscription-target':'regions'}}) }}
+        {{ form_row(form.types, {"attr":{'data-inquiry-subscription-target':'types'}}) }}
+
+        {{ form_row(form.submit) }}
+
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

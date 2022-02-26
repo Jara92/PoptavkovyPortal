@@ -313,7 +313,8 @@ offers:
 
 subscriptions:
   settings: "Nastavení odebíraných poptávek"
-  settings_desc: "Nastavení odebíraných poptávek"
+  settings_title: "Nastavení odebíraných poptávek"
+  settings_desc: "Zde si můžete nastavit, o jaké poptávky máte zájem. Na email Vám vždy budeme zasílat jen poptávky, které vyhovují Vašim požadavkům."
 
   field_newsletter: "Zasílat nové poptávky na email"
   field_categories: "Oblasti, ve kterých podnikám"
