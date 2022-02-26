@@ -36,7 +36,7 @@ class UserVoter extends AVoter
         $currentUser = $this->security->getUser();
 
         // SuperUser can do anything.
-        if ($this->security->isGranted(UserRole::SUPER_ADMIN->value)) {
+        if ($this->security->isGranted(UserRole::SUPER_ADMIN)) {
             return true;
         }
 

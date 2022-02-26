@@ -3,12 +3,13 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Enum\Entity\UserRole;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 
 class UserSecurity
 {
-    /** @required  */
+    /** @required */
     public Security $security;
 
     /**
@@ -37,13 +38,18 @@ class UserSecurity
     }
 
     /**
-     * Checks if the attributes are granted against the current authentication token and optionally supplied subject.
+     * Checks if the role are granted against the current authentication token and optionally supplied subject.
+     * @param UserRole $role
+     * @param mixed|null $subject
+     * @return bool
      */
-    public function isGranted(mixed $attributes, mixed $subject = null): bool{
-        return $this->security->isGranted($attributes, $subject);
+    public function isGranted(UserRole $role, mixed $subject = null): bool
+    {
+        return $this->security->isGranted($role->value, $subject);
     }
 
-    public function getToken(): ?TokenInterface{
+    public function getToken(): ?TokenInterface
+    {
         return $this->security->getToken();
     }
 }
