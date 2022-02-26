@@ -4,8 +4,37 @@
 
 {% block tab_title %}{{ "profiles.settings_profile"|trans }}{% endblock %}
 
+{% block styles %}
+
+{% endblock %}
+
+{# @var app->user \App\Entity\User #}
 {% block tab_content %}
     {{ form_start(form) }}
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <div class="avatar">
+                {# User defined avatar #}
+                {% if app.user.profile.avatar %}
+                    <img class="w-100" src="{{ asset("/uploads/avatars/"~app.user.profile.avatar) }}" alt="avatar"/>
+                    {# Default avatar - depends on user type #}
+                {% else %}
+                    <img class="w-100" src="{{ asset("/build/img/profile/avatar_"~app.user.type.value~".png") }}"
+                         alt="avatar"/>
+                {% endif %}
 
+                <div class="upload">
+                    {{ form_label(form.avatar) }}
+                    {{ form_widget(form.avatar, {"attr":{"hidden":true}}) }}
+                </div>
+            </div>
+            <div class="errors pt-2 text-center">
+                {{ form_errors(form.avatar) }}
+            </div>
+        </div>
+        <div class="col-md-8">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
     {{ form_end(form) }}
 {% endblock %}

@@ -361,7 +361,7 @@ profiles:
   msg_information_updated: "Nové údaje byly uloženy."
   msg_profile_is_private: "Tento profil je pro veřejnost nepřístupný."
 
-  field_avatar: "Profilová fotografie"
+  field_avatar: "Nahrát foto"
   field_description: "Něco o Vás"
   field_web: "Odkaz na Vaše webové stránky"
   field_facebook: "Odkaz na Váš Facebookový profil"

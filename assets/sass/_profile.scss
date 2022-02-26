@@ -107,3 +107,38 @@
     color: $template;
   }
 }
+
+.profile-settings {
+  .avatar {
+    position: relative;
+  }
+
+  .avatar .upload {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0.5rem;
+  }
+
+  .avatar .upload input {
+    opacity: 0;
+  }
+
+  .avatar .upload label {
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    background: $template;
+    opacity: 0.9;
+    font-weight: bold;
+  }
+
+  .avatar .upload label:hover {
+    text-decoration: underline;
+    background: $template_dark;
+  }
+}
