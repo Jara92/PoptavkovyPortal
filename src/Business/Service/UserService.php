@@ -27,4 +27,14 @@ class UserService extends AService
         parent::__construct($userRepository);
         $this->userFactory = $userFactory;
     }
+
+    /**
+     * Returns user by email.
+     * @param string $email
+     * @return User|null
+     */
+    public function readByEmail(string $email): ?User
+    {
+        return $this->repository->findOneBy(["email" => $email]);
+    }
 }
