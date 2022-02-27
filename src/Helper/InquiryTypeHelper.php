@@ -26,8 +26,18 @@ class InquiryTypeHelper
      */
     public static function translationCases(): array
     {
+        return self::convertToTranslationCases(InquiryType::cases());
+    }
+
+    /**
+     * Converts $types array to format [translation_key => InquiryType->value]
+     * @param InquiryType[] $types
+     * @return array
+     */
+    public static function convertToTranslationCases(array $types): array
+    {
         return ArrayHelper::asociativeArrayMap(
-            InquiryType::cases(),
+            $types,
             fn(InquiryType $type) => self::INQUIRY_TYPE_PREFIX . $type->value,
             fn(InquiryType $type) => $type);
     }
