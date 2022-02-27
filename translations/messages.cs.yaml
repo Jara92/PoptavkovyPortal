@@ -55,6 +55,9 @@ auth:
   already_registered: "Už u nás máte účet?"
   already_logged_in: "Už jste přihlášen."
   not_registred_yet: "Ještě nemáte účet?"
+  email_not_registered: "Tento email u nás není registrován."
+  user_already_verified: "Tento účet už je ověřený! Můžete se přihlásit."
+  verification_email_resend_short_delay: "Tuto akci lze znovu provést až za %seconds% sekund."
 
   btn_register_person: "Soukromá registrace"
   btn_register_company: "Firemní registrace"
@@ -67,6 +70,7 @@ auth:
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
   msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   msg_link_expired: "Použitý odkaz pro ověření vypršel a proto jsme Vám na email odeslali nový."
+  msg_verification_email_resend_success: "Ověřovací email byl úspěšně odeslán"
   confirm_your_email: "Poptejsi.cz - vyžadováno ověření"
 
   field_remember_me: "Pamatuj si mě"

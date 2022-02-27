@@ -10,17 +10,24 @@
 
 {% block content %}
     <section class="content auth-resend-verification">
-        <div class="container-sm col-lg-6">
+        <div class="container-sm col-lg-6 col-md-8">
             <section class="row cardbox">
                 <div class="col-md-8 pt-2 cardbox-item">
                     <h1 class="text-center">{{ "auth.verification_troubles"|trans }}</h1>
                     <p class="text-justify">{{ "auth.verification_troubles_desc"|trans }}</p>
 
                     <div class="w-75 btn-center">
-                        {{ form(form) }}
+                        {{ form_start(form) }}
+                        <div class="errors">
+                            {{ form_errors(form) }}
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
                 <div class="col-md-4 cardbox-siderbar">
+                    <div class="text-center mb-4">
+                        <span class="fa fa-8x fa-headset text-center"></span>
+                    </div>
                     <p class="">
                         {{ "auth.verification_still_troubles.1"|trans }}
                         <a class="btn-link" style="color:white;text-decoration: underline;"
