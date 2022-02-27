@@ -110,12 +110,12 @@ app_register_company:
 
 app_verify_email:
   path: /overeni-emailu
-  controller: App\Controller\Auth\RegistrationController::verifyUserEmail
+  controller: App\Controller\Auth\UserVerificationController::verifyUserEmail
   methods: GET
 
 app_verify_form:
   path: /potize-s-overenim-emailu
-  controller: App\Controller\Auth\UserVerificationController::verification
+  controller: App\Controller\Auth\UserVerificationController::resendVerification
   methods: GET|POST
 
 app_logout:

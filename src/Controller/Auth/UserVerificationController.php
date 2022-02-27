@@ -16,9 +16,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\ExpiredSignatureException;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class UserVerificationController extends AController
 {
+    const AFTER_VERIFY_ERROR_REDIRECT = 'home';
+    const AFTER_VERIFY = "app_login";
+
     public function __construct(
         private UserService         $userService,
         private UserSecurity        $security,
@@ -28,12 +33,51 @@ class UserVerificationController extends AController
     {
     }
 
+    public function verifyUserEmail(Request $request): Response
+    {
+        $id = $request->get('id');
+
+        // Invalid ID
+        if ($id == null) {
+            return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
+        }
+
+        // Check if exists a user with the given $id.
+        $user = $this->userService->readById($id);
+        if ($user == null) {
+            $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("auth.user_not_registered"));
+            return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
+        }
+
+        // Validate email confirmation link, sets User::isVerified=true and persists
+        try {
+            $this->emailVerifier->handleEmailConfirmation($request, $user);
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans('auth.successfully_verified'));
+
+            return $this->redirectToRoute(self::AFTER_VERIFY);
+        } // Link expired - display warning and redirect verification email generating form.
+        catch (ExpiredSignatureException $exception) {
+            // Show flash notification and redirect to new link generation form.
+            $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("auth.msg_link_expired"));
+            return $this->redirectToRoute("app_verify_form");
+        } // User is already vefified - display warning and redirect to login page
+        catch (UserAlreadyVerifiedException $exception) {
+            $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("auth.user_already_verified"));
+            return $this->redirectToRoute("app_login");
+        } // Other verification exceptions.
+        catch (VerifyEmailExceptionInterface $exception) {
+            $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans($exception->getReason()));
+        }
+
+        return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
+    }
+
     /**
      * Display and handle form for resending a verification email.
      * @param Request $request
      * @return Response
      */
-    public function verification(Request $request): Response
+    public function resendVerification(Request $request): Response
     {
         // Check if the user is already logged in
         if ($this->security->isLoggedIn()) {
