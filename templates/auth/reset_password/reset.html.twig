@@ -2,18 +2,12 @@
 
 {% block title %}{{ "auth.reset_password"|trans }} | {{ parent() }}{% endblock %}
 
-{% block styles %}
-    <style>
-
-    </style>
-{% endblock %}
-
 {% block content %}
     <section class="content auth-forgottern-password">
-        <div class="container-sm col-lg-6 col-md-8">
+        <div class="container-sm col-lg-4 col-md-8">
             <section class="row cardbox">
                 <div class="col-md-12 pt-2 cardbox-item">
-                    <h1 class="text-center">{{ "auth.reset_password"|trans }}</h1>
+                    <h2 class="text-center"><span class="fas fa-key pe-2"></span>{{ "auth.reset_password"|trans }}</h2>
 
                     <div class="w-75 btn-center">
                         {{ form_start(form) }}

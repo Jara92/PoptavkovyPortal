@@ -1,19 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "auth.recover_password"|trans }} | {{ parent() }}{% endblock %}
-
-{% block styles %}
-    <style>
-
-    </style>
-{% endblock %}
+{% block title %}{{ "auth.reset_password"|trans }} | {{ parent() }}{% endblock %}
 
 {% block content %}
     <section class="content auth-forgottern-password">
-        <div class="container-sm col-lg-6 col-md-8">
+        <div class="container-sm col-lg-6 col-md-10">
             <section class="row cardbox">
                 <div class="col-md-8 pt-2 cardbox-item">
-                    <h1 class="text-center">{{ "auth.forgotten_password"|trans }}</h1>
+                    <h2 class="text-center"><span class="fas fa-key pe-2"></span>{{ "auth.forgotten_password"|trans }}
+                    </h2>
                     <p class="text-justify">{{ "auth.forgotten_password_desc"|trans }}</p>
 
                     <div class="w-75 btn-center">

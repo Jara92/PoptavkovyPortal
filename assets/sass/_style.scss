@@ -23,6 +23,12 @@
   overflow: hidden;
 }
 
+.cardbox h1, .cardbox h2, .cardbox h3 {
+  text-align: center;
+  color: $template;
+  font-weight: bold;
+}
+
 .cardbox > .cardbox-item {
   padding: 1rem;
 }
