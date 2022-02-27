@@ -93,11 +93,6 @@ app_register:
   controller: App\Controller\Auth\RegistrationController::index
   methods: GET|POST
 
-app_recover_password:
-    path: /obnova-hesla
-    controller: App\Controller\Auth\PasswordRecoveryController::recoverPassword
-    methods: GET|POST
-
 app_register_person:
     path: /registrace/soukromnik
     controller: App\Controller\Auth\RegistrationController::registerPerson
@@ -123,10 +118,22 @@ app_logout:
   controller: App\Controller\Auth\LogoutController::logout
   methods: GET
 
-app_forgotten_password:
+# Password reset request form.
+app_reset_password/request:
   path: /zapomenute-heslo
-  controller: App\Controller\Auth\ForgottenPasswordController::recover
+  controller: App\Controller\Auth\ResetPasswordController::request
   methods: GET|POST
+
+# Password reset form.
+app_reset_password/reset:
+  path: /zapomenute-heslo/obnova-hesla/{token?}
+  controller: App\Controller\Auth\ResetPasswordController::reset
+
+# Password reset link send view.
+app_reset_password/check:
+  path: /zapomenute-heslo/odeslano
+  controller: App\Controller\Auth\ResetPasswordController::checkEmail
+  methods: GET
 
 admin:
   path: /admin
