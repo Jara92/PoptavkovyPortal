@@ -2,7 +2,9 @@
 
 namespace App\Controller\Auth;
 
+use App\Controller\AController;
 use App\Entity\User;
+use App\Enum\FlashMessageType;
 use App\Form\Auth\ChangePasswordFormType;
 use App\Form\Auth\ResetPasswordRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,17 +23,16 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 #[Route('/reset-password')]
-class ResetPasswordController extends AbstractController
+class ResetPasswordController extends AController
 {
     use ResetPasswordControllerTrait;
 
-    private $resetPasswordHelper;
-    private $entityManager;
-
-    public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, EntityManagerInterface $entityManager)
+    public function __construct(
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private EntityManagerInterface       $entityManager,
+        private TranslatorInterface          $translator
+    )
     {
-        $this->resetPasswordHelper = $resetPasswordHelper;
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -95,7 +96,7 @@ class ResetPasswordController extends AbstractController
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
-            $this->addFlash('reset_password_error', sprintf(
+            $this->addFlashMessage(FlashMessageType::ERROR, sprintf(
                 '%s - %s',
                 $translator->trans(ResetPasswordExceptionInterface::MESSAGE_PROBLEM_VALIDATE, [], 'ResetPasswordBundle'),
                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
@@ -123,6 +124,8 @@ class ResetPasswordController extends AbstractController
 
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
+
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_password_sucessfully_reset"));
 
             return $this->redirectToRoute('app_login');
         }

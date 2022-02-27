@@ -82,6 +82,7 @@ auth:
   msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   msg_link_expired: "Použitý odkaz pro ověření vypršel a proto jsme Vám na email odeslali nový."
   msg_verification_email_resend_success: "Ověřovací email byl úspěšně odeslán"
+  msg_password_sucessfully_reset: "Vaše heslo bylo úspěšně obnoveno. Můžete se přihlásit."
   confirm_your_email: "Poptejsi.cz - vyžadováno ověření"
 
   field_remember_me: "Pamatuj si mě"
