@@ -40,7 +40,7 @@ auth:
   registration: "Registrace"
   password_change: "Změna hesla"
   resend_verification: "Ověření emailu"
-  verification_troubles: "Potíže při ověření emailu?"
+  verification_troubles: "Potíže s ověřením emailu?"
   verification_troubles_desc: "Pokud Vám ověřovací email nedorazil, nezoufejte. Zkontrolujte složku SPAM ve Vaší emailové schránce.
   Pokud jste email přesto nenašli, můžete si nechat zaslat nový pomocí následujícího formuláře:"
   verification_still_troubles.1: "Stále máte potíže? Můžete kontaktovat naši technickou podporu na email "
@@ -54,7 +54,12 @@ auth:
 
   already_registered: "Už u nás máte účet?"
   already_logged_in: "Už jste přihlášen."
-  not_registred_yet: "Ještě nemáte účet?"
+  not_registred_yet:
+    1: "Ještě u nás nemáte účet?"
+    2: "Registrujte se"
+  not_verified_yet:
+    1: "Potíže s ověřením? Nechte si "
+    2: "zaslat nový ověřovací email"
   email_not_registered: "Tento email u nás není registrován."
   user_not_registered: "Tento účet nebyl registrován."
   user_already_verified: "Tento účet už je ověřený! Můžete se přihlásit."

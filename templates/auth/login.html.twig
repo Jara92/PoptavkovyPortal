@@ -10,9 +10,9 @@
 
 {% block content %}
     <section class="content auth-login">
-        <div class="container login-container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 login-form">
+        <div class="container col-lg-4 col-md-8">
+            <section class="row cardbox">
+                <div class="login-form">
                     <h2><span class="fas fa-key pe-2"></span>{{ "auth.login"|trans }}</h2>
                     {{ form_start(form) }}
                     {# Style errors. #}
@@ -27,28 +27,40 @@
                         {{ form_row(form._password, {'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="form-group">
-                        {{ form_row(form._remember_me, {'attr': {'class': 'form-control'}}) }}
+                        <div class="row">
+                            <div class="col-6">
+                                {{ form_row(form._remember_me, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="col-6">
+                                <a href="{{ path("app_recover_password") }}"
+                                   class="btn-link float-end btn-lost-password">
+                                    {{ "auth.btn_forgotten_password"|trans }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group mb-4">
                         {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary btn-login'}}) }}
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 pb-2">
-                            <a href="{{ path("app_recover_password") }}" class="btn-link btn-lost-password">
-                                {{ "auth.btn_forgotten_password"|trans }}
-                            </a>
+                    <div class="row text-center">
+                        <div class="col-md-12 mb-2">
+                            <span>{{ "auth.not_registred_yet.1"|trans }}</span>
+                            <a href="{{ path("app_register") }}" class="btn-link btn-not-registred">
+                                {{ "auth.not_registred_yet.2"|trans }}
+                            </a>.
                         </div>
                         <div class="col-md-12">
-                            <a href="{{ path("app_register") }}" class="btn-link btn-not-registred">
-                                {{ "auth.not_registred_yet"|trans }}
-                            </a>
+                            <span>{{ "auth.not_verified_yet.1"|trans }}</span>
+                            <a href="{{ path("app_verify_form") }}" class="btn-link btn-not-registred">
+                                {{ "auth.not_verified_yet.2"|trans }}
+                            </a>.
                         </div>
                     </div>
                     {{ form_end(form) }}
                 </div>
-            </div>
+            </section>
         </div>
     </section>
 {% endblock %}
