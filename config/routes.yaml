@@ -104,21 +104,26 @@ app_register_person:
     methods: GET|POST
 
 app_register_company:
-    path: /registrace/firma
-    controller: App\Controller\Auth\RegistrationController::registerCompany
-    methods: GET|POST
+  path: /registrace/firma
+  controller: App\Controller\Auth\RegistrationController::registerCompany
+  methods: GET|POST
 
 app_verify_email:
-    path: /overeni-emailu
-    controller: App\Controller\Auth\RegistrationController::verifyUserEmail
-    methods: GET
+  path: /overeni-emailu
+  controller: App\Controller\Auth\RegistrationController::verifyUserEmail
+  methods: GET
+
+app_verify_form:
+  path: /potize-overeni-emailu
+  controller: App\Controller\Auth\UserVerificationController::verification
+  methods: GET|POST
 
 app_logout:
-    path: /odhlasit
-    controller: App\Controller\Auth\LogoutController::logout
-    methods: GET
+  path: /odhlasit
+  controller: App\Controller\Auth\LogoutController::logout
+  methods: GET
 
 admin:
-    path: /admin
-    controller: App\Controller\Admin\MainDashboardController::index
-    methods: GET|POST
+  path: /admin
+  controller: App\Controller\Admin\MainDashboardController::index
+  methods: GET|POST

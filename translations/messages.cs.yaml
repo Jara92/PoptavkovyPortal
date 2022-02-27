@@ -39,6 +39,13 @@ auth:
   register: "Registrovat"
   registration: "Registrace"
   password_change: "Změna hesla"
+  resend_verification: "Ověření emailu"
+  verification_troubles: "Potíže při ověření emailu?"
+  verification_troubles_desc: "Pokud Vám ověřovací email nedorazil, nezoufejte. Zkontrolujte složku SPAM ve Vaší emailové schránce.
+  Pokud jste email přesto nenašli, můžete si nechat zaslat nový pomocí následujícího formuláře:"
+  verification_still_troubles.1: "Stále máte potíže? Můžete kontaktovat naši technickou podporu na email "
+  verification_still_troubles.2: " a my se Vám ozveme."
+
   registration_desc: "Registrace je jednoduchá a zabere Vám jen pár minut. Pro pokračování vyberte jednu z následujících možností:"
   register_person: "Jsem soukromá osoba"
   register_person_desc: "Tuto možnost využijte, pokud jste koncový zákazník a chcete na našem serveru poptávat služby našich dodavatelů."
@@ -53,6 +60,7 @@ auth:
   btn_register_company: "Firemní registrace"
   btn_forgotten_password: "Zapomenuté heslo?"
   btn_change_password: "Změnit heslo"
+  btn_resend_verification_email: "Odeslat ověřovací email"
 
   successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
@@ -71,6 +79,8 @@ auth:
   field_password_again: "Heslo znovu"
   field_new_password: "Nové heslo"
   field_new_password_again: "Nové heslo znovu"
+
+  resend_field_email: "Váše emailová adresa"
 
   msg_password_changed: "Heslo bylo úspěšně změněno"
   msg_password_not_changed: "Heslo se nepodařilo změnit"
@@ -417,6 +427,7 @@ deadline:
 
 btn_save: "Uložit"
 btn_close: "Zavřít"
+btn_contact_support: "Kontaktovat podporu"
 
 "Invalid credentials.": "Špatné přihlašovací údaje."
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."

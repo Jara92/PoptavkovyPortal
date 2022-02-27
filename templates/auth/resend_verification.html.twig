@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "auth.resend_verification"|trans }} | {{ parent() }}{% endblock %}
+
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="content auth-resend-verification">
+        <div class="container-sm col-lg-6">
+            <section class="row cardbox">
+                <div class="col-md-8 pt-2 cardbox-item">
+                    <h1 class="text-center">{{ "auth.verification_troubles"|trans }}</h1>
+                    <p class="text-justify">{{ "auth.verification_troubles_desc"|trans }}</p>
+
+                    <div class="w-75 btn-center">
+                        {{ form(form) }}
+                    </div>
+                </div>
+                <div class="col-md-4 cardbox-siderbar">
+                    <p class="">
+                        {{ "auth.verification_still_troubles.1"|trans }}
+                        <a class="btn-link" style="color:white;text-decoration: underline;"
+                           href="mailto:{{ "app.email"|trans }}">{{ "app.email"|trans }}</a>
+                        {{ "auth.verification_still_troubles.2"|trans }}
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
