@@ -123,6 +123,11 @@ app_logout:
   controller: App\Controller\Auth\LogoutController::logout
   methods: GET
 
+app_forgotten_password:
+  path: /zapomenute-heslo
+  controller: App\Controller\Auth\ForgottenPasswordController::recover
+  methods: GET|POST
+
 admin:
   path: /admin
   controller: App\Controller\Admin\MainDashboardController::index

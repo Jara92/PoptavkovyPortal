@@ -39,6 +39,10 @@ auth:
   register: "Registrovat"
   registration: "Registrace"
   password_change: "Změna hesla"
+  recover_password: "Obnova hesla"
+  forgotten_password: "Zapomenuté heslo?"
+  forgotten_password_desc: "Nám se to stává také, každý zapomíná. :) Pro obnovu hesla zadejte svůj email a klikněte na tlačítko níže.
+  Během chvíle Vám zašleme odkaz pro vytvoření nového hesla."
   resend_verification: "Ověření emailu"
   verification_troubles: "Potíže s ověřením emailu?"
   verification_troubles_desc: "Pokud Vám ověřovací email nedorazil, nezoufejte. Zkontrolujte složku SPAM ve Vaší emailové schránce.
@@ -70,6 +74,7 @@ auth:
   btn_forgotten_password: "Zapomenuté heslo?"
   btn_change_password: "Změnit heslo"
   btn_resend_verification_email: "Odeslat ověřovací email"
+  btn_recover_password: "Obnovit heslo"
 
   msg_successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
