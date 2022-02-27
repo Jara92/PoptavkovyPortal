@@ -114,7 +114,7 @@ app_verify_email:
   methods: GET
 
 app_verify_form:
-  path: /potize-overeni-emailu
+  path: /potize-s-overenim-emailu
   controller: App\Controller\Auth\UserVerificationController::verification
   methods: GET|POST
 

@@ -56,6 +56,7 @@ auth:
   already_logged_in: "Už jste přihlášen."
   not_registred_yet: "Ještě nemáte účet?"
   email_not_registered: "Tento email u nás není registrován."
+  user_not_registered: "Tento účet nebyl registrován."
   user_already_verified: "Tento účet už je ověřený! Můžete se přihlásit."
   verification_email_resend_short_delay: "Tuto akci lze znovu provést až za %seconds% sekund."
 
@@ -65,7 +66,7 @@ auth:
   btn_change_password: "Změnit heslo"
   btn_resend_verification_email: "Odeslat ověřovací email"
 
-  successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
+  msg_successfully_registred: "Byl jste úspěšně zaregistrován. Prosím ověřte svůj účet pomocí odkazu zaslaného na Váš email."
   #TODO: Odkaz na přihlášení
   successfully_verified: "Váš email byl ověřen. Nyní se můžete přihlásit."
   msg_not_verified: "Pro přihlášení nejdříve ověřte svůj účet pomocí odkazu zaslaného na Váš email."

@@ -106,6 +106,11 @@ class EmailVerifier
      */
     public function handleEmailConfirmation(Request $request, User $user): void
     {
+        // Check if user is already verified
+        if ($user->isVerified()) {
+            throw new UserAlreadyVerifiedException("This accont is already verified");
+        }
+
         $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);

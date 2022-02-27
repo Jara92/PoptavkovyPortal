@@ -8,6 +8,7 @@ use App\Controller\AController;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
+use App\Exception\UserAlreadyVerifiedException;
 use App\Factory\UserFactory;
 use App\Form\Auth\RegisterCompanyForm;
 use App\Form\Auth\RegisterPersonForm;
@@ -96,10 +97,8 @@ class RegistrationController extends AController
             // Get blank password and register the user.
             $blankPassword = $form->get('plainPassword')->getData();
 
-            dump($user);
-
             if ($this->userOperation->register($user, $blankPassword)) {
-                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.successfully_registred"));
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_successfully_registred"));
 
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
@@ -117,12 +116,13 @@ class RegistrationController extends AController
     {
         $id = $request->get('id');
 
-        if (is_null($id)) {
+        if ($id == null) {
             return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
 
         $user = $this->userService->readById($id);
-        if (is_null($user)) {
+        if ($user == null) {
+            $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("auth.user_not_registered"));
             return $this->redirectToRoute(self::AFTER_VERIFY_ERROR_REDIRECT);
         }
 
@@ -135,13 +135,13 @@ class RegistrationController extends AController
             return $this->redirectToRoute(self::AFTER_VERIFY);
         } // Link expired exception - generate and send a new one.
         catch (ExpiredSignatureException $exception) {
-            // generate a new signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
-
-            // Show flash notification
+            // Show flash notification and redirect to new link generation form.
             $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("auth.msg_link_expired"));
-        } // Verification failed
-        catch (VerifyEmailExceptionInterface $exception) {
+            return $this->redirectToRoute("app_verify_form");
+        } catch (UserAlreadyVerifiedException $exception) {
+            $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("auth.user_already_verified"));
+            return $this->redirectToRoute("app_login");
+        } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans($exception->getReason()));
         }
 
