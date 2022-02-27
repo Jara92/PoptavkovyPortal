@@ -9,6 +9,7 @@ use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
 use App\Enum\Entity\UserType;
 use App\Repository\User\UserRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,7 +67,12 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $emailVerifiedAt;
+    protected ?DateTime $emailVerifiedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected ?DateTime $lastEmailVerificationTry;
 
     /**
      * @ORM\Column(type="boolean")
@@ -127,15 +133,40 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         return $this;
     }
 
-    public function getEmailVerifiedAt()
+    /**
+     * @return ?DateTime
+     */
+    public function getEmailVerifiedAt(): ?DateTime
     {
         return $this->emailVerifiedAt;
     }
 
-    public function setEmailVerifiedAt($emailVerifiedAt): self
+    /**
+     * @param ?DateTime $emailVerifiedAt
+     * @return User
+     */
+    public function setEmailVerifiedAt(?DateTime $emailVerifiedAt): self
     {
         $this->emailVerifiedAt = $emailVerifiedAt;
 
+        return $this;
+    }
+
+    /**
+     * @return ?DateTime
+     */
+    public function getLastEmailVerificationTry(): ?DateTime
+    {
+        return $this->lastEmailVerificationTry;
+    }
+
+    /**
+     * @param ?DateTime $lastEmailVerificationTry
+     * @return User
+     */
+    public function setLastEmailVerificationTry(?DateTime $lastEmailVerificationTry): User
+    {
+        $this->lastEmailVerificationTry = $lastEmailVerificationTry;
         return $this;
     }
 
