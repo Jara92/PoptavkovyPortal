@@ -29,6 +29,7 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -54,7 +55,10 @@ class ForgottenPasswordForm extends AbstractType
                 'attr' => [
                     "placeholder" => "auth.field_email",
                 ],
-                'constraints' => new Email()
+                'constraints' => [
+                    new Email(),
+                    new NotNull()
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "auth.btn_recover_password",
