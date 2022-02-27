@@ -1,22 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}{{ "auth.recover_password"|trans }} | {{ parent() }}{% endblock %}
+
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
 
 {% block content %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
+    <section class="content auth-forgottern-password">
+        <div class="container-sm col-lg-6 col-md-8">
+            <section class="row cardbox">
+                <div class="col-md-8 pt-2 cardbox-item">
+                    <h1 class="text-center">{{ "auth.forgotten_password"|trans }}</h1>
+                    <p class="text-justify">{{ "auth.forgotten_password_desc"|trans }}</p>
 
-    {{ form_start(requestForm) }}
-    {{ form_row(requestForm.email) }}
-    <div>
-        <small>
-            Enter your email address and we will send you a
-            link to reset your password.
-        </small>
-    </div>
-
-    <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+                    <div class="w-75 btn-center">
+                        {{ form_start(form) }}
+                        <div class="errors">
+                            {{ form_errors(form) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="col-md-4 cardbox-siderbar">
+                    <div class="text-center mb-4">
+                        <span class="fa fa-8x fa-headset text-center"></span>
+                    </div>
+                    <p class="">
+                        {{ "auth.verification_still_troubles.1"|trans }}
+                        <a class="btn-link" style="color:white;text-decoration: underline;"
+                           href="mailto:{{ "app.email"|trans }}">{{ "app.email"|trans }}</a>
+                        {{ "auth.verification_still_troubles.2"|trans }}
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
 {% endblock %}

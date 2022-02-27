@@ -1,14 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Password Reset Email Sent{% endblock %}
+{% block title %}{{ "auth.reset_password"|trans }} | {{ parent() }}{% endblock %}
+
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
 
 {% block content %}
-    <p>
-        If an account matching your email exists, then an email was just sent that contains a link that you can use to
-        reset your password.
-        This link will expire
-        in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
-    </p>
-    <p>If you don't receive an email please check your spam folder or <a
-                href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+    <section class="content auth-forgottern-password">
+        <div class="container col-lg-6 col-md-8">
+            <section class="cardbox">
+                <div class="cardbox-item">
+                    <h1 class="text-center"><span class="fa fa-check-circle me-2"></span>Email pro obnovu hesla byl
+                        odeslán</h1>
+                    <p>
+                        Pokud zadaný účet existuje, tak na Vám byl zaslán email obsahující odkaz pro obnovu hesla.
+                        Platnost odkazu:
+                        {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}
+                        .
+                    </p>
+                    <p>Pokud jste email nedostal, zkontrolujte SPAM nebo to <a
+                                href="{{ path('app_forgot_password_request') }}">zkuste znovu</a>.</p>
+                </div>
+            </section>
+        </div>
+    </section>
 {% endblock %}

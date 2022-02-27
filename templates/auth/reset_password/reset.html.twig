@@ -1,12 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}{{ "auth.reset_password"|trans }} | {{ parent() }}{% endblock %}
+
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
 
 {% block content %}
-    <h1>Reset your password</h1>
+    <section class="content auth-forgottern-password">
+        <div class="container-sm col-lg-6 col-md-8">
+            <section class="row cardbox">
+                <div class="col-md-12 pt-2 cardbox-item">
+                    <h1 class="text-center">{{ "auth.reset_password"|trans }}</h1>
 
-    {{ form_start(resetForm) }}
-    {{ form_row(resetForm.plainPassword) }}
-    <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+                    <div class="w-75 btn-center">
+                        {{ form_start(form) }}
+                        <div class="errors">
+                            {{ form_errors(form) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
 {% endblock %}
+
