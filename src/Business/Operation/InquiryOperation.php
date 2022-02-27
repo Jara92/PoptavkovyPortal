@@ -12,6 +12,7 @@ use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
+use App\Enum\Entity\UserRole;
 use App\Enum\Entity\UserType;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
@@ -305,5 +306,28 @@ class InquiryOperation
             ->context(["offer" => $offer]);
 
         $this->mailer->send($email);
+    }
+
+    /**
+     * Return an array of InquiryTypes which can be created by the user.
+     * @throws LogicException User has no relevant role.
+     * @return array
+     */
+    public function getAvailableInquiryTypesToCreate(): array
+    {
+        // Unauthorized user can create personal or company inquiry.
+        if (!$this->security->getUser()) {
+            return [InquiryType::PERSONAL, InquiryType::COMPANY];
+        }
+
+        // A company can create only company inquiries.
+        if ($this->security->getUser()->isType(UserType::COMPANY)) {
+            return [InquiryType::COMPANY];
+        } // A person can create only personal inquriies.
+        else if ($this->security->getUser()->isType(UserType::PERSON)) {
+            return [InquiryType::PERSONAL];
+        }
+
+        throw new LogicException("User has no relevant role.");
     }
 }

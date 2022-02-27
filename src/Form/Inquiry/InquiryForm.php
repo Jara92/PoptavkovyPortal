@@ -142,7 +142,7 @@ class InquiryForm extends AbstractType
                 'required' => true,
                 'label' => false,
 
-                'choices' => InquiryTypeHelper::translationCases(),
+                'choices' => InquiryTypeHelper::convertToTranslationCases($this->inquiryOperation->getAvailableInquiryTypesToCreate()),
 
                 // Use Enums item value in select
                 'choice_value' => 'value',
