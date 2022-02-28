@@ -89,7 +89,7 @@
         </div>
         <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab"></div>
         <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
-            <ul class="" style="list-style-type: none;">
+            <ul class="categories-list">
                 {# @var category \App\Entity\Inquiry\Category #}
                 {% for category in profile.user.subscription.categories %}
                     <li><span class="fa fa-folder me-2"></span>{{ category.parent.title }} | {{ category.title }}</li>
