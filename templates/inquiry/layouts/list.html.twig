@@ -15,7 +15,12 @@
                             <span class="me-2 fas fa-map-marker-alt"></span>
                             {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
                         </li>
-                        <li>Stavebnictví</li>
+                        {% if inquiry.categories|length > 0 %}
+                            <li>
+                                <span class="me-2 fas fa-folder-open"></span>
+                                {{ inquiry.categories.first.title }}
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </li>
