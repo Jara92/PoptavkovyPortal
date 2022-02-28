@@ -261,6 +261,12 @@ ul.inquiry-list {
     }
   }
 
+  .tab-content .tab-pane {
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   .inquiry-detail-left {
     padding: 1rem;
   }

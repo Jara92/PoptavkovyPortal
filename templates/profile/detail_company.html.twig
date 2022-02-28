@@ -28,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="categories-tab" data-bs-toggle="tab" href="#categories"
                    role="tab" aria-controls="categories" aria-selected="false">
-                    <span class="fa fa-tags me-2"></span>{{ "profiles.categories"|trans }}
+                    <span class="fa fa-folder-open me-2"></span>{{ "profiles.categories"|trans }}
                 </a>
             </li>
         </ul>
@@ -86,7 +86,14 @@
             {% endif %}
         </div>
         <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab"></div>
-        <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab"></div>
+        <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+            <ul class="" style="list-style-type: none;">
+                {# @var category \App\Entity\Inquiry\Category #}
+                {% for category in profile.user.subscription.categories %}
+                    <li><span class="fa fa-folder me-2"></span>{{ category.parent.title }} | {{ category.title }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}
 

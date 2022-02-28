@@ -72,6 +72,12 @@
     font-weight: bold;
   }
 
+  .tab-content .tab-pane {
+    max-height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   .description {
     color: $template_font_color_alt;
     quotes: "„" "“" "‚" "‘";
