@@ -246,6 +246,10 @@ ul.inquiry-list {
 
 /* Detail page */
 .inquiry-detail {
+  h1 {
+    text-align: left;
+  }
+
   ul.inquiry-tags {
     padding: 0;
     margin: 0;
