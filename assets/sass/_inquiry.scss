@@ -318,6 +318,12 @@ ul.inquiry-list {
   width: 100%;
 }
 
+#inquiry-contact-form {
+  h3 {
+    float: left;
+  }
+}
+
 /* Contact client button */
 .btn-contact-client {
   background-color: $template;
