@@ -15,7 +15,7 @@ inquiries/new:
   methods: GET|POST
 
 inquiries/detail:
-  path: /poptavky/{alias}
+  path: /poptavka/{alias}
   controller: App\Controller\InquiryController::detail
   methods: GET|POST
 
@@ -78,7 +78,7 @@ my-profile/edit-inquiry-subscriptions:
 
 # Profiles
 profiles/detail:
-  path: /profily/{profileId}
+  path: /profil/{profileId}
   controller: App\Controller\ProfileController::detail
   methods: GET
 
