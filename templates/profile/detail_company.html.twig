@@ -36,7 +36,9 @@
 
     <div class="tab-content profile-tab" id="company-profile-tab">
         <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
-            <p class="description">{{ profile.description }}</p>
+            {% if profile.description %}
+                <p class="description">{{ profile.description }}</p>
+            {% endif %}
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             {% if profile.web %}
@@ -124,12 +126,14 @@
                 </div>
                 <div class="value"><a href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></div>
             </li>
-            <li class="col-md-6 col-lg-12">
-                <div class="title">
-                    <span class="fas fa-phone-alt me-2"></span>{{ "profiles.phone"|trans }}
-                </div>
-                <div class="value"><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></div>
-            </li>
+            {% if profile.user.phone %}
+                <li class="col-md-6 col-lg-12">
+                    <div class="title">
+                        <span class="fas fa-phone-alt me-2"></span>{{ "profiles.phone"|trans }}
+                    </div>
+                    <div class="value"><a href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></div>
+                </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}
