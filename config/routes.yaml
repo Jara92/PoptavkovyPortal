@@ -138,4 +138,3 @@ app_reset_password/check:
 admin:
   path: /admin
   controller: App\Controller\Admin\MainDashboardController::index
-  methods: GET|POST
