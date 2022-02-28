@@ -69,7 +69,17 @@
                         </section>
 
                         <section class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
-
+                            <ul class="row categories-list">
+                                {# @var category \App\Entity\Inquiry\Category #}
+                                {% for category in inquiry.categories %}
+                                    {# Display only categories with a parent. #}
+                                    {% if category.parent %}
+                                        <li class="col-md-6"><span
+                                                    class="fa fa-folder me-2"></span>{{ category.parent.title }}
+                                            | {{ category.title }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
                         </section>
 
                         <section class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
