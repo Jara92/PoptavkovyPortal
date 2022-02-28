@@ -5,6 +5,7 @@ namespace App\Repository\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Repository\Interfaces\Inquiry\IInquiryCategoryRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -28,6 +29,18 @@ class InquiryCategoryRepository extends ServiceEntityRepository implements IInqu
         $criteria = ["parent" => null];
 
         return $this->findBy($criteria, $orderBy);
+    }
+
+    public function getSubcategoriesQuery(array $orderBy = []): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->andWhere($qb->expr()->isNotNull("c.parent"));
+
+        foreach ($orderBy as $key => $value) {
+            $qb->addOrderBy("c." . $key, $value);
+        }
+
+        return $qb;
     }
 
     /**

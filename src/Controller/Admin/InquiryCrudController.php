@@ -2,14 +2,18 @@
 
 namespace App\Controller\Admin;
 
+use App\Business\Service\InquiryCategoryService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\PersonalContact;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Helper\InquiryStateHelper;
 use App\Helper\InquiryTypeHelper;
+use App\Repository\Inquiry\InquiryCategoryRepository;
 use DateTime;
+use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
@@ -29,6 +33,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class InquiryCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private InquiryCategoryService    $inquiryCategoryService,
+        private InquiryCategoryRepository $inquiryCategoryRepository
+    )
+    {
+    }
+
     public static function getEntityFqcn(): string
     {
         return Inquiry::class;
@@ -146,7 +157,20 @@ class InquiryCrudController extends AbstractCrudController
                 ->setChoices(InquiryStateHelper::translationStringCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
 
-            AssociationField::new("categories", "inquiries.field_categories")->onlyOnForms()
+            AssociationField::new("categories", "inquiries.field_categories")
+                // ->setQueryBuilder() does not work as expected.
+                ->setFormTypeOption(
+                    'query_builder', function (InquiryCategoryRepository $repo) {
+                    return $repo->getSubcategoriesQuery();
+                })
+                ->setFormTypeOptions(['choice_label' => function (InquiryCategory $c) {
+                    if ($c->getParent()) {
+                        return $c->getParent()->getTitle() . " | " . $c->getTitle();
+                    } else {
+                        return $c->getTitle();
+                    }
+                }])
+                ->onlyOnForms()
         ];
     }
 
