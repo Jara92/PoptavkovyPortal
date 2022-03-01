@@ -66,15 +66,30 @@ class Inquiry extends AEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=Deadline::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    protected Deadline $deadline;
+    protected ?Deadline $deadline;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true)
+     */
+    private ?string $deadlineText;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryValue::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    protected InquiryValue $value;
+    protected ?InquiryValue $value;
+
+    /**
+     * @ORM\Column(type="string", length=32, nullable=true)
+     */
+    private ?string $valueText;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private ?int $valueNumber;
 
     /**
      * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
@@ -205,6 +220,18 @@ class Inquiry extends AEntity
         return $this;
     }
 
+    public function getDeadlineText(): ?string
+    {
+        return $this->valueText;
+    }
+
+    public function setDeadlineText(?string $deadlineText): self
+    {
+        $this->valueText = $deadlineText;
+
+        return $this;
+    }
+
     public function getValue(): ?InquiryValue
     {
         return $this->value;
@@ -213,6 +240,30 @@ class Inquiry extends AEntity
     public function setValue(?InquiryValue $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getValueText(): ?string
+    {
+        return $this->valueText;
+    }
+
+    public function setValueText(?string $valueText): self
+    {
+        $this->valueText = $valueText;
+
+        return $this;
+    }
+
+    public function getValueNumber(): ?int
+    {
+        return $this->valueNumber;
+    }
+
+    public function setValueNumber(?int $valueNumber): self
+    {
+        $this->valueNumber = $valueNumber;
 
         return $this;
     }
