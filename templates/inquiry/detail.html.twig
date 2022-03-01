@@ -139,7 +139,13 @@
                                 <div class="title"><span
                                             class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
                                 </div>
-                                <div class="value">{{ inquiry.value.title ?? inquiry.valueNumber ?? inquiry.valueText }}</div>
+                                <div class="value">
+                                    {% if inquiry.valueNumber %}
+                                        {{ inquiry.valueNumber|format_currency("CZK", {fraction_digit: 0}) }}
+                                    {% else %}
+                                        {{ inquiry.value.title ?? inquiry.valueText }}
+                                    {% endif %}
+                                </div>
                             </li>
                         {% endif %}
                     </ul>
