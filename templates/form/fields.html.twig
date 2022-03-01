@@ -28,7 +28,7 @@
     {{ form_widget(form, attr) }}
     <datalist id="{{ list_id }}">
         {% for option in choices %}
-            <option value="{{ option.title|trans }}"></option>
+            <option value="{{ option }}"></option>
         {% endfor %}
     </datalist>
     {{ form_errors(form) }}
