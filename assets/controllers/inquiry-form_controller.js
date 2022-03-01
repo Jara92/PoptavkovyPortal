@@ -3,9 +3,10 @@ import {Controller} from '@hotwired/stimulus';
 /*
  * Inquiry form controller.
  * Implements switching between personal/company contact forms.
+ * City field dynamic display.
  */
 export default class extends Controller {
-    static targets = ["inquiryType", "companyFields", "personalFields"];
+    static targets = ["inquiryType", "companyFields", "personalFields", "regionField", "cityField"];
 
     personalAlias = "personal";
     companyAlias = "company";
@@ -15,6 +16,24 @@ export default class extends Controller {
 
         // Update fields state on load.
         this.updateFields();
+
+        // Update city field visibility.
+        this.updateCityField();
+    }
+
+    /**
+     * Shows/hides city field according to region field value.
+     */
+    updateCityField() {
+        // Get current region field value.
+        let region = jQuery(this.regionFieldTarget).val();
+
+        // Hide city field if region is not set.
+        if (region) {
+            jQuery(this.cityFieldTarget).parent().show();
+        } else {
+            jQuery(this.cityFieldTarget).parent().hide();
+        }
     }
 
     /**

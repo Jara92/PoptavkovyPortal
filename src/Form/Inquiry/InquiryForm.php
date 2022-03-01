@@ -119,6 +119,13 @@ class InquiryForm extends AbstractType
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
+            ->add("city", TextType::class, [
+                'required' => false,
+                'label' => "inquiries.field_city",
+                'attr' => [
+                    "placeholder" => "inquiries.field_city_ph",
+                ]
+            ])
             ->add("valueText", DataListType::class, [
                 'required' => false,
                 'label' => "inquiries.field_value",

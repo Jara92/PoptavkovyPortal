@@ -67,7 +67,9 @@
                                     <div class="card-body">
                                         <h5 class="card-title"></h5>
                                         <div class="card-text">
-                                            {{ form_row(form.region, {'attr': {'class': 'form-select'}}) }}
+                                            {{ form_row(form.region, {'attr': {'class': 'form-select', 'data-action':'change->inquiry-form#updateCityField', 'data-inquiry-form-target':'regionField'}}) }}
+
+                                            {{ form_row(form.city, {'attr': {'class': 'form-control', 'data-inquiry-form-target':'cityField'}}) }}
 
                                             {{ form_row(form.valueText, {'attr': {'class': 'form-control'}}) }}
 
