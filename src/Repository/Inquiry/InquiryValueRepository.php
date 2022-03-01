@@ -3,6 +3,7 @@
 namespace App\Repository\Inquiry;
 
 use App\Entity\Inquiry\InquiryValue;
+use App\Repository\Interfaces\Inquiry\IInquiryValueRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -12,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method InquiryValue[]    findAll()
  * @method InquiryValue[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InquiryValueRepository extends ServiceEntityRepository
+class InquiryValueRepository extends ServiceEntityRepository implements IInquiryValueRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
