@@ -22,3 +22,14 @@
         {% endif %}
     </button>
 {% endblock button_widget %}
+
+{% block data_list_row %}
+    {{ form_label(form) }}
+    {{ form_widget(form, attr) }}
+    <datalist id="{{ list_id }}">
+        {% for option in choices %}
+            <option value="{{ option.title|trans }}"></option>
+        {% endfor %}
+    </datalist>
+    {{ form_errors(form) }}
+{% endblock %}
