@@ -15,10 +15,10 @@
                             <span class="me-2 fas fa-map-marker-alt"></span>
                             {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
                         </li>
-                        {% if inquiry.categories|length > 0 %}
+                        {% if inquiry.categories|length > 0 and inquiry.categories.first.parent %}
                             <li>
                                 <span class="me-2 fas fa-folder-open"></span>
-                                {{ inquiry.categories.first.title }}
+                                {{ inquiry.categories.first.parent.title }}
                             </li>
                         {% endif %}
                     </ul>
