@@ -120,6 +120,7 @@ user:
 
   company_information_note: "Uvedné údaje nejsou kromě názvu firmy viditelné pro ostatní uživatele systému."
   company_from: "Firma z"
+  company_from_default: "ČR"
 
 #Articles
 articles:

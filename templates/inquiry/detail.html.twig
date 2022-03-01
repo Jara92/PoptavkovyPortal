@@ -103,7 +103,13 @@
                             <div class="title"><span
                                         class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
                             </div>
-                            <div class="value">{{ inquiry.author|user_anonymize }}</div>
+                            <div class="value">
+                                {% if inquiry.author %}
+                                    {{ inquiry.author|user_anonymize }}
+                                {% else %}
+                                    {{ inquiry|inquiry_anonymize_author }}
+                                {% endif %}
+                            </div>
                         </li>
                         <li class="col-md-6 col-lg-12">
                             <div class="title"><span
@@ -116,7 +122,7 @@
                                         class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
                             </div>
                             <div class="value">
-                                {% if inquiry.region %}{{ inquiry.region.title }}{% else %}{{ "inquiries.field_region_ph"|trans }}{% endif %}
+                                {{ inquiry|inquiry_location }}
                             </div>
                         </li>
                         <li class="col-md-6 col-lg-12">
