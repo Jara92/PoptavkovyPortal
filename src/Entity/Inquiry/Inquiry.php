@@ -222,12 +222,12 @@ class Inquiry extends AEntity
 
     public function getDeadlineText(): ?string
     {
-        return $this->valueText;
+        return $this->deadlineText;
     }
 
     public function setDeadlineText(?string $deadlineText): self
     {
-        $this->valueText = $deadlineText;
+        $this->deadlineText = $deadlineText;
 
         return $this;
     }
