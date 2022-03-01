@@ -19,4 +19,14 @@ class InquiryValueService extends AService
     {
         parent::__construct($inquiryValueRepository);
     }
+
+    /**
+     * Returns InquiryValue corresponding to the given string.
+     * @param string $value
+     * @return InquiryValue|null
+     */
+    public function figureOut(string $value): ?InquiryValue
+    {
+        return $this->repository->figureOut($value);
+    }
 }

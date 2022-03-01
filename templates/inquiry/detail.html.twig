@@ -125,18 +125,23 @@
                             </div>
                             <div class="value">{{ ("inquiry_type." ~ inquiry.type.value)|trans }}</div>
                         </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.deadline.title|trans }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.value.title|trans }}</div>
-                        </li>
+                        {% if inquiry.deadline or inquiry.deadlineText %}
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.deadline.title ?? inquiry.deadlineText }}</div>
+                            </li>
+                        {% endif %}
+
+                        {% if inquiry.value or inquiry.valueText or inquiry.valueNumber %}
+                            <li class="col-md-6 col-lg-12">
+                                <div class="title"><span
+                                            class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
+                                </div>
+                                <div class="value">{{ inquiry.value.title ?? inquiry.valueNumber ?? inquiry.valueText }}</div>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </section>

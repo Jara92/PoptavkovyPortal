@@ -19,4 +19,14 @@ class DeadlineService extends AService
     {
         parent::__construct($deadlineRepository);
     }
+
+    /**
+     * Returns Deadline corresponding to the given string.
+     * @param string $value
+     * @return Deadline|null
+     */
+    public function figureOut(string $value): ?Deadline
+    {
+        return $this->repository->figureOut($value);
+    }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Business\Operation;
 
+use App\Business\Service\DeadlineService;
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
+use App\Business\Service\InquiryValueService;
 use App\Business\Service\OfferService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
@@ -39,6 +41,8 @@ class InquiryOperation
     public function __construct(
         private InquiryService           $inquiryService,
         private InquiryAttachmentService $attachmentService,
+        private InquiryValueService      $inquiryValueService,
+        private DeadlineService          $deadlineService,
         private InquiryFactory           $inquiryFactory,
         private InquiryAttachmentFactory $attachmentFactory,
         private InquiryFilterFactory     $filterFactory,
@@ -115,6 +119,10 @@ class InquiryOperation
         // Set inquiry author.
         $inquiry->setAuthor($this->security->getUser());
 
+        // Guess value and deadline by given text
+        $this->guessValue($inquiry);
+        $this->guessDeadline($inquiry);
+
         $this->inquiryService->create($inquiry);
 
         // Generate inquiry alias and update entity.
@@ -127,6 +135,49 @@ class InquiryOperation
         }
 
         return true;
+    }
+
+    /**
+     * Figures out and updates inquiry value.
+     * @param Inquiry $inquiry
+     */
+    private function guessValue(Inquiry $inquiry): void
+    {
+        // Nothing to be done if there is no input.
+        if (!$inquiry->getValueText()) {
+            return;
+        }
+
+        // Try to guess value
+        $guessedValue = $this->inquiryValueService->figureOut($inquiry->getValueText());
+        if ($guessedValue) {
+            $inquiry->setValue($guessedValue);
+            return;
+        }
+
+        // Try to convert the text to int
+        $value = intval($inquiry->getValueText());
+        if ($value > 0) {
+            $inquiry->setValueNumber($value);
+        }
+    }
+
+    /**
+     * Figures out and updates deadline.
+     * @param Inquiry $inquiry
+     */
+    private function guessDeadline(Inquiry $inquiry): void
+    {
+        // Nothing to be done if there is no input.
+        if (!$inquiry->getDeadlineText()) {
+            return;
+        }
+
+        // Try to guess value
+        $guessedDeadline = $this->deadlineService->figureOut($inquiry->getDeadlineText());
+        if ($guessedDeadline) {
+            $inquiry->setDeadline($guessedDeadline);
+        }
     }
 
     /**

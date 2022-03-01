@@ -10,5 +10,10 @@ use App\Repository\Interfaces\IRepository;
  */
 interface IInquiryValueRepository extends IRepository
 {
-
+    /**
+     * Returns InquiryValue corresponding to the given string.
+     * @param string $value
+     * @return InquiryValue|null
+     */
+    public function figureOut(string $value): ?InquiryValue;
 }

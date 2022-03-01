@@ -5,6 +5,7 @@ namespace App\Repository\Inquiry;
 use App\Entity\Inquiry\InquiryValue;
 use App\Repository\Interfaces\Inquiry\IInquiryValueRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,24 @@ class InquiryValueRepository extends ServiceEntityRepository implements IInquiry
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, InquiryValue::class);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function figureOut(string $value): ?InquiryValue
+    {
+        $qb = $this->createQueryBuilder("v");
+        $qb->andWhere($qb->expr()->like("v.title", ":value"))
+            ->setParameter("value", "%" . $value . "%");
+
+        try {
+            $result = $qb->setMaxResults(1)->getQuery()->getOneOrNullResult();
+            return $result;
+        } // This should not really happen because there is a maximum of 1 element thanks to ->setMaxResults(1)
+        catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 
     // /**

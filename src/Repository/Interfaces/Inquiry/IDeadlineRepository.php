@@ -10,5 +10,10 @@ use App\Repository\Interfaces\IRepository;
  */
 interface IDeadlineRepository extends IRepository
 {
-
+    /**
+     * Returns Deadline corresponding to the given string.
+     * @param string $value
+     * @return Deadline|null
+     */
+    public function figureOut(string $value): ?Deadline;
 }
