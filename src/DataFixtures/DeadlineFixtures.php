@@ -21,9 +21,9 @@ class DeadlineFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $deadlines = [
-            $this->deadlineFactory->createDeadline("deadline.agreement", "agreement", 1),
-            $this->deadlineFactory->createDeadline("deadline.now", "now", 2),
-            $this->deadlineFactory->createDeadline("deadline.as_soon_as_possible", "as_soon_as_possible", 3),
+            $this->deadlineFactory->createDeadline("Dohodou", "agreement", 1),
+            $this->deadlineFactory->createDeadline("Hned", "now", 2),
+            $this->deadlineFactory->createDeadline("Co nejdříve", "as_soon_as_possible", 3),
         ];
 
         foreach ($deadlines as $deadline) {

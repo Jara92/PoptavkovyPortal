@@ -21,14 +21,14 @@ class InquiryValueFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $types = [
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.agreement", 0, 1),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.make_offer", 0, 2),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.according_offers", 0, 3),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_5k", 5000, 4),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_50k", 50000, 5),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_200k", 200000, 6),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.max_1M", 1000000, 7),
-            $this->inquiryValueFactory->createInquiryValue("inquiry_value.more", 1500000, 8)
+            $this->inquiryValueFactory->createInquiryValue("Dohodou", 0, 1),
+            $this->inquiryValueFactory->createInquiryValue("Nabídněte", 0, 2),
+            $this->inquiryValueFactory->createInquiryValue("Dle nabídek", 0, 3),
+            $this->inquiryValueFactory->createInquiryValue("Do 5tisíc", 5000, 4),
+            $this->inquiryValueFactory->createInquiryValue("Do 50tisíc", 50000, 5),
+            $this->inquiryValueFactory->createInquiryValue("Do 200tisíc", 200000, 6),
+            $this->inquiryValueFactory->createInquiryValue("Do milionu", 1000000, 7),
+            $this->inquiryValueFactory->createInquiryValue("Nad milion", 1500000, 8)
         ];
 
         foreach ($types as $type){
