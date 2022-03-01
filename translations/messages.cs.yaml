@@ -244,6 +244,7 @@ inquiries:
   field_region_ph: "Celá ČR"
   field_region_desc: "Zvolte kraj, ve kterém chcete poptávku realizovat."
   field_deadline: "Termín realizace"
+  field_deadline_ph: ""
   field_deadline_desc: "Termín realizace poptávky"
   field_state: "Stav poptávky"
 

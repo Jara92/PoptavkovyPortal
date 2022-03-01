@@ -3,6 +3,8 @@
 namespace App\Form\Inquiry;
 
 use App\Business\Operation\InquiryOperation;
+use App\Business\Service\DeadlineService;
+use App\Business\Service\InquiryValueService;
 use App\Business\Service\UserService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;
@@ -11,6 +13,7 @@ use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Region;
+use App\Form\Type\DataListType;
 use App\Helper\InquiryTypeHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,6 +39,13 @@ class InquiryForm extends AbstractType
 
     /** @required */
     public InquiryOperation $inquiryOperation;
+
+    public function __construct(
+        private InquiryValueService $inquiryValueService,
+        private DeadlineService     $deadlineService
+    )
+    {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -109,34 +119,21 @@ class InquiryForm extends AbstractType
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
-            ->add("value", EntityType::class, [
-                'required' => true,
+            ->add("valueText", DataListType::class, [
+                'required' => false,
                 'label' => "inquiries.field_value",
-                // looks for choices from this entity
-                'class' => InquiryValue::class,
-
-                // uses the User.username property as the visible option string
-                'choice_label' => 'title',
-                'choice_translation_domain' => "messages",
-
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
+                "attr" => [
+                    "placeholder" => "inquiries.field_value_ph"
+                ],
+                "choices" => $this->inquiryValueService->readAll()
             ])
-            ->add("deadline", EntityType::class, [
-                'required' => true,
+            ->add("deadlineText", DataListType::class, [
+                'required' => false,
                 'label' => "inquiries.field_deadline",
-                // looks for choices from this entity
-                'class' => Deadline::class,
-
-                // uses the User.username property as the visible option string
-                'choice_label' => 'title',
-
-                'choice_translation_domain' => "messages",
-
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
+                "attr" => [
+                    "placeholder" => "inquiries.field_deadline_ph"
+                ],
+                "choices" => $this->deadlineService->readAll()
             ])
             ->add("type", ChoiceType::class, [
                 'required' => true,
