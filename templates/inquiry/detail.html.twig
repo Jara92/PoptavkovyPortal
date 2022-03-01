@@ -104,11 +104,7 @@
                                         class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
                             </div>
                             <div class="value">
-                                {% if inquiry.author %}
-                                    {{ inquiry.author|user_anonymize }}
-                                {% else %}
-                                    {{ inquiry|inquiry_anonymize_author }}
-                                {% endif %}
+                                {{ inquiry|inquiry_anonymize_author }}
                             </div>
                         </li>
                         <li class="col-md-6 col-lg-12">
