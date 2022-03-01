@@ -72,7 +72,6 @@ class InquiryFilterForm extends AbstractType
                 'label' => "inquiries.field_value",
                 'class' => InquiryValue::class,
                 'choice_label' => 'title',
-                'choice_translation_domain' => "messages",
             ])
             ->add("types", ChoiceType::class, [
                 'required' => false,
