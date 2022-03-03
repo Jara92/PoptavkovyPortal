@@ -2,10 +2,12 @@
 
 {% block title %}{{ profile.user|user_anonymize }}{% endblock %}
 
+{% block page_name %}profile-detail{% endblock %}
+
 {# @var profile \App\Entity\Profile #}
 {% block content %}
     <!-- Snippet: https://bootsnipp.com/snippets/K0ZmK -->
-    <section class="content profile-detail">
+    <section class="content">
         <div class="container col-lg-8">
             <section class="row cardbox">
                 <div class="col-lg-4 pb-3 px-0">

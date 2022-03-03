@@ -2,8 +2,10 @@
 
 {% block title %}{{ "auth.registration"|trans }} | {{ parent() }}{% endblock %}
 
+{% block page_name %}auth-register{% endblock %}
+
 {% block content %}
-    <section class="content auth-register">
+    <section class="content">
         <div class="jumbotron">
             <h1 class="display-4">{{ "auth.registration"|trans }}</h1>
             <p class="lead">{{ "auth.registration_desc"|trans }}</p>

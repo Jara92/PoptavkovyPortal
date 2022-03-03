@@ -1,10 +1,12 @@
 {% extends "base.html.twig" %}
 
+{% block page_name %}main-page{% endblock %}
+
 {% block content %}
-    <div class="content main-page">
-            <div class="jumbotron jumbotron-main">
-                <img src="{{ asset("/build/img/intro.png") }}" alt="intro" class="w-100" />
-            </div>
+    <div class="content">
+        <div class="jumbotron jumbotron-main">
+            <img src="{{ asset("/build/img/intro.png") }}" alt="intro" class="w-100"/>
+        </div>
 
         <div class="container mt-5">
             <!--<div class="pl-3 row intro-container">

@@ -2,6 +2,8 @@
 
 {% block title %}{{ "auth.login"|trans }} | {{ parent() }}{% endblock %}
 
+{% block page_name %}auth-login{% endblock %}
+
 {% block styles %}
     <style>
 
@@ -9,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="content auth-login">
+    <section class="content">
         <div class="container col-lg-4 col-md-8">
             <section class="row cardbox">
                 <div class="login-form">

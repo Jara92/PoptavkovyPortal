@@ -2,6 +2,8 @@
 
 {% block title %}{{ "auth.registration"|trans }} | {{ parent() }}{% endblock %}
 
+{% block page_name %}auth-register{% endblock %}
+
 {% block styles %}
     <style>
 
@@ -9,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="content auth-register">
+    <section class="content">
         <div class="container register-tab">
             <div class="row">
                 <div class="col-lg-3 register-tab-left">
