@@ -9,12 +9,15 @@ use App\Entity\Profile;
 use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
 use App\Form\User\ProfileForm;
+use App\Twig\Extension\UserExtension;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class ProfileController extends AController
 {
@@ -23,8 +26,13 @@ class ProfileController extends AController
         private UserService         $userService,
         private ProfileService      $profileService,
         private TranslatorInterface $translator,
+        private Breadcrumbs         $breadcrumbs,
+        private RouterInterface     $router,
+        private UserExtension       $userExtension
     )
     {
+        $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
+        $this->breadcrumbs->addItem("profiles.profiles");
     }
 
     /**
@@ -68,11 +76,15 @@ class ProfileController extends AController
 
     private function personProfileDetail(Profile $profile): Response
     {
+        $this->breadcrumbs->addItem($this->userExtension->anonymize($profile->getUser()));
+
         return $this->render("profile/detail_person.html.twig", ["profile" => $profile]);
     }
 
     private function companyProfileDetail(Profile $profile): Response
     {
+        $this->breadcrumbs->addItem($this->userExtension->fullName($profile->getUser()));
+
         return $this->render("profile/detail_company.html.twig", ["profile" => $profile]);
     }
 
@@ -85,6 +97,7 @@ class ProfileController extends AController
     {
         $profile = $this->getUser()->getProfile();
         $this->denyAccessUnlessGranted("edit", $profile);
+        $this->breadcrumbs->addItem("profiles.btn_edit_profile");
 
         $form = $this->createForm(ProfileForm::class, $profile);
 
