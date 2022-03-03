@@ -6,6 +6,7 @@ app:
 
 # Navigation
 mainnav:
+  home: "Domů"
   inquiries: "Poptávky"
   new_inquiry: "Zadání poptávky"
   inquiring: "Poptávající"

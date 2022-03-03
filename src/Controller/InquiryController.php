@@ -31,8 +31,8 @@ class InquiryController extends AController
         private RouterInterface     $router,
     )
     {
-        $this->breadcrumbs->addItem("Domů", $this->router->generate("home"));
-        $this->breadcrumbs->addItem("Poptávky", $this->router->generate("inquiries"));
+        $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
+        $this->breadcrumbs->addItem("inquiries.inquiries", $this->router->generate("inquiries"));
     }
 
     /**
@@ -100,7 +100,7 @@ class InquiryController extends AController
         }
 
         $this->denyAccessUnlessGranted("view", $inquiry);
-        $this->breadcrumbs->addItem($inquiry->getTitle());
+        $this->breadcrumbs->addItem($inquiry->getTitle(), translate: false);
 
         $form = null;
 

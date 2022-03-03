@@ -1,6 +1,23 @@
+body {
+  padding-top: 5rem;
+}
+
 .navbar {
   ul.dropdown-menu {
     width: 100%;
+  }
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  padding: 1rem;
+  font-size: 1rem;
+  color: #000000;
+  background-color: #edeff0;
+  border-radius: .25em;
+
+  .separator {
+    margin: 0 0.5rem;
   }
 }
 
@@ -10,7 +27,7 @@
 
 .flash-messages {
   position: relative;
-  top: 4rem;
+  margin-bottom: 1rem;
   padding: 0;
 }
 
