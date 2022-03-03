@@ -2,15 +2,18 @@
     <ul class="offer-list">
         {# @var offer \App\Entity\Inquiry\Offer #}
         {% for offer in offers %}
-            <li class="card row">
+            <li class="cardbox row p-2 mb-2">
                 <div class="col-md-8">
-                    <a class="btn btn-link" href="#!">
-                        <h3>{{ offer.inquiry.title }}</h3>
+                    <a class="btn btn-link ps-0" href="{{ path("inquiries/detail", {"alias":offer.inquiry.alias}) }}">
+                        <h4><span class="fa fa-external-link-alt me-2"></span>{{ offer.inquiry.title }}</h4>
                     </a>
+                    <p>{{ offer.text }}</p>
                 </div>
                 <div class="col-md-4">
                     <ul class="properties-list" style="list-style-type: none;">
-                        <li><span class="me-2 fas fa-calendar-day"></span>{{ offer.createdAt|date("d.m.Y") }}</li>
+                        <li><span class="me-2 fas fa-hashtag"></span>Číslo nabídky: {{ offer.id }}</li>
+                        <li><span class="me-2 fas fa-calendar-day"></span>Datum
+                            odeslání: {{ offer.createdAt|date("d.m.Y") }}</li>
                     </ul>
                 </div>
             </li>

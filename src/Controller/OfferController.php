@@ -24,6 +24,7 @@ class OfferController extends AController
         private RouterInterface     $router,
     )
     {
+        $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
     }
 
     /**
@@ -33,6 +34,8 @@ class OfferController extends AController
      */
     public function listAction(Request $request): Response
     {
+        $this->breadcrumbs->addItem("offers.my_offers");
+
         // Get pagination
         $pagination = $this->getPaginationComponent($request, $this->getParameter("app.items_per_page"));
 

@@ -135,10 +135,10 @@ ul.inquiry-list {
       text-align: left;
     }
   }
+}
 
-  ul.properties-list {
-    padding-left: 0;
-  }
+ul.properties-list {
+  padding-left: 0;
 }
 
 @include media-breakpoint-down(md) {

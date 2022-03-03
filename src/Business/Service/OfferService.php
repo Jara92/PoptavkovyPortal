@@ -29,8 +29,8 @@ class OfferService extends AService
      * @param array $ordering
      * @return array
      */
-    public function readByAuthor(User $author, PaginationData $paginationData = null, array $ordering = []): array
+    public function readByAuthor(User $author, PaginationData $paginationData = null, array $ordering = ["id" => "desc"]): array
     {
-        return $this->repository->findByAuthor($author, $paginationData);
+        return $this->repository->findByAuthor($author, $paginationData, $ordering);
     }
 }
