@@ -56,27 +56,29 @@ class PaginationComponent
      */
     public function getItems(): array
     {
+        // FIXME: use param instead.
         $maxItems = 10;
         $currentPage = $this->data->getCurrentPage();
 
         $items = [];
 
+        $start = max(0, ($currentPage - 1) - floor(($maxItems / 2)));
         $count = 0;
 
         // Pages smaller than current page.
-        for ($i = max(1, $currentPage - $maxItems / 2); $i < $currentPage; $i++) {
+        for ($i = max(1, $currentPage - floor($maxItems / 2)); $i < $currentPage; $i++) {
             $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $i);
-            $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $url);
+            $items[] = $this->paginationLinkFactory->createPaginationLink($start + (++$count), $url);
         }
 
         // Current page.
         $currentUrl = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $currentPage);
-        $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $currentUrl, true);
+        $items[] = $this->paginationLinkFactory->createPaginationLink($start + (++$count), $currentUrl, true);
 
         // Pages bigger than current page. W
         for ($i = $currentPage + 1; $i <= $this->data->getPageCount() && $count <= $maxItems; $i++) {
             $url = $this->addUrlParam($this->data->getUrl(), $this->data->getParamName(), $i);
-            $items[] = $this->paginationLinkFactory->createPaginationLink(++$count, $url);
+            $items[] = $this->paginationLinkFactory->createPaginationLink($start + (++$count), $url);
         }
 
         return $items;
