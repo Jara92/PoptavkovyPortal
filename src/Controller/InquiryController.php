@@ -13,9 +13,11 @@ use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class InquiryController extends AController
 {
@@ -24,9 +26,13 @@ class InquiryController extends AController
     public function __construct(
         private InquiryService      $inquiryService,
         private TranslatorInterface $translator,
-        private InquiryOperation    $inquiryOperation
+        private InquiryOperation    $inquiryOperation,
+        private Breadcrumbs         $breadcrumbs,
+        private RouterInterface     $router,
     )
     {
+        $this->breadcrumbs->addItem("Domů", $this->router->generate("home"));
+        $this->breadcrumbs->addItem("Poptávky", $this->router->generate("inquiries"));
     }
 
     /**
@@ -94,6 +100,7 @@ class InquiryController extends AController
         }
 
         $this->denyAccessUnlessGranted("view", $inquiry);
+        $this->breadcrumbs->addItem($inquiry->getTitle());
 
         $form = null;
 
