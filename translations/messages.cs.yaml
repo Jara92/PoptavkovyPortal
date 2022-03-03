@@ -169,7 +169,6 @@ articles:
 inquiries:
   inquiries: "Poptávky"
   my_inquiries: "Moje poptávky"
-  reacted_inquiries: "Kontaktované poptávky"
   inquiries_filter_all: "Všechny poptávky"
   inquiries_filter_new: "Ke schválení"
   inquiry_categories: "Kategorie poptávek"
@@ -330,6 +329,7 @@ inquiries:
   modal_notice: "Upozornění"
 
 offers:
+  my_offers: "Moje nabídky"
   your_offer: "Nabídněte:"
   new_inquiry_offer: "Nová nabídka na poptávku"
   new_inquiry_offer_copy: "Kopie nabídky na poptávku"

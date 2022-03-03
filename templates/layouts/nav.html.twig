@@ -69,7 +69,7 @@
                                     <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>
                             </li>
                             <li><a class="dropdown-item" href="{{ path("my-profile") }}">
-                                    <span class="fa fa-user-cog me-2"></span>{{ "profiles.settings"|trans }}</a>
+                                    <span class="fa fa-user-cog me-2"></span>{{ "user.my_account"|trans }}</a>
                             </li>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <li><a class="dropdown-item" href="{{ path("admin") }}">
