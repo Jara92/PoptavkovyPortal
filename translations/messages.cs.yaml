@@ -106,6 +106,8 @@ auth:
 
 # Users
 user:
+  my_account: "Můj účet"
+
   field_address_street: "Ulice a číslo popisné"
   field_address_street_ph: ""
   field_address_city: "Město"

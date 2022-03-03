@@ -12,7 +12,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class UserController extends AController
 {
@@ -20,8 +22,12 @@ class UserController extends AController
         private UserOperation       $userOperation,
         private UserService         $userService,
         private TranslatorInterface $translator,
+        private Breadcrumbs         $breadcrumbs,
+        private RouterInterface     $router,
     )
     {
+        $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
+        $this->breadcrumbs->addItem("user.my_account");
     }
 
     /**
@@ -32,6 +38,8 @@ class UserController extends AController
      */
     public function changePassword(Request $request): Response
     {
+        $this->breadcrumbs->addItem("auth.password_change");
+
         // Get user and check if is valid.
         $user = $this->getUser();
         if (!$user) {
@@ -77,6 +85,8 @@ class UserController extends AController
      */
     public function baseSettings(Request $request)
     {
+        $this->breadcrumbs->addItem("profiles.settings_basic");
+
         // Get blank inquiry
         $user = $this->getUser();
 
