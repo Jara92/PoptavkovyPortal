@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
+use App\Business\Operation\SubscriptionOperation;
 use App\Business\Operation\UserOperation;
+use App\Business\Service\ProfileService;
+use App\Business\Service\SubscriptionService;
 use App\Business\Service\UserService;
 use App\Enum\FlashMessageType;
 use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
+use App\Form\Inquiry\SubscriptionForm;
+use App\Form\User\ProfileForm;
+use App\Twig\Extension\UserExtension;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +22,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
-class UserController extends AController
+class AccountSettingsController extends AController
 {
     public function __construct(
         private UserOperation       $userOperation,
         private UserService         $userService,
+        private SubscriptionService $subscriptionService,
         private TranslatorInterface $translator,
         private Breadcrumbs         $breadcrumbs,
         private RouterInterface     $router,
@@ -28,6 +35,58 @@ class UserController extends AController
     {
         $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
         $this->breadcrumbs->addItem("user.my_account");
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @IsGranted("ROLE_USER")
+     */
+    public function editMyProfile(Request $request): Response
+    {
+        $profile = $this->getUser()->getProfile();
+        $this->denyAccessUnlessGranted("edit", $profile);
+        $this->breadcrumbs->addItem("profiles.btn_edit_profile");
+
+        $form = $this->createForm(ProfileForm::class, $profile);
+
+        // Handle form
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $avatar = $form->get("avatar")->getData();
+
+            $this->userOperation->updateProfile($profile, $avatar);
+
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
+        }
+
+        return $this->renderForm("user/settings/profile_settings.html.twig", ["form" => $form]);
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @IsGranted("ROLE_SUPPLIER")
+     */
+    public function editMySubscriptions(Request $request): Response
+    {
+        $subscription = $this->getUser()->getSubscription();
+
+        // This should not happen
+        if (!$subscription) {
+            throw new \LogicException("You are not allowed to edit inquiry subscription. :(");
+        }
+
+        $form = $this->createForm(SubscriptionForm::class, $subscription);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->subscriptionService->createOrUpdate($subscription);
+
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("subscriptions.msg_settings_saved"));
+        }
+
+        return $this->renderForm("user/settings/inquiry_subscription.html.twig", ["form" => $form]);
     }
 
     /**

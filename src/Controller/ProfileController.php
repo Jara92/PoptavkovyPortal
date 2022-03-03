@@ -22,8 +22,6 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class ProfileController extends AController
 {
     public function __construct(
-        private UserOperation       $userOperation,
-        private UserService         $userService,
         private ProfileService      $profileService,
         private TranslatorInterface $translator,
         private Breadcrumbs         $breadcrumbs,
@@ -86,31 +84,5 @@ class ProfileController extends AController
         $this->breadcrumbs->addItem($this->userExtension->fullName($profile->getUser()));
 
         return $this->render("profile/detail_company.html.twig", ["profile" => $profile]);
-    }
-
-    /**
-     * @param Request $request
-     * @return Response
-     * @IsGranted("ROLE_USER")
-     */
-    public function editMyProfile(Request $request): Response
-    {
-        $profile = $this->getUser()->getProfile();
-        $this->denyAccessUnlessGranted("edit", $profile);
-        $this->breadcrumbs->addItem("profiles.btn_edit_profile");
-
-        $form = $this->createForm(ProfileForm::class, $profile);
-
-        // Handle form
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $avatar = $form->get("avatar")->getData();
-
-            $this->userOperation->updateProfile($profile, $avatar);
-
-            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
-        }
-
-        return $this->renderForm("user/settings/profile_settings.html.twig", ["form" => $form]);
     }
 }

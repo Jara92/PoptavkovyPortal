@@ -53,27 +53,27 @@ terms-and-conditions:
 # User
 my-profile:
   path: /muj-ucet
-  controller: App\Controller\UserController::myProfile
+  controller: App\Controller\AccountSettingsController::myProfile
   methods: GET
 
 my-profile/base-settings:
   path: /muj-ucet/zakladni-nastaveni
-  controller: App\Controller\UserController::baseSettings
+  controller: App\Controller\AccountSettingsController::baseSettings
   methods: GET|POST
 
 my-profile/change-password:
   path: /muj-ucet/zmena-hesla
-  controller: App\Controller\UserController::changePassword
+  controller: App\Controller\AccountSettingsController::changePassword
   methods: GET|POST
 
 my-profile/edit-profile:
   path: /muj-ucet/upravit-profil
-  controller: App\Controller\ProfileController::editMyProfile
+  controller: App\Controller\AccountSettingsController::editMyProfile
   methods: GET|POST
 
 my-profile/edit-inquiry-subscriptions:
   path: /muj-ucet/odber-poptavek
-  controller: App\Controller\SubscriptionController::editMySubscriptions
+  controller: App\Controller\AccountSettingsController::editMySubscriptions
   methods: GET|POST
 
 # Profiles
