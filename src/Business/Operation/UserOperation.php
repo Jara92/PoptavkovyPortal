@@ -138,24 +138,19 @@ class UserOperation
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function updateProfile(Profile $profile, ?UploadedFile $avatar)
+    public function updateProfile(Profile $profile, ?UploadedFile $avatar): bool
     {
         if ($avatar != null) {
             $directory = $this->params->get("app.profiles.avatars_directory");
             $newFilename = $profile->getUser()->getId() . "-" . uniqid() . "." . $avatar->guessExtension();
 
             // Move the file to the directory where brochures are stored
-            try {
-                $avatar->move(
-                    $directory,
-                    $newFilename
-                );
+            $avatar->move(
+                $directory,
+                $newFilename
+            );
 
-                $profile->setAvatar($newFilename);
-
-            } catch (FileException $e) {
-                // ... handle exception if something happens during file upload
-            }
+            $profile->setAvatar($newFilename);
         }
 
         return $this->profileService->update($profile);

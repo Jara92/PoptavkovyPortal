@@ -14,6 +14,8 @@ use App\Form\Auth\ChangePasswordForm;
 use App\Form\Inquiry\SubscriptionForm;
 use App\Form\User\ProfileForm;
 use App\Twig\Extension\UserExtension;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,9 +57,12 @@ class AccountSettingsController extends AController
         if ($form->isSubmitted() && $form->isValid()) {
             $avatar = $form->get("avatar")->getData();
 
-            $this->userOperation->updateProfile($profile, $avatar);
-
-            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
+            try {
+                $this->userOperation->updateProfile($profile, $avatar);
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("profiles.msg_information_updated"));
+            } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("profiles.msg_saving_failed"));
+            }
         }
 
         return $this->renderForm("user/settings/profile_settings.html.twig", ["form" => $form]);
@@ -76,6 +81,8 @@ class AccountSettingsController extends AController
         if (!$subscription) {
             throw new \LogicException("You are not allowed to edit inquiry subscription. :(");
         }
+
+        $this->breadcrumbs->addItem("profiles.settings_inquiry_subscription");
 
         $form = $this->createForm(SubscriptionForm::class, $subscription);
         $form->handleRequest($request);

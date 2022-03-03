@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
+use App\Controller\Trait\PaginableTrait;
 use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
@@ -134,6 +135,8 @@ class InquiryController extends AController
      */
     public function create(Request $request): Response
     {
+        $this->breadcrumbs->addItem("inquiries.new_inquiry");
+
         // Get blank inquiry
         $inquiry = $this->inquiryOperation->createBlankInquiry($this->getUser());
 

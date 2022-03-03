@@ -33,19 +33,6 @@ class ProfileController extends AController
         $this->breadcrumbs->addItem("profiles.profiles");
     }
 
-    /**
-     * @param int $profileId
-     * @param Request $request
-     * @return Response
-     * @IsGranted("ROLE_USER")
-     */
-    public function edit(int $profileId, Request $request): Response
-    {
-        //  $profile = $this->getUser()->getProfile();
-        //   $this->denyAccessUnlessGranted("edit", $profile);
-        throw new MethodNotImplementedException("Not implemented yet.");
-    }
-
     public function detail(int $profileId, Request $request): Response
     {
         // Get profile

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Trait;
 
 use App\Factory\Tools\PaginationFactory;
 use App\Factory\Tools\PaginationLinkFactory;
