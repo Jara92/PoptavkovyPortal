@@ -115,6 +115,9 @@
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
+    "mhujer/breadcrumbs-bundle": {
+        "version": "1.5.8"
+    },
     "monolog/monolog": {
         "version": "2.3.5"
     },
