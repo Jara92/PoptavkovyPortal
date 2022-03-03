@@ -7,6 +7,9 @@ use App\Enum\Entity\UserRole;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * Abstraction over Security class.
+ */
 class UserSecurity
 {
     /** @required */
