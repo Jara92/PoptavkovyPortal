@@ -20,20 +20,25 @@ inquiries/detail:
   methods: GET|POST
 
 inquiries/attachments:
-    path: /poptavky/prilohy/{hash}
-    controller: App\Controller\InquiryAttachmentsController::download
-    methods: GET
+  path: /poptavky/prilohy/{hash}
+  controller: App\Controller\InquiryAttachmentsController::download
+  methods: GET
+
+my-offers:
+  path: /moje-nabidky
+  controller: App\Controller\OfferController::listAction
+  methods: GET
 
 # Articles
 home:
-    path: /
-    controller: App\Controller\HomeController::home
-    methods: GET
+  path: /
+  controller: App\Controller\HomeController::home
+  methods: GET
 
 inquiring:
-    path: /poptavajici
-    controller: App\Controller\HomeController::inquiring
-    methods: GET
+  path: /poptavajici
+  controller: App\Controller\HomeController::inquiring
+  methods: GET
 
 suppliers:
     path: /dodavatele

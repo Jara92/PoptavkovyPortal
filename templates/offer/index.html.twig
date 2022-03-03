@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block page_name %}offer-index{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="jumbotron">
+            <h1 class="text-center">Nabídky</h1>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <section class="pt-3 pb-5">
+                        {% include "offer/layouts/list.html.twig" with offers %}
+                    </section>
+
+                    {% include "layouts/pagination.html.twig" with {pagination} %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -3,7 +3,11 @@
 namespace App\Repository\Inquiry;
 
 use App\Entity\Inquiry\Offer;
+use App\Entity\User;
 use App\Repository\Interfaces\Inquiry\IOfferRepository;
+use App\Repository\Traits\OrderedRepositoryTrait;
+use App\Repository\Traits\PaginatedRepositoryTrait;
+use App\Tools\Pagination\PaginationData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,9 +19,36 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class OfferRepository extends ServiceEntityRepository implements IOfferRepository
 {
+    use PaginatedRepositoryTrait;
+    use OrderedRepositoryTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Offer::class);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \Exception
+     */
+    public function findByAuthor(User $author, PaginationData $data = null, array $ordering = []): array
+    {
+        $qb = $this->createQueryBuilder("o");
+        $qb->where($qb->expr()->eq("o.author", ":author"))
+            ->setParameter("author", $author);
+
+        // Ordering
+        $this->orderBy($qb, "o", $ordering);
+
+        // Get final query
+        $query = $qb->getQuery();
+
+        // Paginate result
+        if ($data) {
+            $this->paginate($query, $data);
+        }
+
+        return $query->getResult();
     }
 
     // /**
