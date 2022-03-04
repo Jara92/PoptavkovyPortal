@@ -7,16 +7,19 @@
 {# @var subscription \App\Entity\Inquiry\Subscription #}
 {% block body %}
     <p>Dobrý den, <br/><br/>
-        na základě Vašeho nastavení Vám zasíláme vybrané poptávky dle Vašich preferencí.</p>
+        na základě Vašeho nastavení Vám zasíláme nové poptávky vybrané dle Vašich preferencí.</p>
 
-    <ul>
+    <ul style="list-style-type: none;">
         {% for inquiry in subscription.inquiries %}
             <li>
-                <a href="{{ path("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a>
-                <p>{{ inquiry.description|length > 50 ? inquiry.description|slice(0, 50) ~ '...' : inquiry.description }}</p>
+                <h3><a href="{{ url("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a></h3>
+                <p>{{ inquiry.description|length > 100 ? inquiry.description|slice(0, 100) ~ '...' : inquiry.description }}</p>
             </li>
         {% endfor %}
     </ul>
+
+    <p style="margin-top:3rem;">Vaše preference si můžete upravit v <a
+                href="{{ url("my-profile/edit-inquiry-subscriptions") }}">nastavení Vašeho účtu</a>.</p>
 
     {% include "email/layout/signature.html.twig" %}
 

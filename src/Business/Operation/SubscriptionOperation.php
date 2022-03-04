@@ -86,20 +86,26 @@ class SubscriptionOperation
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws TransportExceptionInterface
+     * @returns int The number of emails sent.
      */
-    public function sendNewInquiries(): void
+    public function sendNewInquiries(): int
     {
         $activeSubscriptions = $this->subscriptionService->findActiveSubscriptions();
+        $sendEmails = 0;
 
         // For each active subscription check whether the inquiry is relevant.
         foreach ($activeSubscriptions as $subscription) {
             // Send email only if there are any inquries to be send.
             if (!$subscription->getInquiries()->isEmpty()) {
                 $this->sendSubscriptionEmail($subscription);
+                $sendEmails++;
+                // TODO: uncomment this
                 //  $subscription->clearInquiries();
                 $this->subscriptionService->update($subscription);
             }
         }
+
+        return $sendEmails;
     }
 
     /**
@@ -107,7 +113,7 @@ class SubscriptionOperation
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      * @throws \Psr\Container\ContainerExceptionInterface
      */
-    private function sendSubscriptionEmail(Subscription $subscription)
+    private function sendSubscriptionEmail(Subscription $subscription): void
     {
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
