@@ -75,9 +75,9 @@ class SubscriptionOperation
         foreach ($activeSubscriptions as $subscription) {
             if ($this->isInquiryRelevant($inquiry, $subscription)) {
                 $subscription->addInquiry($inquiry);
-            }
 
-            $this->subscriptionService->update($subscription);
+                $this->subscriptionService->update($subscription);
+            }
         }
     }
 

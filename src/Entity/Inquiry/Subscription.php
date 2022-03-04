@@ -165,12 +165,14 @@ class Subscription extends AEntity
         return $this;
     }
 
-    public function addType(InquiryType $type)
+    public function addType(InquiryType $type): Subscription
     {
         $this->types[] = $type->value;
+
+        return $this;
     }
 
-    public function removeType(InquiryType $type)
+    public function removeType(InquiryType $type): Subscription
     {
         $itemKey = array_search($type->value, $this->types);
 
@@ -180,6 +182,8 @@ class Subscription extends AEntity
             // reindex the array.
             $this->types = array_values($this->types);
         }
+
+        return $this;
     }
 
     public function getNewsletter(): ?bool
