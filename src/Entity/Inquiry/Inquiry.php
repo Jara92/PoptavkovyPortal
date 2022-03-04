@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Enum\Entity\InquiryType;
 use App\Enum\Entity\InquiryState;
 use App\Repository\Inquiry\InquiryRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +32,7 @@ class Inquiry extends AEntity
     /**
      * @ORM\Column(type="text",  nullable=false)
      */
-    protected string $description;
+    private ?string $description = null;
 
     /**
      * @ORM\Column (type="string", length=128, nullable=false)
@@ -39,85 +40,85 @@ class Inquiry extends AEntity
      * @Assert\NotBlank
      * @Assert\Email
      */
-    protected string $contactEmail;
+    private ?string $contactEmail = null;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      * @Assert\Length(min=9, max=32)
      */
-    protected ?string $contactPhone;
+    private ?string $contactPhone = null;
 
     /**
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Length (min=0, max=64)
      */
-    protected ?string $city;
+    private ?string $city = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected ?Region $region;
+    private ?Region $region = null;
 
     /**
      * @ORM\Column(type="string", enumType=InquiryState::class)
      */
-    protected InquiryState $state;
+    private ?InquiryState $state = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=Deadline::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected ?Deadline $deadline;
+    private ?Deadline $deadline = null;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private ?string $deadlineText;
+    private ?string $deadlineText = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=InquiryValue::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    protected ?InquiryValue $value;
+    private ?InquiryValue $value = null;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      */
-    private ?string $valueText;
+    private ?string $valueText = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private ?int $valueNumber;
+    private ?int $valueNumber = null;
 
     /**
      * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
      */
-    protected Collection $categories;
+    private Collection $categories;
 
     /**
      * @ORM\Column(type="string", enumType=InquiryType::class)
      */
-    protected InquiryType $type;
+    private ?InquiryType $type = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inquiries")
      * @ORM\JoinColumn(nullable=true)
      */
-    protected ?User $author;
+    private ?User $author = null;
 
     /**
      * @ORM\OneToOne(targetEntity=PersonalContact::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private ?PersonalContact $personalContact;
+    private ?PersonalContact $personalContact = null;
 
     /**
      * @ORM\OneToOne(targetEntity=CompanyContact::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private ?CompanyContact $companyContact;
+    private ?CompanyContact $companyContact = null;
 
     /**
      * @ORM\OneToMany(targetEntity=InquiryAttachment::class, mappedBy="inquiry", orphanRemoval=true)
@@ -132,7 +133,7 @@ class Inquiry extends AEntity
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected ?\DateTime $publishedAt = null;
+    private ?DateTime $publishedAt = null;
 
     public function __construct()
     {
@@ -351,7 +352,7 @@ class Inquiry extends AEntity
     }
 
     /**
-     * @return Collection|InquiryAttachment[]
+     * @return Collection
      */
     public function getAttachments(): Collection
     {
@@ -411,18 +412,18 @@ class Inquiry extends AEntity
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getPublishedAt(): ?\DateTime
+    public function getPublishedAt(): ?DateTime
     {
         return $this->publishedAt;
     }
 
     /**
-     * @param \DateTime|null $publishedAt
+     * @param DateTime|null $publishedAt
      * @return Inquiry
      */
-    public function setPublishedAt(?\DateTime $publishedAt): Inquiry
+    public function setPublishedAt(?DateTime $publishedAt): Inquiry
     {
         $this->publishedAt = $publishedAt;
         return $this;
