@@ -9,12 +9,13 @@ class UrlHelperTest extends TestCase
 {
     public function testCreateAlias(): void
     {
-        $title = ["Toto je Titulek.", "ěščřžýáíé", "Lomítka/jsou/super!", "12345", "--111ahoj???ahoj--", "&ahoj=1", "<script>aa</script>"];
-        $alias = ["toto-je-titulek", "escrzyaie", "lomitka-jsou-super", "12345", "111ahoj-ahoj", "ahoj-1", "script-aa-script"];
-
-        for ($i = 0; $i < count($title); $i++) {
-            $this->assertSame($alias[$i], UrlHelper::createAlias($title[$i]));
-        }
+        $this->assertSame("toto-je-titulek", UrlHelper::createAlias("Toto je Titulek."));
+        $this->assertSame("escrzyaie", UrlHelper::createAlias("ěščřžýáíé"));
+        $this->assertSame("lomitka-jsou-super", UrlHelper::createAlias("Lomítka/jsou/super!"));
+        $this->assertSame("12345", UrlHelper::createAlias("12345"));
+        $this->assertSame("111ahoj-ahoj", UrlHelper::createAlias("--111ahoj???ahoj--"));
+        $this->assertSame("ahoj-1", UrlHelper::createAlias("&ahoj=1"));
+        $this->assertSame("script-aa-script", UrlHelper::createAlias("<script>aa</script>"));
     }
 
     public function testCreateAliasEdgeCases(): void
@@ -29,12 +30,7 @@ class UrlHelperTest extends TestCase
 
     public function testCreateIdAlias(): void
     {
-        $id = [1, -1];
-        $title = ["Titulek moji stranky", "Test"];
-        $alias = ["1-titulek-moji-stranky", "1-test"];
-
-        for ($i = 0; $i < count($title); $i++) {
-            $this->assertSame($alias[$i], UrlHelper::createIdAlias($id[$i], $title[$i]));
-        }
+        $this->assertSame("1-titulek-moji-stranky", UrlHelper::createIdAlias(1, "Titulek moji stranky"));
+        $this->assertSame("1-test", UrlHelper::createIdAlias(-1, "Test"));
     }
 }

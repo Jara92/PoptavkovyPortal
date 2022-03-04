@@ -9,7 +9,8 @@ class UrlHelper
         $title = preg_replace('~[^\pL\d]+~u', $divider, $title);
 
         // transliterate
-        $title = iconv('utf-8', 'us-ascii//TRANSLIT', $title);
+        setlocale(LC_ALL, "en_US.utf8");
+        $title = iconv("utf-8", "ascii//TRANSLIT", $title);
 
         // remove unwanted characters
         $title = preg_replace('~[^-\w]+~', '', $title);
