@@ -43,6 +43,7 @@ class InquiryOperation
         private InquiryAttachmentService $attachmentService,
         private InquiryValueService      $inquiryValueService,
         private DeadlineService          $deadlineService,
+        private SubscriptionOperation    $subscriptionOperation,
         private InquiryFactory           $inquiryFactory,
         private InquiryAttachmentFactory $attachmentFactory,
         private InquiryFilterFactory     $filterFactory,
@@ -380,5 +381,22 @@ class InquiryOperation
         }
 
         throw new LogicException("User has no relevant role.");
+    }
+
+    /**
+     * Updates inquiry and checks whether the inquiry is newly published.
+     * @param Inquiry $inquiry
+     */
+    public function updateInquiry(Inquiry $inquiry): void
+    {
+        // Is the inquiry published now?
+        if ($inquiry->getState() == InquiryState::STATE_ACTIVE && !$inquiry->getPublishedAt()) {
+            $inquiry->setPublishedAt(new \DateTime());
+
+            $this->subscriptionOperation->handleNewInquiry($inquiry);
+        }
+
+        // Update data
+        $this->inquiryService->update($inquiry);
     }
 }

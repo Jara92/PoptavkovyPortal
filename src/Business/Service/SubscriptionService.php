@@ -19,4 +19,14 @@ class SubscriptionService extends AService
     {
         parent::__construct($subscriptionRepository);
     }
+
+    /**
+     * Returns all active subscriptions.
+     * @param array $ordering
+     * @return Subscription[]
+     */
+    public function findActiveSubscriptions(array $ordering = []): array
+    {
+        return $this->repository->findBy(["newsletter" => true], $ordering);
+    }
 }
