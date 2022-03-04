@@ -45,7 +45,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email
      */
-    protected string $email;
+    protected ?string $email;
 
     /**
      * Contact phone number.
@@ -87,23 +87,23 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @ORM\Column(type="string", enumType=UserType::class)
      */
-    private UserType $type;
+    private ?UserType $type = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Person::class, cascade={"persist", "remove"})
      */
-    private ?Person $person;
+    private ?Person $person = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Company::class, cascade={"persist", "remove"})
      */
-    private ?Company $company;
+    private ?Company $company = null;
 
     /**
      * @ORM\OneToOne(targetEntity=Profile::class, inversedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private Profile $profile;
+    private ?Profile $profile = null;
 
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="author", orphanRemoval=true)
@@ -113,7 +113,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * @ORM\OneToOne(targetEntity=Subscription::class, inversedBy="user", cascade={"persist", "remove"})
      */
-    private ?Subscription $subscription;
+    private ?Subscription $subscription = null;
 
     public function __construct()
     {
