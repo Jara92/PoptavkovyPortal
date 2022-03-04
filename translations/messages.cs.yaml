@@ -171,6 +171,8 @@ inquiries:
   my_inquiries: "Moje poptávky"
   inquiries_filter_all: "Všechny poptávky"
   inquiries_filter_new: "Ke schválení"
+  new_inquiries_newsletter: "Nové poptávky"
+
   inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
   inquiry_values: "Hodnoty poptávek"

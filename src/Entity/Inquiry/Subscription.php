@@ -217,4 +217,11 @@ class Subscription extends AEntity
 
         return $this;
     }
+
+    public function clearInquiries(): self
+    {
+        $this->inquiries->clear();
+
+        return $this;
+    }
 }

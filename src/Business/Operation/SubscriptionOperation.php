@@ -6,11 +6,23 @@ use App\Business\Service\SubscriptionService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\Subscription;
 use App\Factory\Inquiry\SubscriptionFactory;
+use Exception;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SubscriptionOperation
 {
     public function __construct(
-        private SubscriptionService $subscriptionService,
+        private SubscriptionService   $subscriptionService,
+        private MailerInterface       $mailer,
+        private ContainerBagInterface $params,
+        private TranslatorInterface   $translator
     )
     {
     }
@@ -67,5 +79,43 @@ class SubscriptionOperation
 
             $this->subscriptionService->update($subscription);
         }
+    }
+
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function sendNewInquiries(): void
+    {
+        $activeSubscriptions = $this->subscriptionService->findActiveSubscriptions();
+
+        // For each active subscription check whether the inquiry is relevant.
+        foreach ($activeSubscriptions as $subscription) {
+            // Send email only if there are any inquries to be send.
+            if (!$subscription->getInquiries()->isEmpty()) {
+                $this->sendSubscriptionEmail($subscription);
+                //  $subscription->clearInquiries();
+                $this->subscriptionService->update($subscription);
+            }
+        }
+    }
+
+    /**
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
+    private function sendSubscriptionEmail(Subscription $subscription)
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
+            ->to($subscription->getUser()->getEmail())
+            ->subject($this->translator->trans("inquiries.new_inquiries_newsletter"))
+            ->htmlTemplate('email/inquiry/newsletter.html.twig')
+            ->context(["subscription" => $subscription]);
+
+        $this->mailer->send($email);
     }
 }

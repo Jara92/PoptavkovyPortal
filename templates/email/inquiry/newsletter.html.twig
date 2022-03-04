@@ -1,0 +1,28 @@
+{% extends "email/base.html.twig" %}
+
+{% block style %}
+
+{% endblock %}
+
+{# @var subscription \App\Entity\Inquiry\Subscription #}
+{% block body %}
+    <p>Dobrý den, <br/><br/>
+        na základě Vašeho nastavení Vám zasíláme vybrané poptávky dle Vašich preferencí.</p>
+
+    <ul>
+        {% for inquiry in subscription.inquiries %}
+            <li>
+                <a href="{{ path("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a>
+                <p>{{ inquiry.description|length > 50 ? inquiry.description|slice(0, 50) ~ '...' : inquiry.description }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include "email/layout/signature.html.twig" %}
+
+    <hr/>
+    <footer>
+        <p>Tento email jste obdržel na základě Vašeho nastavení v systému <a
+                    href="{{ url("home") }}">{{ "app.name"|trans }}</a>.</p>
+    </footer>
+{% endblock %}
