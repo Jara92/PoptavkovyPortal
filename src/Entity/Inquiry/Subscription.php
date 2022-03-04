@@ -41,11 +41,17 @@ class Subscription extends AEntity
      */
     private ?bool $newsletter;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Inquiry::class)
+     */
+    private $inquiries;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->regions = new ArrayCollection();
         $this->types = [];
+        $this->inquiries = new ArrayCollection();
     }
 
     /**
@@ -184,6 +190,30 @@ class Subscription extends AEntity
     public function setNewsletter(bool $newsletter): self
     {
         $this->newsletter = $newsletter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inquiry>
+     */
+    public function getInquiries(): Collection
+    {
+        return $this->inquiries;
+    }
+
+    public function addInquiry(Inquiry $inquiry): self
+    {
+        if (!$this->inquiries->contains($inquiry)) {
+            $this->inquiries[] = $inquiry;
+        }
+
+        return $this;
+    }
+
+    public function removeInquiry(Inquiry $inquiry): self
+    {
+        $this->inquiries->removeElement($inquiry);
 
         return $this;
     }
