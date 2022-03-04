@@ -22,7 +22,7 @@ class InquiryService extends AService
         parent::__construct($inquiryRepository);
     }
 
-    public function readByAlias(string $alias):?Inquiry
+    public function readByAlias(string $alias): ?Inquiry
     {
         return $this->repository->findOneBy(["alias" => $alias]);
     }
@@ -36,5 +36,15 @@ class InquiryService extends AService
     public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator): array
     {
         return $this->repository->findByFilter($filter, $paginator);
+    }
+
+    /**
+     * Increments inquiry hits value.
+     * @param Inquiry $inquiry
+     */
+    public function incHits(Inquiry $inquiry): void
+    {
+        $inquiry->incHits();
+        $this->update($inquiry);
     }
 }

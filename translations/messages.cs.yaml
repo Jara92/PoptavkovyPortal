@@ -203,6 +203,7 @@ inquiries:
   new_inquiry_help: "Nevíte si rady?"
 
   filtered_inquiries: "Bylo nalezeno <strong>%value%</strong> poptávek odpovídajích Vašim požadavkům."
+  number_of_views: "Počet zobrazení:"
 
   form_card_info_title: "Informace o poptávce"
   form_card_info_step: "1. krok"

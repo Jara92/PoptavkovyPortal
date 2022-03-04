@@ -101,6 +101,10 @@ class InquiryController extends AController
         }
 
         $this->denyAccessUnlessGranted("view", $inquiry);
+
+        // Increment inquiry views now
+        $this->inquiryService->incHits($inquiry);
+
         $this->breadcrumbs->addItem($inquiry->getTitle(), translate: false);
 
         $form = null;
