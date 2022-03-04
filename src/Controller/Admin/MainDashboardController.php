@@ -51,15 +51,15 @@ class MainDashboardController extends AbstractDashboardController
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
 
-            MenuItem::subMenu("inquiries.inquiries", "fa fa-tags")->setSubItems([
-                MenuItem::linkToCrud("inquiries.inquiries_filter_all", "fa fa-tags", Inquiry::class),
+            MenuItem::subMenu("inquiries.inquiries", "fa fa-folder-open")->setSubItems([
+                MenuItem::linkToCrud("inquiries.inquiries_filter_all", "fa fa-folder", Inquiry::class),
                 MenuItem::linkToCrud("inquiries.inquiries_filter_new", "fa fa-folder-plus", Inquiry::class)
                     ->setQueryParameter("filters[state]", ["comparison" => "=", "value" => InquiryState::STATE_NEW->value])
             ]),
             MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
-            MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-tags", InquiryValue::class),
+            MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-dollar-sign", InquiryValue::class),
             MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
-            MenuItem::linkToCrud("inquiries.regions", "fa", Region::class),
+            MenuItem::linkToCrud("inquiries.regions", "fa fa-map-marker", Region::class),
             MenuItem::linkToCrud("profiles.profiles", "fa fa-address-card", Profile::class),
             //MenuItem::linkToCrud("users.users", "fa fa-user", User::class),
         ];
