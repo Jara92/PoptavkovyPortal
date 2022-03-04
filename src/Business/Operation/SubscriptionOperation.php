@@ -44,7 +44,7 @@ class SubscriptionOperation
         $regions = true;
 
         // Inquiry has a region set and subscription has at least one region set.
-        if ($inquiry->getRegion() && !empty($subscription->getRegions())) {
+        if ($inquiry->getRegion() && !$subscription->getRegions()->isEmpty()) {
             $regions = in_array($inquiry->getRegion(), $subscription->getRegions()->toArray());
         }
 
