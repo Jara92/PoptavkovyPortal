@@ -81,7 +81,6 @@ class SubscriptionOperation
         }
     }
 
-
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -99,8 +98,8 @@ class SubscriptionOperation
             if (!$subscription->getInquiries()->isEmpty()) {
                 $this->sendSubscriptionEmail($subscription);
                 $sendEmails++;
-                // TODO: uncomment this
-                //  $subscription->clearInquiries();
+
+                $subscription->clearInquiries();
                 $this->subscriptionService->update($subscription);
             }
         }
