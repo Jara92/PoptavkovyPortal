@@ -4,6 +4,7 @@ namespace App\Entity\Inquiry;
 
 use App\Entity\AEntity;
 use App\Entity\Traits\AliasTrait;
+use App\Entity\Traits\HitsTrait;
 use App\Entity\Traits\TimeStampTrait;
 use App\Entity\Traits\TitleTrait;
 use App\Entity\User;
@@ -28,6 +29,8 @@ class Inquiry extends AEntity
     use TitleTrait;
 
     use AliasTrait;
+
+    use HitsTrait;
 
     /**
      * @ORM\Column(type="text",  nullable=false)
