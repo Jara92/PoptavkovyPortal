@@ -2,6 +2,7 @@
 
 namespace App\Business\Service;
 
+use App\Entity\AEntity;
 use App\Entity\Inquiry\Subscription;
 use App\Repository\Interfaces\Inquiry\ISubscriptionRepository;
 use App\Repository\Interfaces\IRepository;
@@ -18,6 +19,20 @@ class SubscriptionService extends AService
     public function __construct(ISubscriptionRepository $subscriptionRepository)
     {
         parent::__construct($subscriptionRepository);
+    }
+
+    /**
+     * @param Subscription $entity
+     * @return bool
+     */
+    public function update(AEntity $entity): bool
+    {
+        // Clear inquiries to be sent if newsletter is turned off.
+        if (!$entity->getNewsletter()) {
+            $entity->clearInquiries();
+        }
+
+        return parent::update($entity);
     }
 
     /**
