@@ -129,6 +129,11 @@ class Inquiry extends AEntity
      */
     private Collection $offers;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected ?\DateTime $publishedAt = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -402,6 +407,24 @@ class Inquiry extends AEntity
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPublishedAt(): ?\DateTime
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param \DateTime|null $publishedAt
+     * @return Inquiry
+     */
+    public function setPublishedAt(?\DateTime $publishedAt): Inquiry
+    {
+        $this->publishedAt = $publishedAt;
         return $this;
     }
 }
