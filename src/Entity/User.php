@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Form\Constraint as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -50,6 +51,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     /**
      * Contact phone number.
      * @ORM\Column(type="string", length=32, nullable=true)
+     * @AppAssert\PhoneNumber()
      */
     protected ?string $phone;
 

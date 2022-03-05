@@ -13,6 +13,7 @@ use App\Enum\Entity\InquiryType;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Region;
+use App\Form\Constraint\PhoneNumber;
 use App\Form\Type\DataListType;
 use App\Helper\InquiryTypeHelper;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,11 +25,13 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -199,13 +202,12 @@ class InquiryForm extends AbstractType
                     "placeholder" => "inquiries.field_email_ph",
                 ],
             ])
-            // TODO: Create a custom type for a phone number.
-            ->add("contactPhone", TextType::class, [
+            ->add("contactPhone", TelType::class, [
                 'required' => false,
                 'label' => "inquiries.field_phone",
                 'attr' => [
                     "placeholder" => "inquiries.field_phone_ph",
-                ],
+                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "inquiries.btn_submit",

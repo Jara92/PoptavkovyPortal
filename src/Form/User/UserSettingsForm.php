@@ -42,7 +42,6 @@ abstract class UserSettingsForm extends AbstractType
                     "placeholder" => "auth.field_email_ph",
                 ]
             ])
-            // TODO: Make phone Type
             ->add('phone', TextType::class, [
                 'required' => false,
                 'label' => "auth.field_phone",

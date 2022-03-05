@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,8 +44,7 @@ class UserForm extends AbstractType
                     "placeholder" => "auth.field_email_ph",
                 ]
             ])
-            // TODO: Make phone Type
-            ->add('phone', TextType::class, [
+            ->add('phone', TelType::class, [
                 'required' => false,
                 'label' => "auth.field_phone",
                 'attr' => [
