@@ -156,8 +156,6 @@ class InquiryController extends AController
             // Load attachments.
             $attachments = $form->get('attachments')->getData();
 
-            dump($attachments);
-
             // Save the inquiry.
             $this->inquiryOperation->createInquiry($inquiry, $attachments);
 
