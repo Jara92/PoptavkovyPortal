@@ -1,0 +1,9 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}{{ "notifications.settings"|trans }} | {{ parent() }}{% endblock %}
+
+{% block tab_title %}{{ "notifications.settings"|trans }}{% endblock %}
+
+{% block tab_content %}
+    {{ form(form) }}
+{% endblock %}
