@@ -10,32 +10,6 @@
             <div class="row cardbox">
                 <div class="col-md-3 cardbox-siderbar profile-menu">
                     <nav class="list-group list-group-flush">
-                        <div class="dropdown mb-2 profile-intro">
-                            <a href="#"
-                               class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% if app.user.profile.avatar %}
-                                    <img src="{{ asset("/uploads/avatars/"~app.user.profile.avatar) }}"
-                                         class="rounded-circle"
-                                         alt="{{ app.user.profile.user|user_name }} avatar" width="30" height="30"/>
-                                {% else %}
-                                    <img src="{{ asset("/build/img/profile/avatar_company.png") }}" alt="profile-img"
-                                         width="30" height="30" class="rounded-circle"/>
-                                {% endif %}
-                                <span class="d-none d-sm-inline mx-1">{{ app.user|user_name }}</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
-                                aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item"
-                                       href="{{ path("inquiries/new") }}">{{ "inquiries.new_inquiry"|trans }}</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item"
-                                       href="{{ path("app_logout") }}">{{ "auth.log_out"|trans }}</a></li>
-                            </ul>
-                        </div>
-
                         {# Siderbar nav items #}
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item py-1">
