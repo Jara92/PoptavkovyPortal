@@ -451,6 +451,9 @@ deadline:
   now: "Hned"
   as_soon_as_possible: "Co nejdříve"
 
+smart_tag:
+  no_offers_yet: "Zatím bez nabídek"
+
 btn_save: "Uložit"
 btn_close: "Zavřít"
 btn_contact_support: "Kontaktovat podporu"

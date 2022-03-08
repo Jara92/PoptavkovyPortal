@@ -9,8 +9,12 @@
             <section class="row cardbox">
                 <div class="inquiry-detail-left col-md-12 col-lg-8">
                     <h1>{{ inquiry.title }}</h1>
-                    <ul class="inquiry-tags">
-                        {# <li><span class="badge bg-primary">Čeká na nabídky</span></li> #}
+                    <ul class="row inquiry-smart-tags">
+                        {% for tag in inquiry.smartTags %}
+                            <li>
+                                <span class="col badge bg-primary smart-tag-{{ tag.alias }}">{{ tag.title |trans }}</span>
+                            </li>
+                        {% endfor %}
                     </ul>
 
                     <hr/>
