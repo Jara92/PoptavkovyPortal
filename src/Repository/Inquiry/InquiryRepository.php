@@ -5,6 +5,7 @@ namespace App\Repository\Inquiry;
 use App\Entity\Inquiry\Inquiry;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
+use App\Repository\Traits\OrderedRepositoryTrait;
 use App\Repository\Traits\PaginatedRepositoryTrait;
 use App\Tools\Filter\InquiryFilter;
 use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
@@ -23,6 +24,7 @@ use Exception;
 class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepository
 {
     use PaginatedRepositoryTrait;
+    use OrderedRepositoryTrait;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -36,12 +38,15 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
     public function findByFilterPaginated(InquiryFilter $filter, PaginationData $paginationData, array $ordering = []): array
     {
         // Get final query
-        $qb = $this->getFilterQueryBuilder($filter)->getQuery();
+        $qb = $this->getFilterQueryBuilder($filter);
+        $this->orderBy($qb, "i", $ordering);
+
+        $query = $qb->getQuery();
 
         // Paginate result
-        $this->paginate($qb, $paginationData);
+        $this->paginate($query, $paginationData);
 
-        return $qb->getResult();
+        return $query->getResult();
     }
 
     /**
