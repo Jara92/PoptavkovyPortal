@@ -65,6 +65,11 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
         }
 
         $qb = $this->getFilterQueryBuilder($filter);
+
+        // Do not return the given inquiry
+        $qb->andWhere($qb->expr()->neq("i", ":inquiry"))
+            ->setParameter(":inquiry", $inquiry);
+
         $qb->setMaxResults($maxResults);
 
         return $qb->getQuery()->getResult();
