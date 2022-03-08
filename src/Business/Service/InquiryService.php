@@ -35,7 +35,19 @@ class InquiryService extends AService
      */
     public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator): array
     {
-        return $this->repository->findByFilter($filter, $paginator);
+        return $this->repository->findByFilterPaginated($filter, $paginator);
+    }
+
+    /**
+     * Returns the given number of inquiries similar to the given inquiry.
+     * @param Inquiry $inquiry
+     * @param int $maxResults
+     * @param array $ordering
+     * @return array
+     */
+    public function readSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = []): array
+    {
+        return $this->repository->findSimilar($inquiry, $maxResults, $ordering);
     }
 
     /**

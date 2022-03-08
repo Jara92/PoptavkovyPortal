@@ -10,6 +10,7 @@ use App\Tools\Filter\InquiryFilter;
 use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Tools\Pagination\PaginationData;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 
@@ -29,12 +30,46 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
     }
 
     /**
-     * @param InquiryFilter $filter
-     * @param PaginationData $paginationData
-     * @return Inquiry[]
+     * @inheritdoc
      * @throws Exception
      */
-    public function findByFilter(InquiryFilter $filter, PaginationData $paginationData): array
+    public function findByFilterPaginated(InquiryFilter $filter, PaginationData $paginationData, array $ordering = []): array
+    {
+        // Get final query
+        $qb = $this->getFilterQueryBuilder($filter)->getQuery();
+
+        // Paginate result
+        $this->paginate($qb, $paginationData);
+
+        return $qb->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = [])
+    {
+        // TODO: this is just a simple way to find similar articles.
+        // Build tmp filter object
+        $filter = new InquiryFilter();
+        $filter->setCategories($inquiry->getCategories()->toArray());
+        $filter->setTypes([$inquiry->getType()]);
+
+        if ($inquiry->getRegion()) {
+            $filter->setRegions([$inquiry->getRegion()]);
+        }
+
+        $qb = $this->getFilterQueryBuilder($filter);
+        $qb->setMaxResults($maxResults);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param InquiryFilter $filter
+     * @return QueryBuilder
+     */
+    private function getFilterQueryBuilder(InquiryFilter $filter): QueryBuilder
     {
         $qb = $this->createQueryBuilder("i");
 
@@ -87,13 +122,7 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
                 ->setParameter("states", $states);
         }
 
-        // Get final query
-        $query = $qb->getQuery();
-
-        // Paginate result
-        $this->paginate($query, $paginationData);
-
-        return $query->getResult();
+        return $qb;
     }
 
     // /**

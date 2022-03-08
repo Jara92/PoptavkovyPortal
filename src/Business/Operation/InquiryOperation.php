@@ -429,4 +429,15 @@ class InquiryOperation
         // Update data
         $this->inquiryService->update($inquiry);
     }
+
+    /**
+     * Returns the given number of inquiries similar to the given inquiry.
+     * @param Inquiry $inquiry
+     * @param int $maxResults
+     * @return array
+     */
+    public function getSimilarInquiries(Inquiry $inquiry, int $maxResults = 10): array
+    {
+        return $this->inquiryService->readSimilar($inquiry, $maxResults);
+    }
 }
