@@ -117,6 +117,11 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
      */
     private ?Subscription $subscription = null;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Notification::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private ?Notification $notification;
+
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
@@ -410,6 +415,23 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     public function setSubscription(Subscription $subscription): self
     {
         $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    public function getNotification(): ?Notification
+    {
+        return $this->notification;
+    }
+
+    public function setNotification(Notification $notification): self
+    {
+        // set the owning side of the relation if necessary
+        if ($notification->getUser() !== $this) {
+            $notification->setUser($this);
+        }
+
+        $this->notification = $notification;
 
         return $this;
     }
