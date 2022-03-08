@@ -368,6 +368,7 @@ profiles:
   links: "Odkazy"
   contact: "Kontakt"
   my_profile: "Můj profil"
+  my_public_profile: "Veřejný profil"
   main_activity: "Hlavní činnost"
   about_company: "O firmě"
   about_person: "O mně"

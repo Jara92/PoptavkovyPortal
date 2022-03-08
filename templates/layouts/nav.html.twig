@@ -54,9 +54,19 @@
                             <span class="fa fa-user me-2"></span>{{ app.user|user_name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="my-account-dropdown">
+                            <li><a class="dropdown-item"
+                                   href="{{ path("profiles/detail", {"profileId":app.user.profile.id}) }}">
+                                    <span class="fa fa-address-card me-2"></span>{{ "profiles.my_public_profile"|trans }}
+                                </a>
+                            </li>
                             {% if is_granted("ROLE_INQUIRING") %}
                                 <li><a class="dropdown-item" href="{{ path("my-inquiries") }}">
                                         <span class="fa fa-folder me-2"></span>{{ "inquiries.my_inquiries"|trans }}</a>
+                                </li>
+                            {% endif %}
+                            {% if is_granted("ROLE_SUPPLIER") %}
+                                <li><a class="dropdown-item" href="{{ path("my-offers") }}">
+                                        <span class="fa fa-history me-2"></span>{{ "offers.my_offers"|trans }}</a>
                                 </li>
                             {% endif %}
                             {% if is_granted("ROLE_INQUIRING") or is_granted("ROLE_SUPPLIER") %}
@@ -64,10 +74,6 @@
                                     <hr class="dropdown-divider">
                                 </li>
                             {% endif %}
-                            <li><a class="dropdown-item"
-                                   href="{{ path("profiles/detail", {"profileId":app.user.profile.id}) }}">
-                                    <span class="fa fa-address-card me-2"></span>{{ "profiles.my_profile"|trans }}</a>
-                            </li>
                             <li><a class="dropdown-item" href="{{ path("my-profile") }}">
                                     <span class="fa fa-user-cog me-2"></span>{{ "user.my_account"|trans }}</a>
                             </li>
