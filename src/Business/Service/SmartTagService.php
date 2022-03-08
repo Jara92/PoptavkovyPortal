@@ -3,6 +3,7 @@
 namespace App\Business\Service;
 
 use App\Business\SmartTag\ISmartTag;
+use App\Business\SmartTag\NoOffersYet;
 
 class SmartTagService
 {
@@ -12,7 +13,7 @@ class SmartTagService
     public function __construct()
     {
         $this->registredTags = [
-
+            new NoOffersYet()
         ];
     }
 
