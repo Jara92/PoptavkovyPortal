@@ -7,6 +7,7 @@ use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
 use App\Business\Service\InquiryValueService;
 use App\Business\Service\OfferService;
+use App\Business\Service\SmartTagService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\Offer;
@@ -49,6 +50,7 @@ class InquiryOperation
         private InquiryFilterFactory     $filterFactory,
         private OfferService             $offerService,
         private OfferFactory             $offerFactory,
+        private SmartTagService          $smartTagService,
         private PersonalContactFactory   $personalContactFactory,
         private CompanyContactFactory    $companyContactFactory,
         private UserSecurity             $security,
@@ -58,6 +60,34 @@ class InquiryOperation
         private MailerInterface          $mailer
     )
     {
+    }
+
+    /**
+     * Returns inquiry if found with corresponding smart tags attached.
+     * @param string $alias
+     * @return Inquiry|null
+     */
+    public function getInquiry(string $alias): ?Inquiry
+    {
+        $inquiry = $this->inquiryService->readByAlias($alias);
+        if ($inquiry) {
+            $this->attachSmartTags($inquiry);
+        }
+
+        return $inquiry;
+    }
+
+    /**
+     * Attaches smart tags which corresponds to the inquiry.
+     * @param Inquiry $inquiry
+     */
+    public function attachSmartTags(Inquiry $inquiry): void
+    {
+        foreach ($this->smartTagService->readAll() as $smartTag) {
+            if ($smartTag->correspondsTo($inquiry)) {
+                $inquiry->addSmartTag($smartTag);
+            }
+        }
     }
 
     /**

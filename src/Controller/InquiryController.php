@@ -94,7 +94,7 @@ class InquiryController extends AController
      */
     public function detail(string $alias, Request $request): Response
     {
-        $inquiry = $this->inquiryService->readByAlias($alias);
+        $inquiry = $this->inquiryOperation->getInquiry($alias);
 
         if (!$inquiry) {
             throw new NotFoundHttpException("Inquiry not found.");
