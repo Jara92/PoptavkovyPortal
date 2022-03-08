@@ -21,6 +21,11 @@ class Notification extends AEntity
      */
     private ?User $user = null;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default"=true})
+     */
+    private ?bool $feedback = true;
+
     public function getNewsletter(): ?bool
     {
         return $this->newsletter;
@@ -41,6 +46,18 @@ class Notification extends AEntity
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFeedback(): ?bool
+    {
+        return $this->feedback;
+    }
+
+    public function setFeedback(bool $feedback): self
+    {
+        $this->feedback = $feedback;
 
         return $this;
     }

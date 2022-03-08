@@ -35,10 +35,15 @@ class NotificationForm extends AbstractType
             'label_attr' => [
                 'class' => 'checkbox-switch',
             ],
-        ])
-            ->add('submit', SubmitType::class, [
-                'label' => "btn_save",
-                'attr' => ["class" => "btn btn-primary btn-center"]
-            ])->getForm();
+            'help' => "notifications.field_newsletter_desc"
+        ])->add('feedback', CheckboxType::class, [
+            'label_attr' => [
+                'class' => 'checkbox-switch',
+            ],
+            'help' => "notifications.field_feedback_desc"
+        ])->add('submit', SubmitType::class, [
+            'label' => "btn_save",
+            'attr' => ["class" => "btn btn-primary btn-center"]
+        ])->getForm();
     }
 }

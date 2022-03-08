@@ -403,12 +403,16 @@ profiles:
   field_facebook: "Odkaz na Váš Facebookový profil"
   field_linkedin: "Odkaz na Váš LinkedIn profil"
 
+#Notifications
 notifications:
   settings: "Nastavení upozornění"
 
   msg_settings_saved: "Nastavení bylo úspěšně uloženo."
 
-  field_newsletter: "Odběr novinek"
+  field_newsletter: "Zasílat novinky"
+  field_newsletter_desc: ""
+  field_feedback: "Zasílat dotazník spokojenosti"
+  field_feedback_desc: ""
 
 #Admin
 admin:
