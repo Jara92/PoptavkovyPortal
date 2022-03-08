@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Business\Operation\SubscriptionOperation;
 use App\Business\Operation\UserOperation;
+use App\Business\Service\NotificationService;
 use App\Business\Service\ProfileService;
 use App\Business\Service\SubscriptionService;
 use App\Business\Service\UserService;
@@ -12,6 +13,7 @@ use App\Exception\InvalidOldPasswordException;
 use App\Exception\OperationFailedException;
 use App\Form\Auth\ChangePasswordForm;
 use App\Form\Inquiry\SubscriptionForm;
+use App\Form\User\NotificationForm;
 use App\Form\User\ProfileForm;
 use App\Twig\Extension\UserExtension;
 use Psr\Container\ContainerExceptionInterface;
@@ -30,6 +32,7 @@ class AccountSettingsController extends AController
         private UserOperation       $userOperation,
         private UserService         $userService,
         private SubscriptionService $subscriptionService,
+        private NotificationService $notificationService,
         private TranslatorInterface $translator,
         private Breadcrumbs         $breadcrumbs,
         private RouterInterface     $router,
@@ -172,5 +175,28 @@ class AccountSettingsController extends AController
         }
 
         return $this->renderForm("user/settings/base_settings.html.twig", ["form" => $form]);
+    }
+
+    public function editMyNotifications(Request $request): Response
+    {
+        $notification = $this->getUser()->getNotification();
+
+        // This should not happen
+        if (!$notification) {
+            throw new \LogicException("You are not allowed to do that. :(");
+        }
+
+        $this->breadcrumbs->addItem("profiles.settings_notifications");
+
+        $form = $this->createForm(NotificationForm::class, $notification);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->notificationService->createOrUpdate($notification);
+
+            $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("notifications.msg_settings_saved"));
+        }
+
+        return $this->renderForm("user/settings/notification_settings.html.twig", ["form" => $form]);
     }
 }

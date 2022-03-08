@@ -2,6 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
+use App\Business\SmartTag\ISmartTag;
 use App\Entity\AEntity;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\HitsTrait;
@@ -129,6 +130,11 @@ class Inquiry extends AEntity
      * @ORM\OneToMany(targetEntity=InquiryAttachment::class, mappedBy="inquiry", orphanRemoval=true)
      */
     private Collection $attachments;
+
+    /**
+     * @var ISmartTag[]
+     */
+    private array $smartTags = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="inquiry", orphanRemoval=true)
@@ -383,6 +389,30 @@ class Inquiry extends AEntity
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return ISmartTag[]
+     */
+    public function getSmartTags(): array
+    {
+        return $this->smartTags;
+    }
+
+    /**
+     * @param ISmartTag[] $smartTags
+     * @return Inquiry
+     */
+    public function setSmartTags(array $smartTags): Inquiry
+    {
+        $this->smartTags = $smartTags;
+        return $this;
+    }
+
+    public function addSmartTag(ISmartTag $smartTag): Inquiry
+    {
+        $this->smartTags[] = $smartTag;
         return $this;
     }
 

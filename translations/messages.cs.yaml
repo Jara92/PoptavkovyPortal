@@ -403,6 +403,13 @@ profiles:
   field_facebook: "Odkaz na Váš Facebookový profil"
   field_linkedin: "Odkaz na Váš LinkedIn profil"
 
+notifications:
+  settings: "Nastavení upozornění"
+
+  msg_settings_saved: "Nastavení bylo úspěšně uloženo."
+
+  field_newsletter: "Odběr novinek"
+
 #Admin
 admin:
   back_to_frontend: "Frontend"
@@ -450,6 +457,10 @@ deadline:
   agreement: "Dohodou"
   now: "Hned"
   as_soon_as_possible: "Co nejdříve"
+
+smart_tag:
+  no_offers_yet: "Zatím bez nabídek"
+  with_attachments: "S přílohami"
 
 btn_save: "Uložit"
 btn_close: "Zavřít"

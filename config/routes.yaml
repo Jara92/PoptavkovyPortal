@@ -81,6 +81,11 @@ my-profile/edit-inquiry-subscriptions:
   controller: App\Controller\AccountSettingsController::editMySubscriptions
   methods: GET|POST
 
+my-profile/edit-notifications:
+  path: /muj-ucet/upozornovani
+  controller: App\Controller\AccountSettingsController::editMyNotifications
+  methods: GET|POST
+
 # Profiles
 profiles/detail:
   path: /profil/{profileId}
