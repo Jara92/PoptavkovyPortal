@@ -6,7 +6,6 @@ use App\Entity\AEntity;
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectManager;
 
 /**
  * Abstract service which implements basic service features.
@@ -169,7 +168,7 @@ class AService implements ICrudService
      * Called after trying to delete a non-existing item.
      * @param mixed $id
      */
-    protected function onDeleteNonExistingItem(mixed $id)
+    private function onDeleteNonExistingItem(mixed $id)
     {
     }
 }
