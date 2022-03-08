@@ -58,12 +58,13 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
         // Build tmp filter object
         $filter = new InquiryFilter();
         $filter->setCategories($inquiry->getCategories()->toArray());
-        $filter->setTypes([$inquiry->getType()]);
+        //$filter->setTypes([$inquiry->getType()]);
 
         if ($inquiry->getRegion()) {
-            $filter->setRegions([$inquiry->getRegion()]);
+            //  $filter->setRegions([$inquiry->getRegion()]);
         }
 
+        // Use the filter
         $qb = $this->getFilterQueryBuilder($filter);
 
         // Do not return the given inquiry
