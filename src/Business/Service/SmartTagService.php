@@ -4,6 +4,7 @@ namespace App\Business\Service;
 
 use App\Business\SmartTag\ISmartTag;
 use App\Business\SmartTag\NoOffersYet;
+use App\Business\SmartTag\WithAttachments;
 
 class SmartTagService
 {
@@ -13,7 +14,8 @@ class SmartTagService
     public function __construct()
     {
         $this->registredTags = [
-            new NoOffersYet()
+            new NoOffersYet(),
+            new WithAttachments()
         ];
     }
 
