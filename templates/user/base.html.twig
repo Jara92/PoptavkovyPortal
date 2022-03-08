@@ -79,7 +79,7 @@
                                 </li>
                             {% endif %}
                             <li class="list-group-item py-1">
-                                <a href="" class="text-reset"><span
+                                <a href="{{ path("my-profile/edit-notifications") }}" class="text-reset"><span
                                             class="fas fa-flag me-2"></span>{{ "profiles.settings_notifications"|trans }}
                                 </a>
                             </li>
@@ -88,6 +88,7 @@
                 </div>
                 <div class="col-md-9 profile-content">
                     <h2>{% block tab_title %}{% endblock %}</h2>
+                    <hr/>
                     {% block tab_content %}
                     {% endblock %}
                 </div>
