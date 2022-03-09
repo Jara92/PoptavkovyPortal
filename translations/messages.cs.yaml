@@ -427,6 +427,10 @@ admin:
     title_others: "Ostatní"
 
     field_parent_category: "Nadřazená kategorie"
+    field_categories: "Kategorie, do kterých poptávka patří. Pro zveřejnění musí poptávka patřit do alespoň jedné kategorie. Ideální počet je 3 - 10."
+    field_created_at: "Datum a čas zadání"
+    field_updated_at: "Datum a čas poslední úpravy"
+    field_published_at: "Datum a čas zveřejnění"
 
   # AdminProfiles
   profiles:

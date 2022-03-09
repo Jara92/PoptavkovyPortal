@@ -23,6 +23,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -118,6 +119,21 @@ class InquiryCrudController extends AbstractCrudController
 
             TextareaField::new('description', "inquiries.field_description")->hideOnIndex(),
 
+            AssociationField::new("categories", "admin.inquiries.field_categories")
+                // ->setQueryBuilder() does not work as expected.
+                ->setFormTypeOption(
+                    'query_builder', function (InquiryCategoryRepository $repo) {
+                    return $repo->getSubcategoriesQuery();
+                })
+                ->setFormTypeOptions(['choice_label' => function (InquiryCategory $c) {
+                    if ($c->getParent()) {
+                        return $c->getParent()->getTitle() . " | " . $c->getTitle();
+                    } else {
+                        return $c->getTitle();
+                    }
+                }])
+                ->onlyOnForms(),
+
             AssociationField::new("region", "inquiries.field_region")
                 ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
 
@@ -159,6 +175,10 @@ class InquiryCrudController extends AbstractCrudController
             FormField::addTab("admin.inquiries.title_others")->onlyOnForms(),
             FormField::addPanel("admin.inquiries.title_others")->onlyOnForms(),
 
+            DateTimeField::new("createdAt", "admin.inquiries.field_created_at")->onlyOnForms(),
+            DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")->onlyOnForms(),
+            DateTimeField::new("publishedAt", "admin.inquiries.field_published_at"),
+
             ChoiceField::new("state", "inquiries.field_state")
                 ->setChoices(InquiryStateHelper::translationCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
@@ -166,21 +186,6 @@ class InquiryCrudController extends AbstractCrudController
             ChoiceField::new("state", "inquiries.field_state")
                 ->setChoices(InquiryStateHelper::translationStringCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
-
-            AssociationField::new("categories", "inquiries.field_categories")
-                // ->setQueryBuilder() does not work as expected.
-                ->setFormTypeOption(
-                    'query_builder', function (InquiryCategoryRepository $repo) {
-                    return $repo->getSubcategoriesQuery();
-                })
-                ->setFormTypeOptions(['choice_label' => function (InquiryCategory $c) {
-                    if ($c->getParent()) {
-                        return $c->getParent()->getTitle() . " | " . $c->getTitle();
-                    } else {
-                        return $c->getTitle();
-                    }
-                }])
-                ->onlyOnForms()
         ];
     }
 
