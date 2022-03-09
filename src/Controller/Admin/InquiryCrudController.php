@@ -137,6 +137,8 @@ class InquiryCrudController extends AbstractCrudController
             AssociationField::new("region", "inquiries.field_region")
                 ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
 
+            TextField::new("city", "inquiries.field_city")->hideOnIndex(),
+
             AssociationField::new("value", "inquiries.field_value")
                 ->setFormTypeOptions(['choice_label' => "title", "choice_translation_domain" => "messages"]),
 
@@ -175,10 +177,6 @@ class InquiryCrudController extends AbstractCrudController
             FormField::addTab("admin.inquiries.title_others")->onlyOnForms(),
             FormField::addPanel("admin.inquiries.title_others")->onlyOnForms(),
 
-            DateTimeField::new("createdAt", "admin.inquiries.field_created_at")->onlyOnForms(),
-            DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")->onlyOnForms(),
-            DateTimeField::new("publishedAt", "admin.inquiries.field_published_at"),
-
             ChoiceField::new("state", "inquiries.field_state")
                 ->setChoices(InquiryStateHelper::translationCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
@@ -186,6 +184,13 @@ class InquiryCrudController extends AbstractCrudController
             ChoiceField::new("state", "inquiries.field_state")
                 ->setChoices(InquiryStateHelper::translationStringCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
+
+            // TODO: Figure out why this is not working as a field in the form.
+            DateTimeField::new("createdAt", "admin.inquiries.field_created_at")->hideOnForm()
+                ->setRequired(false),
+            DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")->onlyOnDetail()
+                ->setRequired(false),
+            DateTimeField::new("publishedAt", "admin.inquiries.field_published_at")->onlyOnDetail(),
         ];
     }
 
