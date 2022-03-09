@@ -10,7 +10,7 @@ trait HitsTrait
     /**
      * @ORM\Column(type="integer", length=70, options={"default"=0} )
      */
-    protected ?int $hits;
+    protected int $hits = 0;
 
     public function getHits(): ?int
     {
