@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <p class="card-text pt-3 description">
-                            {{ inquiry.description|length > 100 ? inquiry.description|slice(0, 100) ~ '...' : inquiry.description }}
+                            {{ inquiry.description|text_preview(150) }}
                         </p>
                     </div>
                 </div>

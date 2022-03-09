@@ -13,7 +13,7 @@
         {% for inquiry in subscription.inquiries %}
             <li>
                 <h3><a href="{{ url("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a></h3>
-                <p>{{ inquiry.description|length > 100 ? inquiry.description|slice(0, 100) ~ '...' : inquiry.description }}</p>
+                <p>{{ inquiry.description|text_preview(100) }}</p>
             </li>
         {% endfor %}
     </ul>
