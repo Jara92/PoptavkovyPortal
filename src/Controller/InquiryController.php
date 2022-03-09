@@ -105,6 +105,9 @@ class InquiryController extends AController
         // Increment inquiry views now
         $this->inquiryService->incHits($inquiry);
 
+        // Get similar inquiries
+        $similar = $this->inquiryOperation->getSimilarInquiries($inquiry);
+
         $this->breadcrumbs->addItem($inquiry->getTitle(), translate: false);
 
         $form = null;
@@ -128,7 +131,7 @@ class InquiryController extends AController
             }
         }
 
-        return $this->renderForm("inquiry/detail.html.twig", ["inquiry" => $inquiry, "form" => $form]);
+        return $this->renderForm("inquiry/detail.html.twig", ["inquiry" => $inquiry, "similarInquiries" => $similar, "form" => $form]);
     }
 
     /**

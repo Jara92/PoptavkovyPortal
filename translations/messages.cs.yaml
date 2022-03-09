@@ -169,6 +169,7 @@ articles:
 inquiries:
   inquiries: "Poptávky"
   my_inquiries: "Moje poptávky"
+  similar_inquiries: "Podobné poptávky"
   inquiries_filter_all: "Všechny poptávky"
   inquiries_filter_new: "Ke schválení"
   new_inquiries_newsletter: "Nové poptávky"

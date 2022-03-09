@@ -347,6 +347,24 @@ ul.categories-list {
   font-size: 1.0rem;
 }
 
+/* Similar inquiries module */
+.similar-inquiries {
+  .carousel-item {
+    .description {
+      color: #0B132A;
+      quotes: "„" "“" "‚" "‘";
+    }
+
+    .description::before {
+      content: open-quote;
+    }
+
+    .description::after {
+      content: close-quote;
+    }
+  }
+}
+
 /* Attachment icons */
 .attachments-list .attachment.png a {
   background-image: url("/assets/images/attachments/png.png");

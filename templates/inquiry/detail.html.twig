@@ -2,6 +2,12 @@
 
 {% block page_name %}inquiry-detail{% endblock %}
 
+{% block styles %}
+    <style>
+
+    </style>
+{% endblock %}
+
 {# @var inquiry \App\Entity\Inquiry\Inquiry #}
 {% block content %}
     <section class="content">
@@ -160,6 +166,14 @@
                 </div>
             </section>
             <p class="pt-2 float-end">{{ "inquiries.number_of_views"|trans }} {{ inquiry.hits }}</p>
+
+            {% if similarInquiries|length > 0 %}
+                <section class="similar-inquiries mt-5">
+                    <h3>{{ "inquiries.similar_inquiries"|trans }}</h3>
+
+                    {% include "inquiry/layouts/slider_list.twig" with {"inquiries":similarInquiries} %}
+                </section>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
