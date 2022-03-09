@@ -27,7 +27,8 @@ class InquiryCategoryCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
             TextField::new('alias'),
-            TextareaField::new('description')->hideOnIndex(),
+            TextareaField::new('description')->hideOnIndex()
+                ->setRequired(false),
 
             AssociationField::new('parent', "admin.inquiries.field_parent_category")
                 ->setFormTypeOptions([
