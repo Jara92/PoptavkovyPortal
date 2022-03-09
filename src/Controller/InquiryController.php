@@ -150,6 +150,9 @@ class InquiryController extends AController
         // Check permissions
         $this->denyAccessUnlessGranted("create", $inquiry);
 
+        // Set text according to url param
+        $inquiry->setTitle($request->get("text", ""));
+
         // Create inquiry form
         $form = $this->createForm(InquiryForm::class, $inquiry);
 
