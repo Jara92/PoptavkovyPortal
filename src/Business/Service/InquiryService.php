@@ -31,11 +31,12 @@ class InquiryService extends AService
      * Returns filtered results.
      * @param InquiryFilter $filter
      * @param PaginationData $paginator
+     * @param array $orderBy
      * @return Inquiry[]
      */
-    public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator): array
+    public function readAllFiltered(InquiryFilter $filter, PaginationData $paginator, array $orderBy = ["publishedAt" => "desc"]): array
     {
-        return $this->repository->findByFilterPaginated($filter, $paginator);
+        return $this->repository->findByFilterPaginated($filter, $paginator, $orderBy);
     }
 
     /**
@@ -45,7 +46,7 @@ class InquiryService extends AService
      * @param array $ordering
      * @return array
      */
-    public function readSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = []): array
+    public function readSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = ["publishedAt" => "desc"]): array
     {
         return $this->repository->findSimilar($inquiry, $maxResults, $ordering);
     }
