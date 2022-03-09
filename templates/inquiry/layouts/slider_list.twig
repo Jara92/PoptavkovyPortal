@@ -20,8 +20,8 @@
                                     {{ inquiry|inquiry_location }}
                                 </p>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <span class="text-900 me-3 published">
+                            <div class="d-flex mb-auto">
+                                <span class="text-900 published text-nowrap">
                                     <span class="fa fa-calendar-alt me-1"></span>
                                     {{ inquiry.publishedAt|date("d.m.Y") }}
                                 </span>
@@ -29,7 +29,6 @@
                         </div>
                         <p class="card-text pt-3 description">
                             {{ inquiry.description|length > 100 ? inquiry.description|slice(0, 100) ~ '...' : inquiry.description }}
-                            .
                         </p>
                     </div>
                 </div>
@@ -44,9 +43,10 @@
     <div class="px-4 mt-4">
         <div class="position-relative">
             <ol class="carousel-indicators">
-                <li class="active" data-bs-target="#carouselSimilar" data-bs-slide-to="0"></li>
-                <li data-bs-target="#carouselSimilar" data-bs-slide-to="1"></li>
-                <li data-bs-target="#carouselSimilar" data-bs-slide-to="2"></li>
+                {% for i in range(1, (((inquiries|length) / 3.0)| round(0, "ceil"))) %}
+                    <li class="{% if i==1 %}active{% endif %}" data-bs-target="#carouselSimilar"
+                        data-bs-slide-to="{{ i-1 }}"></li>
+                {% endfor %}
             </ol>
         </div>
         <div class="position-relative">
