@@ -16,6 +16,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Form\Constraint as AppAssert;
 
@@ -146,6 +147,16 @@ class Inquiry extends AEntity
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $publishedAt = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $removeNoticeAt = null;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $removeAt = null;
 
     public function __construct()
     {
@@ -462,6 +473,30 @@ class Inquiry extends AEntity
     public function setPublishedAt(?DateTime $publishedAt): Inquiry
     {
         $this->publishedAt = $publishedAt;
+        return $this;
+    }
+
+    public function getRemoveNoticeAt(): ?\DateTimeInterface
+    {
+        return $this->removeNoticeAt;
+    }
+
+    public function setRemoveNoticeAt(?\DateTimeInterface $removeNoticeAt): self
+    {
+        $this->removeNoticeAt = $removeNoticeAt;
+
+        return $this;
+    }
+
+    public function getRemoveAt(): ?\DateTimeInterface
+    {
+        return $this->removeAt;
+    }
+
+    public function setRemoveAt(?\DateTimeInterface $removeAt): self
+    {
+        $this->removeAt = $removeAt;
+
         return $this;
     }
 }
