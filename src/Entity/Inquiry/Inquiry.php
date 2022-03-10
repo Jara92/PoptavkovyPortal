@@ -36,6 +36,7 @@ class Inquiry extends AEntity
 
     /**
      * @ORM\Column(type="text",  nullable=false)
+     * @Assert\Length(min=20)
      */
     private ?string $description = null;
 
