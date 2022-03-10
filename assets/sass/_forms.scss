@@ -17,8 +17,11 @@
 }
 
 .form-control, .form-select, .form-check {
-  margin-bottom: 1rem;
   background-position: right 1rem center;
+}
+
+.form-label {
+  font-weight: bold;
 }
 
 .form-check-input[type=checkbox] {

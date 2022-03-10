@@ -214,12 +214,18 @@ class InquiryForm extends AbstractType
             ])
             ->add("gdpr", CheckboxType::class, [
                 'label' => "inquiries.field_gdpr_agree",
+                'row_attr' => [
+                    "class" => "m-0"
+                ],
                 'required' => true,
                 // This is an extra field which is not represented in Inquiry entity.
                 'mapped' => false,
             ])
             ->add("terms", CheckboxType::class, [
                 'label' => "inquiries.field_terms_agree",
+                'row_attr' => [
+                    "class" => "m-0"
+                ],
                 'label_html' => true,
                 'required' => true,
                 // This is an extra field which is not represented in Inquiry entity.

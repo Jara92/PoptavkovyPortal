@@ -51,7 +51,7 @@ pre{
   transform: translate3d(0,0,0);
 }
 strong{ font-weight: $font-weight-semi-bold; }
-label{ 
-  font-weight: $font-weight-medium !important; 
+label{
+  font-weight: $font-weight-medium;
   margin-bottom: map-get($spacers, 2);
 }

@@ -24,6 +24,8 @@
 {% endblock button_widget %}
 
 {% block data_list_row %}
+    {%- set row_class = row_class|default(row_attr.class|default('mb-3')|trim) -%}
+    <{{ element|default('div') }}{% with {attr: row_attr|merge({class: row_class})} %}{{ block('attributes') }}{% endwith %}>
     {{ form_label(form) }}
     {{ form_widget(form, attr) }}
     <datalist id="{{ list_id }}">
@@ -31,5 +33,9 @@
             <option value="{{ option }}"></option>
         {% endfor %}
     </datalist>
-    {{ form_errors(form) }}
+    {{- form_help(form) -}}
+    <div id="{{ row_attr.id|default('') }}" class="invalid-feedback">
+        {{- form_errors(form) -}}
+    </div>
+    </{{ element|default('div') }}>
 {% endblock %}
