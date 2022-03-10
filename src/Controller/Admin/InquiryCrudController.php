@@ -185,12 +185,15 @@ class InquiryCrudController extends AbstractCrudController
                 ->setChoices(InquiryStateHelper::translationStringCases())
                 ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
 
-            // TODO: Figure out why this is not working as a field in the form.
-            DateTimeField::new("createdAt", "admin.inquiries.field_created_at")->hideOnForm()
-                ->setRequired(false),
-            DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")->onlyOnDetail()
-                ->setRequired(false),
-            DateTimeField::new("publishedAt", "admin.inquiries.field_published_at")->onlyOnDetail(),
+            DateTimeField::new("createdAt", "admin.inquiries.field_created_at")
+                ->setRequired(false)
+                ->setFormat('d.M.Y H:m'),
+            DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")
+                ->setRequired(false)
+                ->setFormat('d.M.Y H:m')->hideOnForm(),
+            DateTimeField::new("publishedAt", "admin.inquiries.field_published_at")
+                ->setRequired(false)
+                ->setFormat('d.M.Y H:m'),
         ];
     }
 
