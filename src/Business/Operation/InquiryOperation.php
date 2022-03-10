@@ -26,6 +26,7 @@ use App\Helper\InquiryStateHelper;
 use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
+use DateTime;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -421,7 +422,18 @@ class InquiryOperation
     {
         // Is the inquiry published now?
         if ($inquiry->getState() == InquiryState::STATE_ACTIVE && !$inquiry->getPublishedAt()) {
-            $inquiry->setPublishedAt(new \DateTime());
+            $now = new DateTime();
+            $inquiry->setPublishedAt($now);
+
+            // Set remove notification date
+            $notificationSeconds = $this->params->get("app.inquiries.auto_remove_notification_delay");
+            $notificationAt = new DateTime("+ $notificationSeconds seconds");
+            $inquiry->setRemoveNoticeAt($notificationAt);
+
+            // Set actual removing date
+            $removeSeconds = $notificationSeconds + $this->params->get("app.inquiries.auto_remove_delay");
+            $removeAt = new DateTime("+ $removeSeconds seconds");
+            $inquiry->setRemoveAt($removeAt);
 
             $this->subscriptionOperation->handleNewInquiry($inquiry);
         }

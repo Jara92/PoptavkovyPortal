@@ -9,7 +9,15 @@ parameters:
   app.items_per_page: 2
   app.verification_resend_delay: 300 # Interval between verification email resending in seconds. (5 minutes)
 
+  # Interval between sending a notification that the inquiry is to be removed. (31 days)
+  app.inquiries.auto_remove_notification_delay: 2678400
+  # Interval between remove_notification and removing the inquiry. (7 days)
+  app.inquiries.auto_remove_delay: 604800
+
+  # The directory to store inquiry attachments.
   app.inquiries.attachments_directory: '%kernel.project_dir%/public/uploads/inquiry-attachments'
+
+  # The directory to store user avatars.
   app.profiles.avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
 services:
     # default configuration for services in *this* file
