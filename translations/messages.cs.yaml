@@ -487,6 +487,7 @@ date:
 btn_save: "Uložit"
 btn_close: "Zavřít"
 btn_contact_support: "Kontaktovat podporu"
+btn_approve: "Schválit"
 
 "Invalid credentials.": "Špatné přihlašovací údaje."
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."

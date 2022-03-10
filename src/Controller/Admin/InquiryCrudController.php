@@ -16,6 +16,7 @@ use App\Repository\Inquiry\InquiryCategoryRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
@@ -43,10 +44,29 @@ class InquiryCrudController extends AbstractCrudController
     {
     }
 
+    public function approve(EntityManagerInterface $manager, AdminContext $context): Response
+    {
+        /** @var Inquiry $inquiry */
+        $inquiry = $context->getEntity()->getInstance();
+
+        $inquiry->setState(InquiryState::STATE_ACTIVE);
+
+        $this->updateEntity($manager, $inquiry);
+
+        // TODO: FIX REDIRECT after save
+
+        return new Response(status: Response::HTTP_OK);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
+        $approve = Action::new("approveInquiry", "btn_approve", "fa fa-check")
+            ->displayAsLink()
+            ->linkToCrudAction("approve");
+
         return $actions
-            ->add(Crud::PAGE_INDEX, Crud::PAGE_DETAIL);
+            ->add(Crud::PAGE_INDEX, Crud::PAGE_DETAIL)
+            ->add(Crud::PAGE_DETAIL, $approve);
     }
 
     public static function getEntityFqcn(): string
