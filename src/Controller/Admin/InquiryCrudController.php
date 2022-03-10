@@ -16,6 +16,7 @@ use App\Repository\Inquiry\InquiryCategoryRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
@@ -40,6 +41,12 @@ class InquiryCrudController extends AbstractCrudController
         private InquiryOperation $inquiryOperation,
     )
     {
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Crud::PAGE_DETAIL);
     }
 
     public static function getEntityFqcn(): string
@@ -119,6 +126,7 @@ class InquiryCrudController extends AbstractCrudController
 
             TextareaField::new('description', "inquiries.field_description")->hideOnIndex(),
 
+            FormField::addPanel("admin.inquiries.title_aditional_information")->onlyOnForms(),
             AssociationField::new("categories", "admin.inquiries.field_categories")
                 // ->setQueryBuilder() does not work as expected.
                 ->setFormTypeOption(
@@ -167,23 +175,14 @@ class InquiryCrudController extends AbstractCrudController
             AssociationField::new("personalContact", "inquiries.field_personal_contact")
                 ->setFormTypeOptions(['choice_label' => function (PersonalContact $p) {
                     return "#" . $p->getId() . ": " . $p->getName() . " " . $p->getSurName();
-                }, "choice_translation_domain" => "messages"])->onlyOnForms(),
+                }, "choice_translation_domain" => "messages"])->onlyOnDetail(),
 
             AssociationField::new("companyContact", "inquiries.field_company_contact")
                 ->setFormTypeOptions(['choice_label' => function (CompanyContact $p) {
                     return "#" . $p->getId() . ": " . $p->getCompanyName();
-                }, "choice_translation_domain" => "messages"])->onlyOnForms(),
+                }, "choice_translation_domain" => "messages"])->onlyOnDetail(),
 
-            FormField::addTab("admin.inquiries.title_others")->onlyOnForms(),
-            FormField::addPanel("admin.inquiries.title_others")->onlyOnForms(),
-
-            ChoiceField::new("state", "inquiries.field_state")
-                ->setChoices(InquiryStateHelper::translationCases())
-                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
-
-            ChoiceField::new("state", "inquiries.field_state")
-                ->setChoices(InquiryStateHelper::translationStringCases())
-                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
+            FormField::addTab("admin.inquiries.title_time")->onlyOnForms(),
 
             DateTimeField::new("createdAt", "admin.inquiries.field_created_at")
                 ->setRequired(false)
@@ -194,6 +193,26 @@ class InquiryCrudController extends AbstractCrudController
             DateTimeField::new("publishedAt", "admin.inquiries.field_published_at")
                 ->setRequired(false)
                 ->setFormat('d.M.Y H:m'),
+
+            FormField::addPanel("admin.inquiries.title_auto_remove")->onlyOnForms(),
+            DateTimeField::new("removeNoticeAt", "admin.inquiries.field_remove_notice_at")
+                ->setRequired(false)
+                ->setFormat('d.M.Y H:m')
+                ->onlyOnForms(),
+            DateTimeField::new("removeAt", "admin.inquiries.field_remove_at")
+                ->setRequired(false)
+                ->setFormat('d.M.Y H:m')
+                ->onlyOnForms(),
+
+            FormField::addTab("admin.inquiries.title_others")->onlyOnForms(),
+
+            ChoiceField::new("state", "inquiries.field_state")
+                ->setChoices(InquiryStateHelper::translationCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->onlyOnForms(),
+
+            ChoiceField::new("state", "inquiries.field_state")
+                ->setChoices(InquiryStateHelper::translationStringCases())
+                ->setFormTypeOptions(["choice_translation_domain" => "messages"])->hideOnForm(),
         ];
     }
 
