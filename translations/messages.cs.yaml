@@ -450,6 +450,7 @@ inquiry_state:
   active: "Aktivní"
   processing: "Zpracovává se"
   archived: "Archivovaná"
+  finished: "Dokončená"
   deleted: "Smazaná"
 
 inquiry_value:

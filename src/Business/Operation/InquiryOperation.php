@@ -15,7 +15,6 @@ use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
-use App\Enum\Entity\UserRole;
 use App\Enum\Entity\UserType;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
@@ -23,6 +22,7 @@ use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\OfferFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
+use App\Helper\InquiryStateHelper;
 use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
@@ -116,7 +116,7 @@ class InquiryOperation
     public function getDefaultFilter(): InquiryFilter
     {
         // Default inquiry states visible for all users.
-        return $this->filterFactory->createInquiryFilter([InquiryState::STATE_ACTIVE, InquiryState::STATE_ARCHIVED]);
+        return $this->filterFactory->createInquiryFilter(InquiryStateHelper::getPublicStates());
     }
 
     /**

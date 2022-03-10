@@ -8,5 +8,6 @@ enum InquiryState: string
     case STATE_ACTIVE = "active";
     case STATE_PROCESSING = "processing";
     case STATE_ARCHIVED = "archived";
+    case STATE_FINISHED = "finished";
     case STATE_DELETED = "deleted";
 }

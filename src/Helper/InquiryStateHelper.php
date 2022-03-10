@@ -9,6 +9,15 @@ class InquiryStateHelper
     const INQUIRY_STATE_PREFIX = "inquiry_state.";
 
     /**
+     * Returns inquiry states visible for public.
+     * @return array
+     */
+    public static function getPublicStates(): array
+    {
+        return [InquiryState::STATE_ACTIVE, InquiryState::STATE_FINISHED, InquiryState::STATE_ARCHIVED];
+    }
+
+    /**
      * Returns array [translation_key => InquiryState->value]
      * @return array
      */
