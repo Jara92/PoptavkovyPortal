@@ -2,6 +2,8 @@
 app:
   name: "Poptejsi.cz"
   email: "info@poptejsi.cz"
+  phone: "+420 777 723 111"
+  phone_desc: "Voletejte v pracovní dny 8:00 - 16:00"
   contact_name: "Jaroslav Fikar"
 
 # Navigation
@@ -206,16 +208,13 @@ inquiries:
   filtered_inquiries: "Bylo nalezeno <strong>%value%</strong> poptávek odpovídajích Vašim požadavkům."
   number_of_views: "Počet zobrazení:"
 
-  form_card_info_title: "Informace o poptávce"
-  form_card_info_step: "1. krok"
+  form_card_info_title: "Základní informace"
   form_card_info_desc: "Vyplňte informace o tom, co poptáváte. Pro získání nejlepších nabídek je potřeba co nejspřesnější popis.
    Nebojte se doplnit poptávku přílohami."
   form_card_params_title: "Doplňující informace"
-  form_card_params_step: "2. krok"
-  form_card_params_desc: "Zadejte doplňující informace poptávky, které nám pomohou najít správného dodavatele."
+  form_card_params_desc: "Zadejte doplňující informace poptávky, které nám pomohou najít správného dodavatele pro Vaši poptávku."
   form_card_contact_title: "Kontaktní údaje"
-  form_card_contact_step: "3. krok"
-  form_card_contact_desc: "Zadejte Vaše kontaktní údaje, aby Vás potencionální dodavatel mohl kontaktovat."
+  form_card_contact_desc: "Zadejte Vaše kontaktní údaje, aby Vás potencionální dodavatel mohl kontaktovat. Kontaktní údaje také mohou být vyoužity k získání dalších informací k Vaší poptávce."
 
   attachments: "Přílohy"
   inquries_title: "Poptávky"

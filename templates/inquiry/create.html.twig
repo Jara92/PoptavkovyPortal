@@ -40,13 +40,33 @@
                             {{ form_errors(form) }}
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="row form-item">
-                                    <div class="card content col-12">
-                                        <div class="card-header">
-                                            <h3>{{ "inquiries.form_card_info_title"|trans }}</h3>
+                        <div class="form-items">
+                            <div class="form-item">
+                                <div class="cardbox content row">
+                                    <div class="cardbox-siderbar d-flex flex-column col-md-4">
+                                        <h3>1. {{ "inquiries.form_card_info_title"|trans }}</h3>
+                                        <hr/>
+                                        <p class="description">{{ "inquiries.form_card_info_desc"|trans }}</p>
+
+                                        <div class="mt-auto">
+                                            <hr/>
+                                            <h4 class="mb-2"><span
+                                                        class="fa fa-info-circle me-2"></span>{{ "inquiries.new_inquiry_help"|trans }}
+                                            </h4>
+                                            <div class="ps-2">
+                                                <address class="mb-0"><span class="fa fa-at me-2"></span><a
+                                                            class="btn-link"
+                                                            href="mailto:{{ "app.email"|trans }}">{{ "app.email"|trans }}</a>
+                                                </address>
+                                                <address class="mb-0"><span class="fa fa-phone-alt me-2"></span><a
+                                                            class="btn-link"
+                                                            href="tel:{{ "app.phone"|trans }}">{{ "app.phone"|trans }}</a>
+                                                </address>
+                                                <small class="ps-2">{{ "app.phone_desc"|trans }}</small>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="cardbox-item col-md-8">
                                         <div class="card-body">
                                             <h5 class="card-title"></h5>
                                             <div class="card-text">
@@ -61,11 +81,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-item">
-                                    <div class="card content col-12">
-                                        <div class="card-header">
-                                            <h3>{{ "inquiries.form_card_params_title"|trans }}</h3>
-                                        </div>
+                            </div>
+                            <div class="form-item">
+                                <div class="cardbox content row">
+                                    <div class="cardbox-siderbar col-md-4">
+                                        <h3>2. {{ "inquiries.form_card_params_title"|trans }}</h3>
+                                        <hr/>
+                                        <p class="description">{{ "inquiries.form_card_params_desc"|trans }}</p>
+                                    </div>
+                                    <div class="cardbox-item col-md-8">
                                         <div class="card-body">
                                             <h5 class="card-title"></h5>
                                             <div class="card-text">
@@ -90,11 +114,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-item">
-                                    <div class="card content col-12">
-                                        <div class="card-header">
-                                            <h3>{{ "inquiries.form_card_contact_title"|trans }}</h3>
-                                        </div>
+                            </div>
+                            <div class="form-item">
+                                <div class="cardbox content row">
+                                    <div class="cardbox-siderbar col-md-4">
+                                        <h3 style="color:white;">3. {{ "inquiries.form_card_contact_title"|trans }}</h3>
+                                        <hr/>
+                                        <p class="description">{{ "inquiries.form_card_contact_desc"|trans }}</p>
+                                    </div>
+                                    <div class="cardbox-item col-md-8">
                                         <div class="card-body">
                                             <h5 class="card-title"></h5>
                                             <div class="card-text">
@@ -126,26 +154,27 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="d-block form-footer">
-                                    <div class="float-start">
-                                        {{ form_row(form.gdpr, {'attr': {'class': ''}}) }}
-                                        {{ form_row(form.terms, {'attr': {'class': ''}}) }}
-                                    </div>
-                                    <div class="float-end">
-                                        {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-                                    </div>
-                                </div>
                             </div>
-
-                            <aside class="col-md-4">
-
-                            </aside>
                         </div>
 
-                        {{ form_end(form) }}
+                        <div class="d-block form-footer mb-4">
+                            <div class="float-start">
+                                {{ form_row(form.gdpr, {'attr': {'class': ''}}) }}
+                                {{ form_row(form.terms, {'attr': {'class': ''}}) }}
+                            </div>
+                            <div class="float-end">
+                                {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
+
+                    <aside class="col-md-4">
+
+                    </aside>
                 </div>
+
+                {{ form_end(form) }}
             </div>
         </div>
     </section>
