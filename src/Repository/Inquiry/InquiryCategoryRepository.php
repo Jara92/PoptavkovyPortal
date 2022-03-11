@@ -55,33 +55,4 @@ class InquiryCategoryRepository extends ServiceEntityRepository implements IInqu
     {
         return $this->getSubcategoriesQuery($orderBy)->getQuery()->getResult();
     }
-
-    // /**
-    //  * @return InquiryCategory[] Returns an array of InquiryCategory objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('i.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?InquiryCategory
-    {
-        return $this->createQueryBuilder('i')
-            ->andWhere('i.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
