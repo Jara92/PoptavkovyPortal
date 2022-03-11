@@ -9,6 +9,7 @@ use App\Repository\Traits\OrderedRepositoryTrait;
 use App\Repository\Traits\PaginatedRepositoryTrait;
 use App\Tools\Filter\InquiryFilter;
 use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Tools\Pagination\PaginationData;
 use Doctrine\ORM\QueryBuilder;
@@ -52,7 +53,7 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
     /**
      * @inheritDoc
      */
-    public function findSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = [])
+    public function findSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = []): array
     {
         // TODO: this is just a simple way to find similar articles.
         // Build tmp filter object
@@ -134,6 +135,37 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
         }
 
         return $qb;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findActiveAndRemoveAtLessThan(DateTime $date): array
+    {
+        $qb = $this->createQueryBuilder("i");
+        $qb->where($qb->expr()->eq("i.state", ":state"))
+            ->setParameter(":state", InquiryState::STATE_ACTIVE->value)
+            // Just make sure that removeAt is not null
+            ->andWhere($qb->expr()->lte("i.removeAt", ":date"))
+            ->setParameter(":date", $date);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findActiveAndRemoveNoticeAtLessThan(DateTime $date): array
+    {
+        $qb = $this->createQueryBuilder("i");
+        $qb->where($qb->expr()->eq("i.state", ":state"))
+            ->setParameter(":state", InquiryState::STATE_ACTIVE->value)
+            ->andWhere($qb->expr()->lte("i.removeNoticeAt", ":date"))
+            // Just make sure that removeNoticeAt is not null
+            ->andWhere($qb->expr()->isNotNull("i.removeNoticeAt"))
+            ->setParameter(":date", $date);
+
+        return $qb->getQuery()->getResult();
     }
 
     // /**

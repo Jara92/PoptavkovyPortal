@@ -476,24 +476,24 @@ class Inquiry extends AEntity
         return $this;
     }
 
-    public function getRemoveNoticeAt(): ?\DateTimeInterface
+    public function getRemoveNoticeAt(): ?\Datetime
     {
         return $this->removeNoticeAt;
     }
 
-    public function setRemoveNoticeAt(?\DateTimeInterface $removeNoticeAt): self
+    public function setRemoveNoticeAt(?\Datetime $removeNoticeAt): self
     {
         $this->removeNoticeAt = $removeNoticeAt;
 
         return $this;
     }
 
-    public function getRemoveAt(): ?\DateTimeInterface
+    public function getRemoveAt(): ?\Datetime
     {
         return $this->removeAt;
     }
 
-    public function setRemoveAt(?\DateTimeInterface $removeAt): self
+    public function setRemoveAt(?\Datetime $removeAt): self
     {
         $this->removeAt = $removeAt;
 

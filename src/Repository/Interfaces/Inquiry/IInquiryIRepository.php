@@ -6,6 +6,7 @@ use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\IRepository;
 use App\Tools\Filter\InquiryFilter;
 use App\Tools\Pagination\PaginationData;
+use DateTime;
 
 /**
  * @implements IRepository<Inquiry, int>
@@ -26,7 +27,21 @@ interface IInquiryIRepository extends IRepository
      * @param Inquiry $inquiry
      * @param int $maxResults
      * @param array $ordering
-     * @return mixed
+     * @return Inquiry[]
      */
-    public function findSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = []);
+    public function findSimilar(Inquiry $inquiry, int $maxResults = 10, array $ordering = []): array;
+
+    /**
+     * Returns active inquiries with i.removeAt <= $date
+     * @param DateTime $date
+     * @return Inquiry[]
+     */
+    public function findActiveAndRemoveAtLessThan(DateTime $date): array;
+
+    /**
+     * Returns active inquiries with i.removeNoticeAt <= $date
+     * @param DateTime $date
+     * @return Inquiry[]
+     */
+    public function findActiveAndRemoveNoticeAtLessThan(DateTime $date): array;
 }

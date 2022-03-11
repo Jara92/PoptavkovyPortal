@@ -452,4 +452,57 @@ class InquiryOperation
     {
         return $this->inquiryService->readSimilar($inquiry, $maxResults);
     }
+
+    /**
+     * Handles inquiries which are going to be removed.
+     * This is handled by detect
+     * @return int[] Array in format [$removedCount, $notifiedCount]
+     */
+    public function handleOldInquiries(): array
+    {
+        // Inquiries which are going to be removed will be notified about it.
+        $inquiries = $this->inquiryService->readActiveToBeNotified();
+        $notifiedCnt = 0;
+        foreach ($inquiries as $inquiry) {
+            $this->autoRemoveNotify($inquiry);
+            $notifiedCnt++;
+        }
+
+        // Inquiries which will be removed.
+        $inquiries = $this->inquiryService->readActiveToBeRemoved();
+        $removedCnt = 0;
+        foreach ($inquiries as $inquiry) {
+            $this->autoRemove($inquiry);
+            $removedCnt++;
+        }
+
+        return [$removedCnt, $notifiedCnt];
+    }
+
+    /**
+     * Sends an email which notifies the user about inquiry expiration.
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
+    private function autoRemoveNotify(Inquiry $inquiry): void
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
+            ->to($inquiry->getAuthor()->getEmail())
+            ->subject($this->translator->trans("inquiries.inquiry_will_be_removed"))
+            ->htmlTemplate('email/inquiry/expiration_notify.html.twig')
+            ->context(["inquiry" => $inquiry]);
+
+        $this->mailer->send($email);
+
+        // Remove next notification date
+        $inquiry->setRemoveNoticeAt(null);
+        $this->inquiryService->update($inquiry);
+    }
+
+    private function autoRemove(Inquiry $inquiry): void
+    {
+
+    }
 }

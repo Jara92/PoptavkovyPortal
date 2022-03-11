@@ -52,6 +52,24 @@ class InquiryService extends AService
     }
 
     /**
+     * Returns inquiries which should be removed.
+     * @return array
+     */
+    public function readActiveToBeRemoved(): array
+    {
+        return $this->repository->findActiveAndRemoveAtLessThan(new \DateTime());
+    }
+
+    /**
+     * Returns inquiries which should be notified about removing.
+     * @return array
+     */
+    public function readActiveToBeNotified(): array
+    {
+        return $this->repository->findActiveAndRemoveNoticeAtLessThan(new \DateTime());
+    }
+
+    /**
      * Increments inquiry hits value.
      * @param Inquiry $inquiry
      */

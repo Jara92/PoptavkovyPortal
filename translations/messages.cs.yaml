@@ -175,6 +175,7 @@ inquiries:
   inquiries_filter_all: "Všechny poptávky"
   inquiries_filter_new: "Ke schválení"
   new_inquiries_newsletter: "Nové poptávky"
+  inquiry_will_be_removed: "Blížící se odstranění poptávky"
 
   inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
