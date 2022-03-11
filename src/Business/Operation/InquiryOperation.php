@@ -456,6 +456,9 @@ class InquiryOperation
     /**
      * Handles inquiries which are going to be removed.
      * This is handled by detect
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
      * @return int[] Array in format [$removedCount, $notifiedCount]
      */
     public function handleOldInquiries(): array
