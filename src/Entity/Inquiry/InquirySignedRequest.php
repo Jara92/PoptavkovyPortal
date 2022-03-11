@@ -38,12 +38,6 @@ class InquirySignedRequest
     private ?DateTime $expireAt = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?User $user;
-
-    /**
      * @ORM\Column(type="string", length=128, nullable=false)
      */
     private ?string $token;
@@ -87,24 +81,6 @@ class InquirySignedRequest
     public function setExpireAt(?DateTime $expireAt): InquirySignedRequest
     {
         $this->expireAt = $expireAt;
-        return $this;
-    }
-
-    /**
-     * @return User|null
-     */
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User|null $user
-     * @return InquirySignedRequest
-     */
-    public function setUser(?User $user): InquirySignedRequest
-    {
-        $this->user = $user;
         return $this;
     }
 
