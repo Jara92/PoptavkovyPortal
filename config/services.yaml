@@ -19,6 +19,7 @@ parameters:
 
   # The directory to store user avatars.
   app.profiles.avatars_directory: '%kernel.project_dir%/public/uploads/avatars'
+  router.request_context.host: 'localhost:8000'
 services:
     # default configuration for services in *this* file
     _defaults:
