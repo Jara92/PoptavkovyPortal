@@ -501,8 +501,17 @@ class InquiryOperation
         $this->inquiryService->update($inquiry);
     }
 
+    /**
+     * Remove expired inquiry.
+     * @param Inquiry $inquiry
+     */
     private function autoRemove(Inquiry $inquiry): void
     {
+        // Mark the inquiry as archived.
+        $inquiry->setState(InquiryState::STATE_ARCHIVED);
 
+        // Make removeAt field null to make sure that inquiry is not removed more times.
+        $inquiry->setRemoveAt(null);
+        $this->inquiryService->update($inquiry);
     }
 }
