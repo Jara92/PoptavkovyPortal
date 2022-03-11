@@ -30,7 +30,6 @@ use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
-use http\Url;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -491,15 +490,21 @@ class InquiryOperation
      */
     private function autoRemoveNotify(Inquiry $inquiry): void
     {
+        $signatureParamName = "signature";
+
+        // Calculate links expiration datetime.
         $expirationSeconds = $this->params->get("app.inquiries.auto_remove_delay");
         $expiration = (new DateTime("now + $expirationSeconds seconds"));
 
+        // Build finish inquiry link and sign it.
         $finishInquiryUrl = $this->router->generate("inquiries/finish", [], UrlGeneratorInterface::ABSOLUTE_URL);
         $finishInquiryUrl = $this->urlSigner->sign($finishInquiryUrl, $expiration);
 
+        // Build postpone expiration link and sign it.
         $postponeExpirationUrl = $this->router->generate("inquiries/postpone-expiration", [], UrlGeneratorInterface::ABSOLUTE_URL);
         $postponeExpirationUrl = $this->urlSigner->sign($postponeExpirationUrl, $expiration);
 
+        // Build and send the email
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
             ->to($inquiry->getAuthor()->getEmail())
@@ -510,13 +515,14 @@ class InquiryOperation
         $this->mailer->send($email);
 
         // Save new signed links.
+        // Token is saved in the link as a param so we have to take it from it.
         $now = new DateTime();
         $finishRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
-            ->setToken(substr($finishInquiryUrl, -64));
+            ->setToken(explode("$signatureParamName=", $finishInquiryUrl)[1]);
         $this->inquirySignedRequestService->create($finishRequest);
 
         $postponeRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
-            ->setToken(substr($postponeExpirationUrl, -64));
+            ->setToken(explode("$signatureParamName=", $postponeExpirationUrl)[1]);
         $this->inquirySignedRequestService->create($postponeRequest);
 
         // Remove next notification date
