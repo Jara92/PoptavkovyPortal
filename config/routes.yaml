@@ -19,6 +19,20 @@ inquiries/detail:
   controller: App\Controller\InquiryController::detail
   methods: GET|POST
 
+inquiries/finish:
+  path: /dokoncit-poptavku
+  controller: App\Controller\InquiryController::postponeExpiration
+  methods: GET
+  defaults:
+    _signed: true # Deny access for unsigned
+
+inquiries/postpone-expiration:
+  path: /prodlouzit-poptavku
+  controller: App\Controller\InquiryController::postponeExpiration
+  methods: GET|POST
+  defaults:
+    _signed: true # Deny access for unsigned
+
 inquiries/attachments:
   path: /poptavky/prilohy/{hash}
   controller: App\Controller\InquiryAttachmentsController::download

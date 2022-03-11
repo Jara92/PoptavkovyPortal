@@ -187,5 +187,9 @@ class InquiryController extends AController
         return $this->render("inquiry/edit.html.twig");
     }
 
-
+    public function postponeExpiration(): Response
+    {
+        $this->addFlashMessage(FlashMessageType::SUCCESS, "Platnost poptávky byla úspěšně prodloužena.");
+        return $this->redirectToRoute("inquiries/detail", ["alias" => "TODO"]);
+    }
 }

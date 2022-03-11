@@ -10,14 +10,15 @@
         za 7 dní dojde k automatickému smazání Vaší poptávky
         <a href="{{ url("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a>.
     </p>
-    <p>Pokud je Vaše poptávka stále aktuální, můžete její platnost zdarma <a href="#!">prodloužit</a>. Platnost odkazu
+    <p>Pokud je Vaše poptávka stále aktuální, můžete její platnost zdarma <a href="{{ postponeUrl }}">prodloužit</a>.
+        Platnost odkazu
         je 7 dní.</p>
 
     <p>Už pro svou poptávku máte dodavatele? Dokončete svou poptávku následujícím tlačítka a dejte nám vědět jak
         jste spokojen!</p>
 
     <a class="btn btn-primary btn-center" style="margin-top: 1rem; font-size: 1.5rem;"
-       href="#!">Dokončit poptávku</a>
+       href="{{ finishUrl }}">Dokončit poptávku</a>
 
     {% include "email/layout/signature.html.twig" %}
 

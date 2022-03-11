@@ -26,6 +26,7 @@ use App\Helper\InquiryStateHelper;
 use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
+use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -34,6 +35,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -58,7 +61,9 @@ class InquiryOperation
         private SluggerInterface         $slugger,
         private ContainerBagInterface    $params,
         private TranslatorInterface      $translator,
-        private MailerInterface          $mailer
+        private MailerInterface          $mailer,
+        private RouterInterface          $router,
+        private UrlSignerInterface       $urlSigner,
     )
     {
     }
@@ -482,17 +487,33 @@ class InquiryOperation
      */
     private function autoRemoveNotify(Inquiry $inquiry): void
     {
+        $expirationSeconds = $this->params->get("app.inquiries.auto_remove_delay");
+        $expiration = (new DateTime("now + $expirationSeconds seconds"));
+
+        $finishInquiryUrl = $this->router->generate("inquiries/finish", [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $finishInquiryUrl = $this->urlSigner->sign($finishInquiryUrl, $expiration);
+
+        $postponeExpirationUrl = $this->router->generate("inquiries/postpone-expiration", [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $postponeExpirationUrl = $this->urlSigner->sign($postponeExpirationUrl, $expiration);
+
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
             ->to($inquiry->getAuthor()->getEmail())
             ->subject($this->translator->trans("inquiries.inquiry_will_be_removed"))
             ->htmlTemplate('email/inquiry/expiration_notify.html.twig')
-            ->context(["inquiry" => $inquiry]);
+            ->context(["inquiry" => $inquiry, "finishUrl" => $finishInquiryUrl, "postponeUrl" => $postponeExpirationUrl]);
 
         $this->mailer->send($email);
 
         // Remove next notification date
         $inquiry->setRemoveNoticeAt(null);
+        $this->inquiryService->update($inquiry);
+    }
+
+    public function postponeExpiration(Inquiry $inquiry): void
+    {
+        $this->updateAutoRemoveData($inquiry);
+
         $this->inquiryService->update($inquiry);
     }
 
