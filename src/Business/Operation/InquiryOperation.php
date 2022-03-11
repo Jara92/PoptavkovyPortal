@@ -5,11 +5,13 @@ namespace App\Business\Operation;
 use App\Business\Service\DeadlineService;
 use App\Business\Service\InquiryAttachmentService;
 use App\Business\Service\InquiryService;
+use App\Business\Service\InquirySignedRequestService;
 use App\Business\Service\InquiryValueService;
 use App\Business\Service\OfferService;
 use App\Business\Service\SmartTagService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
+use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Offer;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
@@ -28,6 +30,7 @@ use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
+use http\Url;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -44,26 +47,27 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class InquiryOperation
 {
     public function __construct(
-        private InquiryService           $inquiryService,
-        private InquiryAttachmentService $attachmentService,
-        private InquiryValueService      $inquiryValueService,
-        private DeadlineService          $deadlineService,
-        private SubscriptionOperation    $subscriptionOperation,
-        private InquiryFactory           $inquiryFactory,
-        private InquiryAttachmentFactory $attachmentFactory,
-        private InquiryFilterFactory     $filterFactory,
-        private OfferService             $offerService,
-        private OfferFactory             $offerFactory,
-        private SmartTagService          $smartTagService,
-        private PersonalContactFactory   $personalContactFactory,
-        private CompanyContactFactory    $companyContactFactory,
-        private UserSecurity             $security,
-        private SluggerInterface         $slugger,
-        private ContainerBagInterface    $params,
-        private TranslatorInterface      $translator,
-        private MailerInterface          $mailer,
-        private RouterInterface          $router,
-        private UrlSignerInterface       $urlSigner,
+        private InquiryService              $inquiryService,
+        private InquiryAttachmentService    $attachmentService,
+        private InquiryValueService         $inquiryValueService,
+        private DeadlineService             $deadlineService,
+        private SubscriptionOperation       $subscriptionOperation,
+        private InquiryFactory              $inquiryFactory,
+        private InquiryAttachmentFactory    $attachmentFactory,
+        private InquiryFilterFactory        $filterFactory,
+        private OfferService                $offerService,
+        private OfferFactory                $offerFactory,
+        private SmartTagService             $smartTagService,
+        private InquirySignedRequestService $inquirySignedRequestService,
+        private PersonalContactFactory      $personalContactFactory,
+        private CompanyContactFactory       $companyContactFactory,
+        private UserSecurity                $security,
+        private SluggerInterface            $slugger,
+        private ContainerBagInterface       $params,
+        private TranslatorInterface         $translator,
+        private MailerInterface             $mailer,
+        private RouterInterface             $router,
+        private UrlSignerInterface          $urlSigner,
     )
     {
     }
@@ -505,16 +509,36 @@ class InquiryOperation
 
         $this->mailer->send($email);
 
+        // Save new signed links.
+        $now = new DateTime();
+        $finishRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
+            ->setToken(substr($finishInquiryUrl, -64));
+        $this->inquirySignedRequestService->create($finishRequest);
+
+        $postponeRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
+            ->setToken(substr($postponeExpirationUrl, -64));
+        $this->inquirySignedRequestService->create($postponeRequest);
+
         // Remove next notification date
         $inquiry->setRemoveNoticeAt(null);
         $this->inquiryService->update($inquiry);
     }
 
-    public function postponeExpiration(Inquiry $inquiry): void
+    /**
+     * Postpone inquiry expiration.
+     * @param InquirySignedRequest $inquirySignedRequest
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function postponeExpiration(InquirySignedRequest $inquirySignedRequest): void
     {
-        $this->updateAutoRemoveData($inquiry);
+        $this->updateAutoRemoveData($inquirySignedRequest->getInquiry());
 
-        $this->inquiryService->update($inquiry);
+        // Update inquiry data
+        $this->inquiryService->update($inquirySignedRequest->getInquiry());
+
+        // Remove inquiry signed request to prevent multiple times access.
+        $this->inquirySignedRequestService->delete($inquirySignedRequest);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
+use App\Business\Service\InquirySignedRequestService;
 use App\Controller\Trait\PaginableTrait;
 use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
@@ -25,11 +26,12 @@ class InquiryController extends AController
     use PaginableTrait;
 
     public function __construct(
-        private InquiryService      $inquiryService,
-        private TranslatorInterface $translator,
-        private InquiryOperation    $inquiryOperation,
-        private Breadcrumbs         $breadcrumbs,
-        private RouterInterface     $router,
+        private InquiryService              $inquiryService,
+        private InquirySignedRequestService $inquirySignedRequestService,
+        private TranslatorInterface         $translator,
+        private InquiryOperation            $inquiryOperation,
+        private Breadcrumbs                 $breadcrumbs,
+        private RouterInterface             $router,
     )
     {
         $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
@@ -187,9 +189,32 @@ class InquiryController extends AController
         return $this->render("inquiry/edit.html.twig");
     }
 
-    public function postponeExpiration(): Response
+    /**
+     * Inquiry expiration postpone.
+     * Requires valid expiration and signature values.
+     * @param Request $request
+     * @return Response
+     */
+    public function postponeExpiration(Request $request): Response
     {
-        $this->addFlashMessage(FlashMessageType::SUCCESS, "Platnost poptávky byla úspěšně prodloužena.");
-        return $this->redirectToRoute("inquiries/detail", ["alias" => "TODO"]);
+        $token = $request->get("signature");
+        $inquirySignedRequest = $this->inquirySignedRequestService->readBySignature($token);
+
+        // Not found
+        if (!$inquirySignedRequest) {
+            throw new AccessDeniedHttpException("Invalid signature or this link has already been used.");
+        }
+
+        // Expired
+        if ($inquirySignedRequest->getExpireAt()->getTimestamp() < time()) {
+            throw new AccessDeniedHttpException("Link expired.");
+        }
+
+        // Postpone inquiry expiration.
+        $this->inquiryOperation->postponeExpiration($inquirySignedRequest);
+
+        // Flash message and redirect to inquiry detail page.
+        $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("inquiries.msg_inquiry_expiration_postponed"));
+        return $this->redirectToRoute("inquiries/detail", ["alias" => $inquirySignedRequest->getInquiry()->getAlias()]);
     }
 }

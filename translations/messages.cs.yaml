@@ -190,6 +190,7 @@ inquiries:
   input_key_word_search_ph: "Např. Zednické práce"
   no_inquiries_found: "Bohužel nebyly nalezeny žádné poptávky odpovídající Vašim požadavkům."
   no_attachments_found: "Tato poptávka neobsahuje žádné přílohy."
+  msg_inquiry_expiration_postponed: "Platnost poptávky byla úspěšně prodloužena."
 
   btn_inquire: "Poptat"
   btn_contact: "Kontaktovat"

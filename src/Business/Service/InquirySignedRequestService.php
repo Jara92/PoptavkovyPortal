@@ -19,4 +19,14 @@ class InquirySignedRequestService extends AService
     {
         parent::__construct($inquirySignedRequestRepository);
     }
+
+    /**
+     * Returns an object by the token.
+     * @param string $signature
+     * @return InquirySignedRequest|null
+     */
+    public function readBySignature(string $signature): ?InquirySignedRequest
+    {
+        return $this->repository->findOneBy(["token" => $signature]);
+    }
 }
