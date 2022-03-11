@@ -2,6 +2,7 @@
 
 namespace App\Entity\Inquiry;
 
+use App\Entity\AEntity;
 use App\Entity\Traits\IdTrait;
 use App\Entity\User;
 use App\Repository\Inquiry\InquirySignedRequestRepository;
@@ -12,10 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass=InquirySignedRequestRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class InquirySignedRequest
+class InquirySignedRequest extends AEntity
 {
-    use IdTrait;
-
     /**
      * @ORM\PrePersist
      */
