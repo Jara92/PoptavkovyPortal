@@ -425,15 +425,7 @@ class InquiryOperation
             $now = new DateTime();
             $inquiry->setPublishedAt($now);
 
-            // Set remove notification date
-            $notificationSeconds = $this->params->get("app.inquiries.auto_remove_notification_delay");
-            $notificationAt = new DateTime("+ $notificationSeconds seconds");
-            $inquiry->setRemoveNoticeAt($notificationAt);
-
-            // Set actual removing date
-            $removeSeconds = $notificationSeconds + $this->params->get("app.inquiries.auto_remove_delay");
-            $removeAt = new DateTime("+ $removeSeconds seconds");
-            $inquiry->setRemoveAt($removeAt);
+            $this->updateAutoRemoveData($inquiry);
 
             $this->subscriptionOperation->handleNewInquiry($inquiry);
         }
@@ -516,5 +508,24 @@ class InquiryOperation
         // Make removeAt field null to make sure that inquiry is not removed more times.
         $inquiry->setRemoveAt(null);
         $this->inquiryService->update($inquiry);
+    }
+
+    /**
+     * Updates inquiry fields used for removing expired inquiries.
+     * @param Inquiry $inquiry
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    private function updateAutoRemoveData(Inquiry $inquiry): void
+    {
+        // Set remove notification date
+        $notificationSeconds = $this->params->get("app.inquiries.auto_remove_notification_delay");
+        $notificationAt = new DateTime("+ $notificationSeconds seconds");
+        $inquiry->setRemoveNoticeAt($notificationAt);
+
+        // Set actual removing date
+        $removeSeconds = $notificationSeconds + $this->params->get("app.inquiries.auto_remove_delay");
+        $removeAt = new DateTime("+ $removeSeconds seconds");
+        $inquiry->setRemoveAt($removeAt);
     }
 }
