@@ -115,6 +115,15 @@
     "laminas/laminas-code": {
         "version": "4.4.3"
     },
+    "league/uri": {
+        "version": "6.5.0"
+    },
+    "league/uri-components": {
+        "version": "2.4.0"
+    },
+    "league/uri-interfaces": {
+        "version": "2.3.0"
+    },
     "mhujer/breadcrumbs-bundle": {
         "version": "1.5.8"
     },
@@ -182,6 +191,9 @@
     },
     "psr/event-dispatcher": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/link": {
         "version": "1.0.0"
@@ -251,6 +263,9 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "spatie/url-signer": {
+        "version": "1.2.2"
     },
     "symfony/asset": {
         "version": "v5.3.4"
@@ -655,6 +670,15 @@
     },
     "tijsverkoyen/css-to-inline-styles": {
         "version": "2.2.4"
+    },
+    "tilleuls/url-signer-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "20cec2e3050fe3d40d514b8c46ac934ab1f0580e"
+        }
     },
     "twig/cssinliner-extra": {
         "version": "v3.3.5"
