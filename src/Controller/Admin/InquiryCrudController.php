@@ -206,21 +206,26 @@ class InquiryCrudController extends AbstractCrudController
 
             DateTimeField::new("createdAt", "admin.inquiries.field_created_at")
                 ->setRequired(false)
+                ->renderAsChoice()
                 ->setFormat('d.M.Y H:m'),
             DateTimeField::new("updatedAt", "admin.inquiries.field_updated_at")
                 ->setRequired(false)
+                ->renderAsChoice()
                 ->setFormat('d.M.Y H:m')->hideOnForm(),
             DateTimeField::new("publishedAt", "admin.inquiries.field_published_at")
                 ->setRequired(false)
+                ->renderAsChoice()
                 ->setFormat('d.M.Y H:m'),
 
             FormField::addPanel("admin.inquiries.title_auto_remove")->onlyOnForms(),
             DateTimeField::new("removeNoticeAt", "admin.inquiries.field_remove_notice_at")
                 ->setRequired(false)
+                ->renderAsChoice()
                 ->setFormat('d.M.Y H:m')
                 ->onlyOnForms(),
             DateTimeField::new("removeAt", "admin.inquiries.field_remove_at")
                 ->setRequired(false)
+                ->renderAsChoice()
                 ->setFormat('d.M.Y H:m')
                 ->onlyOnForms(),
 
