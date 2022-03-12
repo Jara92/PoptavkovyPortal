@@ -7,8 +7,8 @@
 {% block content %}
     <section class="content">
         <div class="container col-lg-5">
-            <header class="row">
-                <h2>{{ "ratings.inquiring_rating"|trans }}</h2>
+            <header class="row pb-3">
+                <h2><span class="fa fa-comment-alt me-2"></span>{{ "ratings.inquiring_rating"|trans }}</h2>
                 <p class="w-75">{{ "ratings.inquiring_rating_desc"|trans }}</p>
             </header>
             <div class="row cardbox">
@@ -25,6 +25,8 @@
                     {{ form_row(form.supplierNote) }}
 
                     {{ form_row(form.note) }}
+
+                    <p>{{ "ratings.submit_note"|trans }}</p>
 
                     {{ form_row(form.submit) }}
 
