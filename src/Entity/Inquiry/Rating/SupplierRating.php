@@ -19,10 +19,10 @@ class SupplierRating extends AEntity
     use TimeStampTrait;
 
     /**
-     * @ORM\OneToOne(targetEntity=Inquiry::class, inversedBy="supplierRating", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Inquiry::class, inversedBy="supplierRatings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Inquiry $inquiry = null;
+    private ?Inquiry $inquiry;
 
     /**
      * @ORM\OneToOne(targetEntity=Inquiry::class, cascade={"persist"})

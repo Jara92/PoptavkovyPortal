@@ -166,15 +166,16 @@ class Inquiry extends AEntity
     private ?InquiringRating $inquiringRating = null;
 
     /**
-     * @ORM\OneToOne(targetEntity=SupplierRating::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=SupplierRating::class, mappedBy="inquiry", orphanRemoval=true)
      */
-    private ?SupplierRating $supplierRating = null;
+    private Collection $supplierRatings;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->offers = new ArrayCollection();
+        $this->supplierRatings = new ArrayCollection();
     }
 
     public function getDescription(): string
@@ -542,6 +543,36 @@ class Inquiry extends AEntity
         }
 
         $this->supplierRating = $supplierRating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SupplierRating>
+     */
+    public function getSupplierRatings(): Collection
+    {
+        return $this->supplierRatings;
+    }
+
+    public function addSupplierRating(SupplierRating $supplierRating): self
+    {
+        if (!$this->supplierRatings->contains($supplierRating)) {
+            $this->supplierRatings[] = $supplierRating;
+            $supplierRating->setInquiry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupplierRating(SupplierRating $supplierRating): self
+    {
+        if ($this->supplierRatings->removeElement($supplierRating)) {
+            // set the owning side to null (unless already changed)
+            if ($supplierRating->getInquiry() === $this) {
+                $supplierRating->setInquiry(null);
+            }
+        }
 
         return $this;
     }
