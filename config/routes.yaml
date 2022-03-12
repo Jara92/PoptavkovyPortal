@@ -21,8 +21,8 @@ inquiries/detail:
 
 inquiries/finish:
   path: /dokoncit-poptavku
-  controller: App\Controller\InquiryController::postponeExpiration
-  methods: GET
+  controller: App\Controller\InquiryController::finishInquiry
+  methods: GET|POST
   defaults:
     _signed: true # Deny access for unsigned
 

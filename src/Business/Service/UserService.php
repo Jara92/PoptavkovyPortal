@@ -3,6 +3,7 @@
 namespace App\Business\Service;
 
 use App\Entity\User;
+use App\Enum\Entity\UserType;
 use App\Factory\UserFactory;
 use App\Repository\Interfaces\IRepository;
 use App\Repository\Interfaces\User\IUserRepository;
@@ -36,5 +37,23 @@ class UserService extends AService
     public function readByEmail(string $email): ?User
     {
         return $this->repository->findOneBy(["email" => $email]);
+    }
+
+    /**
+     * Returns formated user's name based on user's type.
+     * @param User $user
+     * @return string
+     * @throws \LogicException When user's type is unknown.
+     */
+    public function getFormatedUserName(User $user): string
+    {
+        switch ($user->getType()) {
+            case UserType::PERSON:
+                return $user->getPerson()->getName() . " " . $user->getPerson()->getSurname();
+            case UserType::COMPANY:
+                return $user->getCompany()->getName();
+            default:
+                throw new \LogicException("Unknown user type");
+        }
     }
 }

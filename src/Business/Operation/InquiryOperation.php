@@ -30,6 +30,7 @@ use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -578,5 +579,32 @@ class InquiryOperation
         $removeSeconds = $notificationSeconds + $this->params->get("app.inquiries.auto_remove_delay");
         $removeAt = new DateTime("+ $removeSeconds seconds");
         $inquiry->setRemoveAt($removeAt);
+    }
+
+    /**
+     * Returns all suppliers which have made an offer for given inquiry.
+     * @param Inquiry $inquiry
+     * @return User[]
+     */
+    public function getInquiryOffersSuppliers(Inquiry $inquiry): array
+    {
+        return array_map(fn(Offer $offer) => $offer->getAuthor(), $inquiry->getOffers()->toArray());
+    }
+
+    /**
+     * Finished the inquiry in the request.
+     * Sets the finished state and removes the request.
+     * @param InquirySignedRequest $request
+     */
+    public function finishInquiry(InquirySignedRequest $request)
+    {
+        // Update the state.
+        $request->getInquiry()->setState(InquiryState::STATE_FINISHED);
+
+        // Update the inquiry - the InquiringRating object is saved automatically.
+        $this->inquiryService->update($request->getInquiry());
+
+        // Delete the request to prevent multiple times access..
+        $this->inquirySignedRequestService->delete($request);
     }
 }

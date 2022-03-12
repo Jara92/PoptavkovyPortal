@@ -5,17 +5,23 @@ namespace App\Controller;
 use App\Business\Operation\InquiryOperation;
 use App\Business\Service\Inquiry\InquirySignedRequestService;
 use App\Controller\Trait\PaginableTrait;
+use App\Entity\Inquiry\InquirySignedRequest;
+use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\Inquiry\InquiryService;
 use App\Form\Inquiry\OfferForm;
+use App\Form\Inquiry\Rating\InquiringRatingForm;
 use App\Tools\Filter\InquiryFilter;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
+use http\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -234,5 +240,43 @@ class InquiryController extends AController
         // Flash message and redirect to inquiry detail page.
         $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("inquiries.msg_inquiry_expiration_postponed"));
         return $this->redirectToRoute("inquiries/detail", ["alias" => $inquirySignedRequest->getInquiry()->getAlias()]);
+    }
+
+    public function finishInquiry(Request $request): Response
+    {
+        // Get inquiry from the request.
+        $inquirySignedRequest = $this->getInquirySignedRequest($request);
+        $inquiry = $inquirySignedRequest->getInquiry();
+
+        // Setup breadcrumbs
+        $this->breadcrumbs->addItem($inquiry->getTitle(), $this->router->generate("inquiries/detail",
+            ["alias" => $inquiry->getAlias()]), translate: false);
+        $this->breadcrumbs->addItem("ratings.inquiring_rating");
+
+        // Create a rating and a form
+        $rating = (new InquiringRating())->setInquiry($inquiry);
+        $form = $this->createForm(InquiringRatingForm::class, $rating);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                // Set inquiry rating.
+                $inquiry->setInquiringRating($rating);
+
+                // Finish the inquiry using the request.
+                $this->inquiryOperation->finishInquiry($inquirySignedRequest);
+
+                // Show message and redirect away.
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
+                $this->redirectToRoute("home");
+            } // This exception is thrown if there already was a rating.
+            catch (UniqueConstraintViolationException $exception) {
+                $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("ratings.msg_rating_failed_unique"));
+            } catch (Exception $ex) {
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("ratings.msg_rating_failed"));
+            }
+        }
+
+        return $this->renderForm("inquiry/rating/inquiring.html.twig", compact("form", "inquiry"));
     }
 }
