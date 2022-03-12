@@ -264,6 +264,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "slope-it/clock-mock": {
+        "version": "0.2.0"
+    },
     "spatie/url-signer": {
         "version": "1.2.2"
     },
