@@ -52,6 +52,7 @@ class InquiringRatingForm extends AbstractType
                 'choice_label' => fn(User $user) => $this->userService->getFormatedUserName($user),
             ])
             ->add("rating", RatingType::class, [
+                'required' => false,
                 'data' => 3
             ])
             ->add("supplierNote", TextareaType::class, [

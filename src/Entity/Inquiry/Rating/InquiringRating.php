@@ -30,7 +30,7 @@ class InquiringRating extends AEntity
     private ?User $supplier;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(min="1", max="5")
      */
     private ?int $rating;
@@ -74,7 +74,7 @@ class InquiringRating extends AEntity
         return $this->rating;
     }
 
-    public function setRating(int $rating): self
+    public function setRating(?int $rating): self
     {
         $this->rating = $rating;
 

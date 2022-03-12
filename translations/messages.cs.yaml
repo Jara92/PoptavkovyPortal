@@ -356,13 +356,13 @@ ratings:
 
   msg_rating_sent: "Vaše hodnocení bylo úspěšně odesláno. Děkujeme! :)"
   msg_rating_failed: "Vaše hodnocení se nepodařilo odeslat. Zkuste to prosím znovu později. :("
-  msg_rating_failed_unique: "Zdá se, že jste tuto poptávku už dokončil. Pokud si myslíte, že se jedná o chybu, kontaktujte správce."
+  msg_rating_failed_unique: "Zdá se, že jste tuto poptávku už dokončil a ohodnotil. Pokud si myslíte, že se jedná o chybu, kontaktujte správce."
 
   field_supplier: "Poptávku zrealizoval:"
   field_supplier_ph: "Zvolte dodavatele"
   field_supplier_help: "Pole nechte prázné, pokud jste nevyužil žádného z našich dodavatelů."
   field_rating: "Jak byste ohodnotil Vašeho dodavatele?"
-  field_supplierNote: "Komentář dodavatele (jednání, cena, kvalita...)"
+  field_supplierNote: "Komentář dodavatele (jednání, cena, kvalita, dodržení termínů...)"
   field_supplierNote_ph: "Popiště, co se Vám na spolupráci s tímto dodavatelem líbilo nebo naopak nelíbilo. "
   field_note: "Hodnocení služby Poptejsi.cz"
   field_note_ph: "Popište, jak jste spokojen s naší službou a co byste chtěl případně změnit."

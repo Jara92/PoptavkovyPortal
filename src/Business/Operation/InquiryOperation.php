@@ -598,6 +598,15 @@ class InquiryOperation
      */
     public function finishInquiry(InquirySignedRequest $request)
     {
+        $rating = $request->getInquiry()->getInquiringRating();
+
+        // If supplier is not set
+        if ($rating && !$rating->getSupplier()) {
+            // We do not want to store these field because supplier is not set.
+            $rating->setRating(null);
+            $rating->setSupplierNote(null);
+        }
+
         // Update the state.
         $request->getInquiry()->setState(InquiryState::STATE_FINISHED);
 
