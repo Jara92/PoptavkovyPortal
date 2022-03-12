@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Business\Service;
 
-use App\Business\Service\InquiryService;
+use App\Business\Service\Inquiry\InquiryService;
 use App\Entity\Inquiry\Inquiry;
 use App\Repository\Interfaces\Inquiry\IInquiryIRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +30,7 @@ class InquiryServiceTest extends TestCase
         $this->em = $this->createStub(EntityManagerInterface::class);
 
         // Create a service using mocked dependencies.
-        $this->service = new InquiryService($this->repository);
+        $this->service = new \App\Business\Service\Inquiry\InquiryService($this->repository);
         $this->service->setObjectManager($this->em);
 
         $this->entity = (new Inquiry())->setId(13);

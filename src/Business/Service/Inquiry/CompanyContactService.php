@@ -1,7 +1,8 @@
 <?php /** @noinspection PhpUnusedAliasInspection */
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
+use App\Business\Service\AService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Repository\Interfaces\Inquiry\ICompanyContactRepository;
 use App\Repository\Interfaces\IRepository;

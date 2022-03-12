@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
-use App\Business\Service\OfferService;
+use App\Business\Service\Inquiry\OfferService;
 use App\Controller\Trait\PaginableTrait;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;

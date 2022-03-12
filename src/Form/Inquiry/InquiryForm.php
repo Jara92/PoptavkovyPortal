@@ -3,8 +3,8 @@
 namespace App\Form\Inquiry;
 
 use App\Business\Operation\InquiryOperation;
-use App\Business\Service\DeadlineService;
-use App\Business\Service\InquiryValueService;
+use App\Business\Service\Inquiry\DeadlineService;
+use App\Business\Service\Inquiry\InquiryValueService;
 use App\Business\Service\UserService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;

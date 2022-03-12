@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
+use App\Business\Service\AService;
 use App\Entity\Inquiry\Deadline;
 use App\Repository\Interfaces\Inquiry\IDeadlineRepository;
 use App\Repository\Interfaces\IRepository;

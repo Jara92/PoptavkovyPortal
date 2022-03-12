@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
 use App\Business\SmartTag\ISmartTag;
 use App\Business\SmartTag\NoOffersYet;

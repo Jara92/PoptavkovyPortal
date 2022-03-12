@@ -3,7 +3,7 @@
 namespace App\Tests\Unit\Business\Operation;
 
 use App\Business\Operation\SubscriptionOperation;
-use App\Business\Service\InquiryService;
+use App\Business\Service\Inquiry\InquiryService;
 use App\Business\Service\SubscriptionService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;

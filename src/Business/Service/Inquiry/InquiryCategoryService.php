@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
+use App\Business\Service\AService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Repository\Interfaces\Inquiry\IInquiryCategoryRepository;

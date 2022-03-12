@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Business\Operation\InquiryOperation;
-use App\Business\Service\InquiryCategoryService;
+use App\Business\Service\Inquiry\InquiryCategoryService;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;

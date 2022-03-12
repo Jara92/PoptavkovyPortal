@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Business\Service\InquiryAttachmentService;
+use App\Business\Service\Inquiry\InquiryAttachmentService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

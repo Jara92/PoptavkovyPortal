@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
+use App\Business\Service\AService;
 use App\Entity\Inquiry\InquiryValue;
 use App\Repository\Interfaces\Inquiry\IInquiryValueRepository;
 use App\Repository\Interfaces\IRepository;

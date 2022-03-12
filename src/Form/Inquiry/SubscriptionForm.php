@@ -2,7 +2,7 @@
 
 namespace App\Form\Inquiry;
 
-use App\Business\Service\InquiryCategoryService;
+use App\Business\Service\Inquiry\InquiryCategoryService;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\Subscription;
 use App\Entity\Inquiry\Region;

@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
-use App\Business\Service\InquirySignedRequestService;
+use App\Business\Service\Inquiry\InquirySignedRequestService;
 use App\Controller\Trait\PaginableTrait;
 use App\Enum\FlashMessageType;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
-use App\Business\Service\InquiryService;
+use App\Business\Service\Inquiry\InquiryService;
 use App\Form\Inquiry\OfferForm;
 use App\Tools\Filter\InquiryFilter;
 use Exception;

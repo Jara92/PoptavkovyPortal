@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Business\Service;
+namespace App\Business\Service\Inquiry;
 
+use App\Business\Service\AService;
 use App\Entity\Inquiry\Inquiry;
 use App\Tools\Filter\InquiryFilter;
 use App\Tools\Pagination\PaginationData;
