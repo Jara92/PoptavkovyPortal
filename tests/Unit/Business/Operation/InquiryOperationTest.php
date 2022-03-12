@@ -10,6 +10,7 @@ use App\Business\Service\Inquiry\InquiryService;
 use App\Business\Service\Inquiry\InquirySignedRequestService;
 use App\Business\Service\Inquiry\InquiryValueService;
 use App\Business\Service\Inquiry\OfferService;
+use App\Business\Service\Inquiry\Rating\SupplierRatingService;
 use App\Business\Service\Inquiry\SmartTagService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
@@ -61,6 +62,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     private MailerInterface $mailer;
     private RouterInterface $router;
     private UrlSignerInterface $urlSigner;
+    private SupplierRatingService $supplierRatingService;
 
     private int $inquiryExpirationNotification = 20000;
     private int $inquiryExpirationRemove = 100;
@@ -84,6 +86,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->inquirySignedRequestService = $this->createStub(InquirySignedRequestService::class);
         $this->personalContactFactory = $this->createStub(PersonalContactFactory::class);
         $this->companyContactFactory = $this->createStub(CompanyContactFactory::class);
+        $this->supplierRatingService = $this->createStub(SupplierRatingService::class);
         $this->security = $this->createStub(UserSecurity::class);
         $this->slugger = $this->createStub(SluggerInterface::class);
         $this->router = $this->createStub(RouterInterface::class);
@@ -107,7 +110,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->urlSigner->method("sign")->willReturn("http://orul.cz/?expired=12345&signature=123456");
 
         // Create testing class instance.
-        $this->operation = new InquiryOperation($this->inquiryService, $this->attachmentService, $this->inquiryValueService,
+        $this->operation = new InquiryOperation($this->inquiryService, $this->attachmentService, $this->inquiryValueService, $this->supplierRatingService,
             $this->deadlineService, $this->subscriptionOperation, $this->inquiryFactory, $this->attachmentFactory, $this->filterFactory,
             $this->offerService, $this->offerFactory, $this->smartTagService, $this->inquirySignedRequestService, $this->personalContactFactory,
             $this->companyContactFactory, $this->security, $this->slugger, $this->params, $this->translator, $this->mailer, $this->router,
