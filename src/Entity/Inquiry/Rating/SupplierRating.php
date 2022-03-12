@@ -28,7 +28,12 @@ class SupplierRating extends AEntity
      * @ORM\OneToOne(targetEntity=Inquiry::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $author;
+    private ?User $author = null;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private ?bool $realizedInquiry = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -63,7 +68,7 @@ class SupplierRating extends AEntity
         return $this->author;
     }
 
-    public function setAuthor(?User $author): SupplierRating
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
         return $this;
@@ -72,6 +77,17 @@ class SupplierRating extends AEntity
     public function getRating(): ?int
     {
         return $this->rating;
+    }
+
+    public function getRealizedInquiry(): ?bool
+    {
+        return $this->realizedInquiry;
+    }
+
+    public function setRealizedInquiry(?bool $realizedInquiry): self
+    {
+        $this->realizedInquiry = $realizedInquiry;
+        return $this;
     }
 
     public function setRating(?int $rating): self
