@@ -5,6 +5,7 @@ namespace App\Entity\Inquiry;
 use App\Business\SmartTag\ISmartTag;
 use App\Entity\AEntity;
 use App\Entity\Inquiry\Rating\InquiringRating;
+use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\HitsTrait;
 use App\Entity\Traits\TimeStampTrait;
@@ -163,6 +164,11 @@ class Inquiry extends AEntity
      * @ORM\OneToOne(targetEntity=InquiringRating::class, mappedBy="inquiry", cascade={"persist", "remove"})
      */
     private ?InquiringRating $inquiringRating = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity=SupplierRating::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     */
+    private ?SupplierRating $supplierRating = null;
 
     public function __construct()
     {
@@ -519,6 +525,23 @@ class Inquiry extends AEntity
         }
 
         $this->inquiringRating = $inquiringRating;
+
+        return $this;
+    }
+
+    public function getSupplierRating(): ?SupplierRating
+    {
+        return $this->supplierRating;
+    }
+
+    public function setSupplierRating(SupplierRating $supplierRating): self
+    {
+        // set the owning side of the relation if necessary
+        if ($supplierRating->getInquiry() !== $this) {
+            $supplierRating->setInquiry($this);
+        }
+
+        $this->supplierRating = $supplierRating;
 
         return $this;
     }
