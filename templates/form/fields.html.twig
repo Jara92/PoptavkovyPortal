@@ -23,6 +23,7 @@
     </button>
 {% endblock button_widget %}
 
+{# Resource: https://github.com/blackknight467/StarRatingBundle under MIT license #}
 {% block data_list_row %}
     {%- set row_class = row_class|default(row_attr.class|default('mb-3')|trim) -%}
     <{{ element|default('div') }}{% with {attr: row_attr|merge({class: row_class})} %}{{ block('attributes') }}{% endwith %}>
@@ -39,3 +40,33 @@
     </div>
     </{{ element|default('div') }}>
 {% endblock %}
+
+{% block rating_widget %}
+    {% apply spaceless %}
+        <div {{ block('rating_widget_container_attributes') }}>
+            {# type="number" doesn't work with floats #}
+            {% set type = type|default('text') %}
+            <div class="rating-well">
+                {{- block('form_widget_simple') -}}
+                {% for star in 1..stars %}
+                    <div id="rating_star_{{ stars - star + 1 }}" class="star" data-value="{{ stars - star + 1 }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endapply %}
+{% endblock rating_widget %}
+
+{% block rating_widget_container_attributes %}
+    {% apply spaceless %}
+        {%- for attrname, attrvalue in attr -%}
+            {{- " " -}}
+            {%- if attrname in ['placeholder', 'title'] -%}
+                {{- attrname }}="{{ attrvalue|trans({}, translation_domain) }}"
+            {%- elseif attrvalue is same as(true) -%}
+                {{- attrname }}="{{ attrname }}"
+            {%- elseif attrvalue is not same as(false) -%}
+                {{- attrname }}="{{ attrvalue }}"
+            {%- endif -%}
+        {%- endfor -%}
+    {% endapply %}
+{% endblock rating_widget_container_attributes %}

@@ -21,6 +21,8 @@ import "select2/dist/js/i18n/cs"
 // Template scripts.
 import "./libs/laslesvpn_template/js/theme";
 
+import "./libs/rating-stars/rating";
+
 // start the Stimulus application
 import './bootstrap';
 

@@ -6,6 +6,7 @@ use App\Business\Operation\InquiryOperation;
 use App\Business\Service\UserService;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\User;
+use App\Form\Type\RatingType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -50,7 +51,7 @@ class InquiringRatingForm extends AbstractType
                 'choices' => $this->inquiryOperation->getInquiryOffersSuppliers($rating->getInquiry()),
                 'choice_label' => fn(User $user) => $this->userService->getFormatedUserName($user),
             ])
-            ->add("rating", NumberType::class, [
+            ->add("rating", RatingType::class, [
                 'data' => 3
             ])
             ->add("supplierNote", TextareaType::class, [
