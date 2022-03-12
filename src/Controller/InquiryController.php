@@ -268,7 +268,7 @@ class InquiryController extends AController
 
                 // Show message and redirect away.
                 $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
-                $this->redirectToRoute("home");
+                return $this->redirectToRoute("home");
             } // This exception is thrown if there already was a rating.
             catch (UniqueConstraintViolationException $exception) {
                 $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("ratings.msg_rating_failed_unique"));
