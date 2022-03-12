@@ -13,6 +13,7 @@ use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\Inquiry\InquiryService;
 use App\Form\Inquiry\OfferForm;
 use App\Form\Inquiry\Rating\InquiringRatingForm;
+use App\Form\Inquiry\Rating\SupplierRatingForm;
 use App\Tools\Filter\InquiryFilter;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
@@ -21,7 +22,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Validator\Exception\LogicException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -283,5 +283,45 @@ class InquiryController extends AController
         }
 
         return $this->renderForm("inquiry/rating/inquiring.html.twig", compact("form", "inquiry"));
+    }
+
+    /**
+     * An action to receive rating from the supplier.
+     * @param Request $request
+     * @return Response
+     */
+    public function supplierRating(Request $request): Response
+    {
+        // Get inquiry from the request.
+        $inquirySignedRequest = $this->getInquirySignedRequest($request);
+        $inquiry = $inquirySignedRequest->getInquiry();
+
+        // Setup breadcrumbs
+        $this->breadcrumbs->addItem($inquiry->getTitle(), $this->router->generate("inquiries/detail",
+            ["alias" => $inquiry->getAlias()]), translate: false);
+        $this->breadcrumbs->addItem("ratings.supplier_rating");
+
+        $rating = $this->inquiryOperation->createSupplierRating($inquiry);
+        $form = $this->createForm(SupplierRatingForm::class, $rating);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                // set the rating.
+                $inquiry->setSupplierRating($rating);
+
+                // Save rating.
+                $this->inquiryOperation->saveSupplierRating($rating);
+
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
+                return $this->redirectToRoute("home");
+            } catch (UniqueConstraintViolationException $ex) {
+                $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("ratings.msg_rating_failed_unique"));
+            } catch (Exception $ex) {
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("ratings.msg_rating_failed"));
+            }
+        }
+
+        return $this->renderForm("inquiry/rating/supplier.html.twig", compact("form", "inquiry"));
     }
 }

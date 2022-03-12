@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ "ratings.supplier_rating"|trans }}{% endblock %}
+
+{% block page_name %}rating-supplier-rating{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container col-lg-5">
+            <header class="row pb-3">
+                <h2><span class="fa fa-comment-alt me-2"></span>{{ "ratings.supplier_rating"|trans }}</h2>
+                <p class="w-75 text-justify">{{ "ratings.supplier_rating_desc"|trans }}</p>
+            </header>
+            <div class="row cardbox">
+                <div class="card-header">
+                    <h3 class="text-start">Poptávka: <span class="text-black fw-normal">{{ inquiry.title }}</span></h3>
+                </div>
+                <div class="cardbox-item" data-controller="supplier-rating-form">
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-md-8">{{ form_row(form.realizedInquiry, {'attr': {'data-action':'change->inquiring-rating-form#updateFields', 'data-inquiring-rating-form-target':'supplierField'}}) }}</div>
+                    </div>
+
+                    <div data-inquiring-rating-form-target="supplierDynamic">
+                        {{ form_row(form.rating) }}
+
+                        {{ form_row(form.inquiringNote) }}
+                        <hr/>
+                    </div>
+
+                    {{ form_row(form.note) }}
+
+                    <p>{{ "ratings.submit_note"|trans }}</p>
+
+                    {{ form_row(form.submit) }}
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

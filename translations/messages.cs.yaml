@@ -352,7 +352,12 @@ ratings:
   inquiring_rating: "Hodnocení poptávky"
   inquiring_rating_desc: "Napište nám, jak jste byl s Vaším dodavatelem a naší službou spokojen.
   Na základě zpětné vazby se neustále snažíme naše služby zlepšovat. Děkujeme! :)"
-  submit_note: "Odesláním hodnocení souhlasíte s možným zveřejněním Vaší recenze."
+  supplier_rating: "Hodnocení poptávajícího"
+  supplier_rating_desc: "Napište nám, jak jste byl s Vaším zákazníkem a naší službou spokojen.
+  Na základě zpětné vazby se neustále snažíme naše služby zlepšovat. Proto prosíme o vyplnění i Vámi nerealizovaných zakázek.
+  Veškerá zpětná vazba pomůže i dalším uživatelům služby.
+  Děkujeme! :)"
+  submit_note: "Odesláním hodnocení souhlasíte s možným zveřejněním Vašeho komentáře jako recenze."
 
   msg_rating_sent: "Vaše hodnocení bylo úspěšně odesláno. Děkujeme! :)"
   msg_rating_failed: "Vaše hodnocení se nepodařilo odeslat. Zkuste to prosím znovu později. :("
@@ -361,11 +366,15 @@ ratings:
   field_supplier: "Poptávku zrealizoval:"
   field_supplier_ph: "Zvolte dodavatele"
   field_supplier_help: "Pole nechte prázné, pokud jste nevyužil žádného z našich dodavatelů."
+  supplier.field_rating: "Jak byste ohodnotil Vašeho zákazníka?"
   field_rating: "Jak byste ohodnotil Vašeho dodavatele?"
   field_supplierNote: "Komentář dodavatele (jednání, cena, kvalita, dodržení termínů...)"
-  field_supplierNote_ph: "Popiště, co se Vám na spolupráci s tímto dodavatelem líbilo nebo naopak nelíbilo. "
+  field_supplierNote_ph: "Popiště, co Vám na spolupráci s tímto dodavatelem vyhovovalo nebo naopak co Vám vadilo. "
+  field_inquiringNote: "Komentář zákazníka (jednání, spolehlivost...)"
+  field_inquiringNote_ph: "Popište, jaké bylo pro tohoto zákazníka pracovat."
   field_note: "Hodnocení služby Poptejsi.cz"
   field_note_ph: "Popište, jak jste spokojen s naší službou a co byste chtěl případně změnit."
+  field_realizedInquiry: "Poptávku jsem realizoval"
 
   btn_send_rating: "Odeslat hodnocení"
 

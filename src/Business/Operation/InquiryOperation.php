@@ -13,6 +13,7 @@ use App\Entity\Company;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Offer;
+use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
@@ -23,6 +24,7 @@ use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\OfferFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
+use App\Factory\Inquiry\RatingFactory;
 use App\Factory\InquiryFilterFactory;
 use App\Helper\InquiryStateHelper;
 use App\Helper\UrlHelper;
@@ -35,6 +37,7 @@ use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -61,6 +64,7 @@ class InquiryOperation
         private InquirySignedRequestService $inquirySignedRequestService,
         private PersonalContactFactory      $personalContactFactory,
         private CompanyContactFactory       $companyContactFactory,
+        private RatingFactory               $ratingFactory,
         private UserSecurity                $security,
         private SluggerInterface            $slugger,
         private ContainerBagInterface       $params,
@@ -615,5 +619,33 @@ class InquiryOperation
 
         // Delete the request to prevent multiple times access..
         $this->inquirySignedRequestService->delete($request);
+    }
+
+    public function createSupplierRating(Inquiry $inquiry): SupplierRating
+    {
+        $rating = new SupplierRating();
+
+        // If there is already an inquiring user's rating we can take user id from it
+        // We do it like that because the user might not be logged in so we do not know his ID.
+        // And because the user has access to this feature only if he gets an email based on inquring user rating it is save.
+        if ($inquiry->getInquiringRating()) {
+            $rating->setAuthor($inquiry->getInquiringRating()->getSupplier());
+        }
+
+        // NO inquiring user rating so the user just wants to rate the inquiry on his own.
+        // To do this, the user must be authorized.
+        else if ($this->security->getUser()) {
+            $rating->setAuthor($this->security->getUser());
+        } // This should not happen.
+        else {
+            throw new AccessDeniedHttpException("You are not autenticated!");
+        }
+
+        return $rating;
+    }
+
+    public function saveSupplierRating(SupplierRating $rating): void
+    {
+
     }
 }

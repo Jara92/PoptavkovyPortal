@@ -26,6 +26,13 @@ inquiries/finish:
   defaults:
     _signed: true # Deny access for unsigned
 
+inquiries/supplier-rating:
+  path: /hodnoceni-poptavajiciho
+  controller: App\Controller\InquiryController::supplierRating
+  methods: GET|POST
+  defaults:
+    _signed: true # Deny access for unsigned
+
 inquiries/postpone-expiration:
   path: /prodlouzit-poptavku
   controller: App\Controller\InquiryController::postponeExpiration
