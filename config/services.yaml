@@ -9,6 +9,10 @@ parameters:
   app.items_per_page: 2
   app.verification_resend_delay: 300 # Interval between verification email resending in seconds. (5 minutes)
 
+  # The two params should much config in url_signer.yaml
+  app.parameter_signature: "signature"
+  app.parameter_expired: "expired"
+
   # Interval between sending a notification that the inquiry is to be removed. (31 days)
   app.inquiries.auto_remove_notification_delay: 2678400
   # Interval between remove_notification and removing the inquiry. (7 days)

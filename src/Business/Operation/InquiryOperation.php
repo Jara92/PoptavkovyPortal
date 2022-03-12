@@ -495,8 +495,6 @@ class InquiryOperation
      */
     private function autoRemoveNotify(Inquiry $inquiry): void
     {
-        $signatureParamName = "signature";
-
         // Calculate links expiration datetime.
         $expirationSeconds = $this->params->get("app.inquiries.auto_remove_delay");
         $expiration = (new DateTime("now + $expirationSeconds seconds"));
@@ -523,11 +521,11 @@ class InquiryOperation
         // Token is saved in the link as a param so we have to take it from it.
         $now = new DateTime();
         $finishRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
-            ->setToken(explode("$signatureParamName=", $finishInquiryUrl)[1]);
+            ->setToken($this->getTokenFromSignedUrl($finishInquiryUrl));
         $this->inquirySignedRequestService->create($finishRequest);
 
         $postponeRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
-            ->setToken(explode("$signatureParamName=", $postponeExpirationUrl)[1]);
+            ->setToken($this->getTokenFromSignedUrl($postponeExpirationUrl));
         $this->inquirySignedRequestService->create($postponeRequest);
 
         // Remove next notification date
@@ -595,6 +593,12 @@ class InquiryOperation
         return array_map(fn(Offer $offer) => $offer->getAuthor(), $inquiry->getOffers()->toArray());
     }
 
+    private function getTokenFromSignedUrl(string $url): string
+    {
+        $signatureParamName = $this->params->get("app.parameter_signature");
+        return explode("$signatureParamName=", $url)[1];
+    }
+
     /**
      * Finished the inquiry in the request.
      * Sets the finished state and removes the request.
@@ -621,6 +625,11 @@ class InquiryOperation
         $this->inquirySignedRequestService->delete($request);
     }
 
+    /**
+     * Creates and returns an object for rating an inquiry and its author.
+     * @param Inquiry $inquiry
+     * @return SupplierRating
+     */
     public function createSupplierRating(Inquiry $inquiry): SupplierRating
     {
         $rating = new SupplierRating();
