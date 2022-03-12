@@ -242,6 +242,11 @@ class InquiryController extends AController
         return $this->redirectToRoute("inquiries/detail", ["alias" => $inquirySignedRequest->getInquiry()->getAlias()]);
     }
 
+    /**
+     * An action to mark an inquiry as finished and receive inquiring user's rating.
+     * @param Request $request
+     * @return Response
+     */
     public function finishInquiry(Request $request): Response
     {
         // Get inquiry from the request.
