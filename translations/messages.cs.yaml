@@ -358,6 +358,7 @@ ratings:
   Veškerá zpětná vazba pomůže i dalším uživatelům služby.
   Děkujeme! :)"
   submit_note: "Odesláním hodnocení souhlasíte s možným zveřejněním Vašeho komentáře jako recenze."
+  inquiring_rating_available: "Možnost ohodnotit poptávku"
 
   msg_rating_sent: "Vaše hodnocení bylo úspěšně odesláno. Děkujeme! :)"
   msg_rating_failed: "Vaše hodnocení se nepodařilo odeslat. Zkuste to prosím znovu později. :("

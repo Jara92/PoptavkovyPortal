@@ -24,7 +24,6 @@ use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\OfferFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
-use App\Factory\Inquiry\RatingFactory;
 use App\Factory\InquiryFilterFactory;
 use App\Helper\InquiryStateHelper;
 use App\Helper\UrlHelper;
@@ -32,7 +31,6 @@ use App\Security\UserSecurity;
 use App\Tools\Filter\InquiryFilter;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use LogicException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -64,7 +62,6 @@ class InquiryOperation
         private InquirySignedRequestService $inquirySignedRequestService,
         private PersonalContactFactory      $personalContactFactory,
         private CompanyContactFactory       $companyContactFactory,
-        private RatingFactory               $ratingFactory,
         private UserSecurity                $security,
         private SluggerInterface            $slugger,
         private ContainerBagInterface       $params,
@@ -600,6 +597,41 @@ class InquiryOperation
     }
 
     /**
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     */
+    private function sendRatingEmailToSupplier(Inquiry $inquiry, User $supplier): void
+    {
+        // Build finish inquiry link and sign it.
+        $ratingUrl = $this->router->generate("inquiries/supplier-rating", [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $email = (new TemplatedEmail())
+            ->htmlTemplate('email/inquiry/rating/available_supplier.html.twig')
+            ->subject($this->translator->trans("ratings.inquiring_rating_available"));
+
+        $this->sendRatingEmail($email, $inquiry, $supplier, $ratingUrl);
+    }
+
+    private function sendRatingEmail(TemplatedEmail $email, Inquiry $inquiry, User $user, string $url)
+    {
+        $expiration = (new DateTime("now + 31 days"));
+        $signedUrl = $this->urlSigner->sign($url, $expiration);
+
+        $email->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
+            ->to($user->getEmail())
+            ->context(compact("inquiry", "user", "signedUrl"));
+
+        $this->mailer->send($email);
+
+        // Save the request.
+        $request = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt(new DateTime())
+            ->setExpireAt($expiration)->setToken($this->getTokenFromSignedUrl($signedUrl));
+
+        $this->inquirySignedRequestService->create($request);
+    }
+
+    /**
      * Finished the inquiry in the request.
      * Sets the finished state and removes the request.
      * @param InquirySignedRequest $request
@@ -608,8 +640,12 @@ class InquiryOperation
     {
         $rating = $request->getInquiry()->getInquiringRating();
 
-        // If supplier is not set
-        if ($rating && !$rating->getSupplier()) {
+        // Supplier is set
+        if ($rating->getSupplier()) {
+            // We want to send an email to the supplier to fill his rating form.
+            $this->sendRatingEmailToSupplier($rating->getInquiry(), $rating->getSupplier());
+        } // If supplier is not set
+        else {
             // We do not want to store these field because supplier is not set.
             $rating->setRating(null);
             $rating->setSupplierNote(null);

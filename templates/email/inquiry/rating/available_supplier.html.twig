@@ -1,0 +1,18 @@
+{% extends "email/base.html.twig" %}
+
+{% block style %}
+
+{% endblock %}
+
+{# @var inquiry \App\Entity\Inquiry\Inquiry #}
+{% block body %}
+    <p>Dobrý den, <br/><br/>
+        autorem poptávky <a href="{{ url("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a>
+        jste byl označen jako její dodovatel. Pomocí následujícího tlačítka můžete ohodnotit průběh poptávky.
+    </p>
+
+    <a class="btn btn-primary btn-center" style="margin-top: 1rem; font-size: 1.5rem;"
+       href="{{ signedUrl }}">Ohodnotit poptávku</a>
+
+    {% include "email/layout/signature.html.twig" %}
+{% endblock %}
