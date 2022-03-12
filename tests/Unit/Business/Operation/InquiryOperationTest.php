@@ -13,6 +13,7 @@ use App\Business\Service\Inquiry\OfferService;
 use App\Business\Service\Inquiry\SmartTagService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
+use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\User;
 use App\Enum\Entity\InquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
@@ -158,6 +159,36 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         return $inquiry;
     }
 
+    private function getSupplier1()
+    {
+        return (new User())->setId(1)->setEmail("user@email.cz");
+    }
+
+    /**
+     * A rating with supplier field filled.
+     * @return Inquiry|InquiringRating|User
+     */
+    private function getRating1()
+    {
+        $supplier = $this->getSupplier1();
+        $now = new DateTime();
+
+        return (new InquiringRating())->setRating(1)->setSupplierNote("Note")->setNote("Note")
+            ->setCreatedAt($now)->setSupplier($supplier);
+    }
+
+    /**
+     * A rating with supplier field = null
+     * @return Inquiry|InquiringRating|User
+     */
+    private function getRating2()
+    {
+        $now = new DateTime();
+
+        return (new InquiringRating())->setRating(1)->setSupplierNote("Note")->setNote("Note")
+            ->setCreatedAt($now)->setSupplier(null);
+    }
+
     /**
      * @covers InquiryOperation::autoRemoveNotify()
      * @throws \Exception
@@ -246,5 +277,79 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         // Test if returns values match input.
         $this->assertEquals(1, $removed);
         $this->assertEquals(2, $noticed);
+    }
+
+    /**
+     * @covers InquiryOperation::finishInquiry()
+     */
+    public function testFinishInquiry()
+    {
+        $now = new \DateTime();
+
+        // Build reference obj
+        $inquiry1Ref = $this->getInquiry1()->setInquiringRating($this->getRating1());
+        $inquiry = $this->getInquiry1();
+
+        // Build obj to be tested
+        $inquiry->setInquiringRating($this->getRating1());
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($inquiry->getRemoveAt())->setCreatedAt($now);
+
+        // We have to check parameters given to the "update" method
+        $this->inquiryService->expects($this->exactly(1))->method("update")
+            ->will($this->returnCallback(function (Inquiry $inquiry) use ($inquiry1Ref) {
+                // Test that supplier rating field are not changed or removed.
+                $this->assertEquals(
+                    $inquiry1Ref->getInquiringRating()->getRating(),
+                    $inquiry->getInquiringRating()->getRating());
+                $this->assertEquals(
+                    $inquiry1Ref->getInquiringRating()->getSupplierNote(),
+                    $inquiry->getInquiringRating()->getSupplierNote());
+
+                return true;
+            }));
+
+        // We expect inquiryRequest to be deleted
+        $this->inquirySignedRequestService->expects($this->exactly(1))->method("delete")->with($inquiryRequest);
+
+        // Call tested method
+        $this->operation->finishInquiry($inquiryRequest);
+
+        // The inquiry should be finished now
+        $this->assertEquals(InquiryState::STATE_FINISHED, $inquiry->getState());
+    }
+
+    /**
+     * @covers InquiryOperation::finishInquiry()
+     */
+    public function testFinishInquiryNoSupplier()
+    {
+        $now = new \DateTime();
+
+        // Build an object to be tested
+        $inquiry = $this->getInquiry1()->setInquiringRating($this->getRating2());
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($inquiry->getRemoveAt())->setCreatedAt($now);
+
+        // We have to check parameters given to the "update" method
+        $this->inquiryService->expects($this->exactly(1))->method("update")
+            ->will($this->returnCallback(function (Inquiry $inquiry) {
+                // Test that supplier rating field are null
+                $this->assertNull($inquiry->getInquiringRating()->getRating());
+                $this->assertNull($inquiry->getInquiringRating()->getSupplierNote());
+
+                return true;
+            }));
+
+        // We expect inquiryRequest to be deleted
+        $this->inquirySignedRequestService->expects($this->exactly(1))->method("delete")->with($inquiryRequest);
+
+        // Call tested method
+        $this->operation->finishInquiry($inquiryRequest);
+
+        // The inquiry should be finished now
+        $this->assertEquals(InquiryState::STATE_FINISHED, $inquiry->getState());
     }
 }

@@ -22,28 +22,28 @@ class InquiringRating extends AEntity
      * @ORM\OneToOne(targetEntity=Inquiry::class, inversedBy="inquiringRating", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Inquiry $inquiry;
+    private ?Inquiry $inquiry = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ratings")
      */
-    private ?User $supplier;
+    private ?User $supplier = null;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Range(min="1", max="5")
      */
-    private ?int $rating;
+    private ?int $rating = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $supplierNote;
+    private ?string $supplierNote = null;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private ?string $note;
+    private ?string $note = null;
 
     public function getInquiry(): ?Inquiry
     {
