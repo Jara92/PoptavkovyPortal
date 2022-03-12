@@ -14,6 +14,7 @@ use App\Business\Service\SmartTagService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\User;
+use App\Enum\Entity\InquiryState;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -31,6 +32,9 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @covers InquiryOperation
+ */
 class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 {
     private InquiryOperation $operation;
@@ -109,7 +113,53 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             $this->urlSigner);
     }
 
+    private function getInquiry1()
+    {
+        $now = new DateTime();
+
+        $timeNotice = (new DateTime("@" . $this->inquiryExpirationNotification));
+        $timeRemove = (new DateTime("@" . $this->inquiryExpirationNotification + $this->inquiryExpirationRemove));
+
+        $user = (new User())->setId(1)->setEmail("user@email.cz");
+
+        $inquiry = (new Inquiry())->setId(1)->setTitle("P1")->setAuthor($user)
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setState(InquiryState::STATE_ACTIVE)
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+        return $inquiry;
+    }
+
+    private function getInquiry2()
+    {
+        $now = new DateTime();
+
+        $timeNotice = (new DateTime("@" . $this->inquiryExpirationNotification));
+        $timeRemove = (new DateTime("@" . $this->inquiryExpirationNotification + $this->inquiryExpirationRemove));
+
+        $user = (new User())->setId(1)->setEmail("user@email.cz");
+
+        $inquiry = (new Inquiry())->setId(2)->setTitle("P2")->setAuthor($user)
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setState(InquiryState::STATE_ACTIVE)
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+        return $inquiry;
+    }
+
+    private function getInquiry3()
+    {
+        $now = new DateTime();
+
+        $user = (new User())->setId(1)->setEmail("user@email.cz");
+
+        $inquiry = (new Inquiry())->setId(3)->setTitle("P3")->setAuthor($user)
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setState(InquiryState::STATE_ACTIVE)
+            ->setRemoveNoticeAt(null)->setRemoveAt($now);
+        return $inquiry;
+    }
+
     /**
+     * @covers InquiryOperation::autoRemoveNotify()
      * @throws \Exception
      */
     public function testAutoRemoveNotify()
@@ -119,21 +169,16 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $now = (new DateTime("@" . $timeStampNow));
         ClockMock::freeze($now);
 
-        $timeNotice = (new DateTime("@" . $this->inquiryExpirationNotification));
-        $timeRemove = (new DateTime("@" . $this->inquiryExpirationNotification + $this->inquiryExpirationRemove));
-
-        $user = (new User())->setId(1)->setEmail("user@email.cz");
-
-        $inquiry = (new Inquiry())->setId(1)->setTitle("P1")->setAuthor($user)
-            ->setCreatedAt($now)->setUpdatedAt($now)
-            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+        $inquiry = $this->getInquiry1();
+        $requestExpiration = new DateTime("@" . $timeStampNow + $this->inquiryExpirationRemove);
 
         $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
-            ->setExpireAt($timeRemove)->setCreatedAt($now);
+            ->setExpireAt($requestExpiration)->setCreatedAt($now);
 
         // Testing private method
         $method = new ReflectionMethod($this->operation, 'autoRemoveNotify');
 
+        // We have to check parameters given to the "create" method
         $this->inquirySignedRequestService->expects($this->exactly(2))->method("create")
             ->will($this->returnCallback(function (InquirySignedRequest $r) use ($inquiryRequest) {
                 $this->assertEquals($inquiryRequest->getExpireAt(), $r->getExpireAt());
@@ -147,33 +192,59 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers InquiryOperation::updateAutoRemoveData()
+     * @throws \ReflectionException
+     */
+    public function testUpdateAutoRemoveData()
+    {
+        // Mock current time.
+        $timeStampNow = $this->inquiryExpirationNotification;
+        $now = (new DateTime("@" . $timeStampNow));
+        ClockMock::freeze($now);
+
+        $inquiry = $this->getInquiry1();
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'updateAutoRemoveData');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        // New removeNoticeAt value should be current time + delay between sending a notification.
+        $removeNoticeAt = new DateTime("@" . $timeStampNow + $this->inquiryExpirationNotification);
+        $this->assertEquals($removeNoticeAt, $inquiry->getRemoveNoticeAt());
+
+        // New removeAt value should be $removeNoticeValue + delay between notice and removing the inquiry.
+        $removeAt = new DateTime("@" . $timeStampNow + $this->inquiryExpirationNotification + $this->inquiryExpirationRemove);
+        $this->assertEquals($removeAt, $inquiry->getRemoveAt());
+    }
+
+    /**
+     * @covers InquiryOperation::handleOldInquiries()
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Exception
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function testHandleOldInquiries()
     {
         // Mock current time.
-        $now = (new DateTime("@" . 10));
+        $timeStampNow = $this->inquiryExpirationNotification + $this->inquiryExpirationRemove;
+        $now = (new DateTime("@" . $timeStampNow));
         ClockMock::freeze($now);
 
-        $timeNotice = (new DateTime("@" . 15));
-        $timeRemove = (new DateTime("@" . 20));
+        $inquiry = $this->getInquiry1();
+        $inquiry2 = $this->getInquiry2();
 
-        $inquiry = (new Inquiry())->setId(1)->setTitle("P1")
-            ->setCreatedAt($now)->setUpdatedAt($now)
-            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+        $inquiry3 = $this->getInquiry3();
 
-        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
-            ->setExpireAt(null)->setCreatedAt(null);
+        $this->inquiryService->method("readActiveToBeNotified")->willReturn([$inquiry, $inquiry2]);
+        $this->inquiryService->method("readActiveToBeRemoved")->willReturn([$inquiry3]);
 
-        $inquriesToBeNoticed = [$inquiry];
+        list($removed, $noticed) = $this->operation->handleOldInquiries();
 
-
-        // Testing private method
-        $method = new ReflectionMethod($this->operation, 'handleOldInquiries');
-
-        // Should be true because C1 is in inquiry->categories
-        $this->assertEquals(true, $method->invoke($this->operation));
+        // Test if returns values match input.
+        $this->assertEquals(1, $removed);
+        $this->assertEquals(2, $noticed);
     }
 }
