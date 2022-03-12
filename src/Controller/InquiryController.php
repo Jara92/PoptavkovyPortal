@@ -190,12 +190,12 @@ class InquiryController extends AController
     }
 
     /**
-     * Inquiry expiration postpone.
-     * Requires valid expiration and signature values.
+     * Returns InquirySignedRequest by the request signature.
+     * The request is validated.
      * @param Request $request
-     * @return Response
+     * @return InquirySignedRequest
      */
-    public function postponeExpiration(Request $request): Response
+    private function getInquirySignedRequest(Request $request): InquirySignedRequest
     {
         $token = $request->get("signature");
         $inquirySignedRequest = $this->inquirySignedRequestService->readBySignature($token);
@@ -209,6 +209,24 @@ class InquiryController extends AController
         if ($inquirySignedRequest->getExpireAt()->getTimestamp() < time()) {
             throw new AccessDeniedHttpException("Link expired.");
         }
+
+        // Invalid inquiry
+        if (!$inquirySignedRequest->getInquiry()) {
+            throw new InvalidArgumentException("Invalid request.");
+        }
+
+        return $inquirySignedRequest;
+    }
+
+    /**
+     * Inquiry expiration postpone.
+     * Requires valid expiration and signature values.
+     * @param Request $request
+     * @return Response
+     */
+    public function postponeExpiration(Request $request): Response
+    {
+        $inquirySignedRequest = $this->getInquirySignedRequest($request);
 
         // Postpone inquiry expiration.
         $this->inquiryOperation->postponeExpiration($inquirySignedRequest);
