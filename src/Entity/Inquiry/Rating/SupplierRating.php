@@ -25,7 +25,7 @@ class SupplierRating extends AEntity
     private ?Inquiry $inquiry;
 
     /**
-     * @ORM\OneToOne(targetEntity=Inquiry::class, cascade={"persist"})
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $author = null;
