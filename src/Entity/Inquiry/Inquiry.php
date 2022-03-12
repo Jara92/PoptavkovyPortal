@@ -4,6 +4,7 @@ namespace App\Entity\Inquiry;
 
 use App\Business\SmartTag\ISmartTag;
 use App\Entity\AEntity;
+use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Traits\AliasTrait;
 use App\Entity\Traits\HitsTrait;
 use App\Entity\Traits\TimeStampTrait;
@@ -157,6 +158,11 @@ class Inquiry extends AEntity
      * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $removeAt = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity=InquiringRating::class, mappedBy="inquiry", cascade={"persist", "remove"})
+     */
+    private ?InquiringRating $inquiringRating = null;
 
     public function __construct()
     {
@@ -496,6 +502,23 @@ class Inquiry extends AEntity
     public function setRemoveAt(?Datetime $removeAt): self
     {
         $this->removeAt = $removeAt;
+
+        return $this;
+    }
+
+    public function getInquiringRating(): ?InquiringRating
+    {
+        return $this->inquiringRating;
+    }
+
+    public function setInquiringRating(InquiringRating $inquiringRating): self
+    {
+        // set the owning side of the relation if necessary
+        if ($inquiringRating->getInquiry() !== $this) {
+            $inquiringRating->setInquiry($this);
+        }
+
+        $this->inquiringRating = $inquiringRating;
 
         return $this;
     }

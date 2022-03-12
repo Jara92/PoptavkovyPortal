@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\Offer;
+use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Subscription;
 use App\Entity\Traits\TimeStampTrait;
 use App\Enum\Entity\UserRole;
@@ -122,10 +123,16 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
      */
     private ?Notification $notification;
 
+    /**
+     * @ORM\OneToMany(targetEntity=InquiringRating::class, mappedBy="supplier")
+     */
+    private Collection $ratings;
+
     public function __construct()
     {
         $this->inquiries = new ArrayCollection();
         $this->offers = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getPhone(): ?string
@@ -432,6 +439,36 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         }
 
         $this->notification = $notification;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InquiringRating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(InquiringRating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setSupplier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(InquiringRating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getSupplier() === $this) {
+                $rating->setSupplier(null);
+            }
+        }
 
         return $this;
     }
