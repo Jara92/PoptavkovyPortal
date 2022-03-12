@@ -308,10 +308,10 @@ class InquiryController extends AController
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 // set the rating.
-                $inquiry->setSupplierRating($rating);
+                $inquiry->addSupplierRating($rating);
 
                 // Save rating.
-                $this->inquiryOperation->saveSupplierRating($rating);
+                $this->inquiryOperation->saveSupplierRating($inquirySignedRequest, $rating);
 
                 $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
                 return $this->redirectToRoute("home");
