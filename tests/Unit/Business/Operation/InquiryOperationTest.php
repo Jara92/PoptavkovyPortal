@@ -13,6 +13,7 @@ use App\Business\Service\OfferService;
 use App\Business\Service\SmartTagService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
+use App\Entity\User;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -21,6 +22,9 @@ use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
 use App\Security\UserSecurity;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
+use DateTime;
+use ReflectionMethod;
+use SlopeIt\ClockMock\ClockMock;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -52,6 +56,9 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     private MailerInterface $mailer;
     private RouterInterface $router;
     private UrlSignerInterface $urlSigner;
+
+    private int $inquiryExpirationNotification = 20000;
+    private int $inquiryExpirationRemove = 100;
 
     public function setUp(): void
     {
@@ -85,11 +92,14 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             return match ($key) {
                 "app.email" => "email@test.cz",
                 "app.name" => "AppName",
-                "app.inquiries.auto_remove_notification_delay" => 20000,
-                "app.inquiries.auto_remove_delay" => 100,
+                "app.inquiries.auto_remove_notification_delay" => $this->inquiryExpirationNotification,
+                "app.inquiries.auto_remove_delay" => $this->inquiryExpirationRemove,
                 default => "",
             };
         }));
+
+        $this->router->method("generate")->willReturn("http://orul.cz/");
+        $this->urlSigner->method("sign")->willReturn("http://orul.cz/?expired=12345&signature=123456");
 
         // Create testing class instance.
         $this->operation = new InquiryOperation($this->inquiryService, $this->attachmentService, $this->inquiryValueService,
@@ -99,9 +109,71 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             $this->urlSigner);
     }
 
-    public function testPostponeExpiration()
+    /**
+     * @throws \Exception
+     */
+    public function testAutoRemoveNotify()
     {
-        // $inquiry = (new Inquiry())->setId(1)->setTitle("P1")->setRemoveAt((new \DateTime())->setTimestamp(1))
-        //$inquiryRequest = (new InquirySignedRequest())->
+        // Mock current time.
+        $timeStampNow = $this->inquiryExpirationNotification;
+        $now = (new DateTime("@" . $timeStampNow));
+        ClockMock::freeze($now);
+
+        $timeNotice = (new DateTime("@" . $this->inquiryExpirationNotification));
+        $timeRemove = (new DateTime("@" . $this->inquiryExpirationNotification + $this->inquiryExpirationRemove));
+
+        $user = (new User())->setId(1)->setEmail("user@email.cz");
+
+        $inquiry = (new Inquiry())->setId(1)->setTitle("P1")->setAuthor($user)
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($timeRemove)->setCreatedAt($now);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'autoRemoveNotify');
+
+        $this->inquirySignedRequestService->expects($this->exactly(2))->method("create")
+            ->will($this->returnCallback(function (InquirySignedRequest $r) use ($inquiryRequest) {
+                $this->assertEquals($inquiryRequest->getExpireAt(), $r->getExpireAt());
+                $this->assertEquals($inquiryRequest->getCreatedAt(), $r->getCreatedAt());
+
+                return true;
+            }));
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+    }
+
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Exception
+     */
+    public function testHandleOldInquiries()
+    {
+        // Mock current time.
+        $now = (new DateTime("@" . 10));
+        ClockMock::freeze($now);
+
+        $timeNotice = (new DateTime("@" . 15));
+        $timeRemove = (new DateTime("@" . 20));
+
+        $inquiry = (new Inquiry())->setId(1)->setTitle("P1")
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt(null)->setCreatedAt(null);
+
+        $inquriesToBeNoticed = [$inquiry];
+
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'handleOldInquiries');
+
+        // Should be true because C1 is in inquiry->categories
+        $this->assertEquals(true, $method->invoke($this->operation));
     }
 }
