@@ -704,7 +704,7 @@ class InquiryOperation
         // If there is already an inquiring user's rating we can take user id from it
         // We do it like that because the user might not be logged in so we do not know his ID.
         // And because the user has access to this feature only if he gets an email based on inquring user rating it is save.
-        if ($inquiry->getInquiringRating()) {
+        if ($inquiry->getInquiringRating() && $inquiry->getInquiringRating()->getSupplier()) {
             $rating->setAuthor($inquiry->getInquiringRating()->getSupplier());
         }
 

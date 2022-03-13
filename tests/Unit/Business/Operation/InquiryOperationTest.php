@@ -15,8 +15,10 @@ use App\Business\Service\Inquiry\SmartTagService;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Rating\InquiringRating;
+use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\User;
 use App\Enum\Entity\InquiryState;
+use App\Enum\Entity\UserType;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -29,6 +31,7 @@ use DateTime;
 use ReflectionMethod;
 use SlopeIt\ClockMock\ClockMock;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -192,6 +195,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             ->setCreatedAt($now)->setSupplier(null);
     }
 
+
     /**
      * @covers InquiryOperation::autoRemoveNotify()
      * @throws \Exception
@@ -354,5 +358,170 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
         // The inquiry should be finished now
         $this->assertEquals(InquiryState::STATE_FINISHED, $inquiry->getState());
+    }
+
+    /**
+     * @covers InquiryOperation::saveSupplierRating
+     */
+    public function testSaveSupplierRatingSendEmail()
+    {
+        $now = new \DateTime();
+
+        // Build an inquiry without an inquiring rating.
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz");
+
+        $author = (new User())->setEmail("user@email.cz")->setId(1)->setType(UserType::COMPANY);
+
+        // Create a supplier rating for this inquiry with realized=true
+        $rating = (new SupplierRating())->setRating(1)->setRealizedInquiry(true)
+            ->setInquiry($inquiry)->setAuthor($author);
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($inquiry->getRemoveAt())->setCreatedAt($now);
+
+        // We expect the rating to be created
+        $this->supplierRatingService->expects($this->once())->method("create")->with($rating);
+
+        // Exactly one email should be sent
+        $this->mailer->expects($this->once())->method("send");
+
+        // Request should be deleted
+        $this->inquirySignedRequestService->expects($this->once())->method("delete")->with($inquiryRequest);
+
+        // Call tested method
+        $this->operation->saveSupplierRating($inquiryRequest, $rating);
+    }
+
+    /**
+     * @covers InquiryOperation::saveSupplierRating
+     */
+    public function testSaveSupplierRatingInquiringAlreadyRated()
+    {
+        $now = new \DateTime();
+
+        // Build an inquiry
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz");
+
+        // Create inquiry rating for the inquiry
+        $inquiringRating = (new InquiringRating())->setId(1);
+        $inquiry->setInquiringRating($inquiringRating);
+
+        $author = (new User())->setEmail("user@email.cz")->setId(1)->setType(UserType::COMPANY);
+
+        // Create a supplier rating for this inquiry with realized=true
+        $supplierRating = (new SupplierRating())->setRating(1)->setRealizedInquiry(true)
+            ->setInquiry($inquiry)->setAuthor($author);
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($inquiry->getRemoveAt())->setCreatedAt($now);
+
+        // The rating should be created
+        $this->supplierRatingService->expects($this->once())->method("create")->with($supplierRating);
+
+        // No email should be sent because inquiry.inquiringRating is already set.
+        $this->mailer->expects($this->never())->method("send");
+
+        // Request should be removed
+        $this->inquirySignedRequestService->expects($this->once())->method("delete")->with($inquiryRequest);
+
+        // Invoke tested method
+        $this->operation->saveSupplierRating($inquiryRequest, $supplierRating);
+    }
+
+    /**
+     * @covers InquiryOperation::saveSupplierRating
+     */
+    public function testSaveSupplierRatingNotRealized()
+    {
+        $now = new \DateTime();
+
+        // Build an inquiry without an inquiring rating.
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz");
+
+        $author = (new User())->setEmail("user@email.cz")->setId(1)->setType(UserType::COMPANY);
+
+        // Create a supplier rating for this inquiry with realized=false
+        $supplierRating = (new SupplierRating())->setRating(1)->setRealizedInquiry(false)
+            ->setInquiry($inquiry)->setAuthor($author);
+
+        $inquiryRequest = (new InquirySignedRequest())->setInquiry($inquiry)
+            ->setExpireAt($inquiry->getRemoveAt())->setCreatedAt($now);
+
+        // The rating should be created
+        $this->supplierRatingService->expects($this->once())->method("create")->with($supplierRating);
+
+        // No email should be sent because the rating.realizedInquiry is false
+        $this->mailer->expects($this->never())->method("send");
+
+        // Request should be removed
+        $this->inquirySignedRequestService->expects($this->once())->method("delete")->with($inquiryRequest);
+
+        // Invoke tested method
+        $this->operation->saveSupplierRating($inquiryRequest, $supplierRating);
+    }
+
+    /**
+     * Testcase for a user who is marked in inquiry.inquiringRating as a supplier
+     * @covers InquiryOperation::createSupplierRating
+     */
+    public function testCreateSupplierRating()
+    {
+        $supplier = (new User())->setId(1)->setEmail("supplier@sezna.cz")->setType(UserType::COMPANY);
+
+        // Build an inquiry with an inquring rating.
+        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier($supplier);
+
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
+            ->setInquiringRating($inquiringRating);
+
+        // Created rating should contain $supplier as an author
+        $ref = (new SupplierRating())->setAuthor($supplier);
+
+        $this->assertEquals($ref, $this->operation->createSupplierRating($inquiry));
+    }
+
+    /**
+     * Testcase for a user who is able to rate the inquiry but the inquiring have not rated the inquiry yet.
+     * @covers InquiryOperation::createSupplierRating
+     */
+    public function testCreateSupplierRatingAuthorized()
+    {
+        $supplier = (new User())->setId(1)->setEmail("supplier@sezna.cz")->setType(UserType::COMPANY);
+
+        // Build an inquiry with an inquring rating.
+        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier(null);
+
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
+            ->setInquiringRating($inquiringRating);
+
+        // Created rating should contain $supplier as an author
+        $ref = (new SupplierRating())->setAuthor($supplier);
+
+        // Is the user is not authorized we should get an exception.
+        $this->security->method("getUser")->willReturn($supplier);
+
+        // The result should be the same
+        $this->assertEquals($ref, $this->operation->createSupplierRating($inquiry));
+    }
+
+    /**
+     * Testcase for a user who is not authenticated.
+     * @covers InquiryOperation::createSupplierRating
+     */
+    public function testCreateSupplierRatingNotAuthorized()
+    {
+        // Build an inquiry with an inquring rating.
+        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier(null);
+
+        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
+            ->setInquiringRating($inquiringRating);
+
+        // Is the user is not authorized we should get an exception.
+        $this->security->method("getUser")->willReturn(null);
+
+        // Exception for an unauthenticated user
+        $this->expectException(AccessDeniedHttpException::class);
+
+        $this->operation->createSupplierRating($inquiry);
     }
 }
