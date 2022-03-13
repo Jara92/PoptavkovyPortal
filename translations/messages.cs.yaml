@@ -469,6 +469,21 @@ admin:
     field_published_at: "Datum a čas zveřejnění"
     field_remove_notice_at: "Upozornění na smazání poptávky"
     field_remove_at: "Automatického smazání poptávky"
+    field_inquiry: "Poptávka"
+    field_supplier: "Dodavatel"
+    field_author: "Autor"
+
+  ratings:
+    ratings: "Hodnocení"
+    inquiring_title: "Hodnocení dodavatelů"
+    #inquiring_desc: "Tato stránka obsahuje všechna hodnocení dodavatelů, která vytváří autoři poptávek."
+    supplier_title: "Hodnocení poptávajících"
+    #supplier_desc: "Tato stránka obsahuje všechna hodnocení poptávajících, která vytváří dodavatelé poptávek."
+
+    field_rating: "Hodnocení"
+    field_supplierNote: "Komentář dodavatele"
+    field_note: "Komentář služby"
+    field_realized_inquiry: "Relizoval poptávku"
 
   # AdminProfiles
   profiles:
@@ -525,3 +540,5 @@ btn_approve: "Schválit"
 
 "Invalid credentials.": "Špatné přihlašovací údaje."
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."
+
+InquiringRating: "hodnocení dodavatele"

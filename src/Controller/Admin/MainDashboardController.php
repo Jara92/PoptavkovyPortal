@@ -2,9 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Admin\Inquiry\Rating\InquiringRatingCrudController;
+use App\Controller\Admin\Inquiry\Rating\SupplierRatingCrudController;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquiryCategory;
+use App\Entity\Inquiry\Rating\InquiringRating;
+use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\Profile;
 use App\Enum\Entity\InquiryState;
 use App\Entity\Inquiry\InquiryValue;
@@ -57,6 +61,10 @@ class MainDashboardController extends AbstractDashboardController
                     ->setQueryParameter("filters[state]", ["comparison" => "=", "value" => InquiryState::STATE_NEW->value])
             ]),
             MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
+            MenuItem::subMenu("admin.ratings.ratings", "fa fa-star")->setSubItems([
+                MenuItem::linkToCrud("admin.ratings.inquiring_title", "", InquiringRating::class),
+                MenuItem::linkToCrud("admin.ratings.supplier_title", "", SupplierRating::class),
+            ]),
             MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-dollar-sign", InquiryValue::class),
             MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
             MenuItem::linkToCrud("inquiries.regions", "fa fa-map-marker", Region::class),
