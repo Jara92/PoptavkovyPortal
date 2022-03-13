@@ -37,9 +37,9 @@ class InquiryCategory extends AEntity
     protected Collection $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories")
+     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories", cascade={"persist", "remove"})
      */
-    private $subscriptions;
+    private Collection $subscriptions;
 
     public function __construct()
     {

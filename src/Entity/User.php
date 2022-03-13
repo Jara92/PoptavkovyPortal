@@ -419,7 +419,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         return $this->subscription;
     }
 
-    public function setSubscription(Subscription $subscription): self
+    public function setSubscription(?Subscription $subscription): self
     {
         $this->subscription = $subscription;
 
