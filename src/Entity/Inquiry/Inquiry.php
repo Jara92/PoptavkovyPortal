@@ -26,6 +26,7 @@ use App\Form\Constraint as AppAssert;
  * Class Inquiry
  * @ORM\Entity(repositoryClass=InquiryRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="inquiry", indexes={@ORM\Index(columns={"title", "description", "city"}, flags={"fulltext"})})
  */
 class Inquiry extends AEntity
 {
@@ -65,6 +66,7 @@ class Inquiry extends AEntity
     private ?string $city = null;
 
     /**
+     * TODO: Index region somehow.
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=true)
      */
@@ -103,6 +105,7 @@ class Inquiry extends AEntity
     private ?int $valueNumber = null;
 
     /**
+     * TODO: Index categorie's titles somehow.
      * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
      */
     private Collection $categories;

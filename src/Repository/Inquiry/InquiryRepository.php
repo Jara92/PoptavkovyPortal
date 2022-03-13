@@ -93,8 +93,8 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
 
         // Filter by text
         if ($filter->getText()) {
-            $qb->andWhere($qb->expr()->like("i.title", ":text"))
-                ->setParameter("text", "%" . $filter->getText() . "%");
+            $qb->andWhere('MATCH_AGAINST(i.title, i.description, i.city) AGAINST(:searchterm boolean)>0')
+                ->setParameter('searchterm', $filter->getText());
         }
 
         // We need to get string array not InquiryType object array.
