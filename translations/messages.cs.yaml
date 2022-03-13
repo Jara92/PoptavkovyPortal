@@ -541,4 +541,11 @@ btn_approve: "Schválit"
 "Invalid credentials.": "Špatné přihlašovací údaje."
 #"The link to verify your email has expired. Please request a new link.": "Odkaz použitý pro ověření vypršel. Prosím, zažádejte si o nový."
 
+# EasyAdmin entity name translations
+Inquiry: "poptávka"
+InquiryCategory: "kategorie poptávky"
+InquiryValue: "hodnota poptávky"
+Deadline: "termín"
+Region: "kraj"
+Profile: "profil"
 InquiringRating: "hodnocení dodavatele"
