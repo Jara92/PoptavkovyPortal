@@ -16,7 +16,7 @@ class Notification extends AEntity
     private ?bool $newsletter = true;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="notification", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="notification")
      * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user = null;

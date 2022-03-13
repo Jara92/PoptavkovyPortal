@@ -27,7 +27,7 @@ class Subscription extends AEntity
     private Collection $regions;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="subscription", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="subscription")
      */
     private ?User $user;
 

@@ -39,7 +39,7 @@ class Profile extends AEntity
     private ?string $linkedin;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profile", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profile")
      */
     private ?User $user;
 

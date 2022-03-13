@@ -232,12 +232,14 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         return $this;
     }
 
-    public function addRole(UserRole $role)
+    public function addRole(UserRole $role): self
     {
         $this->roles[] = $role->value;
+
+        return $this;
     }
 
-    public function removeRole(UserRole $role)
+    public function removeRole(UserRole $role): self
     {
         $itemKey = array_search($role->value, $this->roles);
 
@@ -247,6 +249,8 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
             // reindex the array.
             $this->roles = array_values($this->roles);
         }
+
+        return $this;
     }
 
     /**

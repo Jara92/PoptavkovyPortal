@@ -32,12 +32,12 @@ class InquiryCategory extends AEntity
     protected ?InquiryCategory $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=InquiryCategory::class, mappedBy="parent")
+     * @ORM\OneToMany(targetEntity=InquiryCategory::class, mappedBy="parent", cascade={"persist", "remove"})
      */
     protected Collection $children;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories")
      */
     private Collection $subscriptions;
 
