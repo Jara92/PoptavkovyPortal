@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Inquiry rating created by the inquiring user.
  * @ORM\Entity(repositoryClass=InquiringRatingRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
