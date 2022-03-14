@@ -516,22 +516,22 @@ class InquiryOperation
 
         $this->mailer->send($email);
 
-        // Save new signed links.
-        // Token is saved in the link as a param so we have to take it from it.
-        $now = new DateTime();
-        $finishRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
+        // Create requests
+        $finishRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setExpireAt($expiration)
             ->setToken($this->getTokenFromSignedUrl($finishInquiryUrl));
-        $this->inquirySignedRequestService->create($finishRequest);
 
-        $postponeRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt($now)->setExpireAt($expiration)
+        $postponeRequest = (new InquirySignedRequest())->setInquiry($inquiry)->setExpireAt($expiration)
             ->setToken($this->getTokenFromSignedUrl($postponeExpirationUrl));
-        $this->inquirySignedRequestService->create($postponeRequest);
 
         // Set request user if the inquiry has an author.
         if ($inquiry->getAuthor()) {
             $finishRequest->setUser($inquiry->getAuthor());
             $postponeRequest->setUser($inquiry->getAuthor());
         }
+
+        // Save the requests
+        $this->inquirySignedRequestService->create($finishRequest);
+        $this->inquirySignedRequestService->create($postponeRequest);
 
         // Remove next notification date
         $inquiry->setRemoveNoticeAt(null);
@@ -654,8 +654,8 @@ class InquiryOperation
     private function sendRatingEmail(TemplatedEmail $email, Inquiry $inquiry, ?User $user, string $url)
     {
         $ratingExpiration = $this->params->get("app.inquiries.rating_link_expiration");
-        $expiration = (new DateTime("now + $ratingExpiration seconds"));
-        $signedUrl = $this->urlSigner->sign($url, $expiration);
+        $expireAt = (new DateTime("now + $ratingExpiration seconds"));
+        $signedUrl = $this->urlSigner->sign($url, $expireAt);
 
         $email->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
             ->context(compact("inquiry", "signedUrl"));
@@ -663,9 +663,8 @@ class InquiryOperation
         $this->mailer->send($email);
 
         // Save the request.
-        $request = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt(new DateTime())
-            ->setExpireAt($expiration)->setToken($this->getTokenFromSignedUrl($signedUrl))
-            ->setUser($user);
+        $request = (new InquirySignedRequest())->setInquiry($inquiry)->setUser($user)
+            ->setExpireAt($expireAt)->setToken($this->getTokenFromSignedUrl($signedUrl));
 
         $this->inquirySignedRequestService->create($request);
     }

@@ -117,9 +117,9 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         // Create testing class instance.
         $this->operation = new InquiryOperation($this->inquiryService, $this->attachmentService, $this->inquiryValueService, $this->supplierRatingService,
             $this->deadlineService, $this->subscriptionOperation, $this->inquiryFactory, $this->attachmentFactory, $this->filterFactory,
-            $this->offerService, $this->offerFactory, $this->smartTagService, $this->inquirySignedRequestService, $this->personalContactFactory,
-            $this->companyContactFactory, $this->security, $this->slugger, $this->params, $this->translator, $this->mailer, $this->router,
-            $this->urlSigner);
+            $this->offerService, $this->offerFactory, $this->smartTagService, $this->inquirySignedRequestService,
+            $this->personalContactFactory, $this->companyContactFactory, $this->security, $this->slugger, $this->params, $this->translator,
+            $this->mailer, $this->router, $this->urlSigner);
     }
 
     private function getInquiry1()
@@ -222,7 +222,6 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->inquirySignedRequestService->expects($this->exactly(2))->method("create")
             ->will($this->returnCallback(function (InquirySignedRequest $r) use ($inquiryRequest) {
                 $this->assertEquals($inquiryRequest->getExpireAt(), $r->getExpireAt());
-                $this->assertEquals($inquiryRequest->getCreatedAt(), $r->getCreatedAt());
 
                 return true;
             }));
