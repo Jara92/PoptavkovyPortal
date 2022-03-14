@@ -17,6 +17,8 @@ parameters:
   app.inquiries.auto_remove_notification_delay: 2678400
   # Interval between remove_notification and removing the inquiry. (7 days)
   app.inquiries.auto_remove_delay: 604800
+  # It is possible to fill up rating form even if the inquiry is archived. The link expires in (31 days)
+  app.inquiries.rating_link_expiration: 2678400
 
   # The directory to store inquiry attachments.
   app.inquiries.attachments_directory: '%kernel.project_dir%/public/uploads/inquiry-attachments'

@@ -647,7 +647,8 @@ class InquiryOperation
      */
     private function sendRatingEmail(TemplatedEmail $email, Inquiry $inquiry, string $url)
     {
-        $expiration = (new DateTime("now + 31 days"));
+        $ratingExpiration = $this->params->get("app.inquiries.rating_link_expiration");
+        $expiration = (new DateTime("now + $ratingExpiration seconds"));
         $signedUrl = $this->urlSigner->sign($url, $expiration);
 
         $email->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
@@ -727,7 +728,7 @@ class InquiryOperation
      */
     public function saveSupplierRating(InquirySignedRequest $request, SupplierRating $rating): void
     {
-        // Update the inquiry
+        // Update the rating
         $this->supplierRatingService->create($rating);
 
         // Send notice to the inquiring user if the user has not rated the inquiry yet and the supplier realized the inquiry.

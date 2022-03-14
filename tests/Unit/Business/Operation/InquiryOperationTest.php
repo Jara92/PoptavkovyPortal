@@ -69,6 +69,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
     private int $inquiryExpirationNotification = 20000;
     private int $inquiryExpirationRemove = 100;
+    private int $inquiryRatingLinkExpiration = 50;
 
     public function setUp(): void
     {
@@ -105,6 +106,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
                 "app.name" => "AppName",
                 "app.inquiries.auto_remove_notification_delay" => $this->inquiryExpirationNotification,
                 "app.inquiries.auto_remove_delay" => $this->inquiryExpirationRemove,
+                "app.inquiries.rating_link_expiration" => $this->inquiryRatingLinkExpiration,
                 default => "",
             };
         }));
