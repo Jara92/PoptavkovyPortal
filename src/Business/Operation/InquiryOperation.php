@@ -527,6 +527,12 @@ class InquiryOperation
             ->setToken($this->getTokenFromSignedUrl($postponeExpirationUrl));
         $this->inquirySignedRequestService->create($postponeRequest);
 
+        // Set request user if the inquiry has an author.
+        if ($inquiry->getAuthor()) {
+            $finishRequest->setUser($inquiry->getAuthor());
+            $postponeRequest->setUser($inquiry->getAuthor());
+        }
+
         // Remove next notification date
         $inquiry->setRemoveNoticeAt(null);
         $this->inquiryService->update($inquiry);
@@ -614,15 +620,14 @@ class InquiryOperation
             ->subject($this->translator->trans("ratings.inquiring_rating_available"))
             ->to($supplier->getEmail());
 
-        $this->sendRatingEmail($email, $inquiry, $ratingUrl);
+        $this->sendRatingEmail($email, $inquiry, $supplier, $ratingUrl);
     }
 
     /**
      * Sends notification that inquiry rating is available for the inquiring.
      * @param Inquiry $inquiry
-     * @param string $inquiringEmail
      */
-    private function sendRatingEmailToInquiring(Inquiry $inquiry, string $inquiringEmail): void
+    private function sendRatingEmailToInquiring(Inquiry $inquiry): void
     {
         // Build finish inquiry link and sign it.
         $ratingUrl = $this->router->generate("inquiries/finish", [], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -630,9 +635,9 @@ class InquiryOperation
         $email = (new TemplatedEmail())
             ->htmlTemplate('email/inquiry/rating/available_inquiring.html.twig')
             ->subject($this->translator->trans("ratings.supplier_rating_available"))
-            ->to($inquiringEmail);
+            ->to($inquiry->getContactEmail());
 
-        $this->sendRatingEmail($email, $inquiry, $ratingUrl);
+        $this->sendRatingEmail($email, $inquiry, $inquiry->getAuthor(), $ratingUrl);
     }
 
     /**
@@ -640,12 +645,13 @@ class InquiryOperation
      * Create a new SignedRequest object to allow user access the link correctly.
      * @param TemplatedEmail $email
      * @param Inquiry $inquiry
+     * @param User|null $user
      * @param string $url
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    private function sendRatingEmail(TemplatedEmail $email, Inquiry $inquiry, string $url)
+    private function sendRatingEmail(TemplatedEmail $email, Inquiry $inquiry, ?User $user, string $url)
     {
         $ratingExpiration = $this->params->get("app.inquiries.rating_link_expiration");
         $expiration = (new DateTime("now + $ratingExpiration seconds"));
@@ -658,7 +664,8 @@ class InquiryOperation
 
         // Save the request.
         $request = (new InquirySignedRequest())->setInquiry($inquiry)->setCreatedAt(new DateTime())
-            ->setExpireAt($expiration)->setToken($this->getTokenFromSignedUrl($signedUrl));
+            ->setExpireAt($expiration)->setToken($this->getTokenFromSignedUrl($signedUrl))
+            ->setUser($user);
 
         $this->inquirySignedRequestService->create($request);
     }
@@ -733,7 +740,7 @@ class InquiryOperation
 
         // Send notice to the inquiring user if the user has not rated the inquiry yet and the supplier realized the inquiry.
         if ($rating->getRealizedInquiry() && !$request->getInquiry()->getInquiringRating()) {
-            $this->sendRatingEmailToInquiring($request->getInquiry(), $request->getInquiry()->getContactEmail());
+            $this->sendRatingEmailToInquiring($request->getInquiry());
         }
 
         // Delete the request

@@ -221,6 +221,11 @@ class InquiryController extends AController
             throw new InvalidArgumentException("Invalid request.");
         }
 
+        // We have to check if request user is the same as current user
+        if ($this->getUser() && $inquirySignedRequest->getUser() && $this->getUser() !== $inquirySignedRequest->getUser()) {
+            throw new AccessDeniedHttpException("You are not authorized to use this link.");
+        }
+
         return $inquirySignedRequest;
     }
 

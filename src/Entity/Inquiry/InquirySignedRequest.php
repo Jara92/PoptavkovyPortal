@@ -42,6 +42,12 @@ class InquirySignedRequest extends AEntity
     private ?string $token;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?User $user;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Inquiry::class)
      * @ORM\JoinColumn(nullable=false)
      */
@@ -116,6 +122,17 @@ class InquirySignedRequest extends AEntity
     public function setInquiry(?Inquiry $inquiry): InquirySignedRequest
     {
         $this->inquiry = $inquiry;
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
         return $this;
     }
 }
