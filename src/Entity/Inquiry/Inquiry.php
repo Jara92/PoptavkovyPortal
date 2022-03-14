@@ -533,23 +533,6 @@ class Inquiry extends AEntity
         return $this;
     }
 
-    public function getSupplierRating(): ?SupplierRating
-    {
-        return $this->supplierRating;
-    }
-
-    public function setSupplierRating(SupplierRating $supplierRating): self
-    {
-        // set the owning side of the relation if necessary
-        if ($supplierRating->getInquiry() !== $this) {
-            $supplierRating->setInquiry($this);
-        }
-
-        $this->supplierRating = $supplierRating;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, SupplierRating>
      */
