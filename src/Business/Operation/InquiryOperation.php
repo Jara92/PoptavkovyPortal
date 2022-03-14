@@ -699,6 +699,17 @@ class InquiryOperation
         $this->inquirySignedRequestService->delete($request);
     }
 
+    public function createSupplierRatingByRequest(InquirySignedRequest $request): SupplierRating
+    {
+        // The request user must be filled so we know who is the author.
+        // Now we ignore if the user is authorized because he could be authorizes as someone else.
+        if (!$request->getUser()) {
+            throw new LogicException("The request user can not be null!");
+        }
+
+        return (new SupplierRating())->setAuthor($request->getUser())->setInquiry($request->getInquiry());
+    }
+
     /**
      * Creates and returns an object for rating an inquiry and its author.
      * @param Inquiry $inquiry
@@ -706,25 +717,11 @@ class InquiryOperation
      */
     public function createSupplierRating(Inquiry $inquiry): SupplierRating
     {
-        $rating = new SupplierRating();
-
-        // If there is already an inquiring user's rating we can take user id from it
-        // We do it like that because the user might not be logged in so we do not know his ID.
-        // And because the user has access to this feature only if he gets an email based on inquring user rating it is save.
-        if ($inquiry->getInquiringRating() && $inquiry->getInquiringRating()->getSupplier()) {
-            $rating->setAuthor($inquiry->getInquiringRating()->getSupplier());
+        if (!$this->security->isLoggedIn()) {
+            throw new UnauthorizedHttpException("You are not authorized to do that");
         }
 
-        // NO inquiring user rating so the user just wants to rate the inquiry on his own.
-        // To do this, the user must be authorized.
-        else if ($this->security->getUser()) {
-            $rating->setAuthor($this->security->getUser());
-        } // This should not happen.
-        else {
-            throw new AccessDeniedHttpException("You are not autenticated!");
-        }
-
-        return $rating;
+        return (new SupplierRating())->setAuthor($this->security->getUser())->setInquiry($inquiry);
     }
 
     /**

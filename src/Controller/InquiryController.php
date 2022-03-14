@@ -295,7 +295,7 @@ class InquiryController extends AController
      * @param Request $request
      * @return Response
      */
-    public function supplierRating(Request $request): Response
+    public function supplierRatingSigned(Request $request): Response
     {
         // Get inquiry from the request.
         $inquirySignedRequest = $this->getInquirySignedRequest($request);
@@ -306,7 +306,7 @@ class InquiryController extends AController
             ["alias" => $inquiry->getAlias()]), translate: false);
         $this->breadcrumbs->addItem("ratings.supplier_rating");
 
-        $rating = $this->inquiryOperation->createSupplierRating($inquiry);
+        $rating = $this->inquiryOperation->createSupplierRatingByRequest($inquirySignedRequest);
         $form = $this->createForm(SupplierRatingForm::class, $rating);
 
         $form->handleRequest($request);

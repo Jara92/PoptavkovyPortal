@@ -28,7 +28,7 @@ inquiries/finish:
 
 inquiries/supplier-rating:
   path: /hodnoceni-poptavajiciho
-  controller: App\Controller\InquiryController::supplierRating
+  controller: App\Controller\InquiryController::supplierRatingSigned
   methods: GET|POST
   defaults:
     _signed: true # Deny access for unsigned

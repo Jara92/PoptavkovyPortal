@@ -32,6 +32,7 @@ use ReflectionMethod;
 use SlopeIt\ClockMock\ClockMock;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -462,26 +463,6 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Testcase for a user who is marked in inquiry.inquiringRating as a supplier
-     * @covers InquiryOperation::createSupplierRating
-     */
-    public function testCreateSupplierRating()
-    {
-        $supplier = (new User())->setId(1)->setEmail("supplier@sezna.cz")->setType(UserType::COMPANY);
-
-        // Build an inquiry with an inquring rating.
-        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier($supplier);
-
-        $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
-            ->setInquiringRating($inquiringRating);
-
-        // Created rating should contain $supplier as an author
-        $ref = (new SupplierRating())->setAuthor($supplier);
-
-        $this->assertEquals($ref, $this->operation->createSupplierRating($inquiry));
-    }
-
-    /**
      * Testcase for a user who is able to rate the inquiry but the inquiring have not rated the inquiry yet.
      * @covers InquiryOperation::createSupplierRating
      */
@@ -496,10 +477,11 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             ->setInquiringRating($inquiringRating);
 
         // Created rating should contain $supplier as an author
-        $ref = (new SupplierRating())->setAuthor($supplier);
+        $ref = (new SupplierRating())->setAuthor($supplier)->setInquiry($inquiry);
 
         // Is the user is not authorized we should get an exception.
         $this->security->method("getUser")->willReturn($supplier);
+        $this->security->method("isLoggedIn")->willReturn(true);
 
         // The result should be the same
         $this->assertEquals($ref, $this->operation->createSupplierRating($inquiry));
@@ -519,9 +501,10 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
         // Is the user is not authorized we should get an exception.
         $this->security->method("getUser")->willReturn(null);
+        $this->security->method("isLoggedIn")->willReturn(false);
 
         // Exception for an unauthenticated user
-        $this->expectException(AccessDeniedHttpException::class);
+        $this->expectException(UnauthorizedHttpException::class);
 
         $this->operation->createSupplierRating($inquiry);
     }
