@@ -19,12 +19,17 @@ inquiries/detail:
   controller: App\Controller\InquiryController::detail
   methods: GET|POST
 
-inquiries/finish:
+inquiries/finish-signed:
   path: /dokoncit-poptavku
-  controller: App\Controller\InquiryController::finishInquiry
+  controller: App\Controller\InquiryController::finishInquirySigned
   methods: GET|POST
   defaults:
     _signed: true # Deny access for unsigned
+
+inquiries/finish:
+  path: /moje-poptavky/{alias}/dokoncit-poptavku
+  controller: App\Controller\InquiryController::finishInquiryAction
+  methods: GET|POST
 
 inquiries/supplier-rating:
   path: /hodnoceni-poptavajiciho

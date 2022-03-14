@@ -499,7 +499,7 @@ class InquiryOperation
         $expiration = (new DateTime("now + $expirationSeconds seconds"));
 
         // Build finish inquiry link and sign it.
-        $finishInquiryUrl = $this->router->generate("inquiries/finish", [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $finishInquiryUrl = $this->router->generate("inquiries/finish-signed", [], UrlGeneratorInterface::ABSOLUTE_URL);
         $finishInquiryUrl = $this->urlSigner->sign($finishInquiryUrl, $expiration);
 
         // Build postpone expiration link and sign it.
@@ -630,7 +630,7 @@ class InquiryOperation
     private function sendRatingEmailToInquiring(Inquiry $inquiry): void
     {
         // Build finish inquiry link and sign it.
-        $ratingUrl = $this->router->generate("inquiries/finish", [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $ratingUrl = $this->router->generate("inquiries/finish-signed", [], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $email = (new TemplatedEmail())
             ->htmlTemplate('email/inquiry/rating/available_inquiring.html.twig')
@@ -674,12 +674,29 @@ class InquiryOperation
      * Sets the finished state and removes the request.
      * @param InquirySignedRequest $request
      */
-    public function finishInquiry(InquirySignedRequest $request)
+    public function finishInquiryByRequest(InquirySignedRequest $request)
     {
-        $rating = $request->getInquiry()->getInquiringRating();
+        $this->finishInquiry($request->getInquiry());
+
+        // Delete the request to prevent multiple times access..
+        $this->inquirySignedRequestService->delete($request);
+    }
+
+    /**
+     * Marks the inquiry as finished.
+     * Sends notice to supplier if the supplier is filled in InquiringRating.
+     * @param Inquiry $inquiry
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function finishInquiry(Inquiry $inquiry)
+    {
+        $rating = $inquiry->getInquiringRating();
 
         // Supplier is set
         if ($rating->getSupplier()) {
+            // TODO: Do not send the email if the supplier has already rated the inquiry.
             // We want to send an email to the supplier to fill his rating form.
             $this->sendRatingEmailToSupplier($rating->getInquiry(), $rating->getSupplier());
         } // If supplier is not set
@@ -690,13 +707,10 @@ class InquiryOperation
         }
 
         // Update the state.
-        $request->getInquiry()->setState(InquiryState::STATE_FINISHED);
+        $inquiry->setState(InquiryState::STATE_FINISHED);
 
         // Update the inquiry - the InquiringRating object is saved automatically.
-        $this->inquiryService->update($request->getInquiry());
-
-        // Delete the request to prevent multiple times access..
-        $this->inquirySignedRequestService->delete($request);
+        $this->inquiryService->update($inquiry);
     }
 
     public function createSupplierRatingByRequest(InquirySignedRequest $request): SupplierRating

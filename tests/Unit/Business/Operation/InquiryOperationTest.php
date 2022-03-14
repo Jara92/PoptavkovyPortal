@@ -290,6 +290,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers InquiryOperation::finishInquiry()
+     * @covers InquiryOperation::finishInquiryByRequest()
      */
     public function testFinishInquiry()
     {
@@ -323,7 +324,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->inquirySignedRequestService->expects($this->exactly(1))->method("delete")->with($inquiryRequest);
 
         // Call tested method
-        $this->operation->finishInquiry($inquiryRequest);
+        $this->operation->finishInquiryByRequest($inquiryRequest);
 
         // The inquiry should be finished now
         $this->assertEquals(InquiryState::STATE_FINISHED, $inquiry->getState());
@@ -331,6 +332,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers InquiryOperation::finishInquiry()
+     * @covers InquiryOperation::finishInquiryByRequest()
      */
     public function testFinishInquiryNoSupplier()
     {
@@ -356,7 +358,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->inquirySignedRequestService->expects($this->exactly(1))->method("delete")->with($inquiryRequest);
 
         // Call tested method
-        $this->operation->finishInquiry($inquiryRequest);
+        $this->operation->finishInquiryByRequest($inquiryRequest);
 
         // The inquiry should be finished now
         $this->assertEquals(InquiryState::STATE_FINISHED, $inquiry->getState());

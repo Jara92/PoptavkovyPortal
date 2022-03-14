@@ -364,6 +364,7 @@ ratings:
   msg_rating_sent: "Vaše hodnocení bylo úspěšně odesláno. Děkujeme! :)"
   msg_rating_failed: "Vaše hodnocení se nepodařilo odeslat. Zkuste to prosím znovu později. :("
   msg_rating_failed_unique: "Zdá se, že jste tuto poptávku už dokončil a ohodnotil. Pokud si myslíte, že se jedná o chybu, kontaktujte správce."
+  msg_already_rated: "Tuto poptávku už jste ohodnotil a byla ukončena."
 
   field_supplier: "Poptávku zrealizoval:"
   field_supplier_ph: "Zvolte dodavatele"

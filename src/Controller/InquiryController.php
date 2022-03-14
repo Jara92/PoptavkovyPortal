@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Business\Operation\InquiryOperation;
 use App\Business\Service\Inquiry\InquirySignedRequestService;
 use App\Controller\Trait\PaginableTrait;
+use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Enum\FlashMessageType;
@@ -19,6 +20,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 use http\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
@@ -247,21 +249,81 @@ class InquiryController extends AController
         return $this->redirectToRoute("inquiries/detail", ["alias" => $inquirySignedRequest->getInquiry()->getAlias()]);
     }
 
+    private function finishInquiry(Inquiry $inquiry)
+    {
+        // Setup breadcrumbs
+        $this->breadcrumbs->addItem($inquiry->getTitle(), $this->router->generate("inquiries/detail",
+            ["alias" => $inquiry->getAlias()]), translate: false);
+        $this->breadcrumbs->addItem("ratings.inquiring_rating");
+    }
+
+    /**
+     * An action to manually finish the inquiry in the system.
+     * The user must be granted to edit the inquiry.
+     * @param string $alias
+     * @param Request $request
+     * @return Response
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface If no inquiry was found
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function finishInquiryAction(string $alias, Request $request): Response
+    {
+        $inquiry = $this->inquiryService->readByAlias($alias);
+
+        if (!$inquiry) {
+            throw new NotFoundHttpException("Inquiry not found");
+        }
+
+        // Only one inquiring rating is allowed.
+        if ($inquiry->getInquiringRating()) {
+            $this->addFlashMessage(FlashMessageType::NOTICE, $this->translator->trans("ratings.msg_already_rated"));
+            return $this->redirectToRoute("inquiries/detail", ["alias" => $inquiry->getAlias()]);
+        }
+
+        $this->denyAccessUnlessGranted("edit", $inquiry);
+
+        $this->finishInquiry($inquiry);
+
+        // Create a rating and a form
+        $rating = (new InquiringRating())->setInquiry($inquiry);
+        $form = $this->createForm(InquiringRatingForm::class, $rating);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                // Set inquiry rating.
+                $inquiry->setInquiringRating($rating);
+
+                // Finish the inquiry.
+                $this->inquiryOperation->finishInquiry($inquiry);
+
+                // Show message and redirect away.
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
+                return $this->redirectToRoute("inquiries/detail", ["alias" => $inquiry->getAlias()]);
+            } // This exception is thrown if there already was a rating.
+            catch (UniqueConstraintViolationException $exception) {
+                $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("ratings.msg_rating_failed_unique"));
+            } catch (Exception $ex) {
+                $this->addFlashMessage(FlashMessageType::ERROR, $this->translator->trans("ratings.msg_rating_failed"));
+            }
+        }
+
+        return $this->renderForm("inquiry/rating/inquiring.html.twig", compact("form", "inquiry"));
+    }
+
     /**
      * An action to mark an inquiry as finished and receive inquiring user's rating.
      * @param Request $request
      * @return Response
      */
-    public function finishInquiry(Request $request): Response
+    public function finishInquirySigned(Request $request): Response
     {
         // Get inquiry from the request.
         $inquirySignedRequest = $this->getInquirySignedRequest($request);
         $inquiry = $inquirySignedRequest->getInquiry();
 
-        // Setup breadcrumbs
-        $this->breadcrumbs->addItem($inquiry->getTitle(), $this->router->generate("inquiries/detail",
-            ["alias" => $inquiry->getAlias()]), translate: false);
-        $this->breadcrumbs->addItem("ratings.inquiring_rating");
+        $this->finishInquiry($inquiry);
 
         // Create a rating and a form
         $rating = (new InquiringRating())->setInquiry($inquiry);
@@ -274,7 +336,7 @@ class InquiryController extends AController
                 $inquiry->setInquiringRating($rating);
 
                 // Finish the inquiry using the request.
-                $this->inquiryOperation->finishInquiry($inquirySignedRequest);
+                $this->inquiryOperation->finishInquiryByRequest($inquirySignedRequest);
 
                 // Show message and redirect away.
                 $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("ratings.msg_rating_sent"));
