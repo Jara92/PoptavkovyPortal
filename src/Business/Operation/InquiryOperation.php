@@ -20,6 +20,7 @@ use App\Enum\Entity\InquiryType;
 use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\Entity\UserType;
+use App\Exception\AlreadyMadeOfferException;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -338,6 +339,12 @@ class InquiryOperation
         return $inquiry;
     }
 
+    /**
+     * Creates an offer for the given supplier by signed user.
+     * Returns existing inquiry if there already was one.
+     * @param Inquiry $inquiry
+     * @return Offer
+     */
     public function createOffer(Inquiry $inquiry): Offer
     {
         $user = $this->security->getUser();
@@ -346,26 +353,42 @@ class InquiryOperation
             throw new UnauthorizedHttpException("Use must be authorized to do this!");
         }
 
-        return $this->offerFactory->createOffer($user, $inquiry);
+        $offer = $this->offerService->readOneByInquiryAndAuthor($inquiry, $user);
+        if ($offer) {
+            return $offer;
+        } else {
+            return $this->offerFactory->createOffer($user, $inquiry);
+        }
     }
 
     /**
+     * Saves and send the offer if there is no offer with the same inquiry and user.
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws AlreadyMadeOfferException If the user already made an offer for this inquiry.
      */
-    public function sendOffer(Offer $offer, bool $sendCopy = false)
+    public function sendOffer(Offer $newOffer, bool $sendCopy = false)
     {
-        $this->offerService->create($offer);
+        // Check existence of an offer with the same inquiry and user.
+        $offer = $this->offerService->readOneByInquiryAndAuthor($newOffer->getInquiry(), $newOffer->getAuthor());
+        if ($offer) {
+            throw new AlreadyMadeOfferException("You have already made an offer");
+        }
+
+        // Save the offer
+        $this->offerService->create($newOffer);
 
         // Notification email to the inquiry author.
-        $this->sendOfferEmailToInquiring($offer);
+        $this->sendOfferEmailToInquiring($newOffer);
 
         // Send copy to offer author.
         if ($sendCopy) {
-            $this->sendOfferEmailToSupplier($offer);
+            $this->sendOfferEmailToSupplier($newOffer);
         }
     }
+
+    // TODO: REFACTOR SENDING OFFERS
 
     /**
      * Sends an email to the inquiring of the offer inquriry.
@@ -377,7 +400,7 @@ class InquiryOperation
     {
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
-            ->to($offer->getInquiry()->getAuthor()->getEmail())
+            ->to($offer->getInquiry()->getContactEmail())
             ->subject($this->translator->trans("offers.new_inquiry_offer") . " #" . $offer->getInquiry()->getId())
             ->htmlTemplate('email/inquiry/offer_inquiring.html.twig')
             ->context(["offer" => $offer]);

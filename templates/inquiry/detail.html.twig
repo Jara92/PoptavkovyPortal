@@ -93,8 +93,14 @@
                         </section>
                     </div>
 
-                    {# Contact form #}
-                    {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
+                    {# The author can finish the inquiry #}
+                    {% if app.user and app.user == inquiry.author %}
+                        <a class="btn btn-outline-secondary"
+                           href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
+                    {% else %}
+                        {# Contact form #}
+                        {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
+                    {% endif %}
 
                 </div>
                 <div class="inquiry-detail-right col-md-12 col-lg-4">

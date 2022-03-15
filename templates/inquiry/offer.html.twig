@@ -2,17 +2,22 @@
 
 <div>
     {% if is_granted("react", inquiry) %}
-        <hr/>
-        <div id="inquiry-contact-form">
-            <h3 class="fw-bold">{{ "offers.your_offer"|trans }}</h3>
-            {% if form %}
-                {{ form_start(form) }}
-                {{ form_row(form.text) }}
-                {{ form_row(form.sendCopy) }}
-                {{ form_row(form.submit) }}
-                {{ form_end(form) }}
-            {% endif %}
-        </div>
+        {% if offer.id %}
+            <h3><span class="fa fa-check-circle me-2"></span>{{ "offers.msg_maximum_offers_per_inquiry_reached"|trans }}
+            </h3>
+        {% else %}
+            <hr/>
+            <div id="inquiry-contact-form">
+                <h3 class="fw-bold">{{ "offers.your_offer"|trans }}</h3>
+                {% if form %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.text) }}
+                    {{ form_row(form.sendCopy) }}
+                    {{ form_row(form.submit) }}
+                    {{ form_end(form) }}
+                {% endif %}
+            </div>
+        {% endif %}
     {% else %}
         <button id="btn-contact" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiry-contact-modal">
             {{ "inquiries.btn_get_contact"|trans }}</button>

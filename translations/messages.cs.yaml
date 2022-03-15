@@ -347,6 +347,7 @@ offers:
   btn_send_offer: "Odeslat nabídku"
 
   msg_succesfully_send: "Nabídka byla úspěšně odeslána. Hodně štěstí!"
+  msg_maximum_offers_per_inquiry_reached: "Na tuto poptávku jste už svou nabídku odeslal."
 
 ratings:
   inquiring_rating: "Hodnocení poptávky"

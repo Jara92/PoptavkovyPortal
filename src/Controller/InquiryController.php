@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
 use App\Business\Service\Inquiry\InquirySignedRequestService;
+use App\Business\Service\Inquiry\OfferService;
 use App\Controller\Trait\PaginableTrait;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Enum\FlashMessageType;
+use App\Exception\AlreadyMadeOfferException;
 use App\Form\Inquiry\InquiryFilterForm;
 use App\Form\Inquiry\InquiryForm;
 use App\Business\Service\Inquiry\InquiryService;
@@ -35,6 +37,7 @@ class InquiryController extends AController
 
     public function __construct(
         private InquiryService              $inquiryService,
+        private OfferService                $offerService,
         private InquirySignedRequestService $inquirySignedRequestService,
         private TranslatorInterface         $translator,
         private InquiryOperation            $inquiryOperation,
@@ -122,26 +125,28 @@ class InquiryController extends AController
 
         $form = null;
 
+        // Create an offer for this inquiry
+        $offer = $this->inquiryOperation->createOffer($inquiry);
+
         // TODO move this stuff to OfferController
         if ($this->isGranted("react", $inquiry)) {
-            $offer = $this->inquiryOperation->createOffer($inquiry);
             $form = $this->createForm(OfferForm::class, $offer);
 
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $sendCopy = $form->get('sendCopy')->getData();
 
-                $this->inquiryOperation->sendOffer($offer, $sendCopy);
+                try {
+                    $this->inquiryOperation->sendOffer($offer, $sendCopy);
 
-                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("offers.msg_succesfully_send"));
-
-                // Reset the form
-                $offer = $this->inquiryOperation->createOffer($inquiry);
-                $form = $this->createForm(OfferForm::class, $offer);
+                    $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("offers.msg_succesfully_send"));
+                } catch (AlreadyMadeOfferException $ex) {
+                    $this->addFlashMessage(FlashMessageType::WARNING, $this->translator->trans("offers.msg_maximum_offers_per_inquiry_reached"));
+                }
             }
         }
 
-        return $this->renderForm("inquiry/detail.html.twig", ["inquiry" => $inquiry, "similarInquiries" => $similar, "form" => $form]);
+        return $this->renderForm("inquiry/detail.html.twig", ["inquiry" => $inquiry, "similarInquiries" => $similar, "form" => $form, "offer" => $offer]);
     }
 
     /**
