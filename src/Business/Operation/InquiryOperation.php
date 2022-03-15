@@ -509,7 +509,7 @@ class InquiryOperation
         // Build and send the email
         $email = (new TemplatedEmail())
             ->from(new Address($this->params->get("app.email"), $this->params->get("app.name")))
-            ->to($inquiry->getAuthor()->getEmail())
+            ->to($inquiry->getContactEmail())
             ->subject($this->translator->trans("inquiries.inquiry_will_be_removed"))
             ->htmlTemplate('email/inquiry/expiration_notify.html.twig')
             ->context(["inquiry" => $inquiry, "finishUrl" => $finishInquiryUrl, "postponeUrl" => $postponeExpirationUrl]);
