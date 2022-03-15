@@ -135,7 +135,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $inquiry = (new Inquiry())->setId(1)->setTitle("P1")->setAuthor($user)
             ->setCreatedAt($now)->setUpdatedAt($now)
             ->setState(InquiryState::STATE_ACTIVE)
-            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove)
+        ->setContactEmail("user@email.cz");
         return $inquiry;
     }
 
@@ -151,7 +152,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $inquiry = (new Inquiry())->setId(2)->setTitle("P2")->setAuthor($user)
             ->setCreatedAt($now)->setUpdatedAt($now)
             ->setState(InquiryState::STATE_ACTIVE)
-            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove);
+            ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove)
+            ->setContactEmail("user@email.cz");
         return $inquiry;
     }
 
@@ -164,7 +166,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $inquiry = (new Inquiry())->setId(3)->setTitle("P3")->setAuthor($user)
             ->setCreatedAt($now)->setUpdatedAt($now)
             ->setState(InquiryState::STATE_ACTIVE)
-            ->setRemoveNoticeAt(null)->setRemoveAt($now);
+            ->setRemoveNoticeAt(null)->setRemoveAt($now)
+            ->setContactEmail("user@email.cz");
         return $inquiry;
     }
 
