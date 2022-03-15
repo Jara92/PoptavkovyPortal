@@ -97,6 +97,11 @@ class InquiryVoter extends AVoter
 
     private function canReact(Inquiry $inquiry, ?User $user): bool
     {
+        // User cannot make offers on his own inquiries.
+        if ($user && $user === $inquiry->getAuthor()) {
+            return false;
+        }
+
         // If user cannot view, he absolutely cannot react.
         if (!$this->canView($inquiry, $user)) {
             return false;
@@ -108,7 +113,17 @@ class InquiryVoter extends AVoter
 
     private function canViewAttachments(Inquiry $inquiry, ?User $user): bool
     {
-        // For now it is the same as "canReact()"
-        return $this->canReact($inquiry, $user);
+        // Author is able to view attachments.
+        if ($user && $user === $inquiry->getAuthor()) {
+            return true;
+        }
+
+        // If user cannot view the inquiry, he absolutely cannot view attachments.
+        if (!$this->canView($inquiry, $user)) {
+            return false;
+        }
+
+        // Only suppliers are able to view attachments..
+        return $this->security->isGranted(UserRole::SUPPLIER);
     }
 }
