@@ -486,10 +486,12 @@ admin:
     #inquiring_desc: "Tato stránka obsahuje všechna hodnocení dodavatelů, která vytváří autoři poptávek."
     supplier_title: "Hodnocení poptávajících"
     #supplier_desc: "Tato stránka obsahuje všechna hodnocení poptávajících, která vytváří dodavatelé poptávek."
+    user_title: "Uživatelská hodnocení"
 
     field_rating: "Hodnocení"
     field_is_published: "Veřejné hodnocení"
     field_supplierNote: "Komentář dodavatele"
+    field_userNote: "Komentář uživatele"
     field_note: "Komentář služby"
     field_realized_inquiry: "Relizoval poptávku"
 
@@ -565,3 +567,4 @@ Deadline: "termín"
 Region: "kraj"
 Profile: "profil"
 InquiringRating: "hodnocení dodavatele"
+UserRating: "uživatelské hodnocení"

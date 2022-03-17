@@ -10,6 +10,7 @@ use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\Profile;
+use App\Entity\User\UserRating;
 use App\Enum\Entity\InquiryState;
 use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\Region;
@@ -62,6 +63,7 @@ class MainDashboardController extends AbstractDashboardController
             ]),
             MenuItem::linkToCrud("inquiries.inquiry_categories", "fa fa-tags", InquiryCategory::class),
             MenuItem::subMenu("admin.ratings.ratings", "fa fa-star")->setSubItems([
+                MenuItem::linkToCrud("admin.ratings.user_title", "", UserRating::class),
                 MenuItem::linkToCrud("admin.ratings.inquiring_title", "", InquiringRating::class),
                 MenuItem::linkToCrud("admin.ratings.supplier_title", "", SupplierRating::class),
             ]),
