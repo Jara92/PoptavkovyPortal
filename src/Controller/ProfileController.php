@@ -15,6 +15,7 @@ use App\Form\User\ProfileForm;
 use App\Form\User\UserRatingForm;
 use App\Tools\Rating\ProfileRatingComponent;
 use App\Twig\Extension\UserExtension;
+use HttpRequestException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +42,12 @@ class ProfileController extends AController
         $this->breadcrumbs->addItem("profiles.profiles");
     }
 
+    /**
+     * Creates and handles rating form.
+     * @param Request $request
+     * @param Profile $profile
+     * @return FormInterface|null
+     */
     private function handleRatingForm(Request $request, Profile $profile): ?FormInterface
     {
         if ($this->getUser()) {
@@ -60,6 +67,13 @@ class ProfileController extends AController
         return null;
     }
 
+    /**
+     * Detail page for a user profile
+     * @param int $profileId
+     * @param Request $request
+     * @return Response
+     * @throws HttpRequestException
+     */
     public function detail(int $profileId, Request $request): Response
     {
         // Get profile
@@ -76,31 +90,34 @@ class ProfileController extends AController
             $this->addFlashMessage(FlashMessageType::NOTICE, $this->translator->trans("profiles.msg_profile_is_private"));
         }
 
+        // Build a form for user rating.
         $form = $this->handleRatingForm($request, $profile);
 
+        // Get profile ratings.
         $rating = $this->profileOperation->getProfileRating($profile);
 
+        // Display correct template according to user type
         switch ($profile->getUser()->getType()) {
             case UserType::PERSON:
                 return $this->personProfileDetail($profile, $form, $rating);
             case UserType::COMPANY:
                 return $this->companyProfileDetail($profile, $form, $rating);
             default:
-                throw new \HttpRequestException("Invalid profile type.");
+                throw new HttpRequestException("Invalid profile type.");
         }
     }
 
     private function personProfileDetail(Profile $profile, ?FormInterface $form, ProfileRatingComponent $rating): Response
     {
-        $this->breadcrumbs->addItem($this->userExtension->anonymize($profile->getUser()));
+        $this->breadcrumbs->addItem($this->userExtension->anonymize($profile->getUser()), translate: false);
 
-        return $this->renderForm("profile/detail_person.html.twig", ["profile" => $profile, "form" => $form, "rating" => $rating]);
+        return $this->renderForm("profile/detail_person.html.twig", compact("profile", "form", "rating"));
     }
 
     private function companyProfileDetail(Profile $profile, ?FormInterface $form, ProfileRatingComponent $rating): Response
     {
-        $this->breadcrumbs->addItem($this->userExtension->fullName($profile->getUser()));
+        $this->breadcrumbs->addItem($this->userExtension->fullName($profile->getUser()), translate: false);
 
-        return $this->renderForm("profile/detail_company.html.twig", ["profile" => $profile, "form" => $form, "rating" => $rating]);
+        return $this->renderForm("profile/detail_company.html.twig", compact("profile", "form", "rating"));
     }
 }
