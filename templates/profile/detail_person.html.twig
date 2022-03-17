@@ -336,7 +336,7 @@
                         <div class="p-4">
                             {% if app.user %}
                                 <h3>Ohodnoťte uživatele</h3>
-                                <textarea class="form-control"></textarea>
+                            {{ form(form) }}
                             {% else %}
                                 <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
                                 </h3>

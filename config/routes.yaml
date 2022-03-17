@@ -116,7 +116,7 @@ my-profile/edit-notifications:
 profiles/detail:
   path: /profil/{profileId}
   controller: App\Controller\ProfileController::detail
-  methods: GET
+  methods: GET|POST
 
 # Auth
 app_login:
