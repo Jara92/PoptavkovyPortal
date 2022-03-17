@@ -1,0 +1,61 @@
+.profile-rating-module {
+  .card {
+    margin-top: 2rem;
+  }
+
+  .rating-label {
+    font-weight: bold
+  }
+
+  .rating-bar {
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px
+  }
+
+  td {
+    padding-bottom: 10px
+  }
+
+  .star-active {
+    color: #FBC02D;
+    margin-top: 10px;
+  }
+
+  .star-active:hover {
+    color: #F9A825;
+    cursor: pointer
+  }
+
+  .star-inactive {
+    color: #CFD8DC;
+    margin-top: 10px;
+  }
+
+  .profile-pic {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100%;
+    margin-right: 0.5rem;
+  }
+
+  .badge {
+    font-size: 25px;
+    font-weight: 200
+  }
+
+  .badge i {
+    font-size: 20px;
+    font-weight: 200
+  }
+
+  .about-rating {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px
+  }
+
+  .total-ratings {
+    font-size: 12px
+  }
+}
