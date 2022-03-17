@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "cbabaa8e00741bd5bc9cf7b9da454619",
-    "packages": [
-        {
-            "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "b174585d1fe49ceed21928a945138948cb394600"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "b4fe1a062c6051fcbc96aa17e8856116",
+  "packages": [
+    {
+      "name": "composer/package-versions-deprecated",
+      "version": "1.11.99.4",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/composer/package-versions-deprecated.git",
+        "reference": "b174585d1fe49ceed21928a945138948cb394600"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/b174585d1fe49ceed21928a945138948cb394600",
                 "reference": "b174585d1fe49ceed21928a945138948cb394600",
@@ -2570,26 +2570,122 @@
             "funding": [
                 {
                     "url": "https://github.com/Seldaek",
-                    "type": "github"
+                  "type": "github"
                 },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
-                    "type": "tidelift"
-                }
+              {
+                "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                "type": "tidelift"
+              }
             ],
-            "time": "2022-03-14T12:44:37+00:00"
+          "time": "2022-03-14T12:44:37+00:00"
+        },
+    {
+      "name": "nesbot/carbon",
+      "version": "2.57.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/briannesbitt/Carbon.git",
+        "reference": "4a54375c21eea4811dbd1149fe6b246517554e78"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4a54375c21eea4811dbd1149fe6b246517554e78",
+        "reference": "4a54375c21eea4811dbd1149fe6b246517554e78",
+        "shasum": ""
+      },
+      "require": {
+        "ext-json": "*",
+        "php": "^7.1.8 || ^8.0",
+        "symfony/polyfill-mbstring": "^1.0",
+        "symfony/polyfill-php80": "^1.16",
+        "symfony/translation": "^3.4 || ^4.0 || ^5.0 || ^6.0"
+      },
+      "require-dev": {
+        "doctrine/dbal": "^2.0 || ^3.0",
+        "doctrine/orm": "^2.7",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "kylekatarnls/multi-tester": "^2.0",
+        "phpmd/phpmd": "^2.9",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.54 || ^1.0",
+        "phpunit/phpunit": "^7.5.20 || ^8.5.14",
+        "squizlabs/php_codesniffer": "^3.4"
+      },
+      "bin": [
+        "bin/carbon"
+      ],
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-3.x": "3.x-dev",
+          "dev-master": "2.x-dev"
+        },
+        "laravel": {
+          "providers": [
+            "Carbon\\Laravel\\ServiceProvider"
+          ]
+        },
+        "phpstan": {
+          "includes": [
+            "extension.neon"
+          ]
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Carbon\\": "src/Carbon/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Brian Nesbitt",
+          "email": "brian@nesbot.com",
+          "homepage": "https://markido.com"
         },
         {
-            "name": "nette/utils",
-            "version": "v3.2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/utils.git",
-                "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/0af4e3de4df9f1543534beab255ccf459e7a2c99",
+          "name": "kylekatarnls",
+          "homepage": "https://github.com/kylekatarnls"
+        }
+      ],
+      "description": "An API extension for DateTime that supports 281 different languages.",
+      "homepage": "https://carbon.nesbot.com",
+      "keywords": [
+        "date",
+        "datetime",
+        "time"
+      ],
+      "support": {
+        "docs": "https://carbon.nesbot.com/docs",
+        "issues": "https://github.com/briannesbitt/Carbon/issues",
+        "source": "https://github.com/briannesbitt/Carbon"
+      },
+      "funding": [
+        {
+          "url": "https://opencollective.com/Carbon",
+          "type": "open_collective"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+          "type": "tidelift"
+        }
+      ],
+      "time": "2022-02-13T18:13:33+00:00"
+    },
+    {
+      "name": "nette/utils",
+      "version": "v3.2.7",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/nette/utils.git",
+        "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/nette/utils/zipball/0af4e3de4df9f1543534beab255ccf459e7a2c99",
                 "reference": "0af4e3de4df9f1543534beab255ccf459e7a2c99",
                 "shasum": ""
             },

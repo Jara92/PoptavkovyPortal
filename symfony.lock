@@ -148,6 +148,9 @@
     "myclabs/deep-copy": {
         "version": "1.10.2"
     },
+    "nesbot/carbon": {
+        "version": "2.57.0"
+    },
     "nette/utils": {
         "version": "v3.2.7"
     },
