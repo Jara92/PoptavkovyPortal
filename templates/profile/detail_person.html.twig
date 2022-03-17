@@ -267,64 +267,32 @@
             </section>
 
             {# Snippet: https://bbbootstrap.com/snippets/rating-and-review-system-user-comment-section-41283119 #}
+            {# @var rating \App\Tools\Rating\ProfileRatingComponent #}
             <section class="rating">
                 <div class="card">
                     <div class="row justify-content-left d-flex">
                         <div class="col-md-4 d-flex flex-column">
-                            <div class="ratings text-center p-4 py-5"><span class="badge bg-success">4.1 <i
-                                            class="fa fa-star"></i></span> <span
-                                        class="d-block about-rating">Výborné</span> <span
-                                        class="d-block total-ratings">{{ profile.user.ratings|length }} recenzí</span>
+                            <div class="ratings text-center p-4 py-5"><span class="badge bg-success">
+                                    {{ rating.avgRating }} <i class="fa fa-star"></i></span>
+                                <span class="d-block about-rating">{{ ("rating.value."~(rating.avgRating|round(0, "floor")))|trans }}</span>
+                                <span class="d-block total-ratings">{{ rating.ratingsCount }} recenzí</span>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="rating-bar0 justify-content-center">
                                 <table class="text-left mx-auto">
-                                    <tr>
-                                        <td class="rating-label">Výborné</td>
-                                        <td class="rating-bar">
-                                            <div class="bar-container">
-                                                <div class="bar-5"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">123</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rating-label">Dobré</td>
-                                        <td class="rating-bar">
-                                            <div class="bar-container">
-                                                <div class="bar-4"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">23</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rating-label">Průměrné</td>
-                                        <td class="rating-bar">
-                                            <div class="bar-container">
-                                                <div class="bar-3"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">10</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rating-label">Špatné</td>
-                                        <td class="rating-bar">
-                                            <div class="bar-container">
-                                                <div class="bar-2"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">3</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="rating-label">Velmi špatné</td>
-                                        <td class="rating-bar">
-                                            <div class="bar-container">
-                                                <div class="bar-1"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">0</td>
-                                    </tr>
+                                    {# Print rating progress bars - the range 1-5 must be reverse because we want positive ratings first #}
+                                    {% for i in range(1, 5)|reverse %}
+                                        <tr>
+                                            <td class="rating-label">{{ ("rating.value."~i)|trans }}</td>
+                                            <td class="rating-bar">
+                                                <div class="bar-container">
+                                                    <div class="bar-5"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">{{ rating.ratingDistinctCounts[i] ?? 0 }}</td>
+                                        </tr>
+                                    {% endfor %}
                                 </table>
                             </div>
                         </div>
@@ -336,7 +304,7 @@
                         <div class="p-4">
                             {% if app.user %}
                                 <h3>Ohodnoťte uživatele</h3>
-                            {{ form(form) }}
+                                {{ form(form) }}
                             {% else %}
                                 <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
                                 </h3>
@@ -344,23 +312,23 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        {# @var rating \App\Entity\User\Rating #}
-                        {% for rating in profile.user.ratings %}
+                        {# @var ratingItem \App\Entity\User\ERating #}
+                        {% for ratingItem in rating.ratings %}
                             <div class="card p-3">
                                 <div class="row d-flex">
                                     <div class="d-flex flex-column">
                                         <h3 class="mt-2 mb-0">
                                             <img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg" alt=""/>
-                                            {{ rating.author|user_name }}
+                                            {{ ratingItem.author|user_name }}
                                         </h3>
                                         <small class="text-muted mt-1">
-                                            Hodnoceno {{ rating.createdAt|date_pretty }}
+                                            Hodnoceno {{ ratingItem.createdAt|date_pretty }}
                                         </small>
                                         <div>
                                             <p class="text-left">
-                                                <span class="text-muted me-2">{{ rating.rating ?? 0 }}</span>
+                                                <span class="text-muted me-2">{{ ratingItem.rating ?? 0 }}</span>
                                                 {% for i in range(1,5) %}
-                                                    {% if i <= rating.rating %}
+                                                    {% if i <= ratingItem.rating %}
                                                         <span class="fa fa-star star-active"></span>
                                                     {% else %}
                                                         <span class="fa fa-star star-inactive"></span>
@@ -370,9 +338,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% if rating.targetNote %}
+                                {% if ratingItem.targetNote %}
                                     <div class="row text-left">
-                                        <p class="description">{{ rating.targetNote }}</p>
+                                        <p class="description">{{ ratingItem.targetNote }}</p>
                                     </div>
                                 {% endif %}
                             </div>

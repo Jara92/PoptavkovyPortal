@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Business\Operation\ProfileOperation;
 use App\Business\Operation\UserOperation;
 use App\Business\Service\ProfileService;
 use App\Business\Service\RatingService;
@@ -12,6 +13,7 @@ use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
 use App\Form\User\ProfileForm;
 use App\Form\User\UserRatingForm;
+use App\Tools\Rating\ProfileRatingComponent;
 use App\Twig\Extension\UserExtension;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\FormInterface;
@@ -26,6 +28,7 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class ProfileController extends AController
 {
     public function __construct(
+        private ProfileOperation    $profileOperation,
         private ProfileService      $profileService,
         private RatingService       $ratingService,
         private TranslatorInterface $translator,
@@ -75,27 +78,29 @@ class ProfileController extends AController
 
         $form = $this->handleRatingForm($request, $profile);
 
+        $rating = $this->profileOperation->getProfileRating($profile);
+
         switch ($profile->getUser()->getType()) {
             case UserType::PERSON:
-                return $this->personProfileDetail($profile, $form);
+                return $this->personProfileDetail($profile, $form, $rating);
             case UserType::COMPANY:
-                return $this->companyProfileDetail($profile, $form);
+                return $this->companyProfileDetail($profile, $form, $rating);
             default:
                 throw new \HttpRequestException("Invalid profile type.");
         }
     }
 
-    private function personProfileDetail(Profile $profile, ?FormInterface $form): Response
+    private function personProfileDetail(Profile $profile, ?FormInterface $form, ProfileRatingComponent $rating): Response
     {
         $this->breadcrumbs->addItem($this->userExtension->anonymize($profile->getUser()));
 
-        return $this->renderForm("profile/detail_person.html.twig", ["profile" => $profile, "form" => $form]);
+        return $this->renderForm("profile/detail_person.html.twig", ["profile" => $profile, "form" => $form, "rating" => $rating]);
     }
 
-    private function companyProfileDetail(Profile $profile, ?FormInterface $form): Response
+    private function companyProfileDetail(Profile $profile, ?FormInterface $form, ProfileRatingComponent $rating): Response
     {
         $this->breadcrumbs->addItem($this->userExtension->fullName($profile->getUser()));
 
-        return $this->renderForm("profile/detail_company.html.twig", ["profile" => $profile, "form" => $form]);
+        return $this->renderForm("profile/detail_company.html.twig", ["profile" => $profile, "form" => $form, "rating" => $rating]);
     }
 }

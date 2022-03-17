@@ -541,6 +541,14 @@ date:
   this_month: "Tento měsíc"
   this_year: "Tento rok"
 
+rating:
+  value:
+    1: "Velmi špatné"
+    2: "Špatné"
+    3: "Průměrné"
+    4: "Dobré"
+    5: "Výborné"
+
 btn_save: "Uložit"
 btn_close: "Zavřít"
 btn_contact_support: "Kontaktovat podporu"
