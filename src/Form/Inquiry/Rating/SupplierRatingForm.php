@@ -50,8 +50,9 @@ class SupplierRatingForm extends AbstractType
             ->add("realizedInquiry", CheckboxType::class, [
                 'required' => false
             ])
-            ->add("inquiringNote", TextareaType::class, [
+            ->add("targetNote", TextareaType::class, [
                 'required' => false,
+                "label" => "ratings.field_inquiringNote",
                 'attr' => [
                     "rows" => 5,
                     "placeholder" => "ratings.field_inquiringNote_ph",

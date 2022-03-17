@@ -18,13 +18,13 @@
                 <div class="cardbox-item" data-controller="inquiring-rating-form">
                     {{ form_start(form) }}
                     <div class="row">
-                        <div class="col-md-8">{{ form_row(form.supplier, {'attr': {'data-action':'change->inquiring-rating-form#updateFields', 'data-inquiring-rating-form-target':'supplierField'}}) }}</div>
+                        <div class="col-md-8">{{ form_row(form.target, {'attr': {'data-action':'change->inquiring-rating-form#updateFields', 'data-inquiring-rating-form-target':'supplierField'}}) }}</div>
                     </div>
 
                     <div data-inquiring-rating-form-target="supplierDynamic">
                         {{ form_row(form.rating) }}
 
-                        {{ form_row(form.supplierNote) }}
+                        {{ form_row(form.targetNote) }}
                         <hr/>
                     </div>
 

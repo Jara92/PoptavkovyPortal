@@ -43,8 +43,9 @@ class InquiringRatingForm extends AbstractType
         $rating = $builder->getData();
 
         $builder
-            ->add("supplier", EntityType::class, [
+            ->add("target", EntityType::class, [
                 "class" => User::class,
+                "label" => "ratings.field_supplier",
                 'required' => false,
                 'placeholder' => "ratings.field_supplier_ph",
                 'help' => "ratings.field_supplier_help",
@@ -55,8 +56,9 @@ class InquiringRatingForm extends AbstractType
                 'required' => false,
                 'data' => 3
             ])
-            ->add("supplierNote", TextareaType::class, [
+            ->add("targetNote", TextareaType::class, [
                 'required' => false,
+                "label" => "ratings.field_supplierNote",
                 'attr' => [
                     "rows" => 5,
                     "placeholder" => "ratings.field_supplierNote_ph",

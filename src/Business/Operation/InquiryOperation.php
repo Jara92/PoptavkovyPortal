@@ -718,15 +718,15 @@ class InquiryOperation
         $rating = $inquiry->getInquiringRating();
 
         // Supplier is set
-        if ($rating->getSupplier()) {
+        if ($rating->getTarget()) {
             // TODO: Do not send the email if the supplier has already rated the inquiry.
             // We want to send an email to the supplier to fill his rating form.
-            $this->sendRatingEmailToSupplier($rating->getInquiry(), $rating->getSupplier());
+            $this->sendRatingEmailToSupplier($rating->getInquiry(), $rating->getTarget());
         } // If supplier is not set
         else {
             // We do not want to store these field because supplier is not set.
             $rating->setRating(null);
-            $rating->setSupplierNote(null);
+            $rating->setTargetNote(null);
         }
 
         // Update the state.
@@ -744,7 +744,14 @@ class InquiryOperation
             throw new LogicException("The request user can not be null!");
         }
 
-        return (new SupplierRating())->setAuthor($request->getUser())->setInquiry($request->getInquiry())->setIsPublished(false);
+        $rating = (new SupplierRating())->setAuthor($request->getUser())->setInquiry($request->getInquiry())->setIsPublished(false);
+
+        // Set inquiry author as a rating target is inquiry has a registered author.
+        if ($request->getInquiry()->getAuthor()) {
+            $rating->setTarget($request->getInquiry()->getAuthor());
+        }
+
+        return $rating;
     }
 
     /**

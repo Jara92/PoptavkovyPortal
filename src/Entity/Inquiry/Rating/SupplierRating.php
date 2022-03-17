@@ -15,10 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=SupplierRatingRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class SupplierRating extends AEntity
+class SupplierRating extends User\Rating
 {
-    use TimeStampTrait;
-
     /**
      * @ORM\ManyToOne(targetEntity=Inquiry::class, inversedBy="supplierRatings")
      * @ORM\JoinColumn(nullable=false)
@@ -26,36 +24,9 @@ class SupplierRating extends AEntity
     private ?Inquiry $inquiry;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private ?User $author = null;
-
-    /**
      * @ORM\Column(type="boolean", options={"default"=false})
      */
     private ?bool $realizedInquiry = null;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Range(min="1", max="5")
-     */
-    private ?int $rating = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $inquiringNote = null;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private ?string $note = null;
-
-    /**
-     * @ORM\Column(type="boolean", options={"default"=false})
-     */
-    private ?bool $isPublished = false;
 
     public function getInquiry(): ?Inquiry
     {
@@ -69,22 +40,6 @@ class SupplierRating extends AEntity
         return $this;
     }
 
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): self
-    {
-        $this->author = $author;
-        return $this;
-    }
-
-    public function getRating(): ?int
-    {
-        return $this->rating;
-    }
-
     public function getRealizedInquiry(): ?bool
     {
         return $this->realizedInquiry;
@@ -93,49 +48,6 @@ class SupplierRating extends AEntity
     public function setRealizedInquiry(?bool $realizedInquiry): self
     {
         $this->realizedInquiry = $realizedInquiry;
-        return $this;
-    }
-
-    public function setRating(?int $rating): self
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    public function getInquiringNote(): ?string
-    {
-        return $this->inquiringNote;
-    }
-
-    public function setInquiringNote(?string $inquiringNote): self
-    {
-        $this->inquiringNote = $inquiringNote;
-
-        return $this;
-    }
-
-    public function getNote(): ?string
-    {
-        return $this->note;
-    }
-
-    public function setNote(?string $note): self
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
-    public function getIsPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
-    public function setIsPublished(?bool $isPublished): self
-    {
-        $this->isPublished = $isPublished;
-
         return $this;
     }
 }

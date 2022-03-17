@@ -39,7 +39,8 @@ class InquiringRatingCrudController extends AbstractCrudController
 
             AssociationField::new("inquiry", "admin.inquiries.field_inquiry"),
 
-            AssociationField::new("supplier", "admin.inquiries.field_supplier"),
+            AssociationField::new("target", "admin.inquiries.field_supplier"),
+            AssociationField::new("author", "admin.inquiries.field_supplier"),
 
             NumberField::new("rating", "admin.ratings.field_rating")
                 ->setRequired(false)
@@ -47,7 +48,7 @@ class InquiringRatingCrudController extends AbstractCrudController
 
             BooleanField::new("isPublished", "admin.ratings.field_is_published"),
 
-            TextareaField::new("supplierNote", "admin.ratings.field_supplierNote")->hideOnIndex(),
+            TextareaField::new("targetNote", "admin.ratings.field_supplierNote")->hideOnIndex(),
 
             TextareaField::new("note", "admin.ratings.field_note")->hideOnIndex(),
         ];

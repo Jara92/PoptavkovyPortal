@@ -7,6 +7,7 @@ use App\Entity\Inquiry\Offer;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Subscription;
 use App\Entity\Traits\TimeStampTrait;
+use App\Entity\User\Rating;
 use App\Enum\Entity\UserRole;
 use App\Enum\Entity\UserType;
 use App\Repository\User\UserRepository;
@@ -124,7 +125,14 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     private ?Notification $notification;
 
     /**
-     * @ORM\OneToMany(targetEntity=InquiringRating::class, mappedBy="supplier")
+     * Ratings created by the user.
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="author")
+     */
+    private Collection $myRatings;
+
+    /**
+     * Ratings targeted to the user.
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="target")
      */
     private Collection $ratings;
 
@@ -133,6 +141,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         $this->inquiries = new ArrayCollection();
         $this->offers = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->myRatings = new ArrayCollection();
     }
 
     public function getPhone(): ?string
@@ -448,29 +457,59 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     }
 
     /**
-     * @return Collection<int, InquiringRating>
+     * @return Collection<int, Rating>
      */
     public function getRatings(): Collection
     {
         return $this->ratings;
     }
 
-    public function addRating(InquiringRating $rating): self
+    public function addRating(Rating $rating): self
     {
         if (!$this->ratings->contains($rating)) {
             $this->ratings[] = $rating;
-            $rating->setSupplier($this);
+            $rating->setTarget($this);
         }
 
         return $this;
     }
 
-    public function removeRating(InquiringRating $rating): self
+    public function removeRating(Rating $rating): self
     {
         if ($this->ratings->removeElement($rating)) {
             // set the owning side to null (unless already changed)
-            if ($rating->getSupplier() === $this) {
-                $rating->setSupplier(null);
+            if ($rating->getTarget() === $this) {
+                $rating->setTarget(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getMyRatings(): Collection
+    {
+        return $this->myRatings;
+    }
+
+    public function addMyRating(Rating $rating): self
+    {
+        if (!$this->myRatings->contains($rating)) {
+            $this->myRatings[] = $rating;
+            $rating->setTarget($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMyRating(Rating $rating): self
+    {
+        if ($this->myRatings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getTarget() === $this) {
+                $rating->setTarget(null);
             }
         }
 
