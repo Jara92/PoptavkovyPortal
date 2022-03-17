@@ -266,87 +266,8 @@
                 </div>
             </section>
 
-            {# Snippet: https://bbbootstrap.com/snippets/rating-and-review-system-user-comment-section-41283119 #}
-            {# @var rating \App\Tools\Rating\ProfileRatingComponent #}
             <section class="rating">
-                <div class="card">
-                    <div class="row justify-content-left d-flex">
-                        <div class="col-md-4 d-flex flex-column">
-                            <div class="ratings text-center p-4 py-5"><span class="badge bg-success">
-                                    {{ rating.avgRating }} <i class="fa fa-star"></i></span>
-                                <span class="d-block about-rating">{{ ("rating.value."~(rating.avgRating|round(0, "floor")))|trans }}</span>
-                                <span class="d-block total-ratings">{{ rating.ratingsCount }} recenzí</span>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="rating-bar0 justify-content-center">
-                                <table class="text-left mx-auto">
-                                    {# Print rating progress bars - the range 1-5 must be reverse because we want positive ratings first #}
-                                    {% for i in range(1, 5)|reverse %}
-                                        <tr>
-                                            <td class="rating-label">{{ ("rating.value."~i)|trans }}</td>
-                                            <td class="rating-bar">
-                                                <div class="bar-container">
-                                                    <div class="bar-5"></div>
-                                                </div>
-                                            </td>
-                                            <td class="text-right">{{ rating.ratingDistinctCounts[i] ?? 0 }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="p-4">
-                            {% if app.user %}
-                                <h3>Ohodnoťte uživatele</h3>
-                                {{ form(form) }}
-                            {% else %}
-                                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
-                                </h3>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        {# @var ratingItem \App\Entity\User\ERating #}
-                        {% for ratingItem in rating.ratings %}
-                            <div class="card p-3">
-                                <div class="row d-flex">
-                                    <div class="d-flex flex-column">
-                                        <h3 class="mt-2 mb-0">
-                                            <img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg" alt=""/>
-                                            {{ ratingItem.author|user_name }}
-                                        </h3>
-                                        <small class="text-muted mt-1">
-                                            Hodnoceno {{ ratingItem.createdAt|date_pretty }}
-                                        </small>
-                                        <div>
-                                            <p class="text-left">
-                                                <span class="text-muted me-2">{{ ratingItem.rating ?? 0 }}</span>
-                                                {% for i in range(1,5) %}
-                                                    {% if i <= ratingItem.rating %}
-                                                        <span class="fa fa-star star-active"></span>
-                                                    {% else %}
-                                                        <span class="fa fa-star star-inactive"></span>
-                                                    {% endif %}
-                                                {% endfor %}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% if ratingItem.targetNote %}
-                                    <div class="row text-left">
-                                        <p class="description">{{ ratingItem.targetNote }}</p>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                {% include "profile/layout/rating.html.twig" with {rating} %}
             </section>
         </div>
     </section>
