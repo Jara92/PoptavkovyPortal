@@ -4,8 +4,7 @@
     <div class="row justify-content-left d-flex">
         <div class="col-md-4 d-flex flex-column">
             <div class="ratings text-center m-auto">
-                <span class="badge fs-6 {% if rating.avgRating >= 4 %}bg-success{% elseif rating.avgRating >= 3 %}bg-primary{% elseif rating.avgRating >= 2 %}bg-warning{% else %}bg-danger"{% endif %}
-                ">
+                <span class="badge fs-6 {% if rating.avgRating >= 4 %}bg-success{% elseif rating.avgRating >= 3 %}bg-primary{% elseif rating.avgRating >= 2 %}bg-warning{% else %}bg-danger{% endif %}">
                 {{ rating.avgRating|round(1) }} <i class="fa fa-star"></i></span>
                 <span class="d-block about-rating">{{ ("rating.value."~(rating.avgRating|round(0, "ceil")))|trans }}</span>
                 <span class="d-block total-ratings">{{ rating.ratingsCount }} recenzí</span>
@@ -16,11 +15,14 @@
                 <table class="text-left mx-auto">
                     {# Print rating progress bars - the range 1-5 must be reverse because we want positive ratings first #}
                     {% for i in range(1, 5)|reverse %}
+                        {% set percent = (rating.ratingDistinctCounts[i] ?? 0) / rating.ratingsCount * 100 %}
                         <tr>
                             <td class="rating-label">{{ ("rating.value."~i)|trans }}</td>
                             <td class="rating-bar">
-                                <div class="bar-container">
-                                    <div class="bar-5"></div>
+                                <div class="progress">
+                                    <div class="progress-bar {% if i >= 5 %}bg-success{% elseif i >= 4 %}bg-info{% elseif i >= 3 %}bg-primary{% elseif i >= 2 %}bg-warning{% else %}bg-danger{% endif %}"
+                                         role="progressbar" style="width: {{ percent }}%" aria-valuenow="{{ percent }}"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </td>
                             <td class="text-right">{{ rating.ratingDistinctCounts[i] ?? 0 }}</td>
