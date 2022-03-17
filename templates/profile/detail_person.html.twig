@@ -274,7 +274,8 @@
                             <div class="ratings text-center p-4 py-5"><span class="badge bg-success">4.1 <i
                                             class="fa fa-star"></i></span> <span
                                         class="d-block about-rating">Výborné</span> <span
-                                        class="d-block total-ratings">183 recenzí</span></div>
+                                        class="d-block total-ratings">{{ profile.user.ratings|length }} recenzí</span>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="rating-bar0 justify-content-center">
@@ -333,66 +334,52 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="p-4">
-                            <h3>Ohodnoťte uživatele</h3>
-                            <label>Hodnotící</label>
-                            <input type="text" class="mb-2">
-                            <textarea class="form-control"></textarea>
+                            {% if app.user %}
+                                <h3>Ohodnoťte uživatele</h3>
+                                <textarea class="form-control"></textarea>
+                            {% else %}
+                                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
+                                </h3>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="card">
-                            <div class="row d-flex">
-                                <div class="d-flex flex-column">
-                                    <h3 class="mt-2 mb-0"><img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg"
-                                                               alt=""/> Vikram jit Singh</h3>
-                                    <small class="text-muted mt-1">
-                                        Hodnoceno {{ "10 Sept" }}
-                                    </small>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted me-2">4.0</span> <span
-                                                    class="fa fa-star star-active ml-3"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-inactive"></span></p>
+                        {# @var rating \App\Entity\User\Rating #}
+                        {% for rating in profile.user.ratings %}
+                            <div class="card p-3">
+                                <div class="row d-flex">
+                                    <div class="d-flex flex-column">
+                                        <h3 class="mt-2 mb-0">
+                                            <img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg" alt=""/>
+                                            {{ rating.author|user_name }}
+                                        </h3>
+                                        <small class="text-muted mt-1">
+                                            Hodnoceno {{ rating.createdAt|date_pretty }}
+                                        </small>
+                                        <div>
+                                            <p class="text-left">
+                                                <span class="text-muted me-2">{{ rating.rating ?? 0 }}</span>
+                                                {% for i in range(1,5) %}
+                                                    {% if i <= rating.rating %}
+                                                        <span class="fa fa-star star-active"></span>
+                                                    {% else %}
+                                                        <span class="fa fa-star star-inactive"></span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row text-left">
-                                <p class="description">If you really enjoy spending your vacation 'on water' or would
-                                    like to try
-                                    something new and exciting for the first time.</p>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="row d-flex">
-                                <div class="d-flex flex-column">
-                                    <h3 class="mt-2 mb-0"><img class="profile-pic" src="https://i.imgur.com/V3ICjlm.jpg"
-                                                               alt=""/> Vikram jit Singh</h3>
-                                    <small class="text-muted mt-1">
-                                        Hodnoceno {{ "10 Sept" }}
-                                    </small>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted me-2">4.0</span> <span
-                                                    class="fa fa-star star-active ml-3"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-active"></span> <span
-                                                    class="fa fa-star star-inactive"></span></p>
+                                {% if rating.targetNote %}
+                                    <div class="row text-left">
+                                        <p class="description">{{ rating.targetNote }}</p>
                                     </div>
-                                </div>
+                                {% endif %}
                             </div>
-                            <div class="row text-left">
-                                <p class="description">If you really enjoy spending your vacation 'on water' or would
-                                    like to try
-                                    something new and exciting for the first time.</p>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-
-            </section> <!-- /container -->
+            </section>
         </div>
     </section>
 {% endblock %}
