@@ -185,8 +185,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $supplier = $this->getSupplier1();
         $now = new DateTime();
 
-        return (new InquiringRating())->setRating(1)->setSupplierNote("Note")->setNote("Note")
-            ->setCreatedAt($now)->setSupplier($supplier);
+        return (new InquiringRating())->setRating(1)->setTargetNote("Note")->setNote("Note")
+            ->setCreatedAt($now)->setTarget($supplier);
     }
 
     /**
@@ -197,8 +197,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     {
         $now = new DateTime();
 
-        return (new InquiringRating())->setRating(1)->setSupplierNote("Note")->setNote("Note")
-            ->setCreatedAt($now)->setSupplier(null);
+        return (new InquiringRating())->setRating(1)->setTargetNote("Note")->setNote("Note")
+            ->setCreatedAt($now)->setTarget(null);
     }
 
 
@@ -317,8 +317,8 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
                     $inquiry1Ref->getInquiringRating()->getRating(),
                     $inquiry->getInquiringRating()->getRating());
                 $this->assertEquals(
-                    $inquiry1Ref->getInquiringRating()->getSupplierNote(),
-                    $inquiry->getInquiringRating()->getSupplierNote());
+                    $inquiry1Ref->getInquiringRating()->getTargetNote(),
+                    $inquiry->getInquiringRating()->getTargetNote());
 
                 return true;
             }));
@@ -352,7 +352,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnCallback(function (Inquiry $inquiry) {
                 // Test that supplier rating field are null
                 $this->assertNull($inquiry->getInquiringRating()->getRating());
-                $this->assertNull($inquiry->getInquiringRating()->getSupplierNote());
+                $this->assertNull($inquiry->getInquiringRating()->getTargetNote());
 
                 return true;
             }));
@@ -476,7 +476,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $supplier = (new User())->setId(1)->setEmail("supplier@sezna.cz")->setType(UserType::COMPANY);
 
         // Build an inquiry with an inquring rating.
-        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier(null);
+        $inquiringRating = (new InquiringRating())->setId(1)->setTarget(null);
 
         $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
             ->setInquiringRating($inquiringRating);
@@ -499,7 +499,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     public function testCreateSupplierRatingNotAuthorized()
     {
         // Build an inquiry with an inquring rating.
-        $inquiringRating = (new InquiringRating())->setId(1)->setSupplier(null);
+        $inquiringRating = (new InquiringRating())->setId(1)->setTarget(null);
 
         $inquiry = $this->getInquiry1()->setContactEmail("inquiring@email.cz")
             ->setInquiringRating($inquiringRating);
