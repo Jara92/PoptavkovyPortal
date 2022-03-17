@@ -10,6 +10,7 @@ use App\Entity\Inquiry\InquiryCategory;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\Profile;
+use App\Entity\User;
 use App\Entity\User\UserRating;
 use App\Enum\Entity\InquiryState;
 use App\Entity\Inquiry\InquiryValue;
@@ -70,6 +71,7 @@ class MainDashboardController extends AbstractDashboardController
             MenuItem::linkToCrud("inquiries.inquiry_values", "fa fa-dollar-sign", InquiryValue::class),
             MenuItem::linkToCrud("inquiries.deadlines", "fa fa-clock", Deadline::class),
             MenuItem::linkToCrud("inquiries.regions", "fa fa-map-marker", Region::class),
+            MenuItem::linkToCrud("user.users", "fa fa-user", User::class),
             MenuItem::linkToCrud("profiles.profiles", "fa fa-address-card", Profile::class),
             //MenuItem::linkToCrud("users.users", "fa fa-user", User::class),
         ];
