@@ -61,6 +61,9 @@ class RegistrationController extends AController
         return $this->register($form, $user, $request, "auth/register_person.html.twig");
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function registerCompany(Request $request): Response
     {
         $user = $this->userFactory->createBlank();
@@ -93,12 +96,13 @@ class RegistrationController extends AController
 
             try {
                 $this->userOperation->register($user, $blankPassword);
-                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_successfully_registred"));
 
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
 
+                $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_successfully_registred"));
                 return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
+
             } catch (IdentificationNumberNotFoundException $e) {
                 $form->get("company")->get("identificationNumber")->addError(new FormError($this->translator->trans("auth.invalid_identification_number")));
             }

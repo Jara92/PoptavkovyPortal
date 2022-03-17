@@ -124,12 +124,12 @@ class InquiryController extends AController
         $this->breadcrumbs->addItem($inquiry->getTitle(), translate: false);
 
         $form = null;
-
-        // Create an offer for this inquiry
-        $offer = $this->inquiryOperation->createOffer($inquiry);
+        $offer = null;
 
         // TODO move this stuff to OfferController
         if ($this->isGranted("react", $inquiry)) {
+            // Create an offer for this inquiry
+            $offer = $this->inquiryOperation->createOffer($inquiry);
             $form = $this->createForm(OfferForm::class, $offer);
 
             $form->handleRequest($request);
