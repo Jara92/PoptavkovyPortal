@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ChangePasswordFormType extends AbstractType
+class ResetPasswordForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {

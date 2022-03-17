@@ -5,7 +5,7 @@ namespace App\Controller\Auth;
 use App\Controller\AController;
 use App\Entity\User;
 use App\Enum\FlashMessageType;
-use App\Form\Auth\ChangePasswordFormType;
+use App\Form\Auth\ResetPasswordForm;
 use App\Form\Auth\ResetPasswordRequestFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -102,7 +102,7 @@ class ResetPasswordController extends AController
         }
 
         // The token is valid; allow the user to change their password.
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(ResetPasswordForm::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
