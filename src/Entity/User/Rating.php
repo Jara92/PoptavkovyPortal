@@ -29,11 +29,6 @@ class Rating extends AEntity
     private ?User $author = null;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private ?string $authorName = null;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ratings")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -75,24 +70,6 @@ class Rating extends AEntity
     public function setAuthor(?User $author): Rating
     {
         $this->author = $author;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAuthorName(): ?string
-    {
-        return $this->authorName;
-    }
-
-    /**
-     * @param null|string $authorName
-     * @return Rating
-     */
-    public function setAuthorName(?string $authorName): Rating
-    {
-        $this->authorName = $authorName;
         return $this;
     }
 
