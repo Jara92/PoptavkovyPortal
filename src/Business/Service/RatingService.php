@@ -21,9 +21,10 @@ class RatingService extends AService
         parent::__construct($ratingRepository);
     }
 
-    public function readAllPublicForTarget(User $user, $ordering = []): array
+    public function readAllPublicForTarget(User $user, $ordering = ["id" => "desc"]): array
     {
-        return $this->repository->findBy(["target" => $user, "isPublished" => true], $ordering);
+        // TODO: add lazyload this and remove hard limit 10
+        return $this->repository->findBy(["target" => $user, "isPublished" => true], $ordering, 10);
     }
 
     public function getAverageRatingForTarget(User $user): float
