@@ -52,6 +52,11 @@ class SupplierRating extends AEntity
      */
     private ?string $note = null;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    private ?bool $isPublished = false;
+
     public function getInquiry(): ?Inquiry
     {
         return $this->inquiry;
@@ -118,6 +123,18 @@ class SupplierRating extends AEntity
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(?bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
 
         return $this;
     }

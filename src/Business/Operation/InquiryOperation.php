@@ -744,7 +744,7 @@ class InquiryOperation
             throw new LogicException("The request user can not be null!");
         }
 
-        return (new SupplierRating())->setAuthor($request->getUser())->setInquiry($request->getInquiry());
+        return (new SupplierRating())->setAuthor($request->getUser())->setInquiry($request->getInquiry())->setIsPublished(false);
     }
 
     /**
@@ -758,7 +758,7 @@ class InquiryOperation
             throw new UnauthorizedHttpException("You are not authorized to do that");
         }
 
-        return (new SupplierRating())->setAuthor($this->security->getUser())->setInquiry($inquiry);
+        return (new SupplierRating())->setAuthor($this->security->getUser())->setInquiry($inquiry)->setIsPublished(false);
     }
 
     /**
