@@ -485,6 +485,7 @@ admin:
     #supplier_desc: "Tato stránka obsahuje všechna hodnocení poptávajících, která vytváří dodavatelé poptávek."
 
     field_rating: "Hodnocení"
+    field_is_published: "Veřejné hodnocení"
     field_supplierNote: "Komentář dodavatele"
     field_note: "Komentář služby"
     field_realized_inquiry: "Relizoval poptávku"

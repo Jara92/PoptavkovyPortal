@@ -47,6 +47,8 @@ class SupplierRatingCrudController extends AbstractCrudController
                 ->setRequired(false)
                 ->setFormTypeOption("attr", ["min" => 1, "max" => 5]),
 
+            BooleanField::new("isPublished", "admin.ratings.field_is_published"),
+
             TextareaField::new("inquiringNote", "admin.ratings.field_inquiringNote")->hideOnIndex(),
 
             TextareaField::new("note", "admin.ratings.field_note")->hideOnIndex(),
