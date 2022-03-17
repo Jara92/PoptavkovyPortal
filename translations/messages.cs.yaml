@@ -106,6 +106,8 @@ auth:
   msg_password_not_changed: "Heslo se nepodařilo změnit"
   msg_old_password_incorrect: "Staré heslo je neplatné"
 
+  invalid_identification_number: "Neplatné IČO"
+
 # Users
 user:
   my_account: "Můj účet"

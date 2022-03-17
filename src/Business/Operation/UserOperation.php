@@ -4,6 +4,7 @@ namespace App\Business\Operation;
 
 use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
+use App\Entity\Company;
 use App\Entity\Inquiry\Subscription;
 use App\Entity\Profile;
 use App\Entity\User;
@@ -16,6 +17,10 @@ use App\Factory\Inquiry\SubscriptionFactory;
 use App\Factory\ProfileFactory;
 use App\Form\User\CompanySettingsForm;
 use App\Form\User\PersonSettingsForm;
+use h4kuna\Ares\Ares;
+use h4kuna\Ares\Data;
+use h4kuna\Ares\Exceptions\IdentificationNumberNotFoundException;
+use h4kuna\DataType\LogicException;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -39,9 +44,14 @@ class UserOperation
      * @param User $user
      * @param string $blankPassword
      * @return bool
+     * @throws IdentificationNumberNotFoundException
      */
     public function register(User $user, string $blankPassword): bool
     {
+        if ($user->isType(UserType::COMPANY)) {
+            $this->checkCompanyData($user->getCompany());
+        }
+
         // Set roles
         $this->addNewUserRoles($user);
 
@@ -56,6 +66,21 @@ class UserOperation
         $user->setSubscription($this->getDefaultSubscription($user));
 
         return $this->userService->create($user);
+    }
+
+    /**
+     * @throws IdentificationNumberNotFoundException Invalid in number.
+     */
+    private function checkCompanyData(Company $company)
+    {
+        $ares = new Ares();
+        $response = $ares->loadData($company->getIdentificationNumber());
+
+        if (!$response->valid()) {
+            throw new LogicException("Ares data not valid.");
+        }
+
+        // TODO: Check other company data
     }
 
     /**

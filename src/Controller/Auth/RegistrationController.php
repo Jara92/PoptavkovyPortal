@@ -12,6 +12,8 @@ use App\Form\Auth\RegisterCompanyForm;
 use App\Form\Auth\RegisterPersonForm;
 use App\Security\EmailVerifier;
 use App\Security\UserSecurity;
+use h4kuna\Ares\Exceptions\IdentificationNumberNotFoundException;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,14 +91,17 @@ class RegistrationController extends AController
             // Get blank password and register the user.
             $blankPassword = $form->get('plainPassword')->getData();
 
-            if ($this->userOperation->register($user, $blankPassword)) {
+            try {
+                $this->userOperation->register($user, $blankPassword);
                 $this->addFlashMessage(FlashMessageType::SUCCESS, $this->translator->trans("auth.msg_successfully_registred"));
 
                 // generate a signed url and email it to the user
                 $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user);
-            }
 
-            return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
+                return $this->redirectToRoute(self::AFTER_REGISTRATION_REDIRECT);
+            } catch (IdentificationNumberNotFoundException $e) {
+                $form->get("company")->get("identificationNumber")->addError(new FormError($this->translator->trans("auth.invalid_identification_number")));
+            }
         }
 
         return $this->render($template, [
