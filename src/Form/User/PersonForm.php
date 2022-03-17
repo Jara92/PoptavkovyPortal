@@ -31,6 +31,7 @@ class PersonForm extends AbstractType
         $builder->add('name', TextType::class, [
             'label' => "inquiries.field_person_name",
             'attr' => [
+                "autocomplete" => "given-name",
                 "placeholder" => "inquiries.field_person_name_ph",
             ],
             'required' => true
@@ -38,6 +39,7 @@ class PersonForm extends AbstractType
             ->add('surname', TextType::class, [
                 'label' => "inquiries.field_person_surname",
                 'attr' => [
+                    "autocomplete" => "family-name",
                     "placeholder" => "inquiries.field_person_surname_ph",
                 ],
                 'required' => true

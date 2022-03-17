@@ -31,6 +31,7 @@ class CompanyForm extends AbstractType
         $builder->add('name', TextType::class, [
             'label' => "user.field_company_name",
             'attr' => [
+                "autocomplete" => "organization",
                 "placeholder" => "user.field_company_name_ph",
             ],
             'required' => true

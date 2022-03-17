@@ -65,6 +65,7 @@ class InquiryForm extends AbstractType
                 'required' => true,
                 'label' => "inquiries.field_title",
                 'attr' => [
+                    'autocomplete' => "off",
                     "placeholder" => "inquiries.field_title_ph",
                 ]
             ])
@@ -165,6 +166,7 @@ class InquiryForm extends AbstractType
             ])->add('name', TextType::class, [
                 'label' => "inquiries.field_person_name",
                 'attr' => [
+                    'autocomplete' => "given-name",
                     "placeholder" => "inquiries.field_person_name_ph",
                 ],
                 'required' => true,
@@ -172,6 +174,7 @@ class InquiryForm extends AbstractType
                 ->add('surname', TextType::class, [
                     'label' => "inquiries.field_person_surname",
                     'attr' => [
+                        'autocomplete' => "family-name",
                         "placeholder" => "inquiries.field_person_surname_ph",
                     ],
                     'required' => true
@@ -184,6 +187,7 @@ class InquiryForm extends AbstractType
                 ->add('companyName', TextType::class, [
                     'label' => "user.field_company_name",
                     'attr' => [
+                        'autocomplete' => "organization",
                         "placeholder" => "user.field_company_name_ph",
                     ],
                     'required' => true
@@ -199,6 +203,7 @@ class InquiryForm extends AbstractType
             ->add("contactEmail", EmailType::class, [
                 'label' => "inquiries.field_email",
                 'attr' => [
+                    'autocomplete' => "email",
                     "placeholder" => "inquiries.field_email_ph",
                 ],
             ])
@@ -206,6 +211,7 @@ class InquiryForm extends AbstractType
                 'required' => false,
                 'label' => "inquiries.field_phone",
                 'attr' => [
+                    'autocomplete' => "tel",
                     "placeholder" => "inquiries.field_phone_ph",
                 ]
             ])
