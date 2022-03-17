@@ -15,7 +15,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=RatingRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({"inquiring" = "App\Entity\Inquiry\Rating\InquiringRating", "supplier" = "App\Entity\Inquiry\Rating\SupplierRating"})
+ * @DiscriminatorMap({
+ *     "inquiring" = "App\Entity\Inquiry\Rating\InquiringRating",
+ *     "supplier" = "App\Entity\Inquiry\Rating\SupplierRating",
+ *     "user" = "App\Entity\User\UserRating"
+ *     })
  * @ORM\HasLifecycleCallbacks
  */
 class Rating extends AEntity
@@ -24,7 +28,7 @@ class Rating extends AEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="myRatings")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private ?User $author = null;
 
@@ -162,6 +166,4 @@ class Rating extends AEntity
         $this->isPublished = $isPublished;
         return $this;
     }
-
-
 }
