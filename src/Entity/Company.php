@@ -16,41 +16,41 @@ class Company extends AEntity
      * @Assert\NotBlank
      * @Assert\Length (max=64)
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="string", length=32)
      * @Assert\NotBlank
      * @Assert\Length (max=32)
      */
-    private ?string $identificationNumber;
+    private ?string $identificationNumber = null;
 
     /**
      * @ORM\Column(type="string", length=32, nullable=true)
      * @Assert\Length (max=32)
      */
-    private ?string $taxIdentificationNumber;
+    private ?string $taxIdentificationNumber = null;
 
     /**
      * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank
      * @Assert\Length (max=64)
      */
-    private ?string $addressStreet;
+    private ?string $addressStreet = null;
 
     /**
      * @ORM\Column(type="string", length=32)
      * @Assert\NotBlank
      * @Assert\Length (max=32)
      */
-    private ?string $addressCity;
+    private ?string $addressCity = null;
 
     /**
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank
      * @Assert\Length (max=16)
      */
-    private ?string $addressZipCode;
+    private ?string $addressZipCode = null;
 
     public function getId(): ?int
     {
