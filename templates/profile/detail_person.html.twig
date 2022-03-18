@@ -18,18 +18,10 @@
                         {% else %}
                             <img src="{{ asset("/build/img/profile/avatar_person.png") }}" alt="profile-img"/>
                         {% endif %}
-
-                        {# Upload avatar link #}
-                        {% if is_granted("edit", profile) %}
-                            <div class="file btn btn-lg btn-primary">
-                                {{ "profiles.btn_change_photo"|trans }}
-                                <input type="file" name="file"/>
-                            </div>
-                        {% endif %}
                     </div>
 
                     {% if is_granted("edit", profile) %}
-                        <div class="text-center">
+                        <div class="text-center mt-3">
                             <a href="{{ path("my-profile/edit-profile") }}"
                                class="btn btn-primary">{{ "profiles.btn_edit_profile"|trans }}</a>
                         </div>
