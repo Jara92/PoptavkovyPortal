@@ -172,6 +172,7 @@ articles:
 
 #Inquiries
 inquiries:
+  inquiry: "Poptávka"
   inquiries: "Poptávky"
   my_inquiries: "Moje poptávky"
   similar_inquiries: "Podobné poptávky"
