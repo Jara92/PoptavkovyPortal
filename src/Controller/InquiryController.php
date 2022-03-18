@@ -291,7 +291,7 @@ class InquiryController extends AController
         $this->finishInquiry($inquiry);
 
         // Create a rating and a form
-        $rating = (new InquiringRating())->setInquiry($inquiry)->setIsPublished(false);
+        $rating = (new InquiringRating())->setInquiry($inquiry)->setAuthor($this->getUser())->setIsPublished(false);
         $form = $this->createForm(InquiringRatingForm::class, $rating);
 
         $form->handleRequest($request);
@@ -331,7 +331,7 @@ class InquiryController extends AController
         $this->finishInquiry($inquiry);
 
         // Create a rating and a form
-        $rating = (new InquiringRating())->setInquiry($inquiry)->setIsPublished(false);
+        $rating = (new InquiringRating())->setInquiry($inquiry)->setAuthor($inquirySignedRequest->getUser())->setIsPublished(false);
         $form = $this->createForm(InquiringRatingForm::class, $rating);
 
         $form->handleRequest($request);
