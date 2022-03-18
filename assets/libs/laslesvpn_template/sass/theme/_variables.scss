@@ -4,6 +4,7 @@
 //
 // Define the maximum width of `.container` for different screen sizes.
 // scss-docs-start container-max-widths
+/*
 $container-max-widths: () !default;
 $container-max-widths: map-merge(
   (
@@ -15,6 +16,7 @@ $container-max-widths: map-merge(
   ),
   $container-max-widths
 );
+ */
 
 $grid-breakpoints: () !default;
 $grid-breakpoints: map-merge(

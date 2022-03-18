@@ -4,178 +4,176 @@
 
 {# @var inquiry \App\Entity\Inquiry\Inquiry #}
 {% block content %}
-    <section class="content">
-        <div class="container-sm col-lg-9">
-            <section class="row cardbox">
-                <div class="inquiry-detail-left col-md-12 col-lg-8">
-                    <h1>{{ inquiry.title }}</h1>
-                    <ul class="row inquiry-smart-tags">
-                        {% for tag in inquiry.smartTags %}
-                            <li>
-                                <span class="col badge bg-primary smart-tag-{{ tag.alias }}">{{ tag.title |trans }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                    <hr/>
-                    <p>{{ inquiry.description|nl2br }}</p>
-
-                    <ul class="nav nav-tabs mb-1" id="inquiry-tab-menu" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="attachments-tab" data-bs-toggle="tab" href="#attachments"
-                               role="tab" aria-controls="attachments"
-                               aria-selected="true">
-                                <span class="fa fa-file-alt me-2"></span>{{ "inquiries.attachments"|trans }}
-                            </a>
+    <section class="container content">
+        <section class="row cardbox">
+            <div class="inquiry-detail-left col-md-12 col-lg-8">
+                <h1>{{ inquiry.title }}</h1>
+                <ul class="row inquiry-smart-tags">
+                    {% for tag in inquiry.smartTags %}
+                        <li>
+                            <span class="col badge bg-primary smart-tag-{{ tag.alias }}">{{ tag.title |trans }}</span>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="categories-tab" data-bs-toggle="tab" href="#categories"
-                               role="tab" aria-controls="categories" aria-selected="false">
-                                <span class="fa fa-folder me-2"></span>{{ "inquiries.categories"|trans }}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tags-tab" data-bs-toggle="tab" href="#tags"
-                               role="tab" aria-controls="tags" aria-selected="false">
-                                <span class="fa fa-tags me-2"></span>{{ "inquiries.tags"|trans }}
-                            </a>
-                        </li>
-                    </ul>
+                    {% endfor %}
+                </ul>
 
-                    <div class="tab-content inquiry-tab p-2" id="inquiry-tab">
-                        <section class="tab-pane fade show active" id="attachments" role="tabpanel"
-                                 aria-labelledby="attachments-tab">
-                            <div class="row inquiry-attachments">
-                                {# Display attachments if user is granted. #}
-                                {% if is_granted("view_attachments", inquiry) %}
-                                    {% if inquiry.attachments|length > 0 %}
-                                        <ul class="atachments">
-                                            {% for attachment in inquiry.attachments %}
-                                                {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
-                                                <li class="item">
-                                                    <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
-                                                       class="btn btn-link btn-download-attachment">
-                                                        <i class="fa fa-paperclip"></i>
-                                                        {{ attachment.title }}
-                                                    </a>
-                                                    <i>[{{ attachment.size|file_size }}]</i>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% else %}
-                                        <p>{{ "inquiries.no_attachments_found"|trans }}</p>
-                                    {% endif %}
+                <hr/>
+                <p>{{ inquiry.description|nl2br }}</p>
+
+                <ul class="nav nav-tabs mb-1" id="inquiry-tab-menu" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="attachments-tab" data-bs-toggle="tab" href="#attachments"
+                           role="tab" aria-controls="attachments"
+                           aria-selected="true">
+                            <span class="fa fa-file-alt me-2"></span>{{ "inquiries.attachments"|trans }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="categories-tab" data-bs-toggle="tab" href="#categories"
+                           role="tab" aria-controls="categories" aria-selected="false">
+                            <span class="fa fa-folder me-2"></span>{{ "inquiries.categories"|trans }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tags-tab" data-bs-toggle="tab" href="#tags"
+                           role="tab" aria-controls="tags" aria-selected="false">
+                            <span class="fa fa-tags me-2"></span>{{ "inquiries.tags"|trans }}
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content inquiry-tab p-2" id="inquiry-tab">
+                    <section class="tab-pane fade show active" id="attachments" role="tabpanel"
+                             aria-labelledby="attachments-tab">
+                        <div class="row inquiry-attachments">
+                            {# Display attachments if user is granted. #}
+                            {% if is_granted("view_attachments", inquiry) %}
+                                {% if inquiry.attachments|length > 0 %}
+                                    <ul class="atachments">
+                                        {% for attachment in inquiry.attachments %}
+                                            {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
+                                            <li class="item">
+                                                <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
+                                                   class="btn btn-link btn-download-attachment">
+                                                    <i class="fa fa-paperclip"></i>
+                                                    {{ attachment.title }}
+                                                </a>
+                                                <i>[{{ attachment.size|file_size }}]</i>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
                                 {% else %}
-                                    {# TODO: Replace by translation with param #}
-                                    <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}"
-                                                                  class="btn-link">přihlaste</a>.
-                                    </p>
+                                    <p>{{ "inquiries.no_attachments_found"|trans }}</p>
                                 {% endif %}
+                            {% else %}
+                                {# TODO: Replace by translation with param #}
+                                <p>Pro zobrazení příloh se <a href="{{ path("app_login") }}"
+                                                              class="btn-link">přihlaste</a>.
+                                </p>
+                            {% endif %}
+                        </div>
+                    </section>
+
+                    <section class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+                        <ul class="row categories-list">
+                            {# @var category \App\Entity\Inquiry\Category #}
+                            {% for category in inquiry.categories %}
+                                {# Display only categories with a parent. #}
+                                {% if category.parent %}
+                                    <li class="col-md-6"><span
+                                                class="fa fa-folder me-2"></span>{{ category.parent.title }}
+                                        | {{ category.title }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </section>
+
+                    <section class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
+
+                    </section>
+                </div>
+
+                {# The author can finish the inquiry #}
+                {% if app.user and app.user == inquiry.author %}
+                    <a class="btn btn-outline-secondary"
+                       href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
+                {% else %}
+                    {# Contact form #}
+                    {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
+                {% endif %}
+
+            </div>
+            <div class="inquiry-detail-right col-md-12 col-lg-4">
+                <ul class="row sidebar-properties">
+                    <li class="col-md-6 col-lg-12">
+                        <div class="title"><span
+                                    class="fas fa-hashtag me-2"></span>{{ "inquiries.label_registration_number"|trans }}
+                        </div>
+                        <div class="value">{{ inquiry.id }}</div>
+                    </li>
+                    <li class="col-md-6 col-lg-12">
+                        <div class="title"><span
+                                    class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
+                        </div>
+                        <div class="value">
+                            {{ inquiry|inquiry_anonymize_author }}
+                        </div>
+                    </li>
+                    <li class="col-md-6 col-lg-12">
+                        <div class="title"><span
+                                    class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
+                        </div>
+                        <div class="value">
+                            {{ inquiry|inquiry_date }}
+                        </div>
+                    </li>
+                    <li class="col-md-6 col-lg-12">
+                        <div class="title"><span
+                                    class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
+                        </div>
+                        <div class="value">
+                            {{ inquiry|inquiry_location }}
+                        </div>
+                    </li>
+                    <li class="col-md-6 col-lg-12">
+                        <div class="title"><span
+                                    class="fas fa-tag me-2"></span>{{ "inquiries.label_type"|trans }}
+                        </div>
+                        <div class="value">{{ ("inquiry_type." ~ inquiry.type.value)|trans }}</div>
+                    </li>
+                    {% if inquiry.deadline or inquiry.deadlineText %}
+                        <li class="col-md-6 col-lg-12">
+                            <div class="title"><span
+                                        class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}
                             </div>
-                        </section>
-
-                        <section class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
-                            <ul class="row categories-list">
-                                {# @var category \App\Entity\Inquiry\Category #}
-                                {% for category in inquiry.categories %}
-                                    {# Display only categories with a parent. #}
-                                    {% if category.parent %}
-                                        <li class="col-md-6"><span
-                                                    class="fa fa-folder me-2"></span>{{ category.parent.title }}
-                                            | {{ category.title }}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </section>
-
-                        <section class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
-
-                        </section>
-                    </div>
-
-                    {# The author can finish the inquiry #}
-                    {% if app.user and app.user == inquiry.author %}
-                        <a class="btn btn-outline-secondary"
-                           href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
-                    {% else %}
-                        {# Contact form #}
-                        {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
+                            <div class="value">{{ inquiry.deadline.title ?? inquiry.deadlineText }}</div>
+                        </li>
                     {% endif %}
 
-                </div>
-                <div class="inquiry-detail-right col-md-12 col-lg-4">
-                    <ul class="row sidebar-properties">
+                    {% if inquiry.value or inquiry.valueText or inquiry.valueNumber %}
                         <li class="col-md-6 col-lg-12">
                             <div class="title"><span
-                                        class="fas fa-hashtag me-2"></span>{{ "inquiries.label_registration_number"|trans }}
-                            </div>
-                            <div class="value">{{ inquiry.id }}</div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-user me-2"></span>{{ "inquiries.label_author"|trans }}
+                                        class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
                             </div>
                             <div class="value">
-                                {{ inquiry|inquiry_anonymize_author }}
+                                {% if inquiry.valueNumber %}
+                                    {{ inquiry.valueNumber|format_currency("CZK", {fraction_digit: 0}) }}
+                                {% else %}
+                                    {{ inquiry.value.title ?? inquiry.valueText }}
+                                {% endif %}
                             </div>
                         </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-calendar-day me-2"></span>{{ "inquiries.label_created"|trans }}
-                            </div>
-                            <div class="value">
-                                {{ inquiry|inquiry_date }}
-                            </div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-map-marker-alt me-2"></span>{{ "inquiries.label_place"|trans }}
-                            </div>
-                            <div class="value">
-                                {{ inquiry|inquiry_location }}
-                            </div>
-                        </li>
-                        <li class="col-md-6 col-lg-12">
-                            <div class="title"><span
-                                        class="fas fa-tag me-2"></span>{{ "inquiries.label_type"|trans }}
-                            </div>
-                            <div class="value">{{ ("inquiry_type." ~ inquiry.type.value)|trans }}</div>
-                        </li>
-                        {% if inquiry.deadline or inquiry.deadlineText %}
-                            <li class="col-md-6 col-lg-12">
-                                <div class="title"><span
-                                            class="fas fa-clock me-2"></span>{{ "inquiries.label_deadline"|trans }}
-                                </div>
-                                <div class="value">{{ inquiry.deadline.title ?? inquiry.deadlineText }}</div>
-                            </li>
-                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+        </section>
+        <p class="pt-2 float-end">{{ "inquiries.number_of_views"|trans }} {{ inquiry.hits }}</p>
 
-                        {% if inquiry.value or inquiry.valueText or inquiry.valueNumber %}
-                            <li class="col-md-6 col-lg-12">
-                                <div class="title"><span
-                                            class="fas fa-dollar-sign me-2"></span>{{ "inquiries.label_expected_value"|trans }}
-                                </div>
-                                <div class="value">
-                                    {% if inquiry.valueNumber %}
-                                        {{ inquiry.valueNumber|format_currency("CZK", {fraction_digit: 0}) }}
-                                    {% else %}
-                                        {{ inquiry.value.title ?? inquiry.valueText }}
-                                    {% endif %}
-                                </div>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
+        {% if similarInquiries|length > 0 %}
+            <section class="similar-inquiries mt-5">
+                <h3>{{ "inquiries.similar_inquiries"|trans }}</h3>
+
+                {% include "inquiry/layouts/slider_list.twig" with {"inquiries":similarInquiries} %}
             </section>
-            <p class="pt-2 float-end">{{ "inquiries.number_of_views"|trans }} {{ inquiry.hits }}</p>
-
-            {% if similarInquiries|length > 0 %}
-                <section class="similar-inquiries mt-5">
-                    <h3>{{ "inquiries.similar_inquiries"|trans }}</h3>
-
-                    {% include "inquiry/layouts/slider_list.twig" with {"inquiries":similarInquiries} %}
-                </section>
-            {% endif %}
-        </div>
+        {% endif %}
     </section>
 {% endblock %}
