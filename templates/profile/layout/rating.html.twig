@@ -35,17 +35,6 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="p-4">
-            {% if app.user %}
-                <h3>Ohodnoťte uživatele</h3>
-                {{ form(form) }}
-            {% else %}
-                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
-                </h3>
-            {% endif %}
-        </div>
-    </div>
     <div class="col-md-8">
         {# @var ratingItem \App\Entity\User\ERating #}
         {% for ratingItem in rating.ratings %}
@@ -84,5 +73,17 @@
                 {% endif %}
             </div>
         {% endfor %}
+    </div>
+
+    <div class="col-md-4">
+        <div class="p-4">
+            {% if app.user %}
+                <h3>Ohodnoťte uživatele</h3>
+                {{ form(form) }}
+            {% else %}
+                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
+                </h3>
+            {% endif %}
+        </div>
     </div>
 </div>
