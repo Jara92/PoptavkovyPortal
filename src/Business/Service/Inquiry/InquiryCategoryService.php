@@ -22,7 +22,7 @@ class InquiryCategoryService extends AService
         parent::__construct($categoryRepository);
     }
 
-    public function readByAlias(string $alias): ?Inquiry
+    public function readByAlias(string $alias): ?InquiryCategory
     {
         return $this->repository->findOneBy(["alias" => $alias]);
     }

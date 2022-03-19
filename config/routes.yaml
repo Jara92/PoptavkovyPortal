@@ -4,6 +4,11 @@ inquiries:
   controller: App\Controller\InquiryController::index
   methods: GET|POST
 
+inquiries-category:
+  path: /poptavky/{categoryAlias}
+  controller: App\Controller\InquiryController::indexCategory
+  methods: GET|POST
+
 my-inquiries:
   path: /moje-poptavky
   controller: App\Controller\InquiryController::myInquiries

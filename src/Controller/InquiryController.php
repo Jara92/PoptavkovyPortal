@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Business\Operation\InquiryOperation;
+use App\Business\Service\Inquiry\InquiryCategoryService;
 use App\Business\Service\Inquiry\InquirySignedRequestService;
 use App\Business\Service\Inquiry\OfferService;
 use App\Controller\Trait\PaginableTrait;
@@ -37,6 +38,7 @@ class InquiryController extends AController
 
     public function __construct(
         private InquiryService              $inquiryService,
+        private InquiryCategoryService      $inquiryCategoryService,
         private OfferService                $offerService,
         private InquirySignedRequestService $inquirySignedRequestService,
         private TranslatorInterface         $translator,
@@ -58,6 +60,20 @@ class InquiryController extends AController
     {
         // Get filter and return list
         $filter = $this->inquiryOperation->getDefaultFilter();
+        return $this->list($request, $filter);
+    }
+
+    public function indexCategory(string $categoryAlias, Request $request): Response
+    {
+        $category = $this->inquiryCategoryService->readByAlias($categoryAlias);
+
+        if (!$category) {
+            throw new NotFoundHttpException("Category not found.");
+        }
+
+        $filter = $this->inquiryOperation->getDefaultFilter();
+        $filter->setCategories([$category]);
+
         return $this->list($request, $filter);
     }
 
@@ -85,6 +101,11 @@ class InquiryController extends AController
      */
     private function list(Request $request, InquiryFilter $filter): Response
     {
+        // Text url parameter
+        if ($request->get("text")) {
+            $filter->setText($request->get("text"));
+        }
+
         // Get pagination
         $pagination = $this->getPaginationComponent($request, $this->getParameter("app.items_per_page"));
 
