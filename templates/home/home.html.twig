@@ -2,39 +2,8 @@
 
 {% block page_name %}main-page{% endblock %}
 
-{% block styles %}
-    <style>
-        .jumbotron {
-            display: flex;
-            align-items: center;
-            height: 600px;
-            /*background-image: url("https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/buildawebsite.jpg"); */
-            background-image: url({{ asset("/build/img/electrician.jpg") }});
-            background-size: cover;
-            background-position: top;
-        }
-
-        .jumbotron h2 {
-            display: inline-block;
-            color: #F06529;
-            font-weight: 700;
-            padding: 10px 35px;
-            border-radius: 5px;
-        }
-
-        .jumbotron h3 {
-            color: #FFFFFF;
-            font-weight: bold;
-        }
-
-        body {
-            padding-top: 3rem;
-        }
-    </style>
-{% endblock %}
-
 {% block content %}
-    <section class="jumbotron bg-primary">
+    <section class="jumbotron">
         <div class="container">
             <div class="card" style="width: 40%;">
                 <h1>Jak začít?</h1>
@@ -55,13 +24,9 @@
     </section>
     <div class="content mt-3">
         <div class="container">
-            <!--<div class="pl-3 row intro-container">
-                <p>Tísíce poptávek ze stovek oborů denně.  </p>
-            </div>-->
-
-            <div class="card mt-2">
-                <h2>{{ "inquiries.inquiry_filtering"|trans }}</h2>
-                <form class="form-inline" action="{{ path("inquiries/new") }}" method="get">
+            <div class="card mt-4">
+                <h2 class="pb-2">{{ "inquiries.inquiry_filtering"|trans }}</h2>
+                <form class="form-inline" action="{{ path("inquiries") }}" method="get">
                     <div class="input-group w-100">
                         <input type="text" class="form-control" placeholder="Co umíte?" name="text" id="text">
                         <div class="input-group-append">
@@ -73,11 +38,12 @@
             </div>
 
             <div class="card mt-4">
-                <h2>{{ "inquiries.category_select"|trans }}</h2>
+                <h2 class="pb-2">{{ "inquiries.category_select"|trans }}</h2>
                 <div class="row">
                     {% for category in categories %}
                         <div class="col-md-4">
-                            <a href="{{ path("inquiries") }}" class="fs-2 mb-2"><span
+                            <a href="{{ path("inquiries-category", {"categoryAlias":category.alias}) }}"
+                               class="fs-2 mb-2 text-black"><span
                                         class="fa fa-folder me-2"></span>{{ category.title }}</a>
                         </div>
                     {% endfor %}

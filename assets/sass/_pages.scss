@@ -1,0 +1,15 @@
+.main-page {
+  margin-top: -2rem;
+
+  .jumbotron {
+    display: flex;
+    align-items: center;
+    height: 600px;
+
+    /*background-image: url("https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/buildawebsite.jpg"); */
+    background-color: #2a6f8e;
+    background-image: url("/assets/images/electrician.jpg");
+    background-size: cover;
+    background-position: top;
+  }
+}
