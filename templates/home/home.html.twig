@@ -2,44 +2,85 @@
 
 {% block page_name %}main-page{% endblock %}
 
-{% block content %}
-    <div class="content">
-        <div class="jumbotron jumbotron-main">
-            <img src="{{ asset("/build/img/intro.png") }}" alt="intro" class="w-100"/>
-        </div>
+{% block styles %}
+    <style>
+        .jumbotron {
+            display: flex;
+            align-items: center;
+            height: 600px;
+            /*background-image: url("https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/buildawebsite.jpg"); */
+            background-image: url({{ asset("/build/img/electrician.jpg") }});
+            background-size: cover;
+            background-position: top;
+        }
 
-        <div class="container mt-5">
+        .jumbotron h2 {
+            display: inline-block;
+            color: #F06529;
+            font-weight: 700;
+            padding: 10px 35px;
+            border-radius: 5px;
+        }
+
+        .jumbotron h3 {
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        body {
+            padding-top: 3rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="jumbotron bg-primary">
+        <div class="container">
+            <div class="card" style="width: 40%;">
+                <h1>Jak začít?</h1>
+                <p class="description">Jsme moderní poptávkový portál, který Vám umožňuje oslovit až
+                    <strong>tisíce</strong> dodavatelů z celé ČR ať už sháníte cokoliv. Zadání poptávky trvá pár minut a
+                    nic Vás to nestojí! :)</p>
+                <form class="form-inline" action="{{ path("inquiries/new") }}" method="get">
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control" placeholder="Co sháníte?" name="text" id="text">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-outline-secondary" type="submit">
+                                {{ "inquiries.btn_inquire"|trans }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="content mt-3">
+        <div class="container">
             <!--<div class="pl-3 row intro-container">
                 <p>Tísíce poptávek ze stovek oborů denně.  </p>
             </div>-->
 
-            <div class="row search-container">
-                <div class="col-md-4">
-                    <h2 style="padding-top: .5rem;">{{ "inquiries.input_key_word_search_label"|trans }}</h2>
-                </div>
-                <div class="col-md-8">
-                    <form class="form-inline" action="{{ path("inquiries/new") }}" method="get">
-                        <div class="input-group mr-2 w-100">
-                            <input type="text" class="form-control"
-                                   placeholder="{{ "inquiries.input_key_word_search_ph"|trans }}"
-                                   name="text" id="text">
-                            <!-- <inquiry-tag-autocomplete id="text"
-                                                       items-source=""></inquiry-tag-autocomplete>-->
-                            <div class="input-group-append">
-                                <button class="btn btn-primary btn-outline-secondary" type="submit">
-                                    {{ "inquiries.btn_inquire"|trans }}</button>
-                            </div>
+            <div class="card mt-2">
+                <h2>{{ "inquiries.inquiry_filtering"|trans }}</h2>
+                <form class="form-inline" action="{{ path("inquiries/new") }}" method="get">
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control" placeholder="Co umíte?" name="text" id="text">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-outline-secondary" type="submit">
+                                {{ "inquiries.btn_search"|trans }}</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="row categories-container">
-                <div class="col-4">
-                    <!--<h2>{{ "inquiries.category_select"|trans }}</h2>-->
-                </div>
-                <div class="col-8">
-
+            <div class="card mt-4">
+                <h2>{{ "inquiries.category_select"|trans }}</h2>
+                <div class="row">
+                    {% for category in categories %}
+                        <div class="col-md-4">
+                            <a href="{{ path("inquiries") }}" class="fs-2 mb-2"><span
+                                        class="fa fa-folder me-2"></span>{{ category.title }}</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

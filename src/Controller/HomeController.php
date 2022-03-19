@@ -2,14 +2,23 @@
 
 namespace App\Controller;
 
+use App\Business\Service\Inquiry\InquiryCategoryService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {
+    public function __construct(
+        private InquiryCategoryService $inquiryCategoryService,
+    )
+    {
+    }
+
     public function home(): Response
     {
-        return $this->render("home/home.html.twig");
+        $categories = $this->inquiryCategoryService->readAllRootCategories();
+
+        return $this->render("home/home.html.twig", compact("categories"));
     }
 
     public function inquiring(): Response

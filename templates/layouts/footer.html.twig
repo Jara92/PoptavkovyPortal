@@ -4,15 +4,16 @@
             {# First column #}
             <div class="col-12 col-lg-4 mb-3">
                 <a href="{{ path("home") }}">
-                    <img class="d-inline-block align-middle" src="build/libs/laslesvpn_template/img/icons/logo.png"
-                         alt="" width="30"/>
-                    <span class="d-inline-block text-1000 fs-1 ms-2 fw-medium lh-base"><span
+                    {# <img class="d-inline-block align-middle" src="build/libs/laslesvpn_template/img/icons/logo.png"
+                         alt="" width="30"/> #}
+                    <span class="d-inline-block text-1000 fs-1 ms-0 fw-medium lh-base"><span
                                 class="fw-bold">{{ "app.name"|trans }}</span></span>
                 </a>
 
                 <p class="my-3"><span class="fw-medium"></span>{{ "footer.project_description"|trans }}</p>
 
                 {# Social networks #}
+                {#
                 <ul class="list-unstyled list-inline">
                     <li class="list-inline-item"><a class="text-decoration-none" href="#!">
                             <svg class="bi bi-facebook" xmlns="http://www.w3.org/2000/svg" width="16"
@@ -35,6 +36,7 @@
                             </svg>
                         </a></li>
                 </ul>
+                #}
 
                 <p class="text-400 my-3">&copy; 2022 {{ "app.name"|trans }}</p>
             </div>
@@ -73,11 +75,11 @@
             </div>
 
             {# Fourth column #}
-            <div class="col-12 col-sm-4 col-lg-2 mb-3 ps-xxl-7 ps-xl-5">
+            <div class="col-12 col-sm-4 col-lg-2 mb-3 ps-xxl-3 ps-xl-2">
                 <h5 class="lh-lg text-uppercase fw-bold">{{ "footer.contact"|trans }}</h5>
                 <ul class="list-unstyled mb-md-4 mb-lg-0">
-                    <li class="lh-lg">{{ "app.contact_name"|trans }}</li>
-                    <li class="lh-lg">{{ "app.email"|trans }}</li>
+                    <li class="lh-lg"><span class="fa fa-user me-2"></span> {{ "app.contact_name"|trans }}</li>
+                    <li class="lh-lg"><span class="fa fa-envelope me-2"></span>{{ "app.email"|trans }}</li>
                 </ul>
             </div>
 

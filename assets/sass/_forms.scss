@@ -32,6 +32,10 @@
   font-size: 90%;
 }
 
+.form-control:focus, input.select2-search__field:focus {
+  box-shadow: none;
+}
+
 /* Required mark after labels */
 label.required:after {
   content: "*";
