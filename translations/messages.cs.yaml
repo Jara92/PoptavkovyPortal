@@ -132,6 +132,14 @@ user:
 
 #Articles
 articles:
+  cookies:
+    what_are_cookies: "Co jsou soubory cookies?"
+    what_are_cookies_desc: "Cookies jsou krátké textové soubory vytvářené webovým serverem a ukládané v počítači prostřednictvím prohlížeče.
+    Když se později vrátíte na stejný web, prohlížeč pošle uloženou cookie zpět a server tak získá všechny informace, které si u vás předtím uložil. "
+    usage: "Využití cookies"
+    usage_desc:
+      1: "Princip cookies umožňuje odlišit jednotlivé uživatele a uložit si o něm konkrétní údaje. Např. právě díky cookie ví příslušný server,
+      jaké nastavení jazyka jste si při minulé návštěvě vybrali či jaké vám má předvyplnit přihlašovací jméno do formuláře (pamatuje si ho z minulé návštěvy). Cookies tedy usnadňují personalizaci."
   how_it_works: "Jak to funguje?"
   about_title: "O nás"
   about: "je online systém pro snadné a bezplatné zveřejňování zakázek a získávání obchodních kontaktů.\n Naším cílem je každé poptávce najít svého dodavatele a oběma tím ušetřit čas i peníze. :)"
