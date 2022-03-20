@@ -180,6 +180,38 @@
         {% endblock %}
     </main>
 
+    <!-- COOKIE LIŠTA START -->
+    {# https://www.cookie-lista.cz #}
+    <script type="text/javascript" src="https://www.cookie-lista.cz/BeeCookie/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://www.cookie-lista.cz/BeeCookie/BeeCookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                theme: "white",
+                position: "bottom",
+                distance: 20,
+                borderRadius: 4,
+                background: "#ffffff",
+                backgroundOpacity: "0.9",
+                fontSize: 14,
+                text: "{{ "cookies.text"|trans }}",
+                html: false,
+                textColor: "#333333",
+                showButton: true,
+                buttonText: "{{ "cookies.agree"|trans }}",
+                buttonColor: "#ffffff",
+                buttonBgColor: "#2f2fa2",
+                moreButtonText: "{{ "cookies.more"|trans }}",
+                moreButtonColor: "#2f2fa2",
+                moreButtonLink: "{{ path("cookies") }}",
+                showCloseButton: false,
+                cookieDays: 365
+            }
+            $("body").BeeCookie(options);
+        });
+    </script>
+    <!-- COOKIE LIŠTA KONEC -->
+
     {% include "layouts/footer.html.twig" %}
 </div>
 </body>

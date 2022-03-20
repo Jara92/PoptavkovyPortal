@@ -77,13 +77,18 @@ suppliers:
     methods: GET
 
 how-it-works:
-    path: /jak-to-funguje
-    controller: App\Controller\HomeController::howItWorks
-    methods: GET
+  path: /jak-to-funguje
+  controller: App\Controller\HomeController::howItWorks
+  methods: GET
 
 terms-and-conditions:
   path: /obchodni-podminky
   controller: App\Controller\HomeController::termsAndConditions
+  methods: GET
+
+cookies:
+  path: /cookies
+  controller: App\Controller\HomeController::cookiesAction
   methods: GET
 
 # User

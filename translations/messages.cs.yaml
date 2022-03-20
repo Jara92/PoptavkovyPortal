@@ -561,6 +561,12 @@ rating:
     4: "Dobré"
     5: "Výborné"
 
+cookies:
+  cookies: "Cookies"
+  agree: "Souhlasím!"
+  text: "Tyto webové stránky používají k poskytování svých služeb soubory Cookies. Používáním těchto webových stránek souhlasíte s použitím souborů Cookies."
+  more: "Více informací o Cookies"
+
 btn_save: "Uložit"
 btn_close: "Zavřít"
 btn_contact_support: "Kontaktovat podporu"

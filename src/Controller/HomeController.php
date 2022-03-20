@@ -45,6 +45,13 @@ class HomeController extends AbstractController
         return $this->render("home/suppliers.html.twig");
     }
 
+    public function cookiesAction(): Response
+    {
+        $this->breadcrumbs->addItem("cookies.cookies", $this->router->generate("cookies"));
+
+        return $this->render("home/cookies.html.twig");
+    }
+
     public function howItWorks(): Response
     {
         return $this->render("home/how-it-works.html.twig");
