@@ -4,51 +4,55 @@
 
 {% block content %}
     <section class="content">
-        <div class="container">
-            <div class="header">
-                <div class="pl-3 row intro-container justify-content-center">
-                    <h1 class="title text-center">{{ "articles.for_suppliers"|trans }}</h1>
+        <div class="container fs-1">
+            <div class="col-lg-10">
+                <div class="header">
+                    <h1 class="title">{{ "articles.for_suppliers"|trans }}</h1>
+                    <p class="description">{{ "articles.for_suppliers_description"|trans }}</p>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-12 col-lg-6">
-                        <p class="description">{{ "articles.for_suppliers_description"|trans }}</p>
-                    </div>
+
+                <h2 class="title">{{ "articles.for_suppliers_advantages"|trans }}</h2>
+                <p class="description">{{ "articles.for_suppliers_advantages_description"|trans |raw }}</p>
+
+                <div class="mt-4">
+                    <h2 class="title">{{ "articles.how_it_works"|trans }}</h2>
+                    <ul style="list-style-type: none">
+                        <li><span class="fa fa-id-card me-2"></span><strong>Registrace: </strong>Pro získání přístupu k
+                            poptávkám
+                            se nejpve musíte <a href="{{ path("app_register_company") }}">zaregistrovat jako firma</a>.
+                        </li>
+                        <li><span class="fa fa-tools me-2"></span><strong>Nastavení: </strong>Pomocí
+                            <a href="{{ path("my-profile/edit-inquiry-subscriptions") }}">nastavení odběru</a> si sami
+                            na míru nastavíte
+                            poptávky, které máte zájem odebírat. Nastavení je plně ve Vaší režii a můžete si vybrat ze
+                            stovek kategorií.
+                        </li>
+                        <li><span class="fa fa-hand-holding-usd me-2"></span><strong>Realizace poptávek: </strong> Na
+                            všechny poptávky můžete bezplatně
+                            zaslat svou nabídku a <strong>zdarma</strong> ji realizovat. Neplatíte žádné poplatky ani
+                            provize.
+                        </li>
+                        <li><span class="fa fa-check me-2"></span><strong>Dokončení: </strong>Na Vašich názorech nám
+                            záleží,
+                            proto Vám po nějaké době zašleme dotazník s možností ohodnotit zákazníka a průběh poptávky.
+                        </li>
+                    </ul>
+                </div>
+
+                <h2 class="title">{{ "articles.how_to_register"|trans }}</h2>
+                <p class="description">
+                    {{ "articles.how_to_register_desc.1"|trans |raw }}
+                    <a href="{{ path("app_register_company") }}">{{ "articles.how_to_register_desc.2"|trans |raw }}</a>{{ "articles.how_to_register_desc.3"|trans |raw }}
+                </p>
+
+                <h2 class="title">{{ "articles.for_suppliers_cost"|trans }}</h2>
+                <p class="description">{{ "articles.for_suppliers_cost_description"|trans |raw }}</p>
+
+                <div class="justify-content-center buttons mt-5">
+                    <a href="{{ path("app_register") }}"
+                       class="btn btn-primary btn-center register p-3 fs-2">{{ "articles.button_register"|trans }}</a>
                 </div>
             </div>
-
-            <div class="mt-4 advantages">
-                <div class="row justify-content-center">
-                    <h2 class="title">{{ "articles.for_suppliers_advantages"|trans }}</h2>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-12 col-lg-8">
-                        <p class="description">{{ "articles.for_suppliers_advantages_description"|trans |raw }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-4 cost">
-                <div class="row justify-content-center">
-                    <h2 class="title">{{ "articles.for_suppliers_cost"|trans }}</h2>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-12 col-lg-8">
-                        <p class="description">{{ "articles.for_suppliers_cost_description"|trans |raw }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-4 justify-content-center buttons">
-                <a href="{{ path("app_register") }}"
-                   class="btn btn-primary register">{{ "articles.button_register"|trans }}</a>
-            </div>
-
-            <!--<div class="mt-4">
-                <div class="row justify-content-center">
-                    <h2>{{ "articles.for_suppliers_links"|trans }}</h2>
-                </div>
-            </div>-->
         </div>
-
     </section>
 {% endblock %}

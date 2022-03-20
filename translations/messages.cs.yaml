@@ -158,7 +158,7 @@ articles:
   inquiring: "Pro poptávající"
   inquiring_description: "<ul><li>Vytvoření poptávky zdarma</li>\n<li>Technická podpora při vytváření poptávky</li>\n<li>Správa poptávek pro registrované zákazníky</li>\n<li>Přednostní odbavení poptávek registrovaných zákazníků</li>\n<li>Hodnocení dodavatelů</li></ul>"
   for_suppliers: "Pro dodavatele"
-  for_suppliers_description: "Podnikáte / jste firma a sháníte nové zakázky? Sháníte nové obchodní kontakty a zákazníky?\n    Jste tu správně."
+  for_suppliers_description: "Podnikáte/jste firma a sháníte nové zakázky? Sháníte nové obchodní kontakty a zákazníky? Jste tu správně."
   for_inquiring_advantages: "Jaké mi to přinese výhody?"
   for_inquiring_advantages_description: "Vaše poptávka bude zveřejněná na celostátním poptávácím systému, který Vám umožňuje nejen jednoduše poptávky přidávat, ale také je efektivně spravovat a řídit. Vaše poptávka bude zaslána až tisícům našich registrovaných dodavatelů z celé ČR."
   for_inquiring_register: "Musím se registrovat?"
@@ -166,9 +166,15 @@ articles:
   suppliers: "Pro dodavatele"
   suppliers_description: "<ul><li>Žádné poplatky za registraci</li>\n                                    <li>Neomezené prohlížení poptávek</li>\n                                    <li>Bezplatné kontaktování zákazníků</li>\n                                    <li>Zakázky z Vámi vybraných oborů a kategorií denně na email</li>\n                                    <li>Hodnocení zákazníků</li></ul>"
   for_suppliers_advantages: "Jaké mi to přinese výhody?"
-  for_suppliers_advantages_description: "Stanete se součástí celorepublikového poptávkového systému, který Vám umožňuje\n    efektivně shánět nové zakázky a zákazníky. Denně budete dostávat na Váš email poptávky ze zvolených oborů, kategorií a regionů,\n     na které můžete reagovat. Líbí?"
+  how_to_register: "Jak se zaregistrovat?"
+  how_to_register_desc:
+    1: "Pro vytvoření dodavatelského účtu se musíte zaregistrovat jako podnikatel/firma prostřednictvím formuláře "
+    2: "registrace"
+    3: ". Firemní údaje jsou automaticky ověřeny a pokud je vše v pořádku, Váš účet bude ihned vytvořen. Po potvrzení aktivačního emailu můžete Vás účet začít využívat."
+  for_suppliers_advantages_description: "Stanete se součástí celostátního poptávkového portálu, který Vám umožňuje efektivně shánět nové zakázky a zákazníky. Denně budete dostávat na Váš email poptávky z Vámi vybraných oborů, kategorií a krajů. Na poptávky, které Vás budou zajímat, můžete odesílat své nabídky a poptávku <strong>bezplatně</strong> realizovat."
   for_suppliers_cost: "Kolik mě to bude stát?"
-  for_suppliers_cost_description: "Jako poptávajícího Vás naše služby nebudou stát <strong>vůbec nic</strong>, pouze trochu času\nna vyplnění krátkého formuláře pro vytvoření poptávky. Ale nebojte, je to jednoduché! :)"
+  for_suppliers_cost_description: "Registrace nového dodavatele a základní používání portálu je <strong>zdarma</strong> včetně možnosti reagovat a realizovat poptávky.
+  Pokud máte zájem o používání pokročilejších funkcí našeho systému, můžete si prohlédnout naše placená členství."
   for_suppliers_links: "Odkazy"
 
 #Inquiries
