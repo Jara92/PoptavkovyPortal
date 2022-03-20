@@ -54,6 +54,7 @@ class HomeController extends AbstractController
 
     public function howItWorks(): Response
     {
+        $this->breadcrumbs->addItem("articles.how_it_works", $this->router->generate("how-it-works"));
         return $this->render("home/how-it-works.html.twig");
     }
 
