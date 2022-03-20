@@ -17,7 +17,6 @@ class HomeController extends AbstractController
     )
     {
         $this->breadcrumbs->addItem("mainnav.home", $this->router->generate("home"));
-        $this->breadcrumbs->addItem("articles.how_it_works", $this->router->generate("how-it-works"));
     }
 
     public function home(): Response
@@ -32,6 +31,7 @@ class HomeController extends AbstractController
 
     public function inquiring(): Response
     {
+        $this->breadcrumbs->addItem("articles.how_it_works", $this->router->generate("how-it-works"));
         $this->breadcrumbs->addItem("articles.for_inquiring", $this->router->generate("inquiring"));
 
         return $this->render("home/inquiring.html.twig");
@@ -39,6 +39,7 @@ class HomeController extends AbstractController
 
     public function supplier(): Response
     {
+        $this->breadcrumbs->addItem("articles.how_it_works", $this->router->generate("how-it-works"));
         $this->breadcrumbs->addItem("articles.suppliers", $this->router->generate("suppliers"));
 
         return $this->render("home/suppliers.html.twig");
