@@ -13,6 +13,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.navbar-light .navbar-nav .nav-link {
+  color: black;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+  font-weight: bold;
+}
+
 /* Breadcrumbs */
 .breadcrumb {
   padding: 1rem;
