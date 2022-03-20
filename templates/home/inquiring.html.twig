@@ -5,84 +5,91 @@
 {% block content %}
     <section class="content fs-1">
         <div class="container">
-            <div class="header">
-                <h1 class="title">{{ "articles.for_inquiring"|trans }}</h1>
-                <p class="col-lg-10 description">{{ "articles.for_inquiring_description"|trans|raw }}</p>
-            </div>
+            <div class="col-lg-10">
+                <div class="header">
+                    <h1 class="title">{{ "articles.for_inquiring"|trans }}</h1>
+                    <p class="description">{{ "articles.for_inquiring_description"|trans|raw }}</p>
+                </div>
 
-            <div class="mt-4 advantages">
-                <h2 class="title">{{ "articles.for_inquiring_advantages"|trans }}</h2>
-                <p class="col-lg-10 description">{{ "articles.for_inquiring_advantages_description" |trans|raw("<strong>") }}</p>
-            </div>
+                <div class="mt-4 advantages">
+                    <h2 class="title">{{ "articles.for_inquiring_advantages"|trans }}</h2>
+                    <p class="description">{{ "articles.for_inquiring_advantages_description" |trans|raw("<strong>") }}</p>
+                </div>
 
-            <div class="col-lg-10 mt-4">
-                <h2 class="title">Jak to funguje?</h2>
-                <ul style="list-style-type: none">
-                    <li><span class="fa fa-newspaper me-2"></span><strong>Zadání poptávky:</strong> Vyplněním formuláře
-                        <a href="{{ path("inquiries/new") }}">zadání poptávky</a> dojde k vytvoření poptávky,
-                        kterou zkontrolujeme a zpracujeme. V případě nejasností se Vám můžeme ozvat pro získání
-                        upřesňujících informací.
-                    </li>
-                    <li><span class="fa fa-paper-plane me-2"></span><strong>Zveřejnění: </strong>Hned po schválení je
-                        poptávka zveřejněna a rozeslána všem releventním dodavatelům, kteří Vám prostřednictvím
-                        našeho systému mohou zasílat nabídky.
-                    </li>
-                    <li><span class="fa fa-envelope me-2"></span><strong>Výběr z nabídek: </strong>Z přijatých nabídek
-                        si vyberetu tu, která Vám vyhovuje nejvíc a s vybraných dodavatelem řešíte podrobnosti relizace.
-                    </li>
-                    <li><span class="fa fa-check me-2"></span><strong>Dokončení: </strong>Na Vašich názorech nám záleží,
-                        proto po výběru dodavatele a realizaci poptávky máte možnost ohodnotit služby Vašeho dodavatele.
-                    </li>
-                </ul>
-            </div>
-            <h2 class="title">{{ "articles.for_inquiring_register"|trans }}</h2>
-            <p class="col-lg-10 description">{{ "articles.for_inquiring_register_description"|trans|raw("<strong>") }}</p>
+                <div class="mt-4">
+                    <h2 class="title">{{ "articles.how_it_works"|trans }}</h2>
+                    <ul style="list-style-type: none">
+                        <li><span class="fa fa-newspaper me-2"></span><strong>Zadání poptávky:</strong> Vyplněním
+                            formuláře
+                            <a href="{{ path("inquiries/new") }}">zadání poptávky</a> dojde k vytvoření poptávky,
+                            kterou zkontrolujeme a zpracujeme. V případě nejasností se Vám můžeme ozvat pro získání
+                            upřesňujících informací.
+                        </li>
+                        <li><span class="fa fa-paper-plane me-2"></span><strong>Zveřejnění: </strong>Hned po schválení
+                            je
+                            poptávka zveřejněna a rozeslána všem releventním dodavatelům, kteří Vám prostřednictvím
+                            našeho systému mohou zasílat nabídky.
+                        </li>
+                        <li><span class="fa fa-envelope me-2"></span><strong>Výběr z nabídek: </strong>Z přijatých
+                            nabídek
+                            si vyberetu tu, která Vám vyhovuje nejvíc a s vybraných dodavatelem řešíte podrobnosti
+                            relizace.
+                        </li>
+                        <li><span class="fa fa-check me-2"></span><strong>Dokončení: </strong>Na Vašich názorech nám
+                            záleží,
+                            proto po výběru dodavatele a realizaci poptávky máte možnost ohodnotit služby Vašeho
+                            dodavatele.
+                        </li>
+                    </ul>
+                </div>
+                <h2 class="title">{{ "articles.for_inquiring_register"|trans }}</h2>
+                <p class="description">{{ "articles.for_inquiring_register_description"|trans|raw("<strong>") }}</p>
 
-            <h2 class="title">{{ "articles.for_suppliers_cost"|trans }}</h2>
-            <p class="col-lg-10 description">{{ "articles.for_suppliers_cost_description"|trans|raw("<strong>") }}</p>
+                <h2 class="title">{{ "articles.for_suppliers_cost"|trans }}</h2>
+                <p class="description">{{ "articles.for_suppliers_cost_description"|trans|raw("<strong>") }}</p>
 
-            <h2 class="title">Jak můžu začít?</h2>
-            <div class="row show-more mt-4">
-                <div class="col-lg-6 mb-4">
-                    <div class="card card-shadow">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ "auth.registration"|trans }}</h3>
-                            <div class="card-text">
-                                <ul>
-                                    <li>Registrace je zdarma</li>
-                                    <li>Poptávky registrovaných uživatelů vyřizujeme přednostně</li>
-                                    <li>Správa poptávek - mějte své poptávky pod kontrolou</li>
-                                    <li>Přístup k hodnocení a recenzím dodavatelů</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <a href="{{ path("app_register_person") }}"
-                                   class="btn btn-primary float-start ms-2">{{ "articles.button_register"|trans }}</a>
+                <h2 class="title">Jak můžu začít?</h2>
+                <div class="row show-more mt-4">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card card-shadow">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ "auth.registration"|trans }}</h3>
+                                <div class="card-text">
+                                    <ul>
+                                        <li>Registrace je zdarma</li>
+                                        <li>Poptávky registrovaných uživatelů vyřizujeme přednostně</li>
+                                        <li>Správa poptávek - mějte své poptávky pod kontrolou</li>
+                                        <li>Přístup k hodnocení a recenzím dodavatelů</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <a href="{{ path("app_register_person") }}"
+                                       class="btn btn-primary float-start ms-2">{{ "articles.button_register"|trans }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card card-shadow">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ "inquiries.new_inquiry"|trans }}</h3>
-                            <div class="card-text">
-                                <ul>
-                                    <li>Žádné poplatky za zadání poptávky</li>
-                                    <li>Zadání poptávky je nezávazné</li>
-                                    <li>Zadání poptáky je jednoduché a zvládnete ho do 3 minut</li>
-                                    <li>Nové nabídky denně na Váš email</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <a href="{{ path("inquiries/new") }}"
-                                   class="btn btn-primary float-start">{{ "articles.button_add_inquiry"|trans }}</a>
+                    <div class="col-lg-6">
+                        <div class="card card-shadow">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ "inquiries.new_inquiry"|trans }}</h3>
+                                <div class="card-text">
+                                    <ul>
+                                        <li>Žádné poplatky za zadání poptávky</li>
+                                        <li>Zadání poptávky je nezávazné</li>
+                                        <li>Zadání poptáky je jednoduché a zvládnete ho do 3 minut</li>
+                                        <li>Nové nabídky denně na Váš email</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <a href="{{ path("inquiries/new") }}"
+                                       class="btn btn-primary float-start">{{ "articles.button_add_inquiry"|trans }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
 {% endblock %}
