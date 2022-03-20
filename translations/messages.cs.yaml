@@ -133,7 +133,8 @@ user:
 #Articles
 articles:
   how_it_works: "Jak to funguje?"
-  about: "je online systém pro jednoduché a bezplatné zveřejňování zakázek a získávání obchodních kontaktů.\n    Naším cílem je každé poptávce najít svého dodavatele a oběma tím pomoct ušetřit peněženku. :)"
+  about_title: "O nás"
+  about: "je online systém pro snadné a bezplatné zveřejňování zakázek a získávání obchodních kontaktů.\n Naším cílem je každé poptávce najít svého dodavatele a oběma tím ušetřit čas i peníze. :)"
   slogan: "4P - Potřeba, Poptávka, Zveřejnění, Nabídka, Provedení a Hodnocení."
   board_need_title: "Potřeba"
   board_need_description: "Zákazník potřebuje nějakou službu, např. opravu automobilu, demolici budovy nebo doučování."
@@ -155,7 +156,7 @@ articles:
   for_inquiring: "Pro poptávající"
   for_inquiring_description: "Potřebujete poptat nějakou službu nebo třeba zakopit auto? Jste tu správně."
   inquiring: "Poptávající"
-  inquiring_description: "<ul><li>Vytvoření poptávky zdarma</li>\n                                        <li>Technická podpora při vytváření poptávky</li>\n                                        <li>Správa poptávek pro registrované zákazníky</li>\n                                        <li>Přednostní odbavení poptávek registrovaných zákazníků</li>\n                                        <li>Hodnocení dodavatelů</li></ul>"
+  inquiring_description: "<ul><li>Vytvoření poptávky zdarma</li>\n<li>Technická podpora při vytváření poptávky</li>\n<li>Správa poptávek pro registrované zákazníky</li>\n<li>Přednostní odbavení poptávek registrovaných zákazníků</li>\n<li>Hodnocení dodavatelů</li></ul>"
   for_suppliers: "Pro dodavatele"
   for_suppliers_description: "Podnikáte / jste firma a sháníte nové zakázky? Sháníte nové obchodní kontakty a zákazníky?\n    Jste tu správně."
   for_inquiring_advantages: "Jaké mi to přinese výhody?"

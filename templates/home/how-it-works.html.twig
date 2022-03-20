@@ -3,79 +3,39 @@
 {% block page_name %}home-how-it-works{% endblock %}
 
 {% block content %}
-    <section class="content">
-        <div class="container">
-            <div class="header">
-                <div class="pl-3 row intro-container justify-content-center">
-                    <h1 class="title text-center">{{ "articles.how_it_works"|trans }}</h1>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-12 col-lg-6">
-                    <p class="description">{{ "app.name"|trans }} {{ "articles.about"|trans }}</p>
-                </div>
-            </div>
+    <section class="content container fs-1">
+        <div class="header">
+            <h1 class="title">{{ "articles.about_title"|trans }}</h1>
+            <p class="description col-lg-10">{{ "app.name"|trans }} {{ "articles.about"|trans }}</p>
         </div>
-        <div class="row board">
-            <div class="col-md-6 col-lg-4 board-item need">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_need_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_need_description"|trans }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 board-item inquiry">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_inquiry_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_inquiry_description"|trans }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 board-item publish">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_publish_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_publish_description"|trans }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 board-item offer">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_offer_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_offer_description"|trans }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 board-item execution">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_execution_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_execution_description"|trans }}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 board-item rating">
-                <div class="content">
-                    <h3 class="title">
-                        {{ "articles.board_rating_title"|trans }}
-                    </h3>
-                    <div class="description">
-                        {{ "articles.board_rating_description"|trans }}
-                    </div>
-                </div>
-            </div>
+        <div>
+            <h2 class="title">{{ "articles.how_it_works"|trans }}</h2>
+            <ul class="text-justify" style="list-style-type: none">
+                <li class="description col-lg-10"><span class="fa fa-newspaper me-2"></span><strong>Poptávka:</strong>
+                    Zákazník něco potřebuje (např. zedníka, opravu automobilu...) a do systému zadává novou poptávku.
+                </li>
+                <li class="description col-lg-10"><span
+                            class="fa fa-paper-plane me-2"></span><strong>Zveřejnění:</strong> Hned po schválení a
+                    zpracování je poptávka zveřejěna a rozeslána vhodným dodavatelům, kteří mohou zasílat své nabídky.
+                </li>
+                <li class="description col-lg-10"><span class="fa fa-handshake me-2"></span><strong>Výběr z
+                        nabídek:</strong> Zákazník si z nabídek vybere tu nejvíce vyhovující a s dodavatelem řeší
+                    realizaci.
+                </li>
+                <li class="description col-lg-10"><span class="fa fa-check me-2"></span><strong>Dokočení:</strong> Po
+                    výběru dodavatele je poptávka dokončena a zúčastněné strany mají možnost průběh poptávky ohodnotit.
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <h2 class="title">Výhody</h2>
+            <ul class="checked-list">
+                <li>Neomezený přístup k hodnocení firem a zákazníků</li>
+                <li>Správa vytvořených poptávek - ukončete či upravte svou poptávku dle libosti!</li>
+                <li>Správa odeslaných nabídek - mějte přehled, na jaké poptávky už jste reagoval!</li>
+                <li>Nové poptávky denně na Váš email dle nastavených parametrů</li>
+            </ul>
         </div>
 
         <div class="mt-4">
@@ -84,40 +44,40 @@
             </div>
             <div class="row show-more mt-4">
                 <div class="col-md-6 mb-4">
-                    <div class="card">
+                    <div class="card card-shadow">
                         <div class="card-body">
-                            <h5 class="card-title">{{ "articles.inquiring"|trans }}</h5>
+                            <h3 class="card-title">{{ "articles.inquiring"|trans }}</h3>
                             <div class="card-text">
                                 {{ "articles.inquiring_description"|trans|raw("<strong>") }}
                             </div>
-                            <div class="row buttons">
+                            <div>
                                 <a href="{{ path("inquiries/new") }}"
-                                   class="btn btn-primary">{{ "articles.button_add_inquiry"|trans }}</a>
+                                   class="btn btn-primary float-start">{{ "articles.button_add_inquiry"|trans }}</a>
+                                <a href="{{ path("app_register") }}"
+                                   class="btn btn-primary float-start ms-2">{{ "articles.button_register"|trans }}</a>
                                 <a href="{{ path("inquiring") }}"
-                                   class="btn btn-link">{{ "articles.button_show_more"|trans }}</a>
+                                   class="btn btn-link float-end">{{ "articles.button_show_more"|trans }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card card-shadow">
                         <div class="card-body">
-                            <h5 class="card-title">{{ "articles.suppliers"|trans }}</h5>
+                            <h3 class="card-title">{{ "articles.suppliers"|trans }}</h3>
                             <div class="card-text">
                                 {{ "articles.suppliers_description"|trans|raw("strong") }}
                             </div>
-                            <div class="row buttons">
-                                <a href="{{ path("app_register") }}"
-                                   class="btn btn-primary">{{ "articles.button_register"|trans }}</a>
+                            <div>
+                                <a href="{{ path("app_register_company") }}"
+                                   class="btn btn-primary float-start">{{ "articles.button_register"|trans }}</a>
                                 <a href="{{ path("suppliers") }}"
-                                   class="btn btn-link">{{ "articles.button_show_more"|trans }}</a>
+                                   class="btn btn-link float-end">{{ "articles.button_show_more"|trans }}</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-</section>
+    </section>
 {% endblock %}

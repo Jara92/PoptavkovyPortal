@@ -216,3 +216,18 @@ ul.sidebar-properties {
   margin: 0 auto;
   width: fit-content;
 }
+
+ul.checked-list {
+  list-style: none;
+
+  > li {
+
+  }
+
+  > li:before {
+    padding-right: 0.5rem;
+    font-weight: bold;
+    content: '✓';
+    color: $green;
+  }
+}

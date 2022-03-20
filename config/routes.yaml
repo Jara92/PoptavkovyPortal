@@ -15,7 +15,7 @@ my-inquiries:
   methods: GET|POST
 
 inquiries/new:
-  path: /poptavky/nova-poptavka
+  path: /nova-poptavka
   controller: App\Controller\InquiryController::create
   methods: GET|POST
 
