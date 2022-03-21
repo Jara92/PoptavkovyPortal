@@ -150,16 +150,18 @@
                                 <div class="title">
                                     <span class="fas fa-envelope me-2"></span>{{ "profiles.email"|trans }}
                                 </div>
-                                <div class="value"><a
-                                            href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a></div>
+                                <div class="value">
+                                    <a href="mailto:{{ profile.user.email }}"
+                                       class="text-decoration-underline">{{ profile.user.email }}</a></div>
                             </li>
                             {% if profile.user.phone %}
                                 <li class="col-md-6 col-lg-12">
                                     <div class="title">
                                         <span class="fas fa-phone-alt me-2"></span>{{ "profiles.phone"|trans }}
                                     </div>
-                                    <div class="value"><a
-                                                href="tel:{{ profile.user.phone }}">{{ profile.user.phone }}</a></div>
+                                    <div class="value">
+                                        <a href="tel:{{ profile.user.phone }}"
+                                           class="text-decoration-underline">{{ profile.user.phone }}</a></div>
                                 </li>
                             {% endif %}
                         </ul>
