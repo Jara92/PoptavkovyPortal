@@ -6,6 +6,7 @@ use App\Business\Service\ProfileService;
 use App\Business\Service\UserService;
 use App\Entity\Company;
 use App\Entity\Inquiry\Subscription;
+use App\Entity\Notification;
 use App\Entity\Profile;
 use App\Entity\User;
 use App\Enum\Entity\InquiryType;
@@ -65,6 +66,9 @@ class UserOperation
         // Set subscription
         $user->setSubscription($this->getDefaultSubscription($user));
 
+        // Set notification
+        $user->setNotification($this->getDefaultNotification($user));
+
         return $this->userService->create($user);
     }
 
@@ -96,6 +100,11 @@ class UserOperation
         }
 
         return null;
+    }
+
+    private function getDefaultNotification(User $user): ?Notification
+    {
+        return (new Notification())->setNewsletter(true)->setFeedback(true);
     }
 
     /**
