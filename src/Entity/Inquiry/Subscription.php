@@ -37,7 +37,7 @@ class Subscription extends AEntity
     private array $types;
 
     /**
-     * @ORM\Column(type="boolean", options={"default"=false})
+     * @ORM\Column(type="boolean", options={"default"=true})
      */
     private ?bool $newsletter;
 
