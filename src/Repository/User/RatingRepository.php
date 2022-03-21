@@ -38,7 +38,9 @@ class RatingRepository extends ServiceEntityRepository implements IRatingReposit
             ->setParameter("target", $user);
 
         try {
-            return $qb->getQuery()->getSingleScalarResult();
+            $rating = $qb->getQuery()->getSingleScalarResult();
+
+            return ($rating) ? $rating : 3;
         } catch (NoResultException | NonUniqueResultException $e) {
             return 3;
         }

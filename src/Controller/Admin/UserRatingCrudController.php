@@ -38,6 +38,7 @@ class UserRatingCrudController extends AbstractCrudController
             IdField::new("id", "ID")->hideOnForm(),
 
             AssociationField::new("author", "admin.inquiries.field_author"),
+            AssociationField::new("target", "admin.inquiries.field_target"),
 
             NumberField::new("rating", "admin.ratings.field_rating")
                 ->setRequired(false)

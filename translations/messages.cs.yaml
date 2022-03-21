@@ -497,6 +497,7 @@ admin:
     field_inquiry: "Poptávka"
     field_supplier: "Dodavatel"
     field_author: "Autor"
+    field_target: "Hodnocený"
 
   ratings:
     ratings: "Hodnocení"
@@ -563,6 +564,7 @@ date:
 
 rating:
   value:
+    unknown: "Neznámé"
     1: "Velmi špatné"
     2: "Špatné"
     3: "Průměrné"
