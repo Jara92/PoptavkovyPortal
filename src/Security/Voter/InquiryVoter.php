@@ -6,6 +6,7 @@ use App\Entity\Inquiry\Inquiry;
 use App\Enum\Entity\InquiryState;
 use App\Entity\User;
 use App\Enum\Entity\UserRole;
+use App\Helper\InquiryStateHelper;
 use LogicException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -92,7 +93,7 @@ class InquiryVoter extends AVoter
         }
 
         // Inquiry is visible for public.
-        return $inquiry->getState() === InquiryState::STATE_ACTIVE;
+        return in_array($inquiry->getState(), InquiryStateHelper::getPublicStates());
     }
 
     private function canReact(Inquiry $inquiry, ?User $user): bool
