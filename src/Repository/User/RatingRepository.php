@@ -11,6 +11,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Rating|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,8 +34,8 @@ class RatingRepository extends ServiceEntityRepository implements IRatingReposit
         $qb = $this->createQueryBuilder("r");
 
         $qb->select("avg(r.rating)")
-            ->where("r.target = :target")
-            // TODO: Filter only public ratings?
+            ->where($qb->expr()->eq("r.isPublished", true))
+            ->andWhere("r.target = :target")
             ->setParameter("target", $user);
 
         try {
@@ -54,8 +55,8 @@ class RatingRepository extends ServiceEntityRepository implements IRatingReposit
         $qb = $this->createQueryBuilder("r", "r.rating");
 
         $qb->select("r.rating, count(r.id) as cnt")
-            ->where("r.target = :target")
-            // TODO: Filter only public ratings?
+            ->where($qb->expr()->eq("r.isPublished", true))
+            ->andWhere("r.target = :target")
             ->setParameter("target", $user)
             ->orderBy("cnt", "desc")
             ->groupBy("r.rating");
