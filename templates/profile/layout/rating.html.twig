@@ -116,12 +116,13 @@
 
     <div class="col-md-4">
         <div class="p-4">
-            {% if app.user %}
+            {% if app.user and app.user != profile.user %}
                 <h3>Ohodnoťte uživatele</h3>
                 {{ form(form) }}
+            {% elseif app.user %}
+
             {% else %}
-                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.
-                </h3>
+                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.</h3>
             {% endif %}
         </div>
     </div>
