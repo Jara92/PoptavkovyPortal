@@ -119,6 +119,11 @@
 }
 
 .profile-settings {
+  #profile-avatar {
+    max-height: 250px;
+    object-fit: cover;
+  }
+
   .avatar {
     position: relative;
   }
