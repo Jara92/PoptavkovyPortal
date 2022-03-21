@@ -355,6 +355,7 @@ inquiries:
 
 offers:
   my_offers: "Moje nabídky"
+  no_offers_found: "Nebyly nalezeny žádné nabídky"
   your_offer: "Nabídněte:"
   new_inquiry_offer: "Nová nabídka na poptávku"
   new_inquiry_offer_copy: "Kopie nabídky na poptávku"
