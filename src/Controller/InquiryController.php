@@ -81,8 +81,8 @@ class InquiryController extends AController
      * Show my inquiries (all of them)
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_INQUIRING")
      */
+    #[IsGranted("ROLE_INQUIRING")]
     public function myInquiries(Request $request): Response
     {
         // Get user and check if the user is valid

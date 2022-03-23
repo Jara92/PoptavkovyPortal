@@ -30,8 +30,8 @@ class OfferController extends AController
     /**
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_SUPPLIER")
      */
+    #[IsGranted("ROLE_SUPPLIER")]
     public function listAction(Request $request): Response
     {
         $this->breadcrumbs->addItem("offers.my_offers");

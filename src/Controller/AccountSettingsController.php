@@ -45,8 +45,8 @@ class AccountSettingsController extends AController
     /**
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_USER")
      */
+    #[IsGranted("ROLE_USER")]
     public function editMyProfile(Request $request): Response
     {
         $profile = $this->getUser()->getProfile();
@@ -74,8 +74,8 @@ class AccountSettingsController extends AController
     /**
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_SUPPLIER")
      */
+    #[IsGranted("ROLE_SUPPLIER")]
     public function editMySubscriptions(Request $request): Response
     {
         $subscription = $this->getUser()->getSubscription();
@@ -103,8 +103,8 @@ class AccountSettingsController extends AController
      * Action to change user's password
      * @param Request $request
      * @return Response
-     * @IsGranted("ROLE_USER")
      */
+    #[IsGranted("ROLE_USER")]
     public function changePassword(Request $request): Response
     {
         $this->breadcrumbs->addItem("auth.password_change");
@@ -141,8 +141,8 @@ class AccountSettingsController extends AController
 
     /**
      * @return Response
-     * @IsGranted("ROLE_USER")
      */
+    #[IsGranted("ROLE_USER")]
     public function myProfile()
     {
         return $this->render("user/base.html.twig");
@@ -150,8 +150,8 @@ class AccountSettingsController extends AController
 
     /**
      * @return Response
-     * @IsGranted("ROLE_USER")
      */
+    #[IsGranted("ROLE_USER")]
     public function baseSettings(Request $request)
     {
         $this->breadcrumbs->addItem("profiles.settings_basic");
