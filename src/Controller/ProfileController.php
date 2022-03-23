@@ -3,27 +3,22 @@
 namespace App\Controller;
 
 use App\Business\Operation\ProfileOperation;
-use App\Business\Operation\UserOperation;
 use App\Business\Service\ProfileService;
 use App\Business\Service\RatingService;
-use App\Business\Service\UserService;
 use App\Entity\Profile;
 use App\Entity\User\UserRating;
 use App\Enum\Entity\UserType;
 use App\Enum\FlashMessageType;
-use App\Form\User\ProfileForm;
 use App\Form\User\UserRatingForm;
 use App\Tools\Rating\ProfileRatingComponent;
 use App\Twig\Extension\UserExtension;
-use HttpRequestException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 
 class ProfileController extends AController
@@ -72,7 +67,7 @@ class ProfileController extends AController
      * @param int $profileId
      * @param Request $request
      * @return Response
-     * @throws HttpRequestException
+     * @throws \InvalidArgumentException
      */
     public function detail(int $profileId, Request $request): Response
     {
@@ -103,7 +98,7 @@ class ProfileController extends AController
             case UserType::COMPANY:
                 return $this->companyProfileDetail($profile, $form, $rating);
             default:
-                throw new HttpRequestException("Invalid profile type.");
+                throw new InvalidArgumentException("Invalid profile type.");
         }
     }
 
