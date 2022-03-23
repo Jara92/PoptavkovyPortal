@@ -11,40 +11,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=SubscriptionRepository::class)
- */
+#[ORM\Entity(repositoryClass: SubscriptionRepository::class)]
 class Subscription extends AEntity
 {
-    /**
-     * @ORM\ManyToMany(targetEntity=InquiryCategory::class, inversedBy="subscriptions")
-     */
+    #[ORM\ManyToMany(targetEntity: InquiryCategory::class, inversedBy: "subscriptions")]
     private Collection $categories;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Region::class, inversedBy="subscriptions")
-     */
+    #[ORM\ManyToMany(targetEntity: Region::class, inversedBy: "subscriptions")]
     private Collection $regions;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="subscription")
-     */
+    #[ORM\OneToOne(mappedBy: "subscription", targetEntity: User::class)]
     private ?User $user;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: "json")]
     private array $types;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default"=true})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => true])]
     private ?bool $newsletter;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Inquiry::class)
-     */
-    private $inquiries;
+    #[ORM\ManyToMany(targetEntity: Inquiry::class)]
+    private Collection $inquiries;
 
     public function __construct()
     {

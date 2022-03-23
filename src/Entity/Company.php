@@ -6,50 +6,36 @@ use App\Repository\User\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=CompanyRepository::class)
- */
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company extends AEntity
 {
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank
-     * @Assert\Length (max=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 64)]
     private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=32)
-     * @Assert\NotBlank
-     * @Assert\Length (max=32)
-     */
+    #[ORM\Column(type: "string", length: 32)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 32)]
     private ?string $identificationNumber = null;
 
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     * @Assert\Length (max=32)
-     */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
+    #[Assert\Length(max: 32)]
     private ?string $taxIdentificationNumber = null;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank
-     * @Assert\Length (max=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 64)]
     private ?string $addressStreet = null;
 
-    /**
-     * @ORM\Column(type="string", length=32)
-     * @Assert\NotBlank
-     * @Assert\Length (max=32)
-     */
+    #[ORM\Column(type: "string", length: 32)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 32)]
     private ?string $addressCity = null;
 
-    /**
-     * @ORM\Column(type="string", length=16)
-     * @Assert\NotBlank
-     * @Assert\Length (max=16)
-     */
+    #[ORM\Column(type: "string", length: 16)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 16)]
     private ?string $addressZipCode = null;
 
     public function getId(): ?int

@@ -7,9 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait HitsTrait
 {
-    /**
-     * @ORM\Column(type="integer", length=70, options={"default"=0} )
-     */
+    // todo remove length??
+    #[ORM\Column(type: "integer", length: 70, options: ["default" => 0])]
     protected int $hits = 0;
 
     public function getHits(): ?int

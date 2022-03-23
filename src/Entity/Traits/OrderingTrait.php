@@ -6,9 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait OrderingTrait
 {
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: "integer", nullable: false)]
     protected ?int $ordering;
 
     public function getOrdering(): ?int

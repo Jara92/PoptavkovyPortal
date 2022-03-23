@@ -2,12 +2,13 @@
 
 namespace App\Form\Constraint;
 
+use Attribute;
 use Symfony\Component\Validator\Constraints\Regex;
 
 /**
  * Validation for a phone number. It is the same as Regex validation using given regular expression.
- * @Annotation
  */
+#[Attribute]
 class PhoneNumber extends Regex
 {
     public $message = 'invalid_phone_number_format';

@@ -9,15 +9,11 @@ use App\Repository\Inquiry\InquirySignedRequestRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=InquirySignedRequestRepository::class)
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: InquirySignedRequestRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class InquirySignedRequest extends AEntity
 {
-    /**
-     * @ORM\PrePersist
-     */
+    #[ORM\PrePersist]
     public function updatedTimestamps(): void
     {
         $now = new DateTime('now');
@@ -26,31 +22,21 @@ class InquirySignedRequest extends AEntity
         }
     }
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: "datetime", nullable: false)]
     private ?DateTime $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: "datetime", nullable: false)]
     private ?DateTime $expireAt = null;
 
-    /**
-     * @ORM\Column(type="string", length=128, nullable=false)
-     */
+    #[ORM\Column(type: "string", length: 128, nullable: false)]
     private ?string $token;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Inquiry::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Inquiry::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry;
 
     /**

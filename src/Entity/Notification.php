@@ -5,25 +5,17 @@ namespace App\Entity;
 use App\Repository\User\NotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=NotificationRepository::class)
- */
+#[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification extends AEntity
 {
-    /**
-     * @ORM\Column(type="boolean", options={"default"=true})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => true])]
     private ?bool $newsletter = true;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="notification")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\OneToOne(inversedBy: "notification", targetEntity: User::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default"=true})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => true])]
     private ?bool $feedback = true;
 
     public function getNewsletter(): ?bool

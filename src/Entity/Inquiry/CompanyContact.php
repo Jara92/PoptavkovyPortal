@@ -7,21 +7,15 @@ use App\Repository\Inquiry\CompanyContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=CompanyContactRepository::class)
- */
+#[ORM\Entity(repositoryClass: CompanyContactRepository::class)]
 class CompanyContact extends AEntity
 {
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\Length(min=5, max=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
+    #[Assert\Length(min: 5, max: 64)]
     protected ?string $companyName;
 
-    /**
-     * @ORM\Column(type="string", length=16)
-     * @Assert\NotBlank
-     */
+    #[ORM\Column(type: "string", length: 16)]
+    #[Assert\NotBlank]
     private ?string $identificationNumber;
 
     public function getCompanyName(): ?string

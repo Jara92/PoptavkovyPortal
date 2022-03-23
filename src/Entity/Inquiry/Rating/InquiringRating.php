@@ -12,15 +12,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Inquiry rating created by the inquiring user.
- * @ORM\Entity(repositoryClass=InquiringRatingRepository::class)
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: InquiringRatingRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class InquiringRating extends User\Rating
 {
-    /**
-     * @ORM\OneToOne(targetEntity=Inquiry::class, inversedBy="inquiringRating", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\OneToOne(inversedBy: "inquiringRating", targetEntity: Inquiry::class, cascade: ["persist"])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry = null;
 
     public function getInquiry(): ?Inquiry

@@ -22,12 +22,10 @@ use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Form\Constraint as AppAssert;
 
-/**
- * Class Inquiry
- * @ORM\Entity(repositoryClass=InquiryRepository::class)
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="inquiry", indexes={@ORM\Index(columns={"title", "description", "city"}, flags={"fulltext"})})
- */
+#[ORM\Entity(repositoryClass: InquiryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\Table(name: "inquiry")]
+#[Orm\Index(columns: ["title", "description", "city"], flags: ["fulltext"])]
 class Inquiry extends AEntity
 {
     use TimeStampTrait;
@@ -38,104 +36,73 @@ class Inquiry extends AEntity
 
     use HitsTrait;
 
-    /**
-     * @ORM\Column(type="text",  nullable=false)
-     * @Assert\Length(min=20)
-     */
+    #[ORM\Column(type: "text", nullable: false)]
+    #[Assert\Length(min: 20)]
     private ?string $description = null;
 
-    /**
-     * @ORM\Column (type="string", length=128, nullable=false)
-     * @Assert\Length(min=1, max=128)
-     * @Assert\NotBlank
-     * @Assert\Email
-     */
+    #[ORM\Column(type: "string", length: 128, nullable: false)]
+    #[Assert\Length(min: 1, max: 128)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $contactEmail = null;
 
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     * @Assert\Length(min=9, max=32)
-     * @AppAssert\PhoneNumber()
-     */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
+    #[Assert\Length(min: 9, max: 32)]
+    #[AppAssert\PhoneNumber]
     private ?string $contactPhone = null;
 
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     * @Assert\Length (min=0, max=64)
-     */
+    #[ORM\Column(type: "string", length: 64, nullable: true)]
+    #[Assert\Length(min: 0, max: 64)]
     private ?string $city = null;
 
     /**
      * TODO: Index region somehow.
-     * @ORM\ManyToOne(targetEntity=Region::class)
-     * @ORM\JoinColumn(nullable=true)
      */
+    #[ORM\ManyToOne(targetEntity: Region::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Region $region = null;
 
-    /**
-     * @ORM\Column(type="string", enumType=InquiryState::class)
-     */
+    #[ORM\Column(type: "string", enumType: InquiryState::class)]
     private ?InquiryState $state = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Deadline::class)
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: Deadline::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Deadline $deadline = null;
 
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
     private ?string $deadlineText = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=InquiryValue::class)
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: InquiryValue::class)]
     private ?InquiryValue $value = null;
 
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
     private ?string $valueText = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    #[ORM\Column(type: "integer", nullable: true)]
     private ?int $valueNumber = null;
 
     /**
      * TODO: Index categorie's titles somehow.
-     * @ORM\ManyToMany(targetEntity=InquiryCategory::class)
      */
+    #[ORM\ManyToMany(targetEntity: InquiryCategory::class)]
     private Collection $categories;
 
-    /**
-     * @ORM\Column(type="string", enumType=InquiryType::class)
-     */
+    #[ORM\Column(type: "string", enumType: InquiryType::class)]
     private ?InquiryType $type = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="inquiries")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "inquiries")]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=PersonalContact::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\OneToOne(targetEntity: PersonalContact::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?PersonalContact $personalContact = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=CompanyContact::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\OneToOne(targetEntity: CompanyContact::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(nullable: true)]
     private ?CompanyContact $companyContact = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=InquiryAttachment::class, mappedBy="inquiry", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: "inquiry", targetEntity: InquiryAttachment::class, orphanRemoval: true)]
     private Collection $attachments;
 
     /**
@@ -143,34 +110,22 @@ class Inquiry extends AEntity
      */
     private array $smartTags = [];
 
-    /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="inquiry", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: "inquiry", targetEntity: Offer::class, orphanRemoval: true)]
     private Collection $offers;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
     private ?DateTime $publishedAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
     private ?DateTime $removeNoticeAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
     private ?DateTime $removeAt = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=InquiringRating::class, mappedBy="inquiry", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(mappedBy: "inquiry", targetEntity: InquiringRating::class, cascade: ["persist", "remove"])]
     private ?InquiringRating $inquiringRating = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=SupplierRating::class, mappedBy="inquiry", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: "inquiry", targetEntity: SupplierRating::class, orphanRemoval: true)]
     private Collection $supplierRatings;
 
     public function __construct()

@@ -11,52 +11,38 @@ use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=RatingRepository::class)
- * @ORM\InheritanceType("JOINED")
- * @DiscriminatorColumn(name="discr", type="string")
- * @DiscriminatorMap({
- *     "inquiring" = "App\Entity\Inquiry\Rating\InquiringRating",
- *     "supplier" = "App\Entity\Inquiry\Rating\SupplierRating",
- *     "user" = "App\Entity\User\UserRating"
- *     })
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: RatingRepository::class)]
+#[ORM\InheritanceType("JOINED")]
+#[DiscriminatorColumn(name: "discr", type: "string")]
+#[DiscriminatorMap([
+    "inquiring" => "App\Entity\Inquiry\Rating\InquiringRating",
+    "supplier" => "App\Entity\Inquiry\Rating\SupplierRating",
+    "user" => "App\Entity\User\UserRating"
+])]
+#[ORM\HasLifecycleCallbacks]
 class Rating extends AEntity
 {
     use TimeStampTrait;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="myRatings")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "myRatings")]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $author = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ratings")
-     * @ORM\JoinColumn(nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "ratings")]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $target = null;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Range(min="1", max="5")
-     */
+    #[ORM\Column(type: "integer", nullable: true)]
+    #[Assert\Range(min: 1, max: 5)]
     private ?int $rating = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $targetNote = null;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $note = null;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default"=false})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => false])]
     private ?bool $isPublished = false;
 
     /**

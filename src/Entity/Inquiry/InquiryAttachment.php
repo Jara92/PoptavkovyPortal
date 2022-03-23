@@ -7,42 +7,28 @@ use App\Entity\Traits\TitleTrait;
 use App\Repository\Inquiry\InquiryAttachmentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=InquiryAttachmentRepository::class)
- */
+#[ORM\Entity(repositoryClass: InquiryAttachmentRepository::class)]
 class InquiryAttachment extends AEntity
 {
     use TitleTrait;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
     private ?string $hash;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $description;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     private ?int $size;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $path;
 
-    /**
-     * @ORM\Column(type="string", length=8)
-     */
+    #[ORM\Column(type: "string", length: 8)]
     private ?string $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Inquiry::class, inversedBy="attachments")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Inquiry::class, inversedBy: "attachments")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry;
 
     public function getHash(): ?string

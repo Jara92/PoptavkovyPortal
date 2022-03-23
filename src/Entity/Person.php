@@ -6,23 +6,17 @@ use App\Repository\User\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=PersonRepository::class)
- */
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
 class Person extends AEntity
 {
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank
-     * @Assert\Length (min=2, max=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 64)]
     protected ?string $name;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank
-     * @Assert\Length (min=2, max=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 64)]
     protected ?string $surname;
 
     public function getName(): ?string

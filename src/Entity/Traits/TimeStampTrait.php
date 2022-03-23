@@ -8,15 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * This trait contains base timestamps createdAt and updatedAt.
  * There values are automatically updated.
- * Derived entities must have @ORM\HasLifecycleCallbacks annotation.
- * @ORM\HasLifecycleCallbacks
+ * Derived entities must have ORM\HasLifecycleCallbacks annotation.
  */
+#[ORM\HasLifecycleCallbacks]
 trait TimeStampTrait
 {
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function updatedTimestamps(): void
     {
         $now = new DateTime('now');
@@ -26,14 +24,10 @@ trait TimeStampTrait
         }
     }
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: "datetime", nullable: false)]
     protected ?DateTime $createdAt = null;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
+    #[ORM\Column(type: "datetime", nullable: false)]
     protected ?DateTime $updatedAt = null;
 
     /**

@@ -21,11 +21,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Form\Constraint as AppAssert;
 
-/**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="email_already_registred")
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ["email"], message: "email_already_registred")]
+#[ORM\HasLifecycleCallbacks]
 class User extends AEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimeStampTrait;
@@ -45,95 +43,72 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
 
     /**
      * Contact email
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\Email
      */
+    // todo: remove unique???
+    #[ORM\Column(type: "string", length: 180, unique: true)]
+    #[Assert\Email]
     protected ?string $email;
 
     /**
      * Contact phone number.
-     * @ORM\Column(type="string", length=32, nullable=true)
-     * @AppAssert\PhoneNumber()
      */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
+    #[AppAssert\PhoneNumber]
     protected ?string $phone;
 
-    /**
-     * @ORM\Column(type="json")
-     */
+    #[ORM\Column(type: "json")]
     protected array $roles = [];
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      */
+    #[ORM\Column(type: "string")]
     protected string $password;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
     protected ?DateTime $emailVerifiedAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: "datetime", nullable: true)]
     protected ?DateTime $lastEmailVerificationTry;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
+    #[ORM\Column(type: "boolean")]
     protected bool $isVerified = false;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Inquiry::class, mappedBy="author")
-     */
+    #[ORM\OneToMany(mappedBy: "author", targetEntity: Inquiry::class)]
     protected Collection $inquiries;
 
-    /**
-     * @ORM\Column(type="string", enumType=UserType::class)
-     */
+    #[ORM\Column(type: "string", enumType: UserType::class)]
     private ?UserType $type = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Person::class, cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Person::class, cascade: ["persist", "remove"])]
     private ?Person $person = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Company::class, cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(targetEntity: Company::class, cascade: ["persist", "remove"])]
     private ?Company $company = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Profile::class, inversedBy="user", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\OneToOne(inversedBy: "user", targetEntity: Profile::class, cascade: ["persist", "remove"])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Profile $profile = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Offer::class, mappedBy="author", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(mappedBy: "author", targetEntity: Offer::class, orphanRemoval: true)]
     private Collection $offers;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Subscription::class, inversedBy="user", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(inversedBy: "user", targetEntity: Subscription::class, cascade: ["persist", "remove"])]
     private ?Subscription $subscription = null;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Notification::class, mappedBy="user", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToOne(mappedBy: "user", targetEntity: Notification::class, cascade: ["persist", "remove"])]
     private ?Notification $notification;
 
     /**
      * Ratings created by the user.
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="author")
      */
+    #[ORM\OneToMany(mappedBy: "author", targetEntity: Rating::class)]
     private Collection $myRatings;
 
     /**
      * Ratings targeted to the user.
-     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="target")
      */
+    #[ORM\OneToMany(mappedBy: "target", targetEntity: Rating::class)]
     private Collection $ratings;
 
     public function __construct()

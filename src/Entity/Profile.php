@@ -6,46 +6,30 @@ use App\Entity\Traits\AliasTrait;
 use App\Repository\User\ProfileRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=ProfileRepository::class)
- */
+#[ORM\Entity(repositoryClass: ProfileRepository::class)]
 class Profile extends AEntity
 {
     // use AliasTrait;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: "text", nullable: true)]
     private ?string $description = "";
 
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 64, nullable: true)]
     private ?string $avatar;
 
-    /**
-     * @ORM\Column(type="string", length=64, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 64, nullable: true)]
     private ?string $web;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $facebook;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $linkedin;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profile")
-     */
+    #[ORM\OneToOne(mappedBy: "profile", targetEntity: User::class)]
     private ?User $user;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default"=true})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => true])]
     private ?bool $isPublic;
 
     public function getDescription(): ?string

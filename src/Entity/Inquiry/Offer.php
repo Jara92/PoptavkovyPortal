@@ -9,30 +9,22 @@ use App\Repository\Inquiry\OfferRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=OfferRepository::class)
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\Entity(repositoryClass: OfferRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Offer extends AEntity
 {
     use TimeStampTrait;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\Length(min=20)
-     */
+    #[ORM\Column(type: "text")]
+    #[Assert\Length(min: 20)]
     private ?string $text;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Inquiry::class, inversedBy="offers")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Inquiry::class, inversedBy: "offers")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="offers")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "offers")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $author;
 
     public function getText(): ?string

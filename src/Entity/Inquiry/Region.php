@@ -10,19 +10,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=RegionRepository::class)
- */
+#[ORM\Entity(repositoryClass: RegionRepository::class)]
 class Region extends AEntity
 {
     use TitleTrait;
 
     use OrderingTrait;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="regions")
-     */
-    private $subscriptions;
+    #[ORM\ManyToMany(targetEntity: Subscription::class, mappedBy: "regions")]
+    private Collection $subscriptions;
 
     public function __construct()
     {

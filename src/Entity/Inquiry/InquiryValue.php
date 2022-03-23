@@ -9,18 +9,14 @@ use App\Entity\Traits\TitleTrait;
 use App\Repository\Inquiry\InquiryValueRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=InquiryValueRepository::class)
- */
+#[ORM\Entity(repositoryClass: InquiryValueRepository::class)]
 class InquiryValue extends AEntity
 {
     use TitleTrait;
 
     use OrderingTrait;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: "integer")]
     protected ?int $value;
 
     public function getValue(): ?int

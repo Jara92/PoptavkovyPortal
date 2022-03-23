@@ -12,33 +12,24 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=InquiryCategoryRepository::class)
- */
+#[ORM\Entity(repositoryClass: InquiryCategoryRepository::class)]
 class InquiryCategory extends AEntity
 {
     use TitleTrait;
 
     use AliasTrait;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: "text", nullable: true)]
     protected ?string $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=InquiryCategory::class, inversedBy="children")
-     */
+    #[ORM\ManyToOne(targetEntity: InquiryCategory::class, inversedBy: "children")]
+    // TODO: forgotten JoinColumn(nullable:false) ???
     protected ?InquiryCategory $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity=InquiryCategory::class, mappedBy="parent", cascade={"persist", "remove"})
-     */
+    #[ORM\OneToMany(mappedBy: "parent", targetEntity: InquiryCategory::class, cascade: ["persist", "remove"])]
     protected Collection $children;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Subscription::class, mappedBy="categories")
-     */
+    #[ORM\ManyToMany(targetEntity: Subscription::class, mappedBy: "categories")]
     private Collection $subscriptions;
 
     public function __construct()

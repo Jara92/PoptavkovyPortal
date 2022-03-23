@@ -9,9 +9,7 @@ use App\Entity\Traits\TitleTrait;
 use App\Repository\Inquiry\DeadlineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=DeadlineRepository::class)
- */
+#[ORM\Entity(repositoryClass: DeadlineRepository::class)]
 class Deadline extends AEntity
 {
     use TitleTrait;

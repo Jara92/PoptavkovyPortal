@@ -12,20 +12,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Inquiry rating created the inquiry supplier.
- * @ORM\Entity(repositoryClass=SupplierRatingRepository::class)
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: SupplierRatingRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class SupplierRating extends User\Rating
 {
-    /**
-     * @ORM\ManyToOne(targetEntity=Inquiry::class, inversedBy="supplierRatings")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Inquiry::class, inversedBy: "supplierRatings")]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry;
 
-    /**
-     * @ORM\Column(type="boolean", options={"default"=false})
-     */
+    #[ORM\Column(type: "boolean", options: ["default" => false])]
     private ?bool $realizedInquiry = null;
 
     public function getInquiry(): ?Inquiry

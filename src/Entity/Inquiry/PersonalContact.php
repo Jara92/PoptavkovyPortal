@@ -6,19 +6,13 @@ use App\Entity\AEntity;
 use App\Repository\Inquiry\PersonalContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=PersonalContactRepository::class)
- */
+#[ORM\Entity(repositoryClass: PersonalContactRepository::class)]
 class PersonalContact extends AEntity
 {
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
     protected string $name;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
+    #[ORM\Column(type: "string", length: 64)]
     protected string $surname;
 
     public function getName(): ?string
