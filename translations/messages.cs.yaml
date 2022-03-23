@@ -382,6 +382,15 @@ ratings:
   submit_note: "Odesláním hodnocení souhlasíte s možným zveřejněním Vašeho komentáře jako recenze."
   inquiring_rating_available: "Možnost ohodnotit poptávku"
   supplier_rating_available: "Možnost ohodnotit dodavatele"
+  rate_user: "Ohodnoťte uživatele"
+  no_comment_available: "K tomuto hodnocení není k dispozici žádný komentář."
+  no_rating_available: "Tohoto uživatele ještě nikdo nehodnotil. Buďte první! :)"
+  you_must_be_signed:
+    1: "Pro hodnocení uživatelů se musíte "
+    2: "přihlásit"
+    3: "."
+  rated_at: "Hodnoceno"
+  ratings_count: "recenzí"
 
   msg_rating_sent: "Vaše hodnocení bylo úspěšně odesláno. Děkujeme! :)"
   msg_rating_failed: "Vaše hodnocení se nepodařilo odeslat. Zkuste to prosím znovu později. :("

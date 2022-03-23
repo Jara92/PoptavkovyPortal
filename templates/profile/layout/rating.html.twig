@@ -8,7 +8,7 @@
                 <span class="badge fs-6 {% if rating.avgRating >= 4 %}bg-success{% elseif rating.avgRating >= 3 %}bg-primary{% elseif rating.avgRating >= 2 %}bg-warning{% else %}bg-danger{% endif %}">
                 {{ rating.avgRating|round(1) }} <i class="fa fa-star"></i></span>
                     <span class="d-block about-rating">{{ ("rating.value."~(rating.avgRating|round(0, "ceil")))|trans }}</span>
-                    <span class="d-block total-ratings">{{ rating.ratingsCount }} recenzí</span>
+                    <span class="d-block total-ratings">{{ rating.ratingsCount }} {{ "ratings.ratings_count"|trans }}</span>
                 </div>
             </div>
             <div class="col-md-8">
@@ -39,7 +39,7 @@
                 <span class="badge fs-6 bg-primary">
                  <i class="fa fa-star"></i></span>
                     <span class="d-block about-rating">{{ "rating.value.unknown"|trans }}</span>
-                    <span class="d-block total-ratings">{{ 0 }} recenzí</span>
+                    <span class="d-block total-ratings">{{ 0 }} {{ "ratings.ratings_count"|trans }}</span>
                 </div>
             </div>
             <div class="col-md-8">
@@ -86,7 +86,7 @@
                                 {{ ratingItem.author|user_name }}
                             </h3>
                             <small class="text-muted mt-1">
-                                Hodnoceno {{ ratingItem.createdAt|date_pretty }}
+                                {{ "ratings.rated_at"|trans }} {{ ratingItem.createdAt|date_pretty }}
                             </small>
                             <div>
                                 <p class="text-left">
@@ -102,27 +102,32 @@
                             </div>
                         </div>
                     </div>
-                    {% if ratingItem.targetNote %}
-                        <div class="row text-left">
+
+                    <div class="row text-left">
+                        {% if ratingItem.targetNote %}
                             <p class="description">{{ ratingItem.targetNote }}</p>
-                        </div>
-                    {% endif %}
+                        {% else %}
+                            <p>{{ "ratings.no_comment_available"|trans }}</p>
+                        {% endif %}
+                    </div>
+
                 </div>
             {% endfor %}
         {% else %}
-            <p class="p-4">Tohoto uživatele ještě nikdo nehodnotil. Buďt první! :)</p>
+            <p class="p-4">{{ "ratings.no_rating_available"|trans }}</p>
         {% endif %}
     </div>
 
     <div class="col-md-4">
         <div class="p-4">
             {% if app.user and app.user != profile.user %}
-                <h3>Ohodnoťte uživatele</h3>
+                <h3>{{ "ratings.rate_user"|trans }}</h3>
                 {{ form(form) }}
             {% elseif app.user %}
 
             {% else %}
-                <h3>Pro hodnocení uživatelů se musíte <a href="{{ path("app_login") }}">přihlásit</a>.</h3>
+                <h3>{{ "ratings.you_must_be_signed.1"|trans }}<a href="{{ path("app_login") }}">
+                        {{ "ratings.you_must_be_signed.2"|trans }}</a>{{ "ratings.you_must_be_signed.3"|trans }}</h3>
             {% endif %}
         </div>
     </div>
