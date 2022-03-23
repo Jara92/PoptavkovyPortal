@@ -28,7 +28,7 @@ class Rating extends AEntity
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="myRatings")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?User $author = null;
 
