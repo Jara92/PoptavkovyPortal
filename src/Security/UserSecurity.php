@@ -12,8 +12,9 @@ use Symfony\Component\Security\Core\Security;
  */
 class UserSecurity
 {
-    /** @required */
-    public Security $security;
+    public function __construct(private Security $security)
+    {
+    }
 
     /**
      * Returns currently logged user or null.

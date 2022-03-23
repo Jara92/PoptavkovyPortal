@@ -4,6 +4,7 @@ namespace App\Security\Voter;
 
 use App\Security\UserSecurity;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * NOTE: For better performance use:
@@ -16,6 +17,6 @@ abstract class AVoter extends Voter
     const CREATE = 'create';
     const DELETE = 'delete';
 
-    /** @required */
+    #[Required]
     public UserSecurity $security;
 }

@@ -37,13 +37,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InquiryForm extends AbstractType
 {
-    /** @required */
-    public TranslatorInterface $translator;
-
-    /** @required */
-    public InquiryOperation $inquiryOperation;
-
     public function __construct(
+        private InquiryOperation    $inquiryOperation,
         private InquiryValueService $inquiryValueService,
         private DeadlineService     $deadlineService
     )

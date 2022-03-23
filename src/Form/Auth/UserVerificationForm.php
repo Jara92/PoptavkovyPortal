@@ -8,14 +8,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotNull;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserVerificationForm extends AbstractType
 {
-    /** @required */
-    public TranslatorInterface $translator;
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

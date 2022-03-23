@@ -13,14 +13,10 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InquiringRatingForm extends AbstractType
 {
-    /** @required */
-    public TranslatorInterface $translator;
-
     public function __construct(
         private InquiryOperation $inquiryOperation,
         private UserService      $userService

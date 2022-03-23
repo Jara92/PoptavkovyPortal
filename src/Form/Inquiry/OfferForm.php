@@ -28,14 +28,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferForm extends AbstractType
 {
-    /** @required */
-    public TranslatorInterface $translator;
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

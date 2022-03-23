@@ -6,19 +6,20 @@ use App\Factory\Tools\PaginationFactory;
 use App\Factory\Tools\PaginationLinkFactory;
 use App\Tools\Pagination\PaginationComponent;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 trait PaginableTrait
 {
     /**
-     * @required
      * @internal
      */
+    #[Required]
     public PaginationFactory $paginatorFactory;
 
     /**
-     * @required
      * @internal
      */
+    #[Required]
     public PaginationLinkFactory $paginationLinkFactory;
 
     private function getPageNumberKey(): string

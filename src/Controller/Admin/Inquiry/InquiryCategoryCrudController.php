@@ -10,10 +10,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class InquiryCategoryCrudController extends AbstractCrudController
 {
-    /** @required */
+    #[Required]
     public InquiryCategoryRepository $repository;
 
     public static function getEntityFqcn(): string

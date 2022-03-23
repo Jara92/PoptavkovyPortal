@@ -6,13 +6,14 @@ use App\Factory\Inquiry\InquiryCategoryFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * Inserts default inquiry categories in the database.
  */
 class InquiryCategoryFixtures extends Fixture implements FixtureGroupInterface
 {
-    /** @required */
+    #[Required]
     public InquiryCategoryFactory $inquiryCategoryFactory;
 
     private ObjectManager $manager;

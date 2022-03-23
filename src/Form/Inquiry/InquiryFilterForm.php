@@ -2,7 +2,6 @@
 
 namespace App\Form\Inquiry;
 
-use App\Business\Operation\InquiryOperation;
 use App\Business\Service\Inquiry\InquiryCategoryService;
 use App\Entity\Inquiry\InquiryCategory;
 use App\Enum\Entity\InquiryType;
@@ -17,18 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InquiryFilterForm extends AbstractType
 {
-    /** @required */
-    public TranslatorInterface $translator;
-
-    /** @required */
-    public InquiryOperation $inquiryOperation;
-
-    /** @required */
-    public InquiryCategoryService $inquiryCategoryService;
+    public function __construct(private InquiryCategoryService $inquiryCategoryService)
+    {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -6,6 +6,7 @@ use App\Entity\AEntity;
 use App\Repository\Interfaces\IRepository;
 use App\Business\Service\Interfaces\ICrudService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * Abstract service which implements basic service features.
@@ -20,9 +21,9 @@ class AService implements ICrudService
     protected EntityManagerInterface $entityManager;
 
     /**
-     * @required
      * @internal
      */
+    #[Required]
     public function setObjectManager(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
