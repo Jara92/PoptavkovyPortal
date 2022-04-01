@@ -17,12 +17,16 @@ class InquiryAttachmentsController extends AbstractController
     {
     }
 
-    public function download(string $hash): Response
+    public function download(string $alias, int $id): Response
     {
         // Get the attachment
-        $attachment = $this->attachmentService->readByHash($hash);
+        $attachment = $this->attachmentService->readById($id);
         if (!$attachment) {
             throw new NotFoundHttpException("Attachment not found.");
+        }
+
+        if ($attachment->getInquiry()->getAlias() !== $alias) {
+            throw new NotFoundHttpException("Invalid inquiry alias");
         }
 
         // Check permissions.

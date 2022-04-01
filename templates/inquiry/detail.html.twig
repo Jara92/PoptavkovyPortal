@@ -52,7 +52,7 @@
                                         {% for attachment in inquiry.attachments %}
                                             {# @var attachment \App\Entity\Inquiry\InquiryAttachment #}
                                             <li class="item">
-                                                <a href="{{ path("inquiries/attachments", {"hash":attachment.hash}) }}"
+                                                <a href="{{ path("inquiries/attachments", {"alias":attachment.inquiry.alias, "id":attachment.id}) }}"
                                                    class="btn btn-link btn-download-attachment">
                                                     <i class="fa fa-paperclip"></i>
                                                     {{ attachment.title }}

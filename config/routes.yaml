@@ -51,7 +51,7 @@ inquiries/postpone-expiration:
     _signed: true # Deny access for unsigned
 
 inquiries/attachments:
-  path: /poptavky/prilohy/{hash}
+  path: /poptavka/{alias}/prilohy/{id}
   controller: App\Controller\InquiryAttachmentsController::download
   methods: GET
 
