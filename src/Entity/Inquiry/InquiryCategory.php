@@ -26,7 +26,7 @@ class InquiryCategory extends AEntity
     // TODO: forgotten JoinColumn(nullable:false) ???
     protected ?InquiryCategory $parent;
 
-    #[ORM\OneToMany(mappedBy: "parent", targetEntity: InquiryCategory::class, cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(mappedBy: "parent", targetEntity: InquiryCategory::class, orphanRemoval: true)]
     protected Collection $children;
 
     #[ORM\ManyToMany(targetEntity: Subscription::class, mappedBy: "categories")]

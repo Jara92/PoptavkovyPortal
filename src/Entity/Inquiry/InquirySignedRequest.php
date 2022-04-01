@@ -35,7 +35,7 @@ class InquirySignedRequest extends AEntity
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user;
 
-    #[ORM\ManyToOne(targetEntity: Inquiry::class)]
+    #[ORM\ManyToOne(targetEntity: Inquiry::class, inversedBy: "requests")]
     #[ORM\JoinColumn(nullable: false)]
     private ?Inquiry $inquiry;
 

@@ -105,6 +105,9 @@ class Inquiry extends AEntity
     #[ORM\OneToMany(mappedBy: "inquiry", targetEntity: InquiryAttachment::class, orphanRemoval: true)]
     private Collection $attachments;
 
+    #[ORM\OneToMany(mappedBy: "inquiry", targetEntity: InquirySignedRequest::class, orphanRemoval: true)]
+    private Collection $requests;
+
     /**
      * @var ISmartTag[]
      */
@@ -132,6 +135,7 @@ class Inquiry extends AEntity
     {
         $this->categories = new ArrayCollection();
         $this->attachments = new ArrayCollection();
+        $this->requests = new ArrayCollection();
         $this->offers = new ArrayCollection();
         $this->supplierRatings = new ArrayCollection();
     }
@@ -369,6 +373,36 @@ class Inquiry extends AEntity
             // set the owning side to null (unless already changed)
             if ($attachment->getInquiry() === $this) {
                 $attachment->setInquiry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRequests(): Collection
+    {
+        return $this->requests;
+    }
+
+    public function addRequest(InquirySignedRequest $request): self
+    {
+        if (!$this->requests->contains($request)) {
+            $this->requests[] = $request;
+            $request->setInquiry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRequest(InquirySignedRequest $request): self
+    {
+        if ($this->requests->removeElement($request)) {
+            // set the owning side to null (unless already changed)
+            if ($request->getInquiry() === $this) {
+                $request->setInquiry(null);
             }
         }
 
