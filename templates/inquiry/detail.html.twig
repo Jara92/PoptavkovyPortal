@@ -96,9 +96,9 @@
                 {% if app.user and app.user == inquiry.author %}
                     {% if inquiry.state.value == "active" %}
                         <a class="btn btn-outline-secondary"
-                           href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
+                           href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">{{ "inquiries.btn_finish_inquiry"|trans }}</a>
                     {% else %}
-                        <p><span class="fa fa-check-circle me-2"></span>Poptávka byla uzavřena</p>
+                        <p><span class="fa fa-check-circle me-2"></span>{{ "inquiries.inquiry_closed"|trans }}</p>
                     {% endif %}
                 {% else %}
                     {# Contact form #}

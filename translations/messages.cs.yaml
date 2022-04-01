@@ -195,6 +195,7 @@ inquiries:
   inquiries_filter_new: "Ke schválení"
   new_inquiries_newsletter: "Nové poptávky"
   inquiry_will_be_removed: "Blížící se odstranění poptávky"
+  inquiry_closed: "Poptávka byla uzavřena"
 
   inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
@@ -218,6 +219,7 @@ inquiries:
   btn_submit: "Zadat poptávku"
   btn_filter: "Vyhledat"
   btn_clear: "Smazat filtr"
+  btn_finish_inquiry: "Uzavřít poptávku"
 
   created: "Nová poptávka byla úspěšně vytvořena."
 
