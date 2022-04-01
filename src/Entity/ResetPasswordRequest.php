@@ -15,7 +15,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
 
     use ResetPasswordRequestTrait;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "resetPasswordRequests")]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -33,5 +33,11 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
     public function getUser(): object
     {
         return $this->user;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+        return $this;
     }
 }

@@ -99,6 +99,9 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
     #[ORM\OneToOne(mappedBy: "user", targetEntity: Notification::class, cascade: ["persist", "remove"])]
     private ?Notification $notification;
 
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: ResetPasswordRequest::class, cascade: ["persist", "remove"])]
+    private Collection $resetPasswordRequests;
+
     /**
      * Ratings created by the user.
      */
@@ -116,6 +119,7 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
         $this->inquiries = new ArrayCollection();
         $this->offers = new ArrayCollection();
         $this->ratings = new ArrayCollection();
+        $this->resetPasswordRequests = new ArrayCollection();
         $this->myRatings = new ArrayCollection();
     }
 
@@ -455,6 +459,36 @@ class User extends AEntity implements UserInterface, PasswordAuthenticatedUserIn
             // set the owning side to null (unless already changed)
             if ($rating->getTarget() === $this) {
                 $rating->setTarget(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getResetPasswordRequests(): Collection
+    {
+        return $this->resetPasswordRequests;
+    }
+
+    public function addResetPasswordRequest(ResetPasswordRequest $request): self
+    {
+        if (!$this->resetPasswordRequests->contains($request)) {
+            $this->resetPasswordRequests[] = $request;
+            $request->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResetPasswordRequest(ResetPasswordRequest $request): self
+    {
+        if ($this->resetPasswordRequests->removeElement($request)) {
+            // set the owning side to null (unless already changed)
+            if ($request->getUser() === $this) {
+                $request->setUser(null);
             }
         }
 
