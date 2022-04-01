@@ -236,8 +236,7 @@ class InquiryOperation
         $attachmentEntities = [];
 
         // Directory for the entitie's attachments.
-        $directory = $this->params->get("app.inquiries.attachments_directory");
-        $directory .= "/" . $inquiry->getId();
+        $relativePath = $inquiry->getId();
 
         foreach ($attachments as $attachment) {
             $fileName = pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME);
@@ -248,15 +247,17 @@ class InquiryOperation
             $hash = hash_file("sha256", $attachment->getRealPath());
             $description = "";
             $size = $attachment->getSize();
-            $path = $directory . "/" . $newFilename;
+            $path = $relativePath . "/" . $newFilename;
 
             // Create an entity using the params.
             $entity = $this->attachmentFactory->createAttachment($inquiry, $newFilename, $hash, $description, $size, $path, $type);
 
             // Move the file to the directory where brochures are stored
             try {
+                // Move to the corrent directory
                 $attachment->move(
-                    $directory,
+                // The path must be absolute here so we take a param.
+                    $this->params->get("app.inquiries.attachments_directory") . "/" . $relativePath,
                     $newFilename
                 );
 

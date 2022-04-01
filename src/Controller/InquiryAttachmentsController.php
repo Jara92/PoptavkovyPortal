@@ -32,15 +32,17 @@ class InquiryAttachmentsController extends AbstractController
         // Check permissions.
         $this->denyAccessUnlessGranted("view_attachments", $attachment->getInquiry());
 
+        $filePath = $this->getParameter("app.inquiries.attachments_directory") . "/" . $attachment->getPath();
+
         // Create a response.
-        $response = new BinaryFileResponse($attachment->getPath());
+        $response = new BinaryFileResponse($filePath);
         // Create mimeTypeGuesser instance.
         $mimeTypeGuesser = new FileinfoMimeTypeGuesser();
 
         // Set the mimetype with the guesser or manually
         if ($mimeTypeGuesser->isGuesserSupported()) {
             // Guess the mimetype of the file according to the extension of the file
-            $response->headers->set('Content-Type', $mimeTypeGuesser->guessMimeType($attachment->getPath()));
+            $response->headers->set('Content-Type', $mimeTypeGuesser->guessMimeType($filePath));
         } else {
             // Set the mimetype of the file manually, in this case for a text file is text/plain
             $response->headers->set('Content-Type', 'text/plain');
