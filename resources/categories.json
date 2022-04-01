@@ -1,0 +1,2623 @@
+[
+  {
+    "title": "Auto-Moto",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Autopůjčovny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Autoskla",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Autoškoly",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bazar",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ekologická likvidace vozů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Leasing, operativní leasing",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lodě a motorové čluny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Montáž, servis a revize LPG",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Motocykly, čtyřkolky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mytí aut",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Náhradní díly",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nákladní auta",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Oleje, maziva a filtry",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Osobní auta",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pneuservis",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Prodej pneumatik",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Příslušenství",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Přívěsné vozíky, karavany",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Servis",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Speciální technologická vozidla",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Tažná zařízení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Užitková auta",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Bazar",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Bílá technika a elektronika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dřevo a kovoobráběcí stroje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nábytek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební materiál",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební stroje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradní technika, nářadí",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zemědělské stroje",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Doprava",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Autobusová",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dopravní značení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kontejnerová",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kurýrní služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Letecká",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lodní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mikrobusová",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nákladní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Osobní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Potravinářské výrobky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stěhování",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Dřevo",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "EURO palety",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hotové výrobky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kulatina",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lamino, překližka",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Okna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Palivové dřevo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pelety, peletky a brikety",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Řezivo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Štěpka",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba na zakázku",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zpracování",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Elektro",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Elektrické spotřebiče",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektronika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektrotechnika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Energetika",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Nábytek",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Dekorativní, bytové doplňky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dveře – vnitřní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hotelový, restaurační",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kancelářský",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kování",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kovový",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kuchyně",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lustry, lampy, osvětlení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Matrace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Montáž a demontáž",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Návrh a realizace interiérů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Postele",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sedačky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Služby a restaurování",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stoly a židle",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba - skříně",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba na zakázku",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradní nábytek",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Počítače, software",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Hardware",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kancelářská technika a spotřební materiál",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nosiče dat",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Notebooky a hotové sestavy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Programátor",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Registrační pokladny a pokl. systémy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Servis",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Software",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Správa serveru",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Telekomunikace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Potravinářství",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Cukrářská výroba",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Cukrovinky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Masné výrobky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mléčné výrobky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nápoje - alko",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nápoje - nealko",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Oleje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ovoce a zelenina",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pečivo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba potravin a lahůdek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zdravá výživa a doplňky",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Práce",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Poptávky práce",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Průmysl",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Dodávky zemního plynu",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Chladící a mrazící zařízení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kontejnery",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ocelové a plynové láhve",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pohonné hmoty, biopaliva",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Uhlí",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Reality",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Koupě - byty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - garáže a objekty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - chaty a chalupy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - kanceláře a komerční objekty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - pozemky a zahrady",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koupě - rodinné domy a vily",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - byty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - garáže a drobné objekty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - chaty a chalupy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - kanceláře a komerční objekty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - pozemky a zahrady",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pronájem - rodinné domy a vily",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Prostory - pro školení",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Reklama, tisk",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Digitální tisk",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Grafika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Katalogy, časopisy, brožury, knihy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Letáky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Marketing - marketingová komunikace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Marketing - online",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Potisk textilu, plastů a předmětů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Reklamní agentury",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Reklamní předměty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Světelná reklama",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vazba a zpracování tiskovin",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Velkoformátový tisk, plakáty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Venkovní reklama",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vizitky",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Řemeslné práce",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Betonáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čištění kanalizace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dlaždiči",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektrikáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hodinový manžel",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Instalatéři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Izolatéři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kameník, mramorář",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Klempíři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kominíci",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kováři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lešenáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Malíři, natěrači, tapetáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Montáž oken, dveří a vrat",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Montáže klimatizací",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Obkladači",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plyn, voda, topení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plynaři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Podlaháři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pokrývači",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Renovace oken a dveří",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revize - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revize elektro",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revize komíny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revize kotlů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revize plyn",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sádrokartonáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sklenáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Studnaři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Svářeči",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ševci, čalouníci",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Štukatéři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Tesaři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Topenáři, kamnaři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Truhláři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výkopové práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradníci",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zámečníci a strojní zámečníci",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zedníci",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Žaluzie, rolety, markýzy",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Servis",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Bílá technika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektrické spotřebiče",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kalibrace, měření",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nářadí",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stroje - průmyslové",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stroje – textilní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stroje – zahradní technika a náhradní díly",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stroje – zemědělská technika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výtahy a servis",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Služby",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Bezpečnost, ochrana zdraví, BOZP",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bezpečnostní, ostraha",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čalounictví",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Deratizace, dezinsekce, dezinfekce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Distribuce letáků",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Film, video",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Finanční služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Finanční služby - hypotéky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Finanční služby - investoři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Finanční služby - půjčky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Foto, video, kamera",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Jazykové kurzy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kácení stromů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Korektury, editace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Likvidace odpadů, kontejnery",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Notáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní kurzy a školení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "PC kurzy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Poradenství",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pořádání akcí, konference",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Prádelny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Překladatelské služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rauty a catering",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rekvalifikační kurzy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rozbory vody",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Správa nemovitostí",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Svatební agentury",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Telemarketing",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Tvorba www stránek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Účetní služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vymáhání pohledávek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradnictví a zahradnické služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zdravotnictví a zdravotnické služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Znalci - odhadci - nemovitý majetek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Znalci - odhadci - ostatní",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Stavby (části)",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Balkony",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bazény",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bytová jádra, koupelny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Centrální vysavače",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čističky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čištění fasád",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dětská hřiště",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Domovní zvonky a schránky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Fasády, omítky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Gabiony",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Garáže, dílny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hromosvody",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kamenný koberec",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kanalizace, odpady",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Komíny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kotle",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Krby, pece",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kuchyně, jídelny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lité podlahy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Odhlučnění prostor",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Opěrné zdi",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plechové garáže",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ploty, oplocení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Podlahy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Přípojky plynu, vody",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Přístavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rekuperace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rozvody, instalace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sauny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Schody",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sklepní kóje, sklepy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební agentury, technický dozor",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stropy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Střechy, půdy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Studny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Terasy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Topení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vchodové stříšky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vyklízení bytů, sklepů, půd…",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výstavba sportovišť",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vzduchotechnika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zábradlí",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradní domky, přístřešky, pergoly",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahrady (okrasné, jezírka atd.)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zámková dlažba",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zasklívání lodžií a balkónů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zimní zahrady",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Žumpy, jímky",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Stavební materiál",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Asfalt a asfaltové směsi",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bednění",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Beton",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Cihly a tvárnice",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dlažba a zámková dlažba",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dřevoplast",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dveře (bezpečnostní)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dveře (protipožární)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dveře (venkovní)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektromateriál",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Fasády",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Gabiony",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hliníková okna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Chemie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Interiérová dlažba a obklady",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Izolace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kamenivo, štěrk, písek",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kamenný koberec",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Klempířské prvky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Komíny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kovový",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lešení prodej",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lešení půjčovna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Maltové směsi, štuk, cement atd.",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "OSB desky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Palubky, prkna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Panely a betonové prvky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plastová okna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ploty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Podlahové krytiny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pro dřevostavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sádrokarton",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sanitární keramika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sanitární technika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sítě do oken, rolety, žaluzie, markýzy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Spojovací materiál",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební buňky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební chemie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stropní konstrukce a krytiny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Střešní krytiny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Střešní okna a světlíky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Voda, plyn, topení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vrata, brány",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zemina/hlína",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Stavebnictví",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Architekti",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bourací práce, likvidace staveb",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čerpací stanice",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Drenáže",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dřevostavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektroinstalační práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektroprojekty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Geodetické služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Geologické práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Haly",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hrubé stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hydroizolace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Interiérové přestavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Inženýrské sítě",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Inženýrské služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Izolace a zateplení vnější",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Izolace a zateplení vnitřní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Jeřábnické práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Městský mobiliář",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mobilheimy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nízkoenergetické domy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Novostavby - komerční stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Novostavby - obytné stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Novostavby - průmyslové stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Odvoz odpadů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Projektanti - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Projektanti - pozemní stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Projektanti - rekonstrukce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rekonstrukce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Revitalizace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rodinné domy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Silniční stavby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Statika staveb",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební dozor",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Těsnění a těsnicí materiály",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vodohospodářství",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vysušování zdiva a sanace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výškové práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradní architekti",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Základové desky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zemní práce",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Stroje",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Balící",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čerpadla - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čerpadla - tepelná",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čerpadla - vodní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dopravní systémy, dopravníky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektrocentrály",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Elektromotory",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Jeřáby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lisy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Manipulační a skladová technika - prodej",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Manipulační a skladová technika - půjčovna",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Manipulační a skladová technika - servis",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mycí stroje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Na dřevo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Na kov",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Náhradní díly - ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Náhradní díly - průmyslové",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Náhradní díly - zemědělská technika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nářadí a nástroje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Nástrojárny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Potravinářské, gastronomie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Prodejní automat",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Půjčovna ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Půjčovna stavebních strojů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Řídicí a automatizační technika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební mechanizace",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Textilní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Tiskařské",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Váhy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vybavení pro autodílny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba strojů",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahradní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zemědělské",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Strojírenství",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Broušení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "CNC obrábění",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dráty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Frézování",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Galvanotechnika, povrchové úpravy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hutní materiál (profily, plechy, trubky aj.)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hydraulika",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kovové konstrukce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kovovýroba - montáž",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kovovýroba, nerez",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Skladové systémy, regály",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Slévárenství",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Soustružení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Technické kreslení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zbraně a střelivo",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Subdodávky",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Dlaždiči",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Instalatérské práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Malíři, natěrači, tapetáři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Montáž oken, dveří a vrat",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Obkladové práce vnitřní, vnější",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Podlaháři",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pokrývačské a lešenářské práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Práce elektro",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Stavební práce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Voda, plyn, topení",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zedník",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Textil, oděvy",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Bytový (a hotelový) textil",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čalounický materiál",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dámské oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Dětské oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Koberce",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Obuv",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pánské oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pracovní (rukavice, montérky, atd.) oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Pro oděvy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sportovní oděvy (outdoor)",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Tkanina",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Velkoobchody",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba na zakázku",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Výroba na zakázku, krejčí",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Ubytování, cestování",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Česká republika - hotely",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Chorvatsko",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Itálie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kempy ČR",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Lázeňské pobyty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Letenky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Penziony, chaty do 10 osob",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Penziony, chaty do 20 osob",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Penziony, chaty velké skupiny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Rakousko",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Slovensko",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ubytovny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zahraničí - evropa",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zájezdy a dovolené - svět",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Úklid",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Bytové a panelové domy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Bytové prostory",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Čištění koberců",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Drogerie, kosmetika, parfémy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hygienické a čisticí prostředky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Komerční prostory",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Odklízení sněhu a komunikací",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Výrobky",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Dětské zboží",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Guma",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Hudební nástroje",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kamna a krbové vložky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kancelářské potřeby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Kožená galanterie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Mobilní WC",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ochranné pomůcky",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Orientační infosystémy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Papír",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plachty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Plasty",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Posypová sůl",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Požární technika a systémy",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sklo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Sport",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Šperky, hodinky, bižuterie",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Vybavení pro výuku",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zdravotnictví",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  },
+  {
+    "title": "Zemědělství",
+    "url": "",
+    "subcategories": [
+      {
+        "title": "Biovýroba",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Chovatelské potřeby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Krmivo",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Obiloviny",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Ostatní",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Služby",
+        "url": "",
+        "subcategories": []
+      },
+      {
+        "title": "Zvířata (bažanti, kachny, psi, kočky)",
+        "url": "",
+        "subcategories": []
+      }
+    ]
+  }
+]
