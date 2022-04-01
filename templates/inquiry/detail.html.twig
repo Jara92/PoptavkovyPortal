@@ -94,8 +94,12 @@
 
                 {# The author can finish the inquiry #}
                 {% if app.user and app.user == inquiry.author %}
-                    <a class="btn btn-outline-secondary"
-                       href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
+                    {% if inquiry.state.value == "active" %}
+                        <a class="btn btn-outline-secondary"
+                           href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">Ukončit poptávku</a>
+                    {% else %}
+                        <p><span class="fa fa-check-circle me-2"></span>Poptávka byla uzavřena</p>
+                    {% endif %}
                 {% else %}
                     {# Contact form #}
                     {{ include("inquiry/offer.html.twig", {inquiry:inquiry, form:form}) }}
