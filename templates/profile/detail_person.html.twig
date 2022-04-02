@@ -39,13 +39,13 @@
                                     <span class="fa fa-info-circle me-2"></span>{{ "profiles.about_person"|trans }}
                                 </a>
                             </li>
-                            <li class="nav-item">
+{# <li class="nav-item">
                                 <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
                                    role="tab" aria-controls="home"
                                    aria-selected="true">
                                     <span class="fa fa-address-book me-2"></span>{{ "profiles.contact"|trans }}
                                 </a>
-                            </li>
+                            </li> #}
                             <li class="nav-item">
                                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
                                    role="tab" aria-controls="profile" aria-selected="false">
@@ -60,7 +60,7 @@
                                 <p class="description">{{ profile.description }}</p>
                             {% endif %}
                         </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        {# <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>
@@ -85,7 +85,7 @@
                                              class="text-decoration-underline">{{ profile.user.phone }}</a></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> #}
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             {% if profile.web %}
                                 <div class="row">
