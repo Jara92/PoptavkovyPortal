@@ -18,5 +18,8 @@ class CompanySettingsForm extends UserSettingsForm
             ]))->getForm();
 
         parent::buildForm($builder, $options);
+
+        // Disable email to be edited
+        $builder->remove("email");
     }
 }
