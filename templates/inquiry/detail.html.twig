@@ -97,6 +97,8 @@
                     {% if inquiry.state.value == "active" %}
                         <a class="btn btn-outline-secondary"
                            href="{{ path("inquiries/finish", {"alias":inquiry.alias}) }}">{{ "inquiries.btn_finish_inquiry"|trans }}</a>
+                    {% elseif inquiry.state.value == "new" %}
+                        {# <p><span class="fa fa-paper-plane me-2"></span>{{ "inquiries.inquiry_new"|trans }}</p> #}
                     {% else %}
                         <p><span class="fa fa-check-circle me-2"></span>{{ "inquiries.inquiry_closed"|trans }}</p>
                     {% endif %}
