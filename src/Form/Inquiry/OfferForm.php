@@ -54,7 +54,7 @@ class OfferForm extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => "offers.btn_send_offer",
-                'attr' => ["class" => "btn btn-primary btn-send-offer"]
+                'attr' => ["class" => "btn btn-primary btn-send-offer btn-center"]
             ])
             ->add("sendCopy", CheckboxType::class, [
                 'label' => "offers.field_send_copy",
