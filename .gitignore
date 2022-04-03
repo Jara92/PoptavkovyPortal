@@ -1,6 +1,7 @@
 .idea
 node_modules
 migrations
+deploy.sh
 
 ###> symfony/framework-bundle ###
 /.env.local
