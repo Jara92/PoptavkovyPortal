@@ -228,6 +228,7 @@ inquiries:
   new_inquiry_desc_1: "Novou poptávku vytvoříte do 3 minut pomocí tří jednoduchých kroků"
   new_inquiry_desc_2: "Zadání poptávky je <span class='text-danger'>ZDARMA</span> a <span class='text-danger'>NEZÁVAZNÉ</span>"
   new_inquiry_desc_3: "Nové nabídky denně na Váš email"
+  new_inquiry_desc_4: "Z nabídek si vybere tu nejvýhodnější!"
   new_inquiry_help: "Nevíte si rady?"
 
   filtered_inquiries: "Bylo nalezeno <strong>%value%</strong> poptávek odpovídajích Vašim požadavkům."
