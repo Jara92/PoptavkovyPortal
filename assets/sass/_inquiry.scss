@@ -21,6 +21,7 @@
     color: $secondary;
     border: none;
     background: none;
+    margin: auto 0 auto auto;
   }
 
   .search-filters {
@@ -43,7 +44,7 @@
     }
 
     .btn-clear-filter {
-      margin: auto 0 auto auto;
+
     }
   }
 }
