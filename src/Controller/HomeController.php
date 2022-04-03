@@ -47,6 +47,9 @@ class HomeController extends AbstractController
 
     public function cookiesAction(): Response
     {
+        // FIXME: for now we will just redirect the user
+        return $this->redirect('https://www.cookie-lista.cz/co-je-cookies.html');
+
         $this->breadcrumbs->addItem("cookies.cookies", $this->router->generate("cookies"));
 
         return $this->render("home/cookies.html.twig");
