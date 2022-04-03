@@ -52,7 +52,7 @@
                 <h2 class="pb-2">{{ "inquiries.category_select"|trans }}</h2>
                 <div class="row">
                     {% for category in categories %}
-                        <div class="col-md-4">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <a href="{{ path("inquiries-category", {"categoryAlias":category.alias}) }}"
                                class="fs-2 mb-2 text-black"><span
                                         class="fa fa-folder me-2"></span>{{ category.title }}</a>
