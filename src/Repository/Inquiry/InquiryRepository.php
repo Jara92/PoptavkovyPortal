@@ -61,6 +61,8 @@ class InquiryRepository extends ServiceEntityRepository implements IInquiryIRepo
         $filter->setCategories($inquiry->getCategories()->toArray());
         //$filter->setTypes([$inquiry->getType()]);
 
+        $filter->setStates([InquiryState::STATE_ACTIVE]);
+
         if ($inquiry->getRegion()) {
             //  $filter->setRegions([$inquiry->getRegion()]);
         }
