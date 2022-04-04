@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: IBM Plex Sans Devanagari
+- Font Author: Copyright 2019 IBM Corp. All rights reserved.
+- Font Source: http://fonts.gstatic.com/s/ibmplexsansdevanagari/v5/XRXA3JCMvG4IDoS9SubXB6W-UX5iehIMBFR2-O_H6W3Qe-b8AV0z0w.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
