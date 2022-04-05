@@ -18,6 +18,7 @@ use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\User;
 use App\Enum\Entity\InquiryState;
+use App\Enum\Entity\InquiryType;
 use App\Enum\Entity\UserType;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
@@ -25,6 +26,7 @@ use App\Factory\Inquiry\InquiryFactory;
 use App\Factory\Inquiry\OfferFactory;
 use App\Factory\Inquiry\PersonalContactFactory;
 use App\Factory\InquiryFilterFactory;
+use App\Helper\UrlHelper;
 use App\Security\UserSecurity;
 use CoopTilleuls\UrlSignerBundle\UrlSigner\UrlSignerInterface;
 use DateTime;
@@ -123,6 +125,16 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             $this->mailer, $this->router, $this->urlSigner);
     }
 
+    private function getNewInquiry1()
+    {
+        $inquiry = (new Inquiry())->setTitle("Titulek poptávky")
+            ->setDescription("Popis poptávky delší než 20 znaků, protože to je minimum")
+            ->setType(InquiryType::PERSONAL)
+            ->setContactEmail("user@email.cz");
+
+        return $inquiry;
+    }
+
     private function getInquiry1()
     {
         $now = new DateTime();
@@ -201,6 +213,23 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             ->setCreatedAt($now)->setTarget(null);
     }
 
+    /**
+     * @covers InquiryOperation::getNewInquiryDefaultType
+     */
+    public function testGetNewInquiryDefaultType()
+    {
+        // No user - personal inquiry is defualt
+        $user = null;
+        $this->assertEquals(InquiryType::PERSONAL, $this->operation->getNewInquiryDefaultType($user));
+
+        // Personal - personal inquiry is default
+        $user = (new User())->setId(1)->setEmail("user@seznam.cz")->setType(UserType::PERSON);
+        $this->assertEquals(InquiryType::PERSONAL, $this->operation->getNewInquiryDefaultType($user));
+
+        // Company - company inquiry is default
+        $user->setType(UserType::COMPANY);
+        $this->assertEquals(InquiryType::COMPANY, $this->operation->getNewInquiryDefaultType($user));
+    }
 
     /**
      * @covers InquiryOperation::autoRemoveNotify()
