@@ -27,6 +27,7 @@ use App\Entity\User;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
 use App\Enum\Entity\UserType;
+use App\Exception\AlreadyMadeOfferException;
 use App\Factory\Inquiry\CompanyContactFactory;
 use App\Factory\Inquiry\InquiryAttachmentFactory;
 use App\Factory\Inquiry\InquiryFactory;
@@ -654,6 +655,95 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $newOffer = $this->operation->createOffer($inquiry);
         $this->assertEquals($inquiry, $newOffer->getInquiry());
         $this->assertEquals($user, $newOffer->getAuthor());
+    }
+
+    /**
+     * @covers InquiryOperation::sendOffer()
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function testSendOfferExists()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        // The user already sent his offer
+        $offer = (new Offer())->setId(1)->setAuthor($user)->setInquiry($inquiry)->setText("Text anbdiky");
+
+        // The user already sent his offer
+        $this->offerService->method("readOneByInquiryAndAuthor")->with($inquiry, $user)->willReturn(new Offer());
+
+        // We expect the offer not to be saved!
+        $this->offerService->expects($this->never())->method("create")->with($offer);
+
+        // No emails expected
+        $this->mailer->expects($this->never())->method("send");
+
+        // We expect an exception to be thrown
+        $this->expectException(AlreadyMadeOfferException::class);
+
+        $this->operation->sendOffer($offer);
+    }
+
+    /**
+     * @covers InquiryOperation::sendOffer()
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws AlreadyMadeOfferException
+     */
+    public function testSendOfferCreated()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        // The user already sent his offer
+        $offer = (new Offer())->setId(1)->setAuthor($user)->setInquiry($inquiry)->setText("Text anbdiky");
+
+        // The user already sent his offer
+        $this->offerService->method("readOneByInquiryAndAuthor")->with($inquiry, $user)->willReturn(null);
+
+        // We expect the offer not to be saved!
+        $this->offerService->expects($this->once())->method("create")->with($offer);
+
+        // One email expected
+        $this->mailer->expects($this->once())->method("send");
+
+        $this->operation->sendOffer($offer);
+    }
+
+    /**
+     * @covers InquiryOperation::sendOffer()
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     * @throws AlreadyMadeOfferException
+     */
+    public function testSendOfferCreatedWithCopy()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        // The user already sent his offer
+        $offer = (new Offer())->setId(1)->setAuthor($user)->setInquiry($inquiry)->setText("Text anbdiky");
+
+        // The user already sent his offer
+        $this->offerService->method("readOneByInquiryAndAuthor")->with($inquiry, $user)->willReturn(null);
+
+        // We expect the offer not to be saved!
+        $this->offerService->expects($this->once())->method("create")->with($offer);
+
+        // One email expected
+        $this->mailer->expects($this->exactly(2))->method("send");
+
+        $this->operation->sendOffer($offer, true);
     }
 
     /**
