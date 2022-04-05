@@ -11,9 +11,11 @@ use App\Business\Service\Inquiry\OfferService;
 use App\Business\Service\Inquiry\Rating\SupplierRatingService;
 use App\Business\Service\Inquiry\SmartTagService;
 use App\Entity\Company;
+use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\Offer;
+use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
@@ -312,29 +314,19 @@ class InquiryOperation
         throw new LogicException("Unknown user type: " . $user->getType()->value);
     }
 
-    private function fillPersonContactData(Inquiry $inquiry, ?Person $person): Inquiry
+    private function fillPersonContactData(Inquiry $inquiry, Person $person): Inquiry
     {
-        // Check if person is valid.
-        if (is_null($person)) {
-            throw new LogicException("User.person must not be null for this type of user!");
-        }
-
         // Create new personcal contact instance.
-        $personalContact = $this->personalContactFactory->createPersonalContact($person->getName(), $person->getSurname());
+        $personalContact = (new PersonalContact())->setName($person->getName())->setSurname($person->getSurname());
         $inquiry->setPersonalContact($personalContact);
 
         return $inquiry;
     }
 
-    private function fillCompanyContactData(Inquiry $inquiry, ?Company $company): Inquiry
+    private function fillCompanyContactData(Inquiry $inquiry, Company $company): Inquiry
     {
-        // Check if person is valid.
-        if (is_null($company)) {
-            throw new LogicException("User.person must not be null for this type of user!");
-        }
-
         // Create new company contact instance.
-        $companyContact = $this->companyContactFactory->createCompanyContact($company->getName(), $company->getIdentificationNumber());
+        $companyContact = (new CompanyContact())->setCompanyName($company->getName())->setIdentificationNumber($company->getIdentificationNumber());
         $inquiry->setCompanyContact($companyContact);
 
         return $inquiry;

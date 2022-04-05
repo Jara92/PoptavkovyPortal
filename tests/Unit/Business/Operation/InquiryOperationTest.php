@@ -12,6 +12,7 @@ use App\Business\Service\Inquiry\InquiryValueService;
 use App\Business\Service\Inquiry\OfferService;
 use App\Business\Service\Inquiry\Rating\SupplierRatingService;
 use App\Business\Service\Inquiry\SmartTagService;
+use App\Entity\Company;
 use App\Entity\Inquiry\CompanyContact;
 use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
@@ -20,6 +21,7 @@ use App\Entity\Inquiry\InquiryValue;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
+use App\Entity\Person;
 use App\Entity\User;
 use App\Enum\Entity\InquiryState;
 use App\Enum\Entity\InquiryType;
@@ -514,6 +516,82 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         // New removeAt value should be $removeNoticeValue + delay between notice and removing the inquiry.
         $removeAt = new DateTime("@" . $timeStampNow + $this->inquiryExpirationNotification + $this->inquiryExpirationRemove);
         $this->assertEquals($removeAt, $inquiry->getRemoveAt());
+    }
+
+    // TODO: test InquiryOperation::saveAttachments somehow
+
+    /**
+     * @covers InquiryOperation::createBlankInquiry
+     */
+    public function testCreateBlankInquiryNoUser()
+    {
+        $user = null;
+
+        $this->inquiryFactory->method("createBlank")->willReturn(new Inquiry());
+
+        $inquiry = $this->operation->createBlankInquiry($user);
+
+        $this->assertNull($inquiry->getContactEmail());
+        $this->assertNull($inquiry->getContactPhone());
+
+        $this->assertNull($inquiry->getPersonalContact());
+        $this->assertNull($inquiry->getCompanyContact());
+    }
+
+    /**
+     * @covers InquiryOperation::createBlankInquiry
+     */
+    public function testCreateBlankInquiryPerson()
+    {
+        $user = (new User())->setId(1)->setEmail("user@seznam.cz")->setPhone("123456789")
+            ->setType(UserType::PERSON)
+            ->setPerson((new Person())->setId(1)->setName("User")->setSurname("Userov"));
+
+        $this->inquiryFactory->method("createBlank")->willReturn(new Inquiry());
+
+        $inquiry = $this->operation->createBlankInquiry($user);
+
+        // COntact information must be filled
+        $this->assertEquals($user->getEmail(), $inquiry->getContactEmail());
+        $this->assertEquals($user->getPhone(), $inquiry->getContactPhone());
+
+        // Personal contact msut not be null
+        $this->assertNotNull($inquiry->getPersonalContact());
+
+        // Check filled name and surname
+        $this->assertEquals($user->getPerson()->getName(), $inquiry->getPersonalContact()->getName());
+        $this->assertEquals($user->getPerson()->getSurname(), $inquiry->getPersonalContact()->getSurname());
+
+        // COmpany contact must be null
+        $this->assertNull($inquiry->getCompanyContact());
+    }
+
+    /**
+     * @covers InquiryOperation::createBlankInquiry
+     */
+    public function testCreateBlankInquiryCompany()
+    {
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        $this->inquiryFactory->method("createBlank")->willReturn(new Inquiry());
+
+        $inquiry = $this->operation->createBlankInquiry($user);
+
+        // Contact information must be filled
+        $this->assertEquals($user->getEmail(), $inquiry->getContactEmail());
+        $this->assertEquals($user->getPhone(), $inquiry->getContactPhone());
+
+        // Personal contact must not be null
+        $this->assertNotNull($inquiry->getCompanyContact());
+
+        // Check filled company name and identification number
+        $this->assertEquals($user->getCompany()->getName(), $inquiry->getCompanyContact()->getCompanyName());
+        $this->assertEquals($user->getCompany()->getIdentificationNumber(), $inquiry->getCompanyContact()->getIdentificationNumber());
+
+        // Personal contact must be null
+        $this->assertNull($inquiry->getPersonalContact());
     }
 
     /**

@@ -140,7 +140,7 @@ class Inquiry extends AEntity
         $this->supplierRatings = new ArrayCollection();
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -152,7 +152,7 @@ class Inquiry extends AEntity
         return $this;
     }
 
-    public function getContactEmail(): string
+    public function getContactEmail(): ?string
     {
         return $this->contactEmail;
     }
@@ -200,7 +200,7 @@ class Inquiry extends AEntity
         return $this;
     }
 
-    public function getState(): InquiryState
+    public function getState(): ?InquiryState
     {
         return $this->state;
     }
@@ -296,7 +296,7 @@ class Inquiry extends AEntity
         return $this;
     }
 
-    public function getType(): InquiryType
+    public function getType(): ?InquiryType
     {
         return $this->type;
     }
@@ -421,13 +421,13 @@ class Inquiry extends AEntity
      * @param ISmartTag[] $smartTags
      * @return Inquiry
      */
-    public function setSmartTags(array $smartTags): Inquiry
+    public function setSmartTags(array $smartTags): self
     {
         $this->smartTags = $smartTags;
         return $this;
     }
 
-    public function addSmartTag(ISmartTag $smartTag): Inquiry
+    public function addSmartTag(ISmartTag $smartTag): self
     {
         $this->smartTags[] = $smartTag;
         return $this;
@@ -475,7 +475,7 @@ class Inquiry extends AEntity
      * @param DateTime|null $publishedAt
      * @return Inquiry
      */
-    public function setPublishedAt(?DateTime $publishedAt): Inquiry
+    public function setPublishedAt(?DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
         return $this;
