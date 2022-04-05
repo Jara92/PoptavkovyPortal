@@ -12,8 +12,12 @@ use App\Business\Service\Inquiry\InquiryValueService;
 use App\Business\Service\Inquiry\OfferService;
 use App\Business\Service\Inquiry\Rating\SupplierRatingService;
 use App\Business\Service\Inquiry\SmartTagService;
+use App\Entity\Inquiry\CompanyContact;
+use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
+use App\Entity\Inquiry\InquiryValue;
+use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
 use App\Entity\User;
@@ -129,7 +133,6 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     {
         $inquiry = (new Inquiry())->setTitle("Titulek poptávky")
             ->setDescription("Popis poptávky delší než 20 znaků, protože to je minimum")
-            ->setType(InquiryType::PERSONAL)
             ->setContactEmail("user@email.cz");
 
         return $inquiry;
@@ -148,7 +151,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             ->setCreatedAt($now)->setUpdatedAt($now)
             ->setState(InquiryState::STATE_ACTIVE)
             ->setRemoveNoticeAt($timeNotice)->setRemoveAt($timeRemove)
-        ->setContactEmail("user@email.cz");
+            ->setContactEmail("user@email.cz");
         return $inquiry;
     }
 
@@ -232,6 +235,90 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers InquiryOperation::createInquiry
+     */
+    public function testCreatePersonalInquiry()
+    {
+        $inquiry = $this->getNewInquiry1()
+            ->setType(InquiryType::PERSONAL)
+            ->setPersonalContact((new PersonalContact())->setName("Pavel")->setSurname("Novak"));
+
+        // Prepare expected output
+        $inquiryRef = $this->getNewInquiry1()
+            ->setType(InquiryType::PERSONAL)
+            ->setPersonalContact((new PersonalContact())->setName("Pavel")->setSurname("Novak"))
+            ->setAlias("1-titulek-poptavky")
+            ->setId(1)
+            ->setAuthor(null)
+            ->setState(InquiryState::STATE_NEW);
+
+        // We expect the inquiry to be created by the servic
+        $this->inquiryService->expects($this->once())->method("create")->with($inquiry)
+            ->will($this->returnCallback(function (Inquiry $i) {
+                $i->setId(1);
+
+                return true;
+            }));
+
+        // The inquiry should be updated then
+        $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
+
+        // The "createInquiry" method must return true
+        $this->assertEquals(true, $this->operation->createInquiry($inquiry, []));
+
+        // Actual inquiry must be equal to the reference one.
+        $this->assertEquals($inquiryRef, $inquiry);
+
+        // Company contact should be null because the inquiry is personal
+        $this->assertNull($inquiry->getCompanyContact());
+
+        // Personal contact cannot be null
+        $this->assertNotNull($inquiry->getPersonalContact());
+    }
+
+    /**
+     * @covers InquiryOperation::createInquiry
+     */
+    public function testCreateCompanyInquiry()
+    {
+        $inquiry = $this->getNewInquiry1()
+            ->setType(InquiryType::COMPANY)
+            ->setCompanyContact((new CompanyContact())->setCompanyName("Firma")->setIdentificationNumber("1123456789"));
+
+        // Prepare expected output
+        $inquiryRef = $this->getNewInquiry1()
+            ->setType(InquiryType::COMPANY)
+            ->setCompanyContact((new CompanyContact())->setCompanyName("Firma")->setIdentificationNumber("1123456789"))
+            ->setAlias("1-titulek-poptavky")
+            ->setId(1)
+            ->setAuthor(null)
+            ->setState(InquiryState::STATE_NEW);
+
+        // We expect the inquiry to be created by the servic
+        $this->inquiryService->expects($this->once())->method("create")->with($inquiry)
+            ->will($this->returnCallback(function (Inquiry $i) {
+                $i->setId(1);
+
+                return true;
+            }));
+
+        // The inquiry should be updated then
+        $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
+
+        // The "createInquiry" method must return true
+        $this->assertEquals(true, $this->operation->createInquiry($inquiry, []));
+
+        // Actual inquiry must be equal to the reference one.
+        $this->assertEquals($inquiryRef, $inquiry);
+
+        // Personal contact should be null because the inquiry is personal
+        $this->assertNull($inquiry->getPersonalContact());
+
+        // Company contact cannot be null
+        $this->assertNotNull($inquiry->getCompanyContact());
+    }
+
+    /**
      * @covers InquiryOperation::autoRemoveNotify()
      * @throws \Exception
      */
@@ -261,6 +348,144 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
         // Invoke the method
         $method->invokeArgs($this->operation, [$inquiry]);
+    }
+
+    /**
+     * @covers InquiryOperation::guessValue
+     * @throws \ReflectionException
+     */
+    public function testGuessValueEmpty()
+    {
+        $textValue = "";
+        $inquiry = $this->getNewInquiry1()
+            ->setValueText($textValue);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessValue');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertNull($inquiry->getValue());
+        $this->assertNull($inquiry->getValueNumber());
+    }
+
+    /**
+     * @covers InquiryOperation::guessValue
+     * @throws \ReflectionException
+     */
+    public function testGuessValueEntityFound()
+    {
+        $textValue = "Dohodou";
+        $inquiry = $this->getNewInquiry1()
+            ->setValueText($textValue);
+
+        $expectedInquiryValue = (new InquiryValue())->setId(1)->setTitle($textValue)->setValue(0);
+
+        $this->inquiryValueService->method("figureOut")->with($textValue)
+            ->willReturn($expectedInquiryValue);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessValue');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertEquals($expectedInquiryValue, $inquiry->getValue());
+        $this->assertNull($inquiry->getValueNumber());
+    }
+
+    /**
+     * @covers InquiryOperation::guessValue
+     * @throws \ReflectionException
+     */
+    public function testGuessValueIntegerFound()
+    {
+        $textValue = "50000";
+        $refValue = 50000;
+        $inquiry = $this->getNewInquiry1()
+            ->setValueText($textValue);
+
+        $this->inquiryValueService->method("figureOut")->with($textValue)
+            ->willReturn(null);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessValue');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertNull($inquiry->getValue());
+        $this->assertEquals($refValue, $inquiry->getValueNumber());
+    }
+
+    /**
+     * @covers InquiryOperation::guessValue
+     * @throws \ReflectionException
+     */
+    public function testGuessValueIntegerWithCurrency()
+    {
+        // The text contains "Kč" which should be handeled too
+        $textValue = "50000 Kč";
+        $refValue = 50000;
+
+        $inquiry = $this->getNewInquiry1()
+            ->setValueText($textValue);
+
+        $this->inquiryValueService->method("figureOut")->with($textValue)
+            ->willReturn(null);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessValue');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertNull($inquiry->getValue());
+        $this->assertEquals($refValue, $inquiry->getValueNumber());
+    }
+
+    /**
+     * @covers InquiryOperation::guessDeadline
+     * @throws \ReflectionException
+     */
+    public function testGuessDeadlineEmpty()
+    {
+        $textValue = "";
+        $inquiry = $this->getNewInquiry1()
+            ->setDeadlineText($textValue);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessValue');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertNull($inquiry->getDeadline());
+    }
+
+    /**
+     * @covers InquiryOperation::guessDeadline
+     * @throws \ReflectionException
+     */
+    public function testGuessDeadlineEntityFound()
+    {
+        $textDeadline = "Co nejdřív";
+        $inquiry = $this->getNewInquiry1()
+            ->setDeadlineText($textDeadline);
+
+        $expectedDeadline = (new Deadline())->setId(1)->setTitle($textDeadline);
+
+        $this->deadlineService->method("figureOut")->with($textDeadline)
+            ->willReturn($expectedDeadline);
+
+        // Testing private method
+        $method = new ReflectionMethod($this->operation, 'guessDeadline');
+
+        // Invoke the method
+        $method->invokeArgs($this->operation, [$inquiry]);
+
+        $this->assertEquals($expectedDeadline, $inquiry->getDeadline());
     }
 
     /**
