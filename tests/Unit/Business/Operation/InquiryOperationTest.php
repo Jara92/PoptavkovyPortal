@@ -18,6 +18,7 @@ use App\Entity\Inquiry\Deadline;
 use App\Entity\Inquiry\Inquiry;
 use App\Entity\Inquiry\InquirySignedRequest;
 use App\Entity\Inquiry\InquiryValue;
+use App\Entity\Inquiry\Offer;
 use App\Entity\Inquiry\PersonalContact;
 use App\Entity\Inquiry\Rating\InquiringRating;
 use App\Entity\Inquiry\Rating\SupplierRating;
@@ -592,6 +593,67 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
         // Personal contact must be null
         $this->assertNull($inquiry->getPersonalContact());
+    }
+
+    /**
+     * @covers InquiryOperation::createOffer
+     */
+    public function testCreateOfferNoUser()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = null;
+
+        $this->security->method("getUser")->willReturn($user);
+        $this->security->method("isLoggedIn")->willReturn(false);
+
+        // Unauthenticated user is not able to make offers.
+        $this->expectException(UnauthorizedHttpException::class);
+        $this->operation->createOffer($inquiry);
+    }
+
+    /**
+     * @covers InquiryOperation::createOffer
+     */
+    public function testCreateOfferAlreadyMadeAnOffer()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        // The user already sent his offer
+        $offer = (new Offer())->setId(1)->setAuthor($user)->setInquiry($inquiry)->setText("Text anbdiky");
+        $this->offerService->method("readOneByInquiryAndAuthor")->with($inquiry, $user)->willReturn($offer);
+
+        // User is authenticated
+        $this->security->method("getUser")->willReturn($user);
+        $this->security->method("isLoggedIn")->willReturn(true);
+
+        // Check if ref offer is equal to the offer returned by "createOffer"
+        $this->assertEquals($offer, $this->operation->createOffer($inquiry));
+    }
+
+    /**
+     * @covers InquiryOperation::createOffer
+     */
+    public function testCreateOfferCreated()
+    {
+        $inquiry = $this->getInquiry1();
+        $user = (new User())->setId(1)->setEmail("user@company.cz")->setPhone("123456789")
+            ->setType(UserType::COMPANY)
+            ->setCompany((new Company())->setId(1)->setName("User")->setIdentificationNumber("123456789"));
+
+        // The user has not made an offer yet
+        $this->offerService->method("readOneByInquiryAndAuthor")->with($inquiry, $user)->willReturn(null);
+
+        // User is authenticated
+        $this->security->method("getUser")->willReturn($user);
+        $this->security->method("isLoggedIn")->willReturn(true);
+
+        // Check if ref offer is equal to the offer returned by "createOffer"
+        $newOffer = $this->operation->createOffer($inquiry);
+        $this->assertEquals($inquiry, $newOffer->getInquiry());
+        $this->assertEquals($user, $newOffer->getAuthor());
     }
 
     /**

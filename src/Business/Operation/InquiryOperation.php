@@ -350,7 +350,7 @@ class InquiryOperation
         if ($offer) {
             return $offer;
         } else {
-            return $this->offerFactory->createOffer($user, $inquiry);
+            return (new Offer())->setAuthor($user)->setInquiry($inquiry);
         }
     }
 
