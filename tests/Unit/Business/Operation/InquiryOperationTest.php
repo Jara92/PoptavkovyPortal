@@ -190,6 +190,21 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         return $inquiry;
     }
 
+    private function getInquiry4()
+    {
+        $now = new DateTime();
+
+        $user = (new User())->setId(1)->setEmail("user@email.cz");
+
+        $inquiry = (new Inquiry())->setId(4)->setTitle("P3")->setAuthor($user)
+            ->setCreatedAt($now)->setUpdatedAt($now)
+            ->setState(InquiryState::STATE_NEW)
+            ->setPublishedAt(null)
+            ->setRemoveNoticeAt(null)->setRemoveAt(null)
+            ->setContactEmail("user@email.cz");
+        return $inquiry;
+    }
+
     private function getSupplier1()
     {
         return (new User())->setId(1)->setEmail("user@email.cz");
@@ -744,6 +759,97 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->mailer->expects($this->exactly(2))->method("send");
 
         $this->operation->sendOffer($offer, true);
+    }
+
+    /**
+     * @covers InquiryOperation::updateInquiry
+     */
+    public function testUpdateInquiryNoPublishEvent()
+    {
+        $inquiry = $this->getInquiry4();
+        $refInquiry = $this->getInquiry4();
+
+        // The inquiry is not published so we do not expect "handleNewInquiry" method to be called.
+        $this->subscriptionOperation->expects($this->never())->method("handleNewInquiry")->with($inquiry);
+
+        // We expect every call updates the inquiry.
+        $this->inquiryService->expects($this->exactly(5))->method("update")->with($inquiry);
+
+        // Call updateInquiry for each state (not for active) and check that the inquiry is not changed.
+        $this->operation->updateInquiry($inquiry->setState(InquiryState::STATE_NEW));
+        $this->assertEquals($refInquiry->setState(InquiryState::STATE_NEW), $inquiry);
+
+        $this->operation->updateInquiry($inquiry->setState(InquiryState::STATE_FINISHED));
+        $this->assertEquals($refInquiry->setState(InquiryState::STATE_FINISHED), $inquiry);
+
+        $this->operation->updateInquiry($inquiry->setState(InquiryState::STATE_ARCHIVED));
+        $this->assertEquals($refInquiry->setState(InquiryState::STATE_ARCHIVED), $inquiry);
+
+        $this->operation->updateInquiry($inquiry->setState(InquiryState::STATE_DELETED));
+        $this->assertEquals($refInquiry->setState(InquiryState::STATE_DELETED), $inquiry);
+
+        $this->operation->updateInquiry($inquiry->setState(InquiryState::STATE_PROCESSING));
+        $this->assertEquals($refInquiry->setState(InquiryState::STATE_PROCESSING), $inquiry);
+    }
+
+    /**
+     * @covers InquiryOperation::updateInquiry
+     */
+    public function testUpdateInquiryActiveButAlreadyPublished()
+    {
+        $inquiry = $this->getInquiry4()
+            ->setState(InquiryState::STATE_ACTIVE)
+            // Already published
+            ->setPublishedAt(new DateTime());
+
+        $refInquiry = $this->getInquiry4()
+            ->setState(InquiryState::STATE_ACTIVE)
+            // Already published
+            ->setPublishedAt(new DateTime());
+
+        // The inquiry is not published so we do not expect "handleNewInquiry" method to be called.
+        $this->subscriptionOperation->expects($this->never())->method("handleNewInquiry")->with($inquiry);
+
+        // We expect update to be called
+        $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
+
+        $this->operation->updateInquiry($inquiry);
+
+        // The inquiry must not be changed
+        $this->assertEquals($refInquiry, $inquiry);
+    }
+
+    /**
+     * @covers InquiryOperation::updateInquiry
+     */
+    public function testUpdateInquiryNewlyPublished()
+    {
+        // Mock current time.
+        $timeStampNow = $this->inquiryExpirationNotification;
+        $now = (new DateTime("@" . $timeStampNow));
+        ClockMock::freeze($now);
+
+        // Expected values for notice and removing the inquiry.
+        $expectedRemoveNoticeAt = (new DateTime("@" . ($timeStampNow + $this->inquiryExpirationNotification)));
+        $expectedRemoveAt = (new DateTime("@" . ($timeStampNow + $this->inquiryExpirationNotification + $this->inquiryExpirationRemove)));
+
+        $inquiry = $this->getInquiry4()
+            ->setState(InquiryState::STATE_ACTIVE)
+            // Not published yet
+            ->setPublishedAt(null);
+
+        // The inquiry is published now so we expect the event to be triggered.
+        $this->subscriptionOperation->expects($this->once())->method("handleNewInquiry")->with($inquiry);
+
+        // We expect update to be called
+        $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
+
+        $this->operation->updateInquiry($inquiry);
+
+        // Check published date and remove datetime values.
+        $this->assertEquals($now, $inquiry->getPublishedAt());
+        $this->assertEquals($expectedRemoveNoticeAt, $inquiry->getRemoveNoticeAt());
+        $this->assertEquals($expectedRemoveAt, $inquiry->getRemoveAt());
     }
 
     /**
