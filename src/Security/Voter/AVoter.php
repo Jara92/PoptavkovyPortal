@@ -17,6 +17,11 @@ abstract class AVoter extends Voter
     const CREATE = 'create';
     const DELETE = 'delete';
 
+    protected UserSecurity $security;
+
     #[Required]
-    public UserSecurity $security;
+    public function setSecurity(UserSecurity $security)
+    {
+        $this->security = $security;
+    }
 }

@@ -33,7 +33,8 @@ class InquiryVoter extends AVoter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        $user = $this->security->getUser();
+        /** @var \App\Entity\User $user */
+        $user = $token->getUser();
 
         // SuperUser can do anything.
         if ($this->security->isGranted(UserRole::SUPER_ADMIN)) {
@@ -74,26 +75,35 @@ class InquiryVoter extends AVoter
         return false;
     }
 
-    private function canEdit(Inquiry $inquiry, ?User $user): bool
-    {
-        // The use must be logged in.
-        if(!$this->security->isLoggedIn()){
-            return false;
-        }
-
-        // this assumes that the Inquiry object has a `getOwner()` method
-        return $user === $inquiry->getAuthor();
-    }
-
     private function canView(Inquiry $inquiry, ?User $user): bool
     {
-        // if they can edit, they can view
-        if ($this->canEdit($inquiry, $user)) {
+        // If the user is authenticated check author
+        if ($this->security->isLoggedIn() && $user === $inquiry->getAuthor()) {
             return true;
         }
 
         // Inquiry is visible for public.
         return in_array($inquiry->getState(), InquiryStateHelper::getPublicStates());
+    }
+
+    private function canEdit(Inquiry $inquiry, ?User $user): bool
+    {
+        // The use must be logged in.
+        if (!$this->security->isLoggedIn()) {
+            return false;
+        }
+
+        /**
+         * It is not possible to edit inquiries in other states than STATE_NEW.
+         * User has an option to edit an inquiry to fix some mistakes before the inquiry is started to being processed.
+         * This option is closed when the inquiry is started being processed by admin or system.
+         */
+        if ($inquiry->getState() !== InquiryState::STATE_NEW) {
+            return false;
+        }
+
+        // this assumes that the Inquiry object has a `getOwner()` method
+        return $user === $inquiry->getAuthor();
     }
 
     private function canReact(Inquiry $inquiry, ?User $user): bool
@@ -107,6 +117,11 @@ class InquiryVoter extends AVoter
         if (!$this->canView($inquiry, $user)) {
             return false;
         }
+
+        // Only active inquiries are possible to react.
+        // if($inquiry->getState() !== InquiryState::STATE_ACTIVE){
+        //   return false;
+        //}
 
         // Only suppliers are able to react.
         return $this->security->isGranted(UserRole::SUPPLIER);
