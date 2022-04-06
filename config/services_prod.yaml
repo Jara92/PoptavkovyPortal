@@ -8,5 +8,6 @@ parameters:
   app.email: "info@poptejsi.cz"
   app.items_per_page: 20
 
+  router.request_context.host: 'poptejsi.cz'
   router.request_context.scheme: 'https'
   sset.request_context.secure: true
