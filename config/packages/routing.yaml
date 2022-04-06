@@ -4,7 +4,7 @@ framework:
 
         # Configure how to generate URLs in non-HTTP contexts, such as CLI commands.
         # See https://symfony.com/doc/current/routing.html#generating-urls-in-commands
-        default_uri: https://poptejsi.cz
+        default_uri: '%env(SITE_DEFAULT_URI)%'
 
 when@prod:
     framework:

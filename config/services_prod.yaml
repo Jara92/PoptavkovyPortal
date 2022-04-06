@@ -10,4 +10,4 @@ parameters:
 
   #router.request_context.host: 'poptejsi.cz'
   #router.request_context.scheme: 'https'
-  sset.request_context.secure: true
+  asset.request_context.secure: true

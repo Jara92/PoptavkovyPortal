@@ -17,4 +17,4 @@ parameters:
 
   # We have to append port number because running in symfony command do not know that and router is generating bad urls
   # This problem is dev only, because in production we (usually) use default port 80
-  router.request_context.host: 'localhost:8000'
+  #router.request_context.host: 'localhost:8000'
