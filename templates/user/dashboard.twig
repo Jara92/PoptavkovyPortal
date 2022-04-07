@@ -1,0 +1,9 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}{{ "user.dashboard"|trans }} | {{ parent() }}{% endblock %}
+
+{% block tab_title %}{{ "user.dashboard"|trans }}{% endblock %}
+
+{% block tab_content %}
+    <p>{{ "user.dashboard_welcome"|trans({"%name%":app.user|user_name}) }}</p>
+{% endblock %}

@@ -113,6 +113,8 @@ auth:
 user:
   users: "Uživatelé"
   my_account: "Můj účet"
+  dashboard_welcome: "Vítejte, %name%"
+  dashboard: "Ovládácí panel"
 
   field_address_street: "Ulice a číslo popisné"
   field_address_street_ph: ""

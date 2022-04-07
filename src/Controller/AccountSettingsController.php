@@ -145,7 +145,7 @@ class AccountSettingsController extends AController
     #[IsGranted("ROLE_USER")]
     public function myProfile()
     {
-        return $this->render("user/base.html.twig");
+        return $this->render("user/dashboard.twig");
     }
 
     /**
