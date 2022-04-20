@@ -81,7 +81,7 @@ class UserOperation
         $response = $ares->loadData($company->getIdentificationNumber());
 
         if (!$response->valid()) {
-            throw new LogicException("Ares data not valid.");
+            throw new IdentificationNumberNotFoundException("Given identification number is not found via ARES");
         }
 
         // TODO: Check other company data
