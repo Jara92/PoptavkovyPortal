@@ -450,14 +450,20 @@ class InquiryOperation
      */
     public function updateInquiry(Inquiry $inquiry): void
     {
-        // Is the inquiry published now?
-        if ($inquiry->getState() == InquiryState::STATE_ACTIVE && !$inquiry->getPublishedAt()) {
-            $this->onPublish($inquiry);
-        }
+        // Get old inquiry data
+        $oldInquiry = $this->inquiryService->getOldData($inquiry);
 
-        // Is an unpublished inquiry deleted now?
-        if ($inquiry->getState() == InquiryState::STATE_DELETED && !$inquiry->getPublishedAt()) {
-            $this->onDelete($inquiry);
+        // If inquiry state was updated
+        if (isset($oldInquiry["state"]) && $inquiry->getState() != $oldInquiry["state"]) {
+            // Is the inquiry published now?
+            if ($inquiry->getState() == InquiryState::STATE_ACTIVE) {
+                $this->onPublish($inquiry);
+            }
+
+            // Is an unpublished inquiry deleted now?
+            if ($inquiry->getState() == InquiryState::STATE_DELETED) {
+                $this->onDelete($inquiry);
+            }
         }
 
         // Update data

@@ -42,9 +42,19 @@ class AService implements ICrudService
      * @param K $id
      * @return E|null
      */
-    public function readById(mixed $id)
+    public function readById(mixed $id, $lockMode = null, $lockVersion = null)
     {
-        return $this->repository->find($id);
+        return $this->repository->find($id, $lockMode, $lockVersion);
+    }
+
+    /**
+     * Read entity by id.
+     * @param K $id
+     * @return E|null
+     */
+    public function getOldData(mixed $entity)
+    {
+        return $this->entityManager->getUnitOfWork()->getOriginalEntityData($entity);
     }
 
     /**
