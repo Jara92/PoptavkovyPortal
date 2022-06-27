@@ -1,0 +1,22 @@
+{% extends "email/base.html.twig" %}
+
+{% block style %}
+
+{% endblock %}
+
+{# @var inquiry \App\Entity\Inquiry\Inquiry #}
+{% block body %}
+    <p>Dobrý den, <br/><br/>
+        Vaše poptávka
+        <a href="{{ url("inquiries/detail", {"alias":inquiry.alias}) }}">{{ inquiry.title }}</a>
+        byla schválena a rozeslána všem vhodným dodavatelům.
+    </p>
+
+    {% include "email/layout/signature.html.twig" %}
+
+    <hr/>
+    <footer>
+        <p>Tento email jste obdržel na základě Vašeho souhlasu při zveřejnění poptávky na serveru <a
+                    href="{{ url("home") }}">{{ "app.name"|trans }}</a>.</p>
+    </footer>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Business\Operation;
 
+use App\Business\MailBuilder\InquiryMailBuilder;
 use App\Business\Service\Inquiry\DeadlineService;
 use App\Business\Service\Inquiry\InquiryAttachmentService;
 use App\Business\Service\Inquiry\InquiryService;
@@ -72,6 +73,7 @@ class InquiryOperation
         private ContainerBagInterface       $params,
         private TranslatorInterface         $translator,
         private MailerInterface             $mailer,
+        private InquiryMailBuilder          $inquiryMailBuilder,
         private RouterInterface             $router,
         private UrlSignerInterface          $urlSigner,
     )
@@ -450,16 +452,46 @@ class InquiryOperation
     {
         // Is the inquiry published now?
         if ($inquiry->getState() == InquiryState::STATE_ACTIVE && !$inquiry->getPublishedAt()) {
-            $now = new DateTime();
-            $inquiry->setPublishedAt($now);
+            $this->onPublish($inquiry);
+        }
 
-            $this->updateAutoRemoveData($inquiry);
-
-            $this->subscriptionOperation->handleNewInquiry($inquiry);
+        // Is an unpublished inquiry deleted now?
+        if ($inquiry->getState() == InquiryState::STATE_DELETED && !$inquiry->getPublishedAt()) {
+            $this->onDelete($inquiry);
         }
 
         // Update data
         $this->inquiryService->update($inquiry);
+    }
+
+    /**
+     * Event called when the inquiry is published.
+     * @param Inquiry $inquiry
+     */
+    private function onPublish(Inquiry $inquiry): void
+    {
+        $now = new DateTime();
+        $inquiry->setPublishedAt($now);
+
+        $this->updateAutoRemoveData($inquiry);
+
+        // Send notification
+        $mail = $this->inquiryMailBuilder->notifyPublishedInquiry($inquiry);
+        $this->mailer->send($mail);
+
+        // Handle new inquiry.
+        $this->subscriptionOperation->handleNewInquiry($inquiry);
+    }
+
+    /**
+     * Event called when the inquiry is deleted.
+     * @param Inquiry $inquiry
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    private function onDelete(Inquiry $inquiry): void
+    {
+        $email = $this->inquiryMailBuilder->notifyDeletedInquiry($inquiry);
+        $this->mailer->send($email);
     }
 
     /**

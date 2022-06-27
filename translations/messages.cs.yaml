@@ -200,6 +200,7 @@ inquiries:
   inquiry_will_be_removed: "Blížící se odstranění poptávky"
   inquiry_closed: "Poptávka byla uzavřena"
   inquiry_published: "Poptávka zveřejněna"
+  inquiry_deleted: "Poptávka nebyla schválena"
 
   inquiry_categories: "Kategorie poptávek"
   inquiry_types: "Typy poptávek"
