@@ -2,6 +2,7 @@
 
 namespace App\Tests\Unit\Business\Operation;
 
+use App\Business\MailBuilder\InquiryMailBuilder;
 use App\Business\Operation\InquiryOperation;
 use App\Business\Operation\SubscriptionOperation;
 use App\Business\Service\Inquiry\DeadlineService;
@@ -74,6 +75,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
     private ContainerBagInterface $params;
     private TranslatorInterface $translator;
     private MailerInterface $mailer;
+    private InquiryMailBuilder $inquiryMailBuilder;
     private RouterInterface $router;
     private UrlSignerInterface $urlSigner;
     private SupplierRatingService $supplierRatingService;
@@ -107,6 +109,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $this->router = $this->createStub(RouterInterface::class);
         $this->urlSigner = $this->createStub(UrlSignerInterface::class);
         $this->mailer = $this->createStub(MailerInterface::class);
+        $this->inquiryMailBuilder = $this->createStub(InquiryMailBuilder::class);
         $this->params = $this->createStub(ContainerBagInterface::class);
         $this->translator = $this->createStub(TranslatorInterface::class);
 
@@ -130,7 +133,7 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
             $this->deadlineService, $this->subscriptionOperation, $this->inquiryFactory, $this->attachmentFactory, $this->filterFactory,
             $this->offerService, $this->offerFactory, $this->smartTagService, $this->inquirySignedRequestService,
             $this->personalContactFactory, $this->companyContactFactory, $this->security, $this->slugger, $this->params, $this->translator,
-            $this->mailer, $this->router, $this->urlSigner);
+            $this->mailer, $this->inquiryMailBuilder, $this->router, $this->urlSigner);
     }
 
     private function getNewInquiry1()
@@ -813,6 +816,9 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         // We expect update to be called
         $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
 
+        // No email expected
+        $this->mailer->expects($this->never())->method("send");
+
         $this->operation->updateInquiry($inquiry);
 
         // The inquiry must not be changed
@@ -833,6 +839,15 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
         $expectedRemoveNoticeAt = (new DateTime("@" . ($timeStampNow + $this->inquiryExpirationNotification)));
         $expectedRemoveAt = (new DateTime("@" . ($timeStampNow + $this->inquiryExpirationNotification + $this->inquiryExpirationRemove)));
 
+        $oldInquiry = $this->getInquiry4()
+            ->setState(InquiryState::STATE_NEW)
+            // Not published yet
+            ->setPublishedAt(null);
+
+        // TODO: this object to array conversion does not work - it created bad indexes so the "state" index is unset.
+        $oldData = (array)$oldInquiry;
+        $oldData = ["state" => InquiryState::STATE_NEW];
+
         $inquiry = $this->getInquiry4()
             ->setState(InquiryState::STATE_ACTIVE)
             // Not published yet
@@ -843,6 +858,11 @@ class InquiryOperationTest extends \PHPUnit\Framework\TestCase
 
         // We expect update to be called
         $this->inquiryService->expects($this->once())->method("update")->with($inquiry);
+
+        $this->inquiryService->expects($this->once())->method("getOldData")->with($inquiry)->willReturn($oldData);
+
+        // Email is expected
+        $this->mailer->expects($this->once())->method("send");
 
         $this->operation->updateInquiry($inquiry);
 
