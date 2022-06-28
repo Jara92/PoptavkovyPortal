@@ -113,6 +113,11 @@ class InquiryVoter extends AVoter
             return false;
         }
 
+        // User cannot make offers on his own inquiries.
+        if ($user && $user->getEmail() === $inquiry->getContactEmail()) {
+            return false;
+        }
+
         // If user cannot view, he absolutely cannot react.
         if (!$this->canView($inquiry, $user)) {
             return false;
