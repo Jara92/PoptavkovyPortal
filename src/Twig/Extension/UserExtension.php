@@ -19,7 +19,7 @@ class UserExtension extends AbstractExtension
     {
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('user_name', [$this, 'fullName']),
@@ -50,11 +50,11 @@ class UserExtension extends AbstractExtension
      * @param User $user
      * @return string
      */
-    public function anonymize(User $user)
+    public function anonymize(User $user): string
     {
         switch ($user->getType()) {
             case UserType::PERSON:
-                return $user->getPerson()->getName() . " " . $user->getPerson()->getSurname()["0"] . ".";
+                return $user->getPerson()->getName() . " " . mb_substr($user->getPerson()->getSurname(), 0, 1) . ".";
             case UserType::COMPANY:
                 return $this->translator->trans("user.company_from") . " " . $user->getCompany()->getAddressCity();
             default:
@@ -62,7 +62,7 @@ class UserExtension extends AbstractExtension
         }
     }
 
-    public function companyAddress(Company $company)
+    public function companyAddress(Company $company): string
     {
         return $company->getAddressStreet() . ", " . $company->getAddressCity() . " " . $company->getAddressZipCode();
     }
